@@ -2,12 +2,12 @@
    Cache versionado + atualização rápida (evita “versão antiga presa” no iPhone/Safari)
 */
 
-const CACHE_VERSION = 'v5'; // ← INCREMENTE quando atualizar o app
+const CACHE_VERSION = 'v6'; // ← INCREMENTE quando atualizar o app
 const CACHE_STATIC = `tokbase-static-${CACHE_VERSION}`;
 const CACHE_HTML = `tokbase-html-${CACHE_VERSION}`;
 
-// Detecta o "scope" onde o SW está instalado (raiz ou subpasta)
-const SCOPE = new URL(self.registration.scope).pathname.replace(/\/$/, ''); // ex.: "" ou "/repo"
+// Para Workers/Pages no root, este scope normalmente é "/"
+const SCOPE = new URL(self.registration.scope).pathname.replace(/\/$/, '');
 const p = (path) => `${SCOPE}${path}`;
 
 const PRECACHE_URLS = [
@@ -47,7 +47,7 @@ self.addEventListener('fetch', (event) => {
 
   if (url.protocol !== 'http:' && url.protocol !== 'https:') return;
 
-  // HTML: network-first (puxa versão nova), fallback cache (offline)
+  // HTML: network-first
   if (isNavigationRequest(req)) {
     event.respondWith((async () => {
       try {
@@ -68,7 +68,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Assets: cache-first + atualização em background
+  // Assets: cache-first + stale-while-revalidate
   event.respondWith((async () => {
     const cache = await caches.open(CACHE_STATIC);
     const cached = await cache.match(req);
