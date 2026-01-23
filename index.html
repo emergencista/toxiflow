@@ -1,454 +1,473 @@
-<!doctype html>
-<html lang="pt-BR">
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#0f172a" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora TOKBASE | CIATox</title>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --accent: #3b82f6;
+            --spotify: #1db954;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text-main: #1e293b;
+            --danger: #dc2626;
+            --warning: #d97706;
+            --success: #16a34a;
+        }
 
-  <!-- iOS PWA -->
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            color: var(--text-main);
+        }
 
-  <title>ToxBasic</title>
+        .app-shell {
+            width: 100%;
+            max-width: 480px;
+            background: var(--surface);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            min-height: 100vh;
+        }
 
-  <link rel="manifest" href="/manifest.json" />
-  <!-- (opcional) quando você tiver ícone:
-  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
-  -->
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 24px 20px;
+            border-bottom-left-radius: 24px;
+            border-bottom-right-radius: 24px;
+            text-align: center;
+        }
 
-  <style>
-    :root{
-      --bg:#0b1220;
-      --card:#0f172a;
-      --text:#e5e7eb;
-      --muted:#94a3b8;
-      --accent:#38bdf8;
-      --danger:#fb7185;
-      --ok:#34d399;
-      --warn:#fbbf24;
-      --border:rgba(148,163,184,.18);
-      --shadow: 0 10px 25px rgba(0,0,0,.30);
-      --radius:16px;
+        .content { padding: 20px; flex-grow: 1; }
 
-      --sat: env(safe-area-inset-top, 0px);
-      --sab: env(safe-area-inset-bottom, 0px);
-      --sal: env(safe-area-inset-left, 0px);
-      --sar: env(safe-area-inset-right, 0px);
-    }
-    @media (prefers-color-scheme: light){
-      :root{
-        --bg:#f6f7fb;
-        --card:#ffffff;
-        --text:#0f172a;
-        --muted:#475569;
-        --border:rgba(15,23,42,.12);
-        --shadow: 0 10px 25px rgba(2,6,23,.08);
-      }
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      padding-top: var(--sat);
-      padding-bottom: var(--sab);
-      padding-left: var(--sal);
-      padding-right: var(--sar);
-      -webkit-tap-highlight-color: transparent;
-    }
-    .wrap{
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 18px;
-    }
-    header{
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(14px);
-      background: color-mix(in oklab, var(--bg) 70%, transparent);
-      padding: 10px 0 14px 0;
-    }
-    .title{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap: 12px;
-    }
-    h1{
-      margin:0;
-      font-size: 22px;
-      letter-spacing: .2px;
-    }
-    .sub{
-      margin:6px 0 0 0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.3;
-    }
-    .pill{
-      font-size: 12px;
-      color: var(--muted);
-      border: 1px solid var(--border);
-      padding: 6px 10px;
-      border-radius: 999px;
-      user-select:none;
-    }
-    .grid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-      margin-top: 14px;
-    }
-    .card{
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 14px;
-    }
-    label{
-      display:block;
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 8px;
-    }
-    input, select{
-      width:100%;
-      padding: 14px 14px;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      background: color-mix(in oklab, var(--card) 85%, black);
-      color: var(--text);
-      font-size: 16px;
-      outline: none;
-      -webkit-appearance: none;
-      appearance: none;
-    }
-    input:focus, select:focus{
-      border-color: color-mix(in oklab, var(--accent) 55%, var(--border));
-      box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 18%, transparent);
-    }
-    .row{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-    .btn{
-      width:100%;
-      border: 0;
-      padding: 14px 14px;
-      border-radius: 14px;
-      font-size: 16px;
-      font-weight: 650;
-      cursor:pointer;
-      background: var(--accent);
-      color: #001018;
-      margin-top: 10px;
-    }
-    .btn.secondary{
-      background: transparent;
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-    .btn.danger{
-      background: var(--danger);
-      color: #1b0a0f;
-    }
-    .note{
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.35;
-      margin-top: 10px;
-    }
-    .result{
-      display:none;
-      margin-top: 12px;
-      border-top: 1px solid var(--border);
-      padding-top: 12px;
-    }
-    .kv{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 8px;
-      margin-top: 10px;
-    }
-    .kv div{
-      border: 1px dashed var(--border);
-      border-radius: 14px;
-      padding: 10px 12px;
-      color: var(--text);
-    }
-    .kv small{color: var(--muted)}
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 650;
-      border: 1px solid var(--border);
-      margin-top: 8px;
-    }
-    .b-low{background: color-mix(in oklab, var(--ok) 20%, transparent); color: var(--ok)}
-    .b-med{background: color-mix(in oklab, var(--warn) 20%, transparent); color: var(--warn)}
-    .b-high{background: color-mix(in oklab, var(--danger) 18%, transparent); color: var(--danger)}
-    .history-item{
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 10px 12px;
-      margin-top: 10px;
-      font-size: 13px;
-      color: var(--text);
-    }
-    .history-item .meta{color: var(--muted); font-size: 12px; margin-top: 6px}
-    .toast{
-      position: fixed;
-      left: 16px;
-      right: 16px;
-      bottom: calc(14px + var(--sab));
-      background: color-mix(in oklab, var(--card) 92%, black);
-      border: 1px solid var(--border);
-      color: var(--text);
-      border-radius: 16px;
-      padding: 12px 14px;
-      box-shadow: var(--shadow);
-      display:none;
-      z-index: 999;
-    }
-    .toast strong{display:block; margin-bottom: 4px}
-  </style>
+        .card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            background: #f8fafc;
+        }
+        
+        input:focus { outline: none; border-color: var(--accent); background: #fff; }
+
+        /* PAINEL RESULTADO */
+        #result-panel {
+            display: none;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+            animation: fadeIn 0.3s;
+        }
+        @keyframes fadeIn { from {opacity:0; transform:translateY(-10px)} to {opacity:1; transform:translateY(0)} }
+
+        .bg-toxic { background: linear-gradient(135deg, #dc2626, #991b1b); }
+        .bg-safe { background: linear-gradient(135deg, #16a34a, #15803d); }
+
+        /* BOTÕES */
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            transition: 0.2s;
+        }
+
+        .btn-charcoal { background: #334155; color: white; }
+        .btn-lavage { background: #d97706; color: white; }
+        
+        /* PODCAST BTN */
+        .btn-spotify {
+            background: #1db954;
+            color: white;
+            margin-top: 10px;
+            text-decoration: none;
+            display: flex; 
+            border-radius: 10px;
+            padding: 12px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .btn-spotify:hover { background: #1ed760; }
+
+        /* MODAL */
+        .modal {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(2px);
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 24px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 380px;
+        }
+
+        .checklist-item {
+            background: #f1f5f9;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+        }
+
+        .ref-footer {
+            text-align: center;
+            font-size: 0.65rem;
+            color: #94a3b8;
+            padding: 20px;
+            border-top: 1px solid #e2e8f0;
+            margin-top: auto;
+            line-height: 1.5;
+        }
+        
+        .insta-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 700;
+            transition: opacity 0.2s;
+        }
+        .insta-link:hover { opacity: 0.7; }
+    </style>
 </head>
-
 <body>
-  <header>
-    <div class="wrap">
-      <div class="title">
-        <div>
-          <h1>ToxBasic</h1>
-          <p class="sub">Atalho rápido para cálculo de risco e conduta inicial. Funciona offline após o 1º acesso.</p>
-        </div>
-        <div class="pill" id="netStatus">🔄 verificando rede…</div>
-      </div>
-    </div>
-  </header>
 
-  <main class="wrap">
-    <div class="grid">
-      <section class="card">
-        <label for="med">Substância/medicamento</label>
-        <select id="med"></select>
+<div class="app-shell">
+    <header>
+        <h2 style="margin:0">TOKBASE</h2>
+        <p style="margin:5px 0 0; opacity: 0.9; font-size: 0.85rem">CIATox - Protocolos v22.1</p>
+    </header>
 
-        <div class="row" style="margin-top:12px">
-          <div>
-            <label for="weight">Peso (kg)</label>
-            <input id="weight" inputmode="decimal" type="number" min="1" max="300" step="0.1" placeholder="Ex.: 70" />
-          </div>
-          <div>
-            <label for="dose">Dose ingerida (mg)</label>
-            <input id="dose" inputmode="decimal" type="number" min="0" step="1" placeholder="Ex.: 5000" />
-          </div>
-        </div>
+    <div class="content">
+        <div class="card">
+            <span class="label">1. Medicamento</span>
+            <input type="text" id="search" placeholder="🔍 Buscar substância..." oninput="searchData()" autocomplete="off">
+            <select id="results" size="5" style="margin-top:8px; display:none; width:100%" onclick="selectItem()"></select>
+            <div id="drugInfo" style="margin-top:10px; font-size: 0.8rem; color: #64748b;"></div>
+        </div>
 
-        <button class="btn" id="calcBtn">Calcular</button>
-        <button class="btn secondary" id="saveBtn" style="display:none">Salvar no histórico</button>
+        <div class="card">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div>
+                    <span class="label">Peso (kg)</span>
+                    <input type="number" id="weight" placeholder="0.0" oninput="calculate()">
+                </div>
+                <div>
+                    <span class="label">Dose Ingerida</span>
+                    <input type="number" id="intake" placeholder="Total" oninput="calculate()">
+                </div>
+            </div>
+            <div style="text-align: right; margin-top:5px; font-size: 0.75rem; color:#94a3b8">
+                Unidade: <b id="unitDisplay">mg</b>
+            </div>
+        </div>
 
-        <p class="note">
-          ⚠️ Ferramenta de apoio. Não substitui avaliação clínica completa / CIATox.
-          Ajuste doses e protocolos conforme diretrizes do seu serviço.
-        </p>
+        <div id="result-panel">
+            <div id="resTitle" style="font-weight: 800; font-size: 1.2rem; text-transform: uppercase;"></div>
+            <div id="resDetail" style="font-size: 0.9rem; opacity: 0.95; margin-top:5px"></div>
+        </div>
 
-        <div class="result" id="result">
-          <div id="badge"></div>
+        <div id="clinicalSection" style="display:none">
+            <div id="antidoteBox" style="display:none; background:#f5f3ff; border-left:4px solid #7c3aed; color:#4c1d95; padding:15px; border-radius:8px; margin-bottom:15px">
+                <b style="display:block; margin-bottom:5px">💊 ANTÍDOTO ESPECÍFICO</b>
+                <span id="antidoteText"></span>
+            </div>
 
-          <div class="kv" id="kv"></div>
+            <div style="border-top: 2px dashed #e2e8f0; padding-top: 20px;">
+                <span class="label" style="color: var(--primary)">2. Descontaminação</span>
+                
+                <select id="timeWindow" onchange="updateProtocols()" style="margin-bottom: 10px;">
+                    <option value="">⏱️ Tempo desde a ingestão?</option>
+                    <option value="1">Menos de 1 hora</option>
+                    <option value="2">Entre 1 e 2 horas</option>
+                    <option value="4">Mais de 2 horas</option>
+                </select>
 
-          <div class="kv" style="margin-top:10px">
-            <div>
-              <small>Conduta inicial sugerida</small><br />
-              <span id="protocol"></span>
-            </div>
-          </div>
-        </div>
-      </section>
+                <div id="buttonsArea"></div>
 
-      <section class="card">
-        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
-          <div>
-            <strong>Histórico</strong>
-            <div class="sub" style="margin:6px 0 0 0">Fica salvo apenas neste iPhone (LocalStorage).</div>
-          </div>
-          <button class="btn danger" id="clearBtn" style="width:auto;padding:10px 12px;font-size:14px">Limpar</button>
-        </div>
-        <div id="history"></div>
-      </section>
-    </div>
-  </main>
+                <div style="margin-top:15px; font-size:0.85rem; color:#475569">
+                    <b>🏥 Suporte:</b> <span id="supportText"></span>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <div class="toast" id="toast">
-    <strong id="toastTitle"></strong>
-    <div id="toastMsg"></div>
-  </div>
+    <div class="ref-footer">
+        Base de dados: <b>TOKBASE v22.1 (CIATox-IJF)</b><br>
+        Uso exclusivo para profissionais de saúde.<br>
+        <span style="display:inline-block; margin-top:8px;">
+            App desenvolvido por <a href="https://instagram.com/biaandrade_c" target="_blank" class="insta-link">@biaandrade_c</a>
+        </span>
+    </div>
+</div>
 
-  <script>
-    const DB = [
-      { id:"paracetamol", nome:"Paracetamol", doseToxMgKg:150, meiaVidaH:2, antidoto:"N-acetilcisteína", perfil:"alto" },
-      { id:"amitriptilina", nome:"Amitriptilina (TCA)", doseToxMgKg:10, meiaVidaH:24, antidoto:"Bicarbonato de sódio (se QRS alargado)", perfil:"alto" },
-      { id:"ibuprofeno", nome:"Ibuprofeno", doseToxMgKg:400, meiaVidaH:2, antidoto:"Suporte; carvão se indicado", perfil:"moderado" },
-      { id:"diazepam", nome:"Diazepam", doseToxMgKg:1, meiaVidaH:30, antidoto:"Flumazenil (com cautela)", perfil:"baixo" },
-      { id:"warfarina", nome:"Varfarina", doseToxMgKg:0.1, meiaVidaH:40, antidoto:"Vitamina K (conforme INR/sangramento)", perfil:"alto" },
-      { id:"metformina", nome:"Metformina", doseToxMgKg:1700, meiaVidaH:6, antidoto:"Suporte; considerar hemodiálise na acidose grave", perfil:"moderado" }
-    ];
+<div id="ciModal" class="modal">
+    <div class="modal-content">
+        <h3 style="margin-top:0; color: var(--danger)">⚠️ Contraindicações</h3>
+        <p style="font-size:0.85rem; color:#64748b">Marque se presente:</p>
+        <div id="ciList"></div>
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+            <button class="btn" onclick="closeModal()" style="background:#e2e8f0; color:#475569; margin-top:0">Cancelar</button>
+            <button class="btn" onclick="confirmProcedure()" style="background:var(--primary); color:white; margin-top:0">Confirmar</button>
+        </div>
+    </div>
+</div>
 
-    const els = {
-      med: document.getElementById("med"),
-      weight: document.getElementById("weight"),
-      dose: document.getElementById("dose"),
-      calcBtn: document.getElementById("calcBtn"),
-      saveBtn: document.getElementById("saveBtn"),
-      clearBtn: document.getElementById("clearBtn"),
-      result: document.getElementById("result"),
-      badge: document.getElementById("badge"),
-      kv: document.getElementById("kv"),
-      protocol: document.getElementById("protocol"),
-      history: document.getElementById("history"),
-      netStatus: document.getElementById("netStatus"),
-      toast: document.getElementById("toast"),
-      toastTitle: document.getElementById("toastTitle"),
-      toastMsg: document.getElementById("toastMsg"),
-    };
+<script>
+// DADOS BASEADOS ESTRITAMENTE NO PDF TOKBASE V22.1
+const database = [
+    {n: "AAS", d: 100, mv: "30 hs", ant: "Bicarbonato de Sódio", support: "Alcalinização urinária."},
+    {n: "Aciclovir", d: 300, mv: "3 hs", support: "Hidratação vigorosa (risco renal)."},
+    {n: "Ácido Valpróico", d: 200, mv: "20 hs", ant: "L-Carnitina", support: "Monitorar amônia."},
+    {n: "Amitriptilina", d: 3, mv: "25 hs", ant: "Bicarbonato de Sódio", support: "ECG (QRS). Tratar convulsões."},
+    {n: "Atenolol", d: 5, mv: "7 hs", ant: "Glucagon / Insulina", support: "Monitorar hemodinâmica."},
+    {n: "Carbamazepina", d: 20, mv: "20 hs", ant: "Carvão Múltiplo", support: "Carvão seriado (MDAC)."},
+    {n: "Citalopram", d: 2, mv: "36 hs", support: "Risco de QT longo e convulsões."},
+    {n: "Clonazepam", d: 0.6, mv: "40 hs", ant: "Flumazenil (Risco)", support: "Suporte resp. Cuidado com convulsões."},
+    {n: "Codeína", d: 2.5, mv: "4 hs", ant: "Naloxona", support: "Depressão respiratória."},
+    {n: "Diazepam", d: 0.7, mv: "48 hs", ant: "Flumazenil (Risco)", support: "Suporte ventilatório."},
+    {n: "Digoxina", d: 20, unit: "mcg", mv: "40 hs", ant: "Ac Anti-Digoxina (Fab)", support: "Monitorar K+ e ECG."},
+    {n: "Fenobarbital", d: 4, mv: "5 dias", ant: "Carvão Múltiplo", support: "Alcalinização urinária."},
+    {n: "Fentanil", d: 0.04, mv: "8 hs", ant: "Naloxona", support: "Ventilação mandatória."},
+    {n: "Fluoxetina", d: 3, mv: "16 dias", support: "Sintomático (Benzos para convulsão)."},
+    {n: "Ibuprofeno", d: 100, mv: "2.5 hs", support: "Proteção gástrica."},
+    {n: "Lítio", d: 50, mv: "24 hs", noCharcoal: true, ant: "Diálise", support: "Hidratação. Carvão ineficaz."},
+    {n: "Metformina", d: 80, mv: "6.5 hs", ant: "Diálise", support: "Risco acidose lática."},
+    {n: "Metoprolol", d: 10, mv: "3.5 hs", ant: "Glucagon / Insulina", support: "Bradicardia."},
+    {n: "Midazolam", d: 1.0, mv: "2.5 hs", ant: "Flumazenil (Risco)", support: "Via aérea."},
+    {n: "Morfina", d: 0.4, mv: "3 hs", ant: "Naloxona", support: "Depressão respiratória."},
+    {n: "Paracetamol", d: 75, mv: "3 hs", ant: "N-Acetilcisteína (NAC)", support: "Nomograma em 4h."},
+    {n: "Sertralina", d: 7, mv: "26 hs", support: "Sintomático."},
+    {n: "Tramadol", d: 4, mv: "9 hs", ant: "Naloxona", support: "Risco convulsão."},
+    {n: "Venlafaxina", d: 7, mv: "15 hs", support: "Cardiotoxicidade."}
+];
 
-    const HISTORY_KEY = "toxbasic_history_v1";
+let selectedDrug = null;
+let currentProcedure = '';
 
-    function toast(title, msg){
-      els.toastTitle.textContent = title;
-      els.toastMsg.textContent = msg;
-      els.toast.style.display = "block";
-      clearTimeout(window.__toastTimer);
-      window.__toastTimer = setTimeout(() => els.toast.style.display = "none", 2500);
-    }
+function searchData() {
+    const term = document.getElementById('search').value.toLowerCase();
+    const list = document.getElementById('results');
+    list.innerHTML = '';
+    
+    if(term.length < 2) { list.style.display = 'none'; return; }
+    
+    database.filter(m => m.n.toLowerCase().includes(term)).forEach(m => {
+        let opt = document.createElement('option');
+        const u = m.unit || 'mg';
+        opt.value = m.n; opt.text = `${m.n}`;
+        list.appendChild(opt);
+    });
+    list.style.display = list.children.length ? 'block' : 'none';
+}
 
-    function setNetBadge(){
-      const on = navigator.onLine;
-      els.netStatus.textContent = on ? "🟢 online" : "🟡 offline";
-    }
-    window.addEventListener("online", setNetBadge);
-    window.addEventListener("offline", setNetBadge);
+function selectItem() {
+    const val = document.getElementById('results').value;
+    selectedDrug = database.find(x => x.n === val);
+    
+    document.getElementById('search').value = selectedDrug.n;
+    document.getElementById('results').style.display = 'none';
+    
+    const u = selectedDrug.unit || 'mg';
+    document.getElementById('drugInfo').innerText = `Ref. PDF: ${selectedDrug.d} ${u}/kg | T½: ${selectedDrug.mv}`;
+    document.getElementById('unitDisplay').innerText = u;
+    
+    calculate();
+}
 
-    function riskFromRatio(r){
-      if (r < 0.5) return { level:"baixo", cls:"b-low" };
-      if (r < 1.5) return { level:"moderado", cls:"b-med" };
-      return { level:"alto", cls:"b-high" };
-    }
+function calculate() {
+    if(!selectedDrug) return;
+    const weight = parseFloat(document.getElementById('weight').value);
+    const intake = parseFloat(document.getElementById('intake').value);
+    
+    // Reset view
+    document.getElementById('result-panel').style.display = 'none';
+    document.getElementById('clinicalSection').style.display = 'none';
+    
+    if(weight > 0 && intake >= 0) {
+        const panel = document.getElementById('result-panel');
+        panel.style.display = 'block';
+        
+        const limit = selectedDrug.d * weight;
+        const u = selectedDrug.unit || 'mg';
+        
+        if(intake >= limit) {
+            // TÓXICO
+            panel.className = 'bg-toxic';
+            document.getElementById('resTitle').innerText = "⚠️ Risco Tóxico";
+            document.getElementById('resDetail').innerText = `Ingerido: ${intake}${u} (Limite: ${limit.toFixed(1)}${u})`;
+            
+            showManagement();
+        } else {
+            // SEGURO
+            panel.className = 'bg-safe';
+            document.getElementById('resTitle').innerText = "✅ Dose Segura";
+            document.getElementById('resDetail').innerText = `Abaixo do limiar (${limit.toFixed(1)}${u})`;
+        }
+    }
+}
 
-    function protocolFor(risk){
-      if (risk === "baixo") return "Observação clínica e monitorização. Reavaliar sintomas/tempo desde ingestão.";
-      if (risk === "moderado") return "Considerar carvão ativado se janela/indicação; monitorização por 12–24h conforme substância.";
-      return "Emergência: suporte avançado, descontaminação quando indicada, considerar antídoto específico/CIATox.";
-    }
+function showManagement() {
+    document.getElementById('clinicalSection').style.display = 'block';
+    document.getElementById('supportText').innerText = selectedDrug.support;
+    
+    const antBox = document.getElementById('antidoteBox');
+    if(selectedDrug.ant) {
+        antBox.style.display = 'block';
+        document.getElementById('antidoteText').innerText = selectedDrug.ant;
+    } else {
+        antBox.style.display = 'none';
+    }
+    
+    updateProtocols();
+}
 
-    function fmt(n, d=1){
-      if (!isFinite(n)) return "—";
-      return Number(n).toFixed(d);
-    }
+function updateProtocols() {
+    const time = document.getElementById('timeWindow').value;
+    const div = document.getElementById('buttonsArea');
+    div.innerHTML = '';
+    
+    if(!time || !selectedDrug) return;
+    
+    // CARVÃO: Se <= 2h e não contraindicado pelo tipo de droga (ex: Lítio)
+    if(selectedDrug.noCharcoal) {
+        div.innerHTML += `<div class="checklist-item" style="color:#b91c1c; border:1px solid #ef4444; background:#fef2f2">⛔ Carvão ineficaz para esta substância.</div>`;
+    } else if(time <= 2) {
+        let btn = document.createElement('button');
+        btn.className = 'btn btn-charcoal';
+        btn.innerHTML = '🌑 Avaliar Carvão Ativado';
+        btn.onclick = () => openModal('charcoal');
+        div.appendChild(btn);
+    }
 
-    function getSelectedMed(){
-      const id = els.med.value;
-      return DB.find(x => x.id === id);
-    }
+    // LAVAGEM: Apenas se < 1h (Golden Hour)
+    if(time == 1) {
+        let btn = document.createElement('button');
+        btn.className = 'btn btn-lavage';
+        btn.innerHTML = '💧 Avaliar Lavagem Gástrica';
+        btn.onclick = () => openModal('lavage');
+        div.appendChild(btn);
+    }
+}
 
-    function calculate(){
-      const med = getSelectedMed();
-      const w = parseFloat(els.weight.value);
-      const dose = parseFloat(els.dose.value);
+const checkData = {
+    'charcoal': [
+        'Via aérea desprotegida (Rebaixamento sem IOT)',
+        'Obstrução intestinal / Íleo paralítico',
+        'Ingestão de cáusticos ou hidrocarbonetos',
+        'Risco iminente de convulsão'
+    ],
+    'lavage': [
+        'Via aérea desprotegida',
+        'Ingestão de corrosivos/cáusticos',
+        'Ingestão de hidrocarbonetos',
+        'Risco de perfuração esofágica'
+    ]
+};
 
-      if (!med){ toast("Seleção", "Escolha uma substância."); return; }
-      if (!isFinite(w) || w <= 0){ toast("Peso", "Informe o peso (kg)."); return; }
-      if (!isFinite(dose) || dose < 0){ toast("Dose", "Informe a dose (mg)."); return; }
+function openModal(type) {
+    currentProcedure = type;
+    const list = document.getElementById('ciList');
+    list.innerHTML = '';
+    checkData[type].forEach(txt => {
+        let item = document.createElement('div');
+        item.className = 'checklist-item';
+        item.innerHTML = `<input type="checkbox"> <span>${txt}</span>`;
+        list.appendChild(item);
+    });
+    document.getElementById('ciModal').style.display = 'flex';
+}
 
-      const doseToxTotal = med.doseToxMgKg * w;       // mg
-      const ratio = doseToxTotal > 0 ? (dose / doseToxTotal) : NaN;
-      const risk = riskFromRatio(ratio);
+function closeModal() { document.getElementById('ciModal').style.display = 'none'; }
 
-      els.badge.innerHTML = `<span class="badge ${risk.cls}">Risco: ${risk.level.toUpperCase()}</span>`;
-      els.kv.innerHTML = `
-        <div><small>Substância</small><br><strong>${med.nome}</strong></div>
-        <div><small>Dose tóxica (referência)</small><br><strong>${med.doseToxMgKg} mg/kg</strong></div>
-        <div><small>Dose tóxica total (estimada)</small><br><strong>${fmt(doseToxTotal,0)} mg</strong></div>
-        <div><small>Dose ingerida</small><br><strong>${fmt(dose,0)} mg</strong></div>
-        <div><small>Razão (dose / dose tóxica)</small><br><strong>${fmt(ratio,2)}</strong></div>
-        <div><small>Antídoto (se aplicável)</small><br><strong>${med.antidoto}</strong></div>
-      `;
-      els.protocol.textContent = protocolFor(risk.level);
-
-      els.result.style.display = "block";
-      els.saveBtn.style.display = "block";
-      window.__lastCalc = { ts: Date.now(), medId: med.id, medNome: med.nome, pesoKg: w, doseMg: dose, ratio, risk: risk.level };
-    }
-
-    function loadHistory(){
-      const raw = localStorage.getItem(HISTORY_KEY);
-      const items = raw ? JSON.parse(raw) : [];
-      if (!items.length){
-        els.history.innerHTML = `<div class="history-item"><strong>Nenhuma consulta salva.</strong><div class="meta">Use “Salvar no histórico” após calcular.</div></div>`;
-        return;
-      }
-      els.history.innerHTML = items.map(it => {
-        const dt = new Date(it.ts);
-        return `
-          <div class="history-item">
-            <strong>${it.medNome}</strong>
-            <div class="meta">${dt.toLocaleString()} • Peso: ${it.pesoKg} kg • Dose: ${it.doseMg} mg • Risco: ${it.risk.toUpperCase()}</div>
-          </div>
-        `;
-      }).join("");
-    }
-
-    function saveHistory(){
-      const it = window.__lastCalc;
-      if (!it){ toast("Histórico", "Calcule antes de salvar."); return; }
-      const raw = localStorage.getItem(HISTORY_KEY);
-      const items = raw ? JSON.parse(raw) : [];
-      items.unshift(it);
-      const trimmed = items.slice(0, 50);
-      localStorage.setItem(HISTORY_KEY, JSON.stringify(trimmed));
-      loadHistory();
-      toast("Salvo", "Consulta adicionada ao histórico.");
-    }
-
-    function clearHistory(){
-      localStorage.removeItem(HISTORY_KEY);
-      loadHistory();
-      toast("Histórico", "Limpo com sucesso.");
-    }
-
-    function initSelect(){
-      els.med.innerHTML = DB.map(x => `<option value="${x.id}">${x.nome}</option>`).join("");
-    }
-
-    // Register Service Worker (offline)
-    async function registerSW(){
-      if (!("serviceWorker" in navigator)) return;
-      try{
-        await navigator.serviceWorker.register("/service-worker.js");
-      }catch(e){
-        // sem alert aqui para não atrapalhar uso no plantão
-        console.warn("SW falhou", e);
-      }
-    }
-
-    // Init
-    initSelect();
-    loadHistory();
-    setNetBadge();
-    registerSW();
-
-    els.calcBtn.addEventListener("click", calculate);
-    els.saveBtn.addEventListener("click", saveHistory);
-    els.clearBtn.addEventListener("click", clearHistory);
-  </script>
+function confirmProcedure() {
+    const inputs = document.querySelectorAll('#ciList input');
+    let hasRisk = false;
+    inputs.forEach(i => { if(i.checked) hasRisk = true; });
+    closeModal();
+    
+    const div = document.getElementById('buttonsArea');
+    div.innerHTML = ''; // Limpa botões
+    
+    // RESULTADO FINAL DA AVALIAÇÃO DO PROCEDIMENTO
+    if(hasRisk) {
+        // Contraindicado: Mostra alerta
+        div.innerHTML = `<div class="checklist-item" style="background:#fef2f2; border:1px solid #ef4444; color:#b91c1c; justify-content:center">
+            <b>⛔ CONTRAINDICADO:</b> Risco clínico identificado.
+        </div>`;
+    } else {
+        // Indicado: Mostra Dose + Link do Podcast
+        let procedureInfo = '';
+        if(currentProcedure === 'charcoal') {
+            const dose = Math.min(50, parseFloat(document.getElementById('weight').value)); 
+            procedureInfo = `<div class="checklist-item" style="background:#eff6ff; border:1px solid #1e3a8a; color:#1e3a8a; display:block; text-align:center">
+                <b>✅ CARVÃO INDICADO</b><br>
+                Dose: <b>${dose}g</b> diluído em água (Via Oral/SNG).
+            </div>`;
+        } else {
+            procedureInfo = `<div class="checklist-item" style="background:#fffbeb; border:1px solid #d97706; color:#92400e; display:block; text-align:center">
+                <b>⚠️ LAVAGEM INDICADA</b><br>
+                Decúbito Lateral Esquerdo + Trendelenburg.
+            </div>`;
+        }
+        
+        // Adiciona a caixa de informação + Botão do Podcast
+        div.innerHTML = procedureInfo + `
+        <a href="https://open.spotify.com/episode/62MCHkjBz50b9khDrcOwEe?si=v8U2Sc57ToSJiaYqlOl1fw" target="_blank" class="btn btn-spotify">
+            🎧 Ouvir Podcast: Protocolo
+        </a>`;
+    }
+}
+</script>
 </body>
 </html>
