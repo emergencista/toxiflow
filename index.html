@@ -344,6 +344,15 @@
     const intakeHint = el('intakeHint');
     const timeWindow = el('timeWindow');
 
+    function normalizeText(s) {
+      return (s || '')
+        .toString()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .trim();
+    }
+
     function getDoseMg() {
       const value = parseFloat(intakeInput.value);
       const unit = (intakeUnit.value || 'mg').toLowerCase();
@@ -394,11 +403,23 @@
     }
 
     function searchData() {
-      const term = searchInput.value.trim().toLowerCase();
-      if (term.length < 2) { resultsBox.style.display = 'none'; return; }
+      const term = normalizeText(searchInput.value);
+
+      if (term.length < 2) {
+        resultsBox.style.display = 'none';
+        return;
+      }
+
       const filtered = window.database
-        .filter(d => (d.n || '').toLowerCase().includes(term))
-        .sort((a,b) => (a.n||'').localeCompare(b.n||''));
+        .filter(d => {
+          const name = normalizeText(d.n);
+          if (name.includes(term)) return true;
+
+          const syns = Array.isArray(d.syn) ? d.syn : [];
+          return syns.some(s => normalizeText(s).includes(term));
+        })
+        .sort((a, b) => (a.n || '').localeCompare(b.n || ''));
+
       renderResults(filtered);
     }
 
