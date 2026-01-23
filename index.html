@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f172a" />
+
+  <!-- iOS PWA -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <title>ToxBasic</title>
+
+  <link rel="manifest" href="/manifest.json" />
+  <!-- (opcional) quando você tiver ícone:
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+  -->
+
+  <style>
+    :root{
+      --bg:#0b1220;
+      --card:#0f172a;
+      --text:#e5e7eb;
+      --muted:#94a3b8;
+      --accent:#38bdf8;
+      --danger:#fb7185;
+      --ok:#34d399;
+      --warn:#fbbf24;
+      --border:rgba(148,163,184,.18);
+      --shadow: 0 10px 25px rgba(0,0,0,.30);
+      --radius:16px;
+
+      --sat: env(safe-area-inset-top, 0px);
+      --sab: env(safe-area-inset-bottom, 0px);
+      --sal: env(safe-area-inset-left, 0px);
+      --sar: env(safe-area-inset-right, 0px);
+    }
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg:#f6f7fb;
+        --card:#ffffff;
+        --text:#0f172a;
+        --muted:#475569;
+        --border:rgba(15,23,42,.12);
+        --shadow: 0 10px 25px rgba(2,6,23,.08);
+      }
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding-top: var(--sat);
+      padding-bottom: var(--sab);
+      padding-left: var(--sal);
+      padding-right: var(--sar);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .wrap{
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 18px;
+    }
+    header{
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(14px);
+      background: color-mix(in oklab, var(--bg) 70%, transparent);
+      padding: 10px 0 14px 0;
+    }
+    .title{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 12px;
+    }
+    h1{
+      margin:0;
+      font-size: 22px;
+      letter-spacing: .2px;
+    }
+    .sub{
+      margin:6px 0 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.3;
+    }
+    .pill{
+      font-size: 12px;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 6px 10px;
+      border-radius: 999px;
+      user-select:none;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .card{
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 14px;
+    }
+    label{
+      display:block;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    input, select{
+      width:100%;
+      padding: 14px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: color-mix(in oklab, var(--card) 85%, black);
+      color: var(--text);
+      font-size: 16px;
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    input:focus, select:focus{
+      border-color: color-mix(in oklab, var(--accent) 55%, var(--border));
+      box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 18%, transparent);
+    }
+    .row{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .btn{
+      width:100%;
+      border: 0;
+      padding: 14px 14px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 650;
+      cursor:pointer;
+      background: var(--accent);
+      color: #001018;
+      margin-top: 10px;
+    }
+    .btn.secondary{
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn.danger{
+      background: var(--danger);
+      color: #1b0a0f;
+    }
+    .note{
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+      margin-top: 10px;
+    }
+    .result{
+      display:none;
+      margin-top: 12px;
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+    }
+    .kv{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .kv div{
+      border: 1px dashed var(--border);
+      border-radius: 14px;
+      padding: 10px 12px;
+      color: var(--text);
+    }
+    .kv small{color: var(--muted)}
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 650;
+      border: 1px solid var(--border);
+      margin-top: 8px;
+    }
+    .b-low{background: color-mix(in oklab, var(--ok) 20%, transparent); color: var(--ok)}
+    .b-med{background: color-mix(in oklab, var(--warn) 20%, transparent); color: var(--warn)}
+    .b-high{background: color-mix(in oklab, var(--danger) 18%, transparent); color: var(--danger)}
+    .history-item{
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 10px 12px;
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--text);
+    }
+    .history-item .meta{color: var(--muted); font-size: 12px; margin-top: 6px}
+    .toast{
+      position: fixed;
+      left: 16px;
+      right: 16px;
+      bottom: calc(14px + var(--sab));
+      background: color-mix(in oklab, var(--card) 92%, black);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 16px;
+      padding: 12px 14px;
+      box-shadow: var(--shadow);
+      display:none;
+      z-index: 999;
+    }
+    .toast strong{display:block; margin-bottom: 4px}
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="wrap">
+      <div class="title">
+        <div>
+          <h1>ToxBasic</h1>
+          <p class="sub">Atalho rápido para cálculo de risco e conduta inicial. Funciona offline após o 1º acesso.</p>
+        </div>
+        <div class="pill" id="netStatus">🔄 verificando rede…</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="grid">
+      <section class="card">
+        <label for="med">Substância/medicamento</label>
+        <select id="med"></select>
+
+        <div class="row" style="margin-top:12px">
+          <div>
+            <label for="weight">Peso (kg)</label>
+            <input id="weight" inputmode="decimal" type="number" min="1" max="300" step="0.1" placeholder="Ex.: 70" />
+          </div>
+          <div>
+            <label for="dose">Dose ingerida (mg)</label>
+            <input id="dose" inputmode="decimal" type="number" min="0" step="1" placeholder="Ex.: 5000" />
+          </div>
+        </div>
+
+        <button class="btn" id="calcBtn">Calcular</button>
+        <button class="btn secondary" id="saveBtn" style="display:none">Salvar no histórico</button>
+
+        <p class="note">
+          ⚠️ Ferramenta de apoio. Não substitui avaliação clínica completa / CIATox.
+          Ajuste doses e protocolos conforme diretrizes do seu serviço.
+        </p>
+
+        <div class="result" id="result">
+          <div id="badge"></div>
+
+          <div class="kv" id="kv"></div>
+
+          <div class="kv" style="margin-top:10px">
+            <div>
+              <small>Conduta inicial sugerida</small><br />
+              <span id="protocol"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+          <div>
+            <strong>Histórico</strong>
+            <div class="sub" style="margin:6px 0 0 0">Fica salvo apenas neste iPhone (LocalStorage).</div>
+          </div>
+          <button class="btn danger" id="clearBtn" style="width:auto;padding:10px 12px;font-size:14px">Limpar</button>
+        </div>
+        <div id="history"></div>
+      </section>
+    </div>
+  </main>
+
+  <div class="toast" id="toast">
+    <strong id="toastTitle"></strong>
+    <div id="toastMsg"></div>
+  </div>
+
+  <script>
+    const DB = [
+      { id:"paracetamol", nome:"Paracetamol", doseToxMgKg:150, meiaVidaH:2, antidoto:"N-acetilcisteína", perfil:"alto" },
+      { id:"amitriptilina", nome:"Amitriptilina (TCA)", doseToxMgKg:10, meiaVidaH:24, antidoto:"Bicarbonato de sódio (se QRS alargado)", perfil:"alto" },
+      { id:"ibuprofeno", nome:"Ibuprofeno", doseToxMgKg:400, meiaVidaH:2, antidoto:"Suporte; carvão se indicado", perfil:"moderado" },
+      { id:"diazepam", nome:"Diazepam", doseToxMgKg:1, meiaVidaH:30, antidoto:"Flumazenil (com cautela)", perfil:"baixo" },
+      { id:"warfarina", nome:"Varfarina", doseToxMgKg:0.1, meiaVidaH:40, antidoto:"Vitamina K (conforme INR/sangramento)", perfil:"alto" },
+      { id:"metformina", nome:"Metformina", doseToxMgKg:1700, meiaVidaH:6, antidoto:"Suporte; considerar hemodiálise na acidose grave", perfil:"moderado" }
+    ];
+
+    const els = {
+      med: document.getElementById("med"),
+      weight: document.getElementById("weight"),
+      dose: document.getElementById("dose"),
+      calcBtn: document.getElementById("calcBtn"),
+      saveBtn: document.getElementById("saveBtn"),
+      clearBtn: document.getElementById("clearBtn"),
+      result: document.getElementById("result"),
+      badge: document.getElementById("badge"),
+      kv: document.getElementById("kv"),
+      protocol: document.getElementById("protocol"),
+      history: document.getElementById("history"),
+      netStatus: document.getElementById("netStatus"),
+      toast: document.getElementById("toast"),
+      toastTitle: document.getElementById("toastTitle"),
+      toastMsg: document.getElementById("toastMsg"),
+    };
+
+    const HISTORY_KEY = "toxbasic_history_v1";
+
+    function toast(title, msg){
+      els.toastTitle.textContent = title;
+      els.toastMsg.textContent = msg;
+      els.toast.style.display = "block";
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => els.toast.style.display = "none", 2500);
+    }
+
+    function setNetBadge(){
+      const on = navigator.onLine;
+      els.netStatus.textContent = on ? "🟢 online" : "🟡 offline";
+    }
+    window.addEventListener("online", setNetBadge);
+    window.addEventListener("offline", setNetBadge);
+
+    function riskFromRatio(r){
+      if (r < 0.5) return { level:"baixo", cls:"b-low" };
+      if (r < 1.5) return { level:"moderado", cls:"b-med" };
+      return { level:"alto", cls:"b-high" };
+    }
+
+    function protocolFor(risk){
+      if (risk === "baixo") return "Observação clínica e monitorização. Reavaliar sintomas/tempo desde ingestão.";
+      if (risk === "moderado") return "Considerar carvão ativado se janela/indicação; monitorização por 12–24h conforme substância.";
+      return "Emergência: suporte avançado, descontaminação quando indicada, considerar antídoto específico/CIATox.";
+    }
+
+    function fmt(n, d=1){
+      if (!isFinite(n)) return "—";
+      return Number(n).toFixed(d);
+    }
+
+    function getSelectedMed(){
+      const id = els.med.value;
+      return DB.find(x => x.id === id);
+    }
+
+    function calculate(){
+      const med = getSelectedMed();
+      const w = parseFloat(els.weight.value);
+      const dose = parseFloat(els.dose.value);
+
+      if (!med){ toast("Seleção", "Escolha uma substância."); return; }
+      if (!isFinite(w) || w <= 0){ toast("Peso", "Informe o peso (kg)."); return; }
+      if (!isFinite(dose) || dose < 0){ toast("Dose", "Informe a dose (mg)."); return; }
+
+      const doseToxTotal = med.doseToxMgKg * w;       // mg
+      const ratio = doseToxTotal > 0 ? (dose / doseToxTotal) : NaN;
+      const risk = riskFromRatio(ratio);
+
+      els.badge.innerHTML = `<span class="badge ${risk.cls}">Risco: ${risk.level.toUpperCase()}</span>`;
+      els.kv.innerHTML = `
+        <div><small>Substância</small><br><strong>${med.nome}</strong></div>
+        <div><small>Dose tóxica (referência)</small><br><strong>${med.doseToxMgKg} mg/kg</strong></div>
+        <div><small>Dose tóxica total (estimada)</small><br><strong>${fmt(doseToxTotal,0)} mg</strong></div>
+        <div><small>Dose ingerida</small><br><strong>${fmt(dose,0)} mg</strong></div>
+        <div><small>Razão (dose / dose tóxica)</small><br><strong>${fmt(ratio,2)}</strong></div>
+        <div><small>Antídoto (se aplicável)</small><br><strong>${med.antidoto}</strong></div>
+      `;
+      els.protocol.textContent = protocolFor(risk.level);
+
+      els.result.style.display = "block";
+      els.saveBtn.style.display = "block";
+      window.__lastCalc = { ts: Date.now(), medId: med.id, medNome: med.nome, pesoKg: w, doseMg: dose, ratio, risk: risk.level };
+    }
+
+    function loadHistory(){
+      const raw = localStorage.getItem(HISTORY_KEY);
+      const items = raw ? JSON.parse(raw) : [];
+      if (!items.length){
+        els.history.innerHTML = `<div class="history-item"><strong>Nenhuma consulta salva.</strong><div class="meta">Use “Salvar no histórico” após calcular.</div></div>`;
+        return;
+      }
+      els.history.innerHTML = items.map(it => {
+        const dt = new Date(it.ts);
+        return `
+          <div class="history-item">
+            <strong>${it.medNome}</strong>
+            <div class="meta">${dt.toLocaleString()} • Peso: ${it.pesoKg} kg • Dose: ${it.doseMg} mg • Risco: ${it.risk.toUpperCase()}</div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function saveHistory(){
+      const it = window.__lastCalc;
+      if (!it){ toast("Histórico", "Calcule antes de salvar."); return; }
+      const raw = localStorage.getItem(HISTORY_KEY);
+      const items = raw ? JSON.parse(raw) : [];
+      items.unshift(it);
+      const trimmed = items.slice(0, 50);
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(trimmed));
+      loadHistory();
+      toast("Salvo", "Consulta adicionada ao histórico.");
+    }
+
+    function clearHistory(){
+      localStorage.removeItem(HISTORY_KEY);
+      loadHistory();
+      toast("Histórico", "Limpo com sucesso.");
+    }
+
+    function initSelect(){
+      els.med.innerHTML = DB.map(x => `<option value="${x.id}">${x.nome}</option>`).join("");
+    }
+
+    // Register Service Worker (offline)
+    async function registerSW(){
+      if (!("serviceWorker" in navigator)) return;
+      try{
+        await navigator.serviceWorker.register("/service-worker.js");
+      }catch(e){
+        // sem alert aqui para não atrapalhar uso no plantão
+        console.warn("SW falhou", e);
+      }
+    }
+
+    // Init
+    initSelect();
+    loadHistory();
+    setNetBadge();
+    registerSW();
+
+    els.calcBtn.addEventListener("click", calculate);
+    els.saveBtn.addEventListener("click", saveHistory);
+    els.clearBtn.addEventListener("click", clearHistory);
+  </script>
+</body>
+</html>
