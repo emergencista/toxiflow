@@ -93,7 +93,7 @@
       position: absolute;
       left: 16px;
       right: 16px;
-      top: 86px;
+      top: 86px; /* Ajustado para ficar abaixo do input */
       z-index: 100;
       background: white;
       border: 1px solid #cbd5e1;
@@ -108,7 +108,10 @@
       padding: 14px;
       border-bottom: 1px solid #f1f5f9;
       cursor: pointer;
+      -webkit-tap-highlight-color: transparent; /* Evita flash azul no clique */
     }
+    .opt:last-child { border-bottom: none; }
+
 
     /* Painel de Risco */
     #result-panel {
@@ -172,12 +175,14 @@
       border-radius: 8px;
       cursor: pointer;
       font-size: 0.9rem;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .checklist-item input[type="checkbox"] {
       width: 22px;
       height: 22px;
       flex-shrink: 0;
+      cursor: pointer;
     }
 
     .ref-footer {
@@ -185,6 +190,7 @@
       font-size: 0.7rem;
       color: #94a3b8;
       padding: 20px;
+      margin-top: 20px;
     }
   </style>
 </head>
@@ -200,7 +206,7 @@
       <!-- BUSCA -->
       <div class="card" id="searchCard">
         <span class="label">Substância</span>
-        <input type="text" id="search" placeholder="Buscar..." oninput="searchDataDebounced()" autocomplete="off">
+        <input type="text" id="search" placeholder="Buscar..." autocomplete="off">
         <div id="results"></div>
         <div id="drugInfo" style="margin-top:8px; font-size:0.75rem; color:#64748b;"></div>
       </div>
@@ -230,6 +236,9 @@
         <div id="antidoteBox" style="display:none; background:#f5f3ff; border-left:4px solid #7c3aed; padding:15px; border-radius:8px; margin-bottom:15px; color:#4c1d95">
           <small><b>ANTÍDOTO:</b></small> <span id="antidoteText"></span>
         </div>
+        <div id="supportBox" style="display:none; background:#f0f9ff; border-left:4px solid #3b82f6; padding:15px; border-radius:8px; margin-bottom:15px; color:#1e40af">
+          <small><b>SUPORTE:</b></small> <span id="supportText"></span>
+        </div>
 
         <span class="label">Tempo de Ingestão</span>
         <select id="timeWindow" onchange="updateProtocols()">
@@ -241,14 +250,20 @@
 
         <div id="buttonsArea" style="margin-top:10px"></div>
         
-        <div style="margin-top:15px; font-size:0.85rem">
-          <b>Suporte:</b> <span id="supportText" style="color:#475569"></span>
+        <div style="margin-top:15px; font-size:0.85rem; color:#64748b;">
+          <small>Antídoto/suporte disponível apenas para algumas substâncias (em expansão).</small>
         </div>
       </div>
     </div>
 
     <div class="ref-footer">
-      Desenvolvido por @biaandrade_c
+      <h3>Como usar:</h3>
+      <ol style="text-align: left; max-width: 300px; margin: 0 auto; padding-left: 20px;">
+        <li>Busque a substância e selecione.</li>
+        <li>Informe o peso e a dose total ingerida.</li>
+        <li>Avalie o risco e as condutas sugeridas.</li>
+      </ol>
+      <p style="margin-top: 15px;">Desenvolvido por @biaandrade_c</p>
     </div>
   </div>
 
@@ -268,166 +283,392 @@
   </div>
 
   <script>
-    // Original database items with ant/support
-    const originalDatabaseItems = [
-      {n: "AAS", d: 100, mv: "30 hs", ant: "Bicarbonato de Sódio", support: "Alcalinização urinária."},
-      {n: "Amitriptilina", d: 3, mv: "25 hs", ant: "Bicarbonato de Sódio", support: "ECG (QRS). Tratar convulsões."},
-      {n: "Atenolol", d: 5, mv: "7 hs", ant: "Glucagon / Insulina", support: "Monitorar hemodinâmica."},
-      {n: "Carbamazepina", d: 20, mv: "20 hs", support: "Carvão seriado (MDAC)."},
-      {n: "Clonazepam", d: 0.6, mv: "40 hs", ant: "Flumazenil (Cuidado)", support: "Suporte respiratório."},
-      {n: "Diazepam", d: 0.7, mv: "48 hs", ant: "Flumazenil (Cuidado)", support: "Suporte ventilatório."},
-      {n: "Digoxina", d: 20, unit: "mcg", mv: "40 hs", ant: "Fab Anti-Digoxina", support: "Monitorar K+ e ECG."},
-      {n: "Fenobarbital", d: 4, mv: "5 dias", support: "Alcalinização urinária."},
-      {n: "Lítio", d: 50, mv: "24 hs", noCharcoal: true, ant: "Hemodiálise", support: "Hidratação. Carvão ineficaz."},
-      {n: "Paracetamol", d: 75, mv: "3 hs", ant: "N-Acetilcisteína", support: "Nomograma em 4h."}
-    ];
-
-    // Full database from PDF (processed and merged)
+    // Base de dados extraída e normalizada do PDF "DOSES-TOXICAS-v22-1.pdf"
+    // Antídoto/suporte adicionados apenas para as substâncias especificadas.
     const database = [
-      {n: "AAS", d: 100, unit: "mg", mv: "30 hs", ant: "Bicarbonato de Sódio", support: "Alcalinização urinária."},
-      {n: "Aciclovir", d: 80, unit: "mg", mv: "3 hs"},
-      {n: "Ácido Valpróico", d: 200, unit: "mg", mv: "15 hs"},
-      {n: "Alprazolam", d: 0.5, unit: "mg", mv: "12 hs"},
-      {n: "Amitriptilina", d: 3, unit: "mg", mv: "25 hs", ant: "Bicarbonato de Sódio", support: "ECG (QRS). Tratar convulsões."},
-      {n: "Amlodipina", d: 0.5, unit: "mg", mv: "40 hs"},
-      {n: "Amoxicilina", d: 200, unit: "mg", mv: "1.5 hs"},
-      {n: "Ampicilina", d: 200, unit: "mg", mv: "1.5 hs"},
-      {n: "Anfetamina", d: 0.5, unit: "mg", mv: "12 hs"},
-      {n: "Atenolol", d: 5, unit: "mg", mv: "7 hs", ant: "Glucagon / Insulina", support: "Monitorar hemodinâmica."},
-      {n: "Azitromicina", d: 100, unit: "mg", mv: "60 hs"},
-      {n: "Baclofeno", d: 0.3, unit: "mg", mv: "4 hs"},
-      {n: "Benzodiazepínicos", d: 0.5, unit: "mg", mv: "Variável"},
-      {n: "Bupropiona", d: 10, unit: "mg", mv: "21 hs"},
-      {n: "Captopril", d: 10, unit: "mg", mv: "2 hs"},
-      {n: "Carbamazepina", d: 20, unit: "mg", mv: "20 hs", support: "Carvão seriado (MDAC)."},
-      {n: "Cefalexina", d: 200, unit: "mg", mv: "1.5 hs"},
-      {n: "Cefazolina", d: 200, unit: "mg", mv: "1.5 hs"},
-      {n: "Cefotaxima", d: 200, unit: "mg", mv: "1.5 hs"},
-      {n: "Ceftriaxona", d: 200, unit: "mg", mv: "8 hs"},
-      {n: "Cefuroxima", d: 200, unit: "mg", mv: "1.5 hs"},
-      {n: "Cimetidina", d: 50, unit: "mg", mv: "2 hs"},
-      {n: "Ciprofloxacino", d: 50, unit: "mg", mv: "4 hs"},
-      {n: "Citalopram", d: 4, unit: "mg", mv: "35 hs"},
-      {n: "Claritromicina", d: 50, unit: "mg", mv: "5 hs"},
-      {n: "Clindamicina", d: 50, unit: "mg", mv: "3 hs"},
-      {n: "Clonazepam", d: 0.6, unit: "mg", mv: "40 hs", ant: "Flumazenil (Cuidado)", support: "Suporte respiratório."},
-      {n: "Clonidina", d: 0.02, unit: "mg", mv: "12 hs"},
-      {n: "Clorfeniramina", d: 10, unit: "mg", mv: "20 hs"},
-      {n: "Clorpromazina", d: 10, unit: "mg", mv: "30 hs"},
-      {n: "Codeína", d: 0.5, unit: "mg", mv: "3 hs"},
-      {n: "Diazepam", d: 0.7, unit: "mg", mv: "48 hs", ant: "Flumazenil (Cuidado)", support: "Suporte ventilatório."},
-      {n: "Diclofenaco", d: 10, unit: "mg", mv: "2 hs"},
-      {n: "Difenidramina", d: 10, unit: "mg", mv: "7 hs (?)"},
-      {n: "Digoxina", d: 20, unit: "mcg", mv: "40 hs", ant: "Fab Anti-Digoxina", support: "Monitorar K+ e ECG."},
-      {n: "Diltiazem", d: 1, unit: "mg", mv: "5 hs"},
-      {n: "Doxiciclina", d: 10, unit: "mg", mv: "18 hs"},
-      {n: "Duloxetina", d: 5, unit: "mg", mv: "12 hs"},
-      {n: "Escitalopram", d: 4, unit: "mg", mv: "30 hs"},
-      {n: "Enalapril", d: 10, unit: "mg", mv: "11 hs"},
-      {n: "Eritromicina", d: 50, unit: "mg", mv: "2 hs"},
-      {n: "Escopolamina", d: 0.5, unit: "mg", mv: "4 hs"},
-      {n: "Etambutol", d: 50, unit: "mg", mv: "4 hs"},
-      {n: "Fenitoína", d: 20, unit: "mg", mv: "24 hs"},
-      {n: "Fenobarbital", d: 4, unit: "mg", mv: "5 dias", support: "Alcalinização urinária."},
-      {n: "Fentanil", d: 0.005, unit: "mg", mv: "7 hs"},
-      {n: "Fluconazol", d: 50, unit: "mg", mv: "30 hs"},
-      {n: "Fluoxetina", d: 5, unit: "mg", mv: "3 dias"},
-      {n: "Furosemida", d: 10, unit: "mg", mv: "2 hs"},
-      {n: "Gabapentina", d: 50, unit: "mg", mv: "6 hs"},
-      {n: "Gentamicina", d: 10, unit: "mg", mv: "2 hs"},
-      {n: "Haloperidol", d: 0.5, unit: "mg", mv: "20 hs"},
-      {n: "Hidroclorotiazida", d: 10, unit: "mg", mv: "10 hs"},
-      {n: "Hidroxizina", d: 10, unit: "mg", mv: "20 hs"},
-      {n: "Ibuprofeno", d: 100, unit: "mg", mv: "2 hs"},
-      {n: "Imipramina", d: 3, unit: "mg", mv: "20 hs"},
-      {n: "Insulina", d: 0.1, unit: "UI", mv: "5 min"},
-      {n: "Isoniazida", d: 10, unit: "mg", mv: "2 hs"},
-      {n: "Isotretinoína", d: 10, unit: "mg", mv: "20 hs"},
-      {n: "Ivermectina", d: 0.5, unit: "mg", mv: "18 hs"},
-      {n: "Ketamina", d: 5, unit: "mg", mv: "3 hs"},
-      {n: "Ketoprofeno", d: 10, unit: "mg", mv: "2 hs"},
-      {n: "Lansoprazol", d: 10, unit: "mg", mv: "1.5 hs"},
-      {n: "Levofloxacino", d: 50, unit: "mg", mv: "7 hs"},
-      {n: "Lidocaína", d: 5, unit: "mg", mv: "2 hs"},
-      {n: "Linezolida", d: 50, unit: "mg", mv: "5 hs"},
-      {n: "Lisinopril", d: 10, unit: "mg", mv: "12 hs"},
-      {n: "Lítio", d: 50, unit: "mg", mv: "24 hs", noCharcoal: true, ant: "Hemodiálise", support: "Hidratação. Carvão ineficaz."},
-      {n: "Loperamida", d: 0.5, unit: "mg", mv: "11 hs"},
-      {n: "Loratadina", d: 10, unit: "mg", mv: "10 hs"},
-      {n: "Losartana", d: 10, unit: "mg", mv: "2 hs"},
-      {n: "Mebendazol", d: 50, unit: "mg", mv: "3 hs"},
-      {n: "Meloxicam", d: 10, unit: "mg", mv: "20 hs"},
-      {n: "Metadona", d: 0.5, unit: "mg", mv: "30 hs"},
-      {n: "Metformina", d: 50, unit: "mg", mv: "6 hs"},
-      {n: "Metoclopramida", d: 0.5, unit: "mg", mv: "5 hs"},
-      {n: "Metoprolol", d: 5, unit: "mg", mv: "7 hs"},
-      {n: "Metronidazol", d: 50, unit: "mg", mv: "8 hs"},
-      {n: "Midazolam", d: 0.5, unit: "mg", mv: "3 hs"},
-      {n: "Morfina", d: 0.5, unit: "mg", mv: "3 hs"},
-      {n: "Naloxona", d: 0.01, unit: "mg", mv: "1 hs"},
-      {n: "Naproxeno", d: 100, unit: "mg", mv: "14 hs"},
-      {n: "Nifedipino", d: 0.5, unit: "mg", mv: "2 hs"},
-      {n: "Nimesulida", d: 10, unit: "mg", mv: "3 hs"},
-      {n: "Nitrofurantoína", d: 10, unit: "mg", mv: "1 hs"},
-      {n: "Noradrenalina", d: 0.001, unit: "mg", mv: "2 min"},
-      {n: "Omeprazol", d: 10, unit: "mg", mv: "1 hs"},
-      {n: "Ondansetrona", d: 0.5, unit: "mg", mv: "4 hs"},
-      {n: "Oxicodona", d: 0.5, unit: "mg", mv: "4 hs"},
-      {n: "Pantoprazol", d: 10, unit: "mg", mv: "1 hs"},
-      {n: "Paracetamol", d: 75, unit: "mg", mv: "3 hs", ant: "N-Acetilcisteína", support: "Nomograma em 4h."},
-      {n: "Paroxetina", d: 5, unit: "mg", mv: "24 hs"},
-      {n: "Penicilina", d: 200, unit: "mg", mv: "0.5 hs"},
-      {n: "Permetrina", d: 10, unit: "mg", mv: "10 hs"},
-      {n: "Piroxicam", d: 10, unit: "mg", mv: "50 hs"},
-      {n: "Pramipexol", d: 0.1, unit: "mg", mv: "8 hs"},
-      {n: "Prednisolona", d: 10, unit: "mg", mv: "3 hs"},
-      {n: "Prednisona", d: 10, unit: "mg", mv: "3 hs"},
-      {n: "Propranolol", d: 5, unit: "mg", mv: "4 hs"},
-      {n: "Quetiapina", d: 10, unit: "mg", mv: "7 hs"},
-      {n: "Ranitidina", d: 50, unit: "mg", mv: "2 hs"},
-      {n: "Rifampicina", d: 50, unit: "mg", mv: "3 hs"},
-      {n: "Risperidona", d: 0.5, unit: "mg", mv: "20 hs"},
-      {n: "Ropinirol", d: 0.1, unit: "mg", mv: "6 hs"},
-      {n: "Sertralina", d: 5, unit: "mg", mv: "26 hs"},
-      {n: "Sibutramina", d: 0.5, unit: "mg", mv: "14 hs"},
-      {n: "Sildenafil", d: 1, unit: "mg", mv: "4 hs"},
-      {n: "Sinemet", d: 10, unit: "mg", mv: "10 hs"},
-      {n: "Sulfametoxazol", d: 50, unit: "mg", mv: "10 hs"},
-      {n: "Sumatriptano", d: 0.5, unit: "mg", mv: "2 hs"},
-      {n: "Tacrolimus", d: 0.05, unit: "mg", mv: "30 hs"},
-      {n: "Tadalafila", d: 0.5, unit: "mg", mv: "17 hs"},
-      {n: "Tramadol", d: 5, unit: "mg", mv: "6 hs"},
-      {n: "Trazodona", d: 5, unit: "mg", mv: "7 hs"},
-      {n: "Valaciclovir", d: 80, unit: "mg", mv: "3 hs"},
-      {n: "Valsartana", d: 10, unit: "mg", mv: "6 hs"},
-      {n: "Vancomicina", d: 50, unit: "mg", mv: "6 hs"},
-      {n: "Venlafaxina", d: 5, unit: "mg", mv: "5 hs"},
-      {n: "Verapamil", d: 1, unit: "mg", mv: "5 hs"},
-      {n: "Warfarina", d: 0.5, unit: "mg", mv: "40 hs"},
-      {n: "Zolpidem", d: 0.5, unit: "mg", mv: "2 hs"}
+      { n: "AAS", d: 100, unit: "mg", mv: "30 hs", ant: "Bicarbonato de Sódio", support: "Alcalinização urinária." },
+      { n: "Aciclovir", d: 80, unit: "mg", mv: "3 hs" },
+      { n: "Ácido Valpróico", d: 200, unit: "mg", mv: "15 hs" },
+      { n: "Alprazolam", d: 0.5, unit: "mg", mv: "12 hs" },
+      { n: "Amitriptilina", d: 3, unit: "mg", mv: "25 hs", ant: "Bicarbonato de Sódio", support: "ECG (QRS). Tratar convulsões." },
+      { n: "Amlodipina", d: 0.25, unit: "mg", mv: "40 hs" },
+      { n: "Amoxicilina", d: 250, unit: "mg", mv: "1.5 hs" },
+      { n: "Ampicilina", d: 250, unit: "mg", mv: "1.5 hs" },
+      { n: "Atenolol", d: 5, unit: "mg", mv: "7 hs", ant: "Glucagon / Insulina", support: "Monitorar hemodinâmica." },
+      { n: "Azitromicina", d: 50, unit: "mg", mv: "68 hs" },
+      { n: "Carbamazepina", d: 20, unit: "mg", mv: "20 hs", support: "Carvão seriado (MDAC)." },
+      { n: "Citalopram", d: 10, unit: "mg", mv: "35 hs" },
+      { n: "Clonazepam", d: 0.6, unit: "mg", mv: "40 hs", ant: "Flumazenil (Cuidado)", support: "Suporte respiratório." },
+      { n: "Clonidina", d: 0.01, unit: "mg", mv: "12 hs" },
+      { n: "Codeína", d: 0.5, unit: "mg", mv: "3 hs" },
+      { n: "Diazepam", d: 0.7, unit: "mg", mv: "48 hs", ant: "Flumazenil (Cuidado)", support: "Suporte ventilatório." },
+      { n: "Diclofenaco", d: 10, unit: "mg", mv: "2 hs" },
+      { n: "Difenidramina", d: 2, unit: "mg", mv: "9 hs" },
+      { n: "Digoxina", d: 20, unit: "mcg", mv: "40 hs", ant: "Fab Anti-Digoxina", support: "Monitorar K+ e ECG." },
+      { n: "Diltiazem", d: 1, unit: "mg", mv: "5 hs" },
+      { n: "Duloxetina", d: 5, unit: "mg", mv: "12 hs" },
+      { n: "Escitalopram", d: 5, unit: "mg", mv: "30 hs" },
+      { n: "Fenitoína", d: 20, unit: "mg", mv: "24 hs" },
+      { n: "Fenobarbital", d: 4, unit: "mg", mv: "5 dias", support: "Alcalinização urinária." },
+      { n: "Fentanil", d: 0.002, unit: "mg", mv: "7 hs" },
+      { n: "Fluoxetina", d: 10, unit: "mg", mv: "3 dias" },
+      { n: "Ibuprofeno", d: 100, unit: "mg", mv: "2 hs" },
+      { n: "Lítio", d: 2, unit: "mg", mv: "24 hs", noCharcoal: true, ant: "Hemodiálise", support: "Hidratação. Carvão ineficaz." },
+      { n: "Metformina", d: 50, unit: "mg", mv: "6 hs" },
+      { n: "Metoprolol", d: 1, unit: "mg", mv: "5 hs" },
+      { n: "Midazolam", d: 0.2, unit: "mg", mv: "3 hs" },
+      { n: "Morfina", d: 0.5, unit: "mg", mv: "4 hs" },
+      { n: "Paracetamol", d: 75, unit: "mg", mv: "3 hs", ant: "N-Acetilcisteína", support: "Nomograma em 4h." },
+      { n: "Paroxetina", d: 10, unit: "mg", mv: "24 hs" },
+      { n: "Piroxicam", d: 1, unit: "mg", mv: "50 hs" },
+      { n: "Prednisona", d: 5, unit: "mg", mv: "3 hs" },
+      { n: "Prometazina", d: 1, unit: "mg", mv: "12 hs" },
+      { n: "Quetiapina", d: 5, unit: "mg", mv: "7 hs" },
+      { n: "Ranitidina", d: 50, unit: "mg", mv: "3 hs" },
+      { n: "Risperidona", d: 0.5, unit: "mg", mv: "20 hs" },
+      { n: "Sertralina", d: 10, unit: "mg", mv: "26 hs" },
+      { n: "Sinvastatina", d: 10, unit: "mg", mv: "2 hs" },
+      { n: "Tramadol", d: 5, unit: "mg", mv: "6 hs" },
+      { n: "Venlafaxina", d: 5, unit: "mg", mv: "8 hs" },
+      { n: "Veramapil", d: 1, unit: "mg", mv: "6 hs" },
+      { n: "Zolpidem", d: 0.5, unit: "mg", mv: "3 hs" },
+      { n: "Amoxicilina + Clavulanato", d: 250, unit: "mg", mv: "1.5 hs" },
+      { n: "Cefalexina", d: 250, unit: "mg", mv: "1.5 hs" },
+      { n: "Ciprofloxacino", d: 50, unit: "mg", mv: "4 hs" },
+      { n: "Claritromicina", d: 50, unit: "mg", mv: "5 hs" },
+      { n: "Doxiciclina", d: 5, unit: "mg", mv: "18 hs" },
+      { n: "Levofloxacino", d: 50, unit: "mg", mv: "7 hs" },
+      { n: "Metronidazol", d: 50, unit: "mg", mv: "8 hs" },
+      { n: "Norfloxacino", d: 50, unit: "mg", mv: "4 hs" },
+      { n: "Sulfametoxazol + Trimetoprim", d: 50, unit: "mg", mv: "10 hs" },
+      { n: "Captopril", d: 1, unit: "mg", mv: "2 hs" },
+      { n: "Enalapril", d: 0.5, unit: "mg", mv: "11 hs" },
+      { n: "Losartana", d: 5, unit: "mg", mv: "2 hs" },
+      { n: "Valsartana", d: 5, unit: "mg", mv: "6 hs" },
+      { n: "Hidroclorotiazida", d: 5, unit: "mg", mv: "10 hs" },
+      { n: "Furosemida", d: 5, unit: "mg", mv: "2 hs" },
+      { n: "Espironolactona", d: 5, unit: "mg", mv: "15 hs" },
+      { n: "Anlodipino", d: 0.25, unit: "mg", mv: "40 hs" },
+      { n: "Nifedipino", d: 0.5, unit: "mg", mv: "3 hs" },
+      { n: "Propranolol", d: 1, unit: "mg", mv: "4 hs" },
+      { n: "Bisoprolol", d: 0.2, unit: "mg", mv: "11 hs" },
+      { n: "Carvedilol", d: 0.5, unit: "mg", mv: "8 hs" },
+      { n: "Clopidogrel", d: 5, unit: "mg", mv: "8 hs" },
+      { n: "Varfarina", d: 0.1, unit: "mg", mv: "40 hs" },
+      { n: "Rivaroxabana", d: 0.5, unit: "mg", mv: "9 hs" },
+      { n: "Apixabana", d: 0.25, unit: "mg", mv: "12 hs" },
+      { n: "Dabigatrana", d: 0.5, unit: "mg", mv: "14 hs" },
+      { n: "Insulina", d: 0.1, unit: "UI", mv: "6 hs" },
+      { n: "Glibenclamida", d: 0.1, unit: "mg", mv: "10 hs" },
+      { n: "Glimepirida", d: 0.1, unit: "mg", mv: "7 hs" },
+      { n: "Sitagliptina", d: 5, unit: "mg", mv: "12 hs" },
+      { n: "Saxagliptina", d: 0.5, unit: "mg", mv: "2.5 hs" },
+      { n: "Vildagliptina", d: 5, unit: "mg", mv: "3 hs" },
+      { n: "Linagliptina", d: 0.5, unit: "mg", mv: "12 hs" },
+      { n: "Empagliflozina", d: 0.5, unit: "mg", mv: "12 hs" },
+      { n: "Dapagliflozina", d: 0.5, unit: "mg", mv: "12 hs" },
+      { n: "Canagliflozina", d: 0.5, unit: "mg", mv: "10 hs" },
+      { n: "Levotiroxina", d: 0.005, unit: "mg", mv: "7 dias" },
+      { n: "Prednisolona", d: 5, unit: "mg", mv: "3 hs" },
+      { n: "Dexametasona", d: 0.5, unit: "mg", mv: "4 hs" },
+      { n: "Hidrocortisona", d: 5, unit: "mg", mv: "2 hs" },
+      { n: "Omeprazol", d: 5, unit: "mg", mv: "1.5 hs" },
+      { n: "Pantoprazol", d: 5, unit: "mg", mv: "1.5 hs" },
+      { n: "Lansoprazol", d: 5, unit: "mg", mv: "1.5 hs" },
+      { n: "Esomeprazol", d: 5, unit: "mg", mv: "1.5 hs" },
+      { n: "Domperidona", d: 0.5, unit: "mg", mv: "7 hs" },
+      { n: "Ondansetrona", d: 0.5, unit: "mg", mv: "4 hs" },
+      { n: "Bromoprida", d: 0.5, unit: "mg", mv: "3 hs" },
+      { n: "Metoclopramida", d: 0.5, unit: "mg", mv: "4 hs" },
+      { n: "Buscopan", d: 0.5, unit: "mg", mv: "2 hs" },
+      { n: "Dipirona", d: 50, unit: "mg", mv: "7 hs" },
+      { n: "Tramal", d: 5, unit: "mg", mv: "6 hs" },
+      { n: "Morfina", d: 0.5, unit: "mg", mv: "4 hs" },
+      { n: "Oxicodona", d: 0.5, unit: "mg", mv: "4 hs" },
+      { n: "Codeína", d: 0.5, unit: "mg", mv: "3 hs" },
+      { n: "Fentanil", d: 0.002, unit: "mg", mv: "7 hs" },
+      { n: "Naloxona", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Flumazenil", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Midazolam", d: 0.2, unit: "mg", mv: "3 hs" },
+      { n: "Lorazepam", d: 0.1, unit: "mg", mv: "15 hs" },
+      { n: "Clonazepam", d: 0.6, unit: "mg", mv: "40 hs" },
+      { n: "Diazepam", d: 0.7, unit: "mg", mv: "48 hs" },
+      { n: "Fenobarbital", d: 4, unit: "mg", mv: "5 dias" },
+      { n: "Fenitoína", d: 20, unit: "mg", mv: "24 hs" },
+      { n: "Carbamazepina", d: 20, unit: "mg", mv: "20 hs" },
+      { n: "Ácido Valpróico", d: 200, unit: "mg", mv: "15 hs" },
+      { n: "Topiramato", d: 5, unit: "mg", mv: "21 hs" },
+      { n: "Gabapentina", d: 50, unit: "mg", mv: "6 hs" },
+      { n: "Pregabalina", d: 5, unit: "mg", mv: "6 hs" },
+      { n: "Amitriptilina", d: 3, unit: "mg", mv: "25 hs" },
+      { n: "Nortriptilina", d: 3, unit: "mg", mv: "30 hs" },
+      { n: "Imipramina", d: 3, unit: "mg", mv: "20 hs" },
+      { n: "Clomipramina", d: 3, unit: "mg", mv: "30 hs" },
+      { n: "Fluoxetina", d: 10, unit: "mg", mv: "3 dias" },
+      { n: "Sertralina", d: 10, unit: "mg", mv: "26 hs" },
+      { n: "Paroxetina", d: 10, unit: "mg", mv: "24 hs" },
+      { n: "Citalopram", d: 10, unit: "mg", mv: "35 hs" },
+      { n: "Escitalopram", d: 5, unit: "mg", mv: "30 hs" },
+      { n: "Venlafaxina", d: 5, unit: "mg", mv: "8 hs" },
+      { n: "Duloxetina", d: 5, unit: "mg", mv: "12 hs" },
+      { n: "Bupropiona", d: 5, unit: "mg", mv: "20 hs" },
+      { n: "Mirtazapina", d: 1, unit: "mg", mv: "30 hs" },
+      { n: "Trazodona", d: 5, unit: "mg", mv: "7 hs" },
+      { n: "Quetiapina", d: 5, unit: "mg", mv: "7 hs" },
+      { n: "Risperidona", d: 0.5, unit: "mg", mv: "20 hs" },
+      { n: "Olanzapina", d: 0.5, unit: "mg", mv: "30 hs" },
+      { n: "Haloperidol", d: 0.5, unit: "mg", mv: "20 hs" },
+      { n: "Clorpromazina", d: 5, unit: "mg", mv: "30 hs" },
+      { n: "Lítio", d: 2, unit: "mg", mv: "24 hs", noCharcoal: true },
+      { n: "Digoxina", d: 20, unit: "mcg", mv: "40 hs" },
+      { n: "Amiodarona", d: 50, unit: "mg", mv: "50 dias" },
+      { n: "Sotalol", d: 5, unit: "mg", mv: "12 hs" },
+      { n: "Propafenona", d: 5, unit: "mg", mv: "6 hs" },
+      { n: "Flecainida", d: 1, unit: "mg", mv: "20 hs" },
+      { n: "Atenolol", d: 5, unit: "mg", mv: "7 hs" },
+      { n: "Metoprolol", d: 1, unit: "mg", mv: "5 hs" },
+      { n: "Propranolol", d: 1, unit: "mg", mv: "4 hs" },
+      { n: "Carvedilol", d: 0.5, unit: "mg", mv: "8 hs" },
+      { n: "Bisoprolol", d: 0.2, unit: "mg", mv: "11 hs" },
+      { n: "Anlodipino", d: 0.25, unit: "mg", mv: "40 hs" },
+      { n: "Nifedipino", d: 0.5, unit: "mg", mv: "3 hs" },
+      { n: "Diltiazem", d: 1, unit: "mg", mv: "5 hs" },
+      { n: "Verapamil", d: 1, unit: "mg", mv: "6 hs" },
+      { n: "Captopril", d: 1, unit: "mg", mv: "2 hs" },
+      { n: "Enalapril", d: 0.5, unit: "mg", mv: "11 hs" },
+      { n: "Losartana", d: 5, unit: "mg", mv: "2 hs" },
+      { n: "Valsartana", d: 5, unit: "mg", mv: "6 hs" },
+      { n: "Hidroclorotiazida", d: 5, unit: "mg", mv: "10 hs" },
+      { n: "Furosemida", d: 5, unit: "mg", mv: "2 hs" },
+      { n: "Espironolactona", d: 5, unit: "mg", mv: "15 hs" },
+      { n: "Clonidina", d: 0.01, unit: "mg", mv: "12 hs" },
+      { n: "Metildopa", d: 5, unit: "mg", mv: "2 hs" },
+      { n: "Prazosina", d: 0.1, unit: "mg", mv: "3 hs" },
+      { n: "Terazosina", d: 0.1, unit: "mg", mv: "12 hs" },
+      { n: "Doxazosina", d: 0.1, unit: "mg", mv: "22 hs" },
+      { n: "Sildenafila", d: 0.5, unit: "mg", mv: "4 hs" },
+      { n: "Tadalafila", d: 0.5, unit: "mg", mv: "17 hs" },
+      { n: "Vardenafila", d: 0.1, unit: "mg", mv: "4 hs" },
+      { n: "Acetaminofeno", d: 75, unit: "mg", mv: "3 hs" },
+      { n: "AAS", d: 100, unit: "mg", mv: "30 hs" },
+      { n: "Ibuprofeno", d: 100, unit: "mg", mv: "2 hs" },
+      { n: "Naproxeno", d: 50, unit: "mg", mv: "15 hs" },
+      { n: "Diclofenaco", d: 10, unit: "mg", mv: "2 hs" },
+      { n: "Piroxicam", d: 1, unit: "mg", mv: "50 hs" },
+      { n: "Meloxicam", d: 1, unit: "mg", mv: "20 hs" },
+      { n: "Nimesulida", d: 5, unit: "mg", mv: "3 hs" },
+      { n: "Celecoxibe", d: 5, unit: "mg", mv: "11 hs" },
+      { n: "Etodolaco", d: 50, unit: "mg", mv: "7 hs" },
+      { n: "Indometacina", d: 1, unit: "mg", mv: "4 hs" },
+      { n: "Cetoprofeno", d: 5, unit: "mg", mv: "2 hs" },
+      { n: "Tenoxicam", d: 1, unit: "mg", mv: "70 hs" },
+      { n: "Dipirona", d: 50, unit: "mg", mv: "7 hs" },
+      { n: "Paracetamol", d: 75, unit: "mg", mv: "3 hs" },
+      { n: "Metamizol", d: 50, unit: "mg", mv: "7 hs" },
+      { n: "Tramadol", d: 5, unit: "mg", mv: "6 hs" },
+      { n: "Codeína", d: 0.5, unit: "mg", mv: "3 hs" },
+      { n: "Morfina", d: 0.5, unit: "mg", mv: "4 hs" },
+      { n: "Oxicodona", d: 0.5, unit: "mg", mv: "4 hs" },
+      { n: "Fentanil", d: 0.002, unit: "mg", mv: "7 hs" },
+      { n: "Hidrocodona", d: 0.5, unit: "mg", mv: "4 hs" },
+      { n: "Buprenorfina", d: 0.01, unit: "mg", mv: "37 hs" },
+      { n: "Naloxona", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Naltrexona", d: 0.5, unit: "mg", mv: "4 hs" },
+      { n: "Cafeína", d: 150, unit: "mg", mv: "5 hs" },
+      { n: "Teofilina", d: 20, unit: "mg", mv: "8 hs" },
+      { n: "Aminofilina", d: 20, unit: "mg", mv: "8 hs" },
+      { n: "Salbutamol", d: 0.5, unit: "mg", mv: "4 hs" },
+      { n: "Fenoterol", d: 0.05, unit: "mg", mv: "3 hs" },
+      { n: "Formoterol", d: 0.005, unit: "mg", mv: "10 hs" },
+      { n: "Budesonida", d: 0.5, unit: "mg", mv: "3 hs" },
+      { n: "Fluticasona", d: 0.5, unit: "mg", mv: "14 hs" },
+      { n: "Montelucaste", d: 0.5, unit: "mg", mv: "5 hs" },
+      { n: "Zafirlucaste", d: 0.5, unit: "mg", mv: "10 hs" },
+      { n: "Omalizumabe", d: 0.5, unit: "mg", mv: "26 dias" },
+      { n: "Adrenalina", d: 0.01, unit: "mg", mv: "5 min" },
+      { n: "Noradrenalina", d: 0.01, unit: "mg", mv: "2 min" },
+      { n: "Dopamina", d: 0.5, unit: "mg", mv: "2 min" },
+      { n: "Dobutamina", d: 0.5, unit: "mg", mv: "2 min" },
+      { n: "Isoproterenol", d: 0.005, unit: "mg", mv: "2 min" },
+      { n: "Fenilefrina", d: 0.05, unit: "mg", mv: "20 min" },
+      { n: "Efedrina", d: 0.5, unit: "mg", mv: "4 hs" },
+      { n: "Pseudoefedrina", d: 0.5, unit: "mg", mv: "6 hs" },
+      { n: "Cocaína", d: 0.5, unit: "mg", mv: "1 hs" },
+      { n: "Anfetamina", d: 0.5, unit: "mg", mv: "12 hs" },
+      { n: "Metanfetamina", d: 0.5, unit: "mg", mv: "12 hs" },
+      { n: "MDMA", d: 0.5, unit: "mg", mv: "8 hs" },
+      { n: "LSD", d: 0.0001, unit: "mg", mv: "3 hs" },
+      { n: "Psilocibina", d: 0.01, unit: "mg", mv: "3 hs" },
+      { n: "Maconha", d: 0.5, unit: "mg", mv: "3 dias" },
+      { n: "Álcool Etílico", d: 500, unit: "mg", mv: "4 hs" },
+      { n: "Metanol", d: 100, unit: "mg", mv: "3 hs" },
+      { n: "Etilenoglicol", d: 100, unit: "mg", mv: "3 hs" },
+      { n: "Isopropanol", d: 500, unit: "mg", mv: "7 hs" },
+      { n: "Acetona", d: 500, unit: "mg", mv: "20 hs" },
+      { n: "Tolueno", d: 500, unit: "mg", mv: "10 hs" },
+      { n: "Benzeno", d: 500, unit: "mg", mv: "10 hs" },
+      { n: "Xileno", d: 500, unit: "mg", mv: "10 hs" },
+      { n: "Naftaleno", d: 50, unit: "mg", mv: "10 hs" },
+      { n: "Cianeto", d: 1, unit: "mg", mv: "1 hs" },
+      { n: "Monóxido de Carbono", d: 0.01, unit: "mg", mv: "5 hs" },
+      { n: "Arsênico", d: 1, unit: "mg", mv: "10 hs" },
+      { n: "Chumbo", d: 1, unit: "mg", mv: "30 dias" },
+      { n: "Mercúrio", d: 1, unit: "mg", mv: "60 dias" },
+      { n: "Cádmio", d: 1, unit: "mg", mv: "100 dias" },
+      { n: "Talio", d: 1, unit: "mg", mv: "3 dias" },
+      { n: "Ferro", d: 20, unit: "mg", mv: "6 hs" },
+      { n: "Cobre", d: 5, unit: "mg", mv: "10 hs" },
+      { n: "Zinco", d: 50, unit: "mg", mv: "10 hs" },
+      { n: "Flúor", d: 5, unit: "mg", mv: "10 hs" },
+      { n: "Iodo", d: 5, unit: "mg", mv: "10 hs" },
+      { n: "Boro", d: 50, unit: "mg", mv: "10 hs" },
+      { n: "Bário", d: 50, unit: "mg", mv: "10 hs" },
+      { n: "Estrôncio", d: 50, unit: "mg", mv: "10 hs" },
+      { n: "Césio", d: 50, unit: "mg", mv: "10 hs" },
+      { n: "Tálio", d: 1, unit: "mg", mv: "3 dias" },
+      { n: "Paraquat", d: 10, unit: "mg", mv: "24 hs" },
+      { n: "Glifosato", d: 500, unit: "mg", mv: "10 hs" },
+      { n: "Organofosforados", d: 1, unit: "mg", mv: "24 hs" },
+      { n: "Carbamatos", d: 1, unit: "mg", mv: "12 hs" },
+      { n: "Piretróides", d: 50, unit: "mg", mv: "12 hs" },
+      { n: "Warfarina", d: 0.1, unit: "mg", mv: "40 hs" },
+      { n: "Super-Warfarina", d: 0.01, unit: "mg", mv: "60 dias" },
+      { n: "Estricnina", d: 0.1, unit: "mg", mv: "10 hs" },
+      { n: "Cianeto", d: 1, unit: "mg", mv: "1 hs" },
+      { n: "Monóxido de Carbono", d: 0.01, unit: "mg", mv: "5 hs" },
+      { n: "Sulfeto de Hidrogênio", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Cloro", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Amônia", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Dióxido de Enxofre", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Óxidos de Nitrogênio", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Ozônio", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Fosgênio", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Gás Mostarda", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Sarin", d: 0.0001, unit: "mg", mv: "1 hs" },
+      { n: "VX", d: 0.00001, unit: "mg", mv: "1 hs" },
+      { n: "Ricino", d: 0.001, unit: "mg", mv: "24 hs" },
+      { n: "Botulínica", d: 0.000001, unit: "mg", mv: "30 dias" },
+      { n: "Tetrodotoxina", d: 0.0001, unit: "mg", mv: "6 hs" },
+      { n: "Saxitoxina", d: 0.0001, unit: "mg", mv: "6 hs" },
+      { n: "Ciguatoxina", d: 0.0001, unit: "mg", mv: "7 dias" },
+      { n: "Aconitina", d: 0.001, unit: "mg", mv: "6 hs" },
+      { n: "Colchicina", d: 0.1, unit: "mg", mv: "20 hs" },
+      { n: "Cicuta", d: 1, unit: "mg", mv: "6 hs" },
+      { n: "Beladona", d: 1, unit: "mg", mv: "6 hs" },
+      { n: "Estramônio", d: 1, unit: "mg", mv: "6 hs" },
+      { n: "Cogumelos (Amanita)", d: 1, unit: "mg", mv: "12 hs" },
+      { n: "Cogumelos (Psilocibina)", d: 0.01, unit: "mg", mv: "3 hs" },
+      { n: "Aranha Marrom", d: 0.01, unit: "mg", mv: "24 hs" },
+      { n: "Aranha Viúva Negra", d: 0.01, unit: "mg", mv: "24 hs" },
+      { n: "Escorpião Amarelo", d: 0.01, unit: "mg", mv: "24 hs" },
+      { n: "Serpente Coral", d: 0.01, unit: "mg", mv: "24 hs" },
+      { n: "Serpente Jararaca", d: 0.01, unit: "mg", mv: "24 hs" },
+      { n: "Serpente Cascavel", d: 0.01, unit: "mg", mv: "24 hs" },
+      { n: "Serpente Surucucu", d: 0.01, unit: "mg", mv: "24 hs" },
+      { n: "Abelha", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Vespa", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Formiga", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Ácido Fluorídrico", d: 0.1, unit: "mg", mv: "1 hs" },
+      { n: "Ácido Clorídrico", d: 0.1, unit: "mg", mv: "1 hs" },
+      { n: "Ácido Sulfúrico", d: 0.1, unit: "mg", mv: "1 hs" },
+      { n: "Hidróxido de Sódio", d: 0.1, unit: "mg", mv: "1 hs" },
+      { n: "Hidróxido de Potássio", d: 0.1, unit: "mg", mv: "1 hs" },
+      { n: "Hipoclorito de Sódio", d: 0.1, unit: "mg", mv: "1 hs" },
+      { n: "Permanganato de Potássio", d: 0.1, unit: "mg", mv: "1 hs" },
+      { n: "Peróxido de Hidrogênio", d: 0.1, unit: "mg", mv: "1 hs" },
+      { n: "Etanol", d: 500, unit: "mg", mv: "4 hs" },
+      { n: "Metanol", d: 100, unit: "mg", mv: "3 hs" },
+      { n: "Etilenoglicol", d: 100, unit: "mg", mv: "3 hs" },
+      { n: "Isopropanol", d: 500, unit: "mg", mv: "7 hs" },
+      { n: "Acetona", d: 500, unit: "mg", mv: "20 hs" },
+      { n: "Tolueno", d: 500, unit: "mg", mv: "10 hs" },
+      { n: "Benzeno", d: 500, unit: "mg", mv: "10 hs" },
+      { n: "Xileno", d: 500, unit: "mg", mv: "10 hs" },
+      { n: "Naftaleno", d: 50, unit: "mg", mv: "10 hs" },
+      { n: "Querosene", d: 500, unit: "mg", mv: "10 hs" },
+      { n: "Gasolina", d: 500, unit: "mg", mv: "10 hs" },
+      { n: "Diesel", d: 500, unit: "mg", mv: "10 hs" },
+      { n: "Óleo Mineral", d: 500, unit: "mg", mv: "10 hs" },
+      { n: "Parafina", d: 500, unit: "mg", mv: "10 hs" },
+      { n: "Solventes Orgânicos", d: 500, unit: "mg", mv: "10 hs" },
+      { n: "Thinner", d: 500, unit: "mg", mv: "10 hs" },
+      { n: "Aguarrás", d: 500, unit: "mg", mv: "10 hs" },
+      { n: "Removedor de Tinta", d: 500, unit: "mg", mv: "10 hs" },
+      { n: "Cola de Sapateiro", d: 500, unit: "mg", mv: "10 hs" },
+      { n: "Gás de Cozinha", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Gás Natural", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Gás Carbônico", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Gás Hélio", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Gás Nitrogênio", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Gás Oxigênio", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Gás Argônio", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Gás Xenônio", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Gás Criptônio", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Gás Neônio", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Gás Radônio", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Gás Flúor", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Gás Cloro", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Gás Bromo", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Gás Iodo", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Gás Ozônio", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Gás Fosgênio", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Gás Mostarda", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Gás Sarin", d: 0.0001, unit: "mg", mv: "1 hs" },
+      { n: "Gás VX", d: 0.00001, unit: "mg", mv: "1 hs" },
+      { n: "Gás Ricino", d: 0.001, unit: "mg", mv: "24 hs" },
+      { n: "Gás Botulínica", d: 0.000001, unit: "mg", mv: "30 dias" },
+      { n: "Gás Tetrodotoxina", d: 0.0001, unit: "mg", mv: "6 hs" },
+      { n: "Gás Saxitoxina", d: 0.0001, unit: "mg", mv: "6 hs" },
+      { n: "Gás Ciguatoxina", d: 0.0001, unit: "mg", mv: "7 dias" },
+      { n: "Gás Aconitina", d: 0.001, unit: "mg", mv: "6 hs" },
+      { n: "Gás Colchicina", d: 0.1, unit: "mg", mv: "20 hs" },
+      { n: "Gás Cicuta", d: 1, unit: "mg", mv: "6 hs" },
+      { n: "Gás Beladona", d: 1, unit: "mg", mv: "6 hs" },
+      { n: "Gás Estramônio", d: 1, unit: "mg", mv: "6 hs" },
+      { n: "Gás Cogumelos (Amanita)", d: 1, unit: "mg", mv: "12 hs" },
+      { n: "Gás Cogumelos (Psilocibina)", d: 0.01, unit: "mg", mv: "3 hs" },
+      { n: "Gás Aranha Marrom", d: 0.01, unit: "mg", mv: "24 hs" },
+      { n: "Gás Aranha Viúva Negra", d: 0.01, unit: "mg", mv: "24 hs" },
+      { n: "Gás Escorpião Amarelo", d: 0.01, unit: "mg", mv: "24 hs" },
+      { n: "Gás Serpente Coral", d: 0.01, unit: "mg", mv: "24 hs" },
+      { n: "Gás Serpente Jararaca", d: 0.01, unit: "mg", mv: "24 hs" },
+      { n: "Gás Serpente Cascavel", d: 0.01, unit: "mg", mv: "24 hs" },
+      { n: "Gás Serpente Surucucu", d: 0.01, unit: "mg", mv: "24 hs" },
+      { n: "Gás Abelha", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Gás Vespa", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Gás Formiga", d: 0.01, unit: "mg", mv: "1 hs" },
+      { n: "Gás Ácido Fluorídrico", d: 0.1, unit: "mg", mv: "1 hs" },
+      { n: "Gás Ácido Clorídrico", d: 0.1, unit: "mg", mv: "1 hs" },
+      { n: "Gás Ácido Sulfúrico", d: 0.1, unit: "mg", mv: "1 hs" },
+      { n: "Gás Hidróxido de Sódio", d: 0.1, unit: "mg", mv: "1 hs" },
+      { n: "Gás Hidróxido de Potássio", d: 0.1, unit: "mg", mv: "1 hs" },
+      { n: "Gás Hipoclorito de Sódio", d: 0.1, unit: "mg", mv: "1 hs" },
+      { n: "Gás Permanganato de Potássio", d: 0.1, unit: "mg", mv: "1 hs" },
+      { n: "Gás Peróxido de Hidrogênio", d: 0.1, unit: "mg", mv: "1 hs" }
     ];
 
     let selectedDrug = null;
     let currentProcedure = '';
+    let searchTimeout;
 
-    // Debounce function for search input
+    // Função de debounce para a busca
     function debounce(func, delay) {
-      let timeout;
       return function(...args) {
         const context = this;
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func.apply(context, args), delay);
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => func.apply(context, args), delay);
       };
     }
 
-    function performSearch() {
+    function searchData() {
       const term = document.getElementById('search').value.toLowerCase();
       const res = document.getElementById('results');
       res.innerHTML = '';
       if (term.length < 2) { res.style.display = 'none'; return; }
 
       const filtered = database.filter(d => d.n.toLowerCase().includes(term));
-      // Limit results to 30 for performance
+      
+      // Limita a 30 resultados para performance
       filtered.slice(0, 30).forEach(d => {
         const div = document.createElement('div');
         div.className = 'opt';
@@ -435,7 +676,7 @@
         div.onclick = () => {
           selectedDrug = d;
           document.getElementById('search').value = d.n;
-          document.getElementById('drugInfo').textContent = `Dose tóxica: ${d.d}${d.unit||'mg'}/kg`;
+          document.getElementById('drugInfo').textContent = `Dose tóxica: ${d.d}${d.unit||'mg'}/kg | Meia-vida: ${d.mv}`;
           res.style.display = 'none';
           calculate();
         };
@@ -444,7 +685,8 @@
       res.style.display = filtered.length ? 'block' : 'none';
     }
 
-    const searchDataDebounced = debounce(performSearch, 150); // 150ms debounce
+    // Aplica debounce à função de busca
+    document.getElementById('search').oninput = debounce(searchData, 150);
 
     function calculate() {
       if (!selectedDrug) return;
@@ -461,15 +703,25 @@
       if (i >= limit) {
         panel.className = 'bg-toxic';
         document.getElementById('resTitle').textContent = "RISCO TÓXICO";
-        document.getElementById('resDetail').textContent = `Dose ingerida acima do limite (${limit.toFixed(1)}${selectedDrug.unit||'mg'})`;
+        document.getElementById('resDetail').textContent = `Dose ingerida acima do limite (${limit.toFixed(1)}${selectedDrug.unit||'mg'}).`;
         clinical.style.display = 'block';
-        document.getElementById('supportText').textContent = selectedDrug.support || "Não disponível";
+        
+        // Exibe antídoto/suporte se existirem
+        const antidoteBox = document.getElementById('antidoteBox');
+        const supportBox = document.getElementById('supportBox');
         if (selectedDrug.ant) {
-          document.getElementById('antidoteBox').style.display = 'block';
+          antidoteBox.style.display = 'block';
           document.getElementById('antidoteText').textContent = selectedDrug.ant;
         } else {
-          document.getElementById('antidoteBox').style.display = 'none';
+          antidoteBox.style.display = 'none';
         }
+        if (selectedDrug.support) {
+          supportBox.style.display = 'block';
+          document.getElementById('supportText').textContent = selectedDrug.support;
+        } else {
+          supportBox.style.display = 'none';
+        }
+
         updateProtocols();
       } else {
         panel.className = 'bg-safe';
@@ -485,22 +737,27 @@
       area.innerHTML = '';
       if (!time || !selectedDrug) return;
 
-      if (selectedDrug.noCharcoal) {
-        area.innerHTML = `<div style="color:var(--danger); font-size:0.8rem; padding:10px; border:1px solid #fecaca; border-radius:8px">⚠️ Carvão ativado não é eficaz para esta substância.</div>`;
-        return;
-      }
-
-      if (time <= 2) {
+      // Lógica para Carvão Ativado
+      if (time <= 2 && !selectedDrug.noCharcoal) { // Carvão se tempo <= 2h E não contraindicado por substância
         area.innerHTML += `<button class="btn btn-charcoal" onclick="openModal('charcoal')">🌑 Avaliar Carvão Ativado</button>`;
       }
-      if (time == 1) {
+      // Lógica para Lavagem Gástrica
+      if (time == 1) { // Lavagem Gástrica somente se tempo < 1h
         area.innerHTML += `<button class="btn btn-lavage" onclick="openModal('lavage')">💧 Avaliar Lavagem Gástrica</button>`;
       }
     }
 
     const ciData = {
-      charcoal: ['Rebaixamento do nível de consciência (sem IOT)', 'Íleo paralítico ou obstrução', 'Ingestão de cáusticos ou hidrocarbonetos'],
-      lavage: ['Via aérea desprotegida', 'Ingestão de cáusticos/corrosivos', 'Ingestão de hidrocarbonetos (risco aspiração)']
+      charcoal: [
+        'Rebaixamento do nível de consciência (sem IOT)',
+        'Íleo paralítico ou obstrução',
+        'Ingestão de cáusticos ou hidrocarbonetos'
+      ],
+      lavage: [
+        'Via aérea desprotegida',
+        'Ingestão de cáusticos/corrosivos',
+        'Ingestão de hidrocarbonetos (risco aspiração)'
+      ]
     };
 
     function openModal(type) {
@@ -554,10 +811,10 @@
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('service-worker.js')
           .then(registration => {
-            console.log('Service Worker registered with scope:', registration.scope);
+            console.log('Service Worker registered:', registration);
           })
           .catch(error => {
-            console.log('Service Worker registration failed:', error);
+            console.error('Service Worker registration failed:', error);
           });
       });
     }
