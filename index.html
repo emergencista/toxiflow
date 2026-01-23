@@ -1,823 +1,587 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>TOKBASE | CIATox</title>
 
   <!-- PWA -->
-  <meta name="theme-color" content="#1e3a8a">
-  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1e3a8a" />
+  <link rel="manifest" href="manifest.json" />
 
   <!-- iOS PWA -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="TOKBASE">
-  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="TOKBASE" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
 
   <style>
-    :root {
-      --primary: #1e3a8a;
-      --accent: #3b82f6;
-      --bg: #f8fafc;
-      --surface: #ffffff;
-      --text-main: #1e293b;
-      --danger: #dc2626;
-      --warning: #d97706;
+    :root{
+      --primary:#1e3a8a;
+      --bg:#f8fafc;
+      --surface:#ffffff;
+      --text:#0f172a;
+      --muted:#64748b;
+      --border:#e2e8f0;
+      --danger:#b91c1c;
+      --ok:#166534;
+      --warn:#d97706;
     }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background-color: var(--bg);
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      min-height: 100vh;
-      color: var(--text-main);
-      padding-top: calc(env(safe-area-inset-top) + 8px);
-      padding-bottom: calc(env(safe-area-inset-bottom) + 8px);
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      padding-top:calc(env(safe-area-inset-top) + 8px);
+      padding-bottom:calc(env(safe-area-inset-bottom) + 8px);
     }
-
-    .app-shell {
-      width: 100%;
-      max-width: 480px;
-      background: var(--surface);
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-      min-height: 100vh;
+    .app{
+      width:100%;
+      max-width:520px;
+      min-height:100vh;
+      background:var(--surface);
+      box-shadow:0 8px 24px rgba(15,23,42,.08);
+      display:flex;
+      flex-direction:column;
     }
-
-    header {
-      background: var(--primary);
-      color: white;
-      padding: 24px 20px;
-      border-bottom-left-radius: 24px;
-      border-bottom-right-radius: 24px;
-      text-align: center;
+    header{
+      background:var(--primary);
+      color:#fff;
+      padding:22px 18px;
+      border-bottom-left-radius:22px;
+      border-bottom-right-radius:22px;
+      text-align:center;
     }
-
-    .content { padding: 20px; flex-grow: 1; }
-
-    .card {
-      background: white;
-      border: 1px solid #e2e8f0;
-      padding: 16px;
-      border-radius: 12px;
-      margin-bottom: 12px;
-      position: relative;
+    header h1{
+      margin:0;
+      font-size:1.25rem;
+      font-weight:800;
+      letter-spacing:.3px;
     }
-
-    .label {
-      font-size: 0.7rem;
-      font-weight: 700;
-      color: #64748b;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-      display: block;
+    header p{
+      margin:6px 0 0;
+      font-size:.82rem;
+      opacity:.85;
     }
-
-    input, select {
-      width: 100%;
-      padding: 12px;
-      border: 2px solid #e2e8f0;
-      border-radius: 8px;
-      font-size: 1rem;
-      box-sizing: border-box;
-      background: #f8fafc;
-      -webkit-appearance: none;
+    main{padding:18px; flex:1}
+    .card{
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:14px;
+      margin-bottom:12px;
+      background:#fff;
+      position:relative;
     }
-
-    /* Resultados da Busca */
-    #results {
-      position: absolute;
-      left: 16px;
-      right: 16px;
-      top: 86px; /* Ajustado para ficar abaixo do input */
-      z-index: 100;
-      background: white;
-      border: 1px solid #cbd5e1;
-      border-radius: 10px;
-      display: none;
-      max-height: 220px;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
+    .label{
+      display:block;
+      font-size:.72rem;
+      font-weight:800;
+      color:var(--muted);
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      margin-bottom:6px;
     }
-
-    .opt {
-      padding: 14px;
-      border-bottom: 1px solid #f1f5f9;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent; /* Evita flash azul no clique */
+    input, select{
+      width:100%;
+      padding:12px;
+      border:2px solid var(--border);
+      border-radius:10px;
+      font-size:1rem;
+      background:#f8fafc;
+      -webkit-appearance:none;
     }
-    .opt:last-child { border-bottom: none; }
-
-
-    /* Painel de Risco */
-    #result-panel {
-      display: none;
-      padding: 20px;
-      border-radius: 12px;
-      text-align: center;
-      color: white;
-      margin-bottom: 20px;
+    input:focus, select:focus{
+      outline:none;
+      border-color:#93c5fd;
+      background:#fff;
     }
-
-    .bg-toxic { background: linear-gradient(135deg, #dc2626, #991b1b); }
-    .bg-safe  { background: linear-gradient(135deg, #16a34a, #15803d); }
-
-    /* Botões */
-    .btn {
-      width: 100%;
-      padding: 16px;
-      border: none;
-      border-radius: 10px;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 10px;
-      font-size: 1rem;
-      -webkit-tap-highlight-color: transparent;
+    #results{
+      position:absolute;
+      left:14px;
+      right:14px;
+      top:82px;
+      z-index:2000;
+      display:none;
+      background:#fff;
+      border:1px solid #cbd5e1;
+      border-radius:12px;
+      max-height:240px;
+      overflow:auto;
+      -webkit-overflow-scrolling:touch;
+      box-shadow:0 18px 30px rgba(15,23,42,.12);
     }
-
-    .btn-charcoal { background: #334155; color: white; }
-    .btn-lavage   { background: #d97706; color: white; }
-    .btn-spotify  { background: #1db954; color: white; text-decoration: none; display: block; text-align: center; margin-top: 15px; }
+    .opt{
+      padding:14px;
+      border-bottom:1px solid #f1f5f9;
+      cursor:pointer;
+    }
+    .opt:last-child{border-bottom:none}
+    .opt:active{background:#f1f5f9}
+    .grid2{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+    .gridDose{display:grid; grid-template-columns:1fr 120px; gap:10px}
+    .hint{display:block; margin-top:6px; color:var(--muted); font-size:.78rem; line-height:1.25}
+    #panel{
+      display:none;
+      padding:16px;
+      border-radius:14px;
+      color:#fff;
+      text-align:center;
+      margin-bottom:12px;
+    }
+    .toxic{background:linear-gradient(135deg,#dc2626,#7f1d1d)}
+    .safe{background:linear-gradient(135deg,#16a34a,#14532d)}
+    .panelTitle{font-weight:900; font-size:1.2rem}
+    .panelDetail{margin-top:6px; font-size:.92rem; opacity:.95}
+    .antBox{
+      display:none;
+      background:#f5f3ff;
+      border:1px solid #ddd6fe;
+      border-left:5px solid #7c3aed;
+      padding:12px;
+      border-radius:12px;
+      color:#4c1d95;
+      margin-bottom:12px;
+      font-size:.92rem;
+    }
+    .antBox b{color:#3b0764}
+    .btn{
+      width:100%;
+      padding:15px;
+      border:none;
+      border-radius:12px;
+      font-weight:900;
+      font-size:1rem;
+      cursor:pointer;
+      margin-top:10px;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .btnChar{background:#334155; color:#fff}
+    .btnLav{background:var(--warn); color:#fff}
+    .btnSpotify{background:#1db954; color:#fff; text-decoration:none; display:block; text-align:center}
+    .footer{
+      text-align:center;
+      padding:16px 12px 22px;
+      color:#94a3b8;
+      font-size:.78rem;
+    }
 
     /* Modal */
-    .modal {
-      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.7);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      backdrop-filter: blur(4px);
+    .modal{
+      position:fixed; inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:9999;
+      background:rgba(0,0,0,.68);
+      backdrop-filter:blur(4px);
     }
-
-    .modal-content {
-      background: white;
-      padding: 24px;
-      border-radius: 16px;
-      width: 85%;
-      max-width: 350px;
+    .modalCard{
+      width:88%;
+      max-width:420px;
+      background:#fff;
+      border-radius:18px;
+      padding:18px;
+      box-shadow:0 30px 60px rgba(15,23,42,.24);
     }
-
-    .checklist-item {
-      margin-bottom: 12px;
+    .modalCard h3{
+      margin:0 0 6px;
+      color:var(--danger);
+      font-size:1.15rem;
     }
-
-    .checklist-item label {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: #f1f5f9;
-      padding: 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      -webkit-tap-highlight-color: transparent;
+    .modalCard p{
+      margin:0 0 14px;
+      color:var(--muted);
+      font-size:.86rem;
+      line-height:1.35;
     }
-
-    .checklist-item input[type="checkbox"] {
-      width: 22px;
-      height: 22px;
-      flex-shrink: 0;
-      cursor: pointer;
+    .checkItem{margin-bottom:10px}
+    .checkItem label{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      background:#f1f5f9;
+      border:1px solid #e2e8f0;
+      padding:12px;
+      border-radius:12px;
+      cursor:pointer;
+      font-size:.95rem;
+      line-height:1.2;
     }
-
-    .ref-footer {
-      text-align: center;
-      font-size: 0.7rem;
-      color: #94a3b8;
-      padding: 20px;
-      margin-top: 20px;
+    .checkItem input{
+      width:22px;
+      height:22px;
+      margin-top:2px;
+      flex:0 0 auto;
     }
+    .modalActions{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-top:14px;
+    }
+    .btnLight{background:#e2e8f0; color:#334155}
+    .btnPrimary{background:var(--primary); color:#fff}
   </style>
 </head>
 
 <body>
-  <div class="app-shell">
+  <div class="app">
     <header>
-      <h2 style="margin:0">TOKBASE</h2>
-      <p style="margin:5px 0 0; opacity:0.8; font-size:0.8rem">Protocolos CIATox v22.1</p>
+      <h1>TOKBASE</h1>
+      <p>Protocolos CIATox v22.1 — Doses tóxicas (referência)</p>
     </header>
 
-    <div class="content">
-      <!-- BUSCA -->
+    <main>
+      <!-- Busca -->
       <div class="card" id="searchCard">
         <span class="label">Substância</span>
-        <input type="text" id="search" placeholder="Buscar..." autocomplete="off">
+        <input id="search" type="text" placeholder="Buscar..." autocomplete="off" />
         <div id="results"></div>
-        <div id="drugInfo" style="margin-top:8px; font-size:0.75rem; color:#64748b;"></div>
+        <small id="drugInfo" class="hint"></small>
       </div>
 
-      <!-- CALCULADORA -->
+      <!-- Inputs -->
       <div class="card">
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+        <div class="grid2">
           <div>
             <span class="label">Peso (kg)</span>
-            <input type="number" id="weight" placeholder="0" oninput="calculate()" inputmode="decimal">
+            <input id="weight" type="number" placeholder="0" inputmode="decimal" />
           </div>
+
           <div>
-            <span class="label">Dose Total</span>
-            <input type="number" id="intake" placeholder="Total" oninput="calculate()" inputmode="decimal">
+            <span class="label" id="intakeLabel">Dose total</span>
+            <div class="gridDose">
+              <input id="intake" type="number" placeholder="Total" inputmode="decimal" />
+              <select id="intakeUnit" aria-label="Unidade da dose">
+                <option value="mg" selected>mg</option>
+                <option value="g">g</option>
+                <option value="mcg">mcg</option>
+              </select>
+            </div>
+            <small id="intakeHint" class="hint">
+              Escolha a unidade informada (mg, g ou mcg). O app converte automaticamente.
+            </small>
           </div>
         </div>
       </div>
 
-      <!-- PAINEL DE RESULTADO -->
-      <div id="result-panel">
-        <div id="resTitle" style="font-weight:800; font-size:1.2rem;"></div>
-        <div id="resDetail" style="font-size:0.9rem; margin-top:4px"></div>
+      <!-- Resultado -->
+      <div id="panel">
+        <div id="panelTitle" class="panelTitle"></div>
+        <div id="panelDetail" class="panelDetail"></div>
       </div>
 
-      <!-- CONDUTA -->
-      <div id="clinicalSection" style="display:none">
-        <div id="antidoteBox" style="display:none; background:#f5f3ff; border-left:4px solid #7c3aed; padding:15px; border-radius:8px; margin-bottom:15px; color:#4c1d95">
-          <small><b>ANTÍDOTO:</b></small> <span id="antidoteText"></span>
-        </div>
-        <div id="supportBox" style="display:none; background:#f0f9ff; border-left:4px solid #3b82f6; padding:15px; border-radius:8px; margin-bottom:15px; color:#1e40af">
-          <small><b>SUPORTE:</b></small> <span id="supportText"></span>
+      <!-- Clínica -->
+      <div id="clinical" style="display:none">
+        <div id="antBox" class="antBox">
+          <b>ANTÍDOTO:</b> <span id="antText"></span>
         </div>
 
-        <span class="label">Tempo de Ingestão</span>
-        <select id="timeWindow" onchange="updateProtocols()">
-          <option value="">Selecione o tempo...</option>
-          <option value="1">Menos de 1 hora</option>
-          <option value="2">Entre 1 e 2 horas</option>
-          <option value="4">Mais de 2 horas</option>
-        </select>
+        <div class="card">
+          <span class="label">Tempo de ingestão</span>
+          <select id="timeWindow">
+            <option value="">Selecione...</option>
+            <option value="1">Menos de 1 hora</option>
+            <option value="2">Entre 1 e 2 horas</option>
+            <option value="4">Mais de 2 horas</option>
+          </select>
 
-        <div id="buttonsArea" style="margin-top:10px"></div>
-        
-        <div style="margin-top:15px; font-size:0.85rem; color:#64748b;">
-          <small>Antídoto/suporte disponível apenas para algumas substâncias (em expansão).</small>
+          <div id="buttonsArea"></div>
+
+          <div style="margin-top:14px; font-size:.92rem">
+            <b>Suporte:</b> <span id="supportText" style="color:#475569"></span>
+          </div>
         </div>
       </div>
-    </div>
+    </main>
 
-    <div class="ref-footer">
-      <h3>Como usar:</h3>
-      <ol style="text-align: left; max-width: 300px; margin: 0 auto; padding-left: 20px;">
-        <li>Busque a substância e selecione.</li>
-        <li>Informe o peso e a dose total ingerida.</li>
-        <li>Avalie o risco e as condutas sugeridas.</li>
-      </ol>
-      <p style="margin-top: 15px;">Desenvolvido por @biaandrade_c</p>
-    </div>
+    <div class="footer">Desenvolvido por @biaandrade_c</div>
   </div>
 
-  <!-- MODAL DE CONTRAINDICAÇÕES -->
+  <!-- Modal -->
   <div id="ciModal" class="modal">
-    <div class="modal-content">
-      <h3 style="margin-top:0; color:var(--danger)">Contraindicações</h3>
-      <p style="font-size:0.8rem; color:#64748b; margin-bottom:15px">Se houver algum item presente, não realize o procedimento.</p>
-      
+    <div class="modalCard">
+      <h3>Contraindicações</h3>
+      <p>Se houver algum item presente, <b>não realize</b> o procedimento.</p>
       <div id="ciList"></div>
-
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:20px;">
-        <button class="btn" onclick="closeModal()" style="background:#e2e8f0; color:#475569; margin:0">Voltar</button>
-        <button class="btn" onclick="confirmProcedure()" style="background:var(--primary); color:white; margin:0">Confirmar</button>
+      <div class="modalActions">
+        <button class="btn btnLight" id="btnModalBack" type="button">Voltar</button>
+        <button class="btn btnPrimary" id="btnModalConfirm" type="button">Confirmar</button>
       </div>
     </div>
   </div>
+
+  <!-- Carrega a base de dados externa -->
+  <script src="./database.js"></script>
 
   <script>
-    // Base de dados extraída e normalizada do PDF "DOSES-TOXICAS-v22-1.pdf"
-    // Antídoto/suporte adicionados apenas para as substâncias especificadas.
-    const database = [
-      { n: "AAS", d: 100, unit: "mg", mv: "30 hs", ant: "Bicarbonato de Sódio", support: "Alcalinização urinária." },
-      { n: "Aciclovir", d: 80, unit: "mg", mv: "3 hs" },
-      { n: "Ácido Valpróico", d: 200, unit: "mg", mv: "15 hs" },
-      { n: "Alprazolam", d: 0.5, unit: "mg", mv: "12 hs" },
-      { n: "Amitriptilina", d: 3, unit: "mg", mv: "25 hs", ant: "Bicarbonato de Sódio", support: "ECG (QRS). Tratar convulsões." },
-      { n: "Amlodipina", d: 0.25, unit: "mg", mv: "40 hs" },
-      { n: "Amoxicilina", d: 250, unit: "mg", mv: "1.5 hs" },
-      { n: "Ampicilina", d: 250, unit: "mg", mv: "1.5 hs" },
-      { n: "Atenolol", d: 5, unit: "mg", mv: "7 hs", ant: "Glucagon / Insulina", support: "Monitorar hemodinâmica." },
-      { n: "Azitromicina", d: 50, unit: "mg", mv: "68 hs" },
-      { n: "Carbamazepina", d: 20, unit: "mg", mv: "20 hs", support: "Carvão seriado (MDAC)." },
-      { n: "Citalopram", d: 10, unit: "mg", mv: "35 hs" },
-      { n: "Clonazepam", d: 0.6, unit: "mg", mv: "40 hs", ant: "Flumazenil (Cuidado)", support: "Suporte respiratório." },
-      { n: "Clonidina", d: 0.01, unit: "mg", mv: "12 hs" },
-      { n: "Codeína", d: 0.5, unit: "mg", mv: "3 hs" },
-      { n: "Diazepam", d: 0.7, unit: "mg", mv: "48 hs", ant: "Flumazenil (Cuidado)", support: "Suporte ventilatório." },
-      { n: "Diclofenaco", d: 10, unit: "mg", mv: "2 hs" },
-      { n: "Difenidramina", d: 2, unit: "mg", mv: "9 hs" },
-      { n: "Digoxina", d: 20, unit: "mcg", mv: "40 hs", ant: "Fab Anti-Digoxina", support: "Monitorar K+ e ECG." },
-      { n: "Diltiazem", d: 1, unit: "mg", mv: "5 hs" },
-      { n: "Duloxetina", d: 5, unit: "mg", mv: "12 hs" },
-      { n: "Escitalopram", d: 5, unit: "mg", mv: "30 hs" },
-      { n: "Fenitoína", d: 20, unit: "mg", mv: "24 hs" },
-      { n: "Fenobarbital", d: 4, unit: "mg", mv: "5 dias", support: "Alcalinização urinária." },
-      { n: "Fentanil", d: 0.002, unit: "mg", mv: "7 hs" },
-      { n: "Fluoxetina", d: 10, unit: "mg", mv: "3 dias" },
-      { n: "Ibuprofeno", d: 100, unit: "mg", mv: "2 hs" },
-      { n: "Lítio", d: 2, unit: "mg", mv: "24 hs", noCharcoal: true, ant: "Hemodiálise", support: "Hidratação. Carvão ineficaz." },
-      { n: "Metformina", d: 50, unit: "mg", mv: "6 hs" },
-      { n: "Metoprolol", d: 1, unit: "mg", mv: "5 hs" },
-      { n: "Midazolam", d: 0.2, unit: "mg", mv: "3 hs" },
-      { n: "Morfina", d: 0.5, unit: "mg", mv: "4 hs" },
-      { n: "Paracetamol", d: 75, unit: "mg", mv: "3 hs", ant: "N-Acetilcisteína", support: "Nomograma em 4h." },
-      { n: "Paroxetina", d: 10, unit: "mg", mv: "24 hs" },
-      { n: "Piroxicam", d: 1, unit: "mg", mv: "50 hs" },
-      { n: "Prednisona", d: 5, unit: "mg", mv: "3 hs" },
-      { n: "Prometazina", d: 1, unit: "mg", mv: "12 hs" },
-      { n: "Quetiapina", d: 5, unit: "mg", mv: "7 hs" },
-      { n: "Ranitidina", d: 50, unit: "mg", mv: "3 hs" },
-      { n: "Risperidona", d: 0.5, unit: "mg", mv: "20 hs" },
-      { n: "Sertralina", d: 10, unit: "mg", mv: "26 hs" },
-      { n: "Sinvastatina", d: 10, unit: "mg", mv: "2 hs" },
-      { n: "Tramadol", d: 5, unit: "mg", mv: "6 hs" },
-      { n: "Venlafaxina", d: 5, unit: "mg", mv: "8 hs" },
-      { n: "Veramapil", d: 1, unit: "mg", mv: "6 hs" },
-      { n: "Zolpidem", d: 0.5, unit: "mg", mv: "3 hs" },
-      { n: "Amoxicilina + Clavulanato", d: 250, unit: "mg", mv: "1.5 hs" },
-      { n: "Cefalexina", d: 250, unit: "mg", mv: "1.5 hs" },
-      { n: "Ciprofloxacino", d: 50, unit: "mg", mv: "4 hs" },
-      { n: "Claritromicina", d: 50, unit: "mg", mv: "5 hs" },
-      { n: "Doxiciclina", d: 5, unit: "mg", mv: "18 hs" },
-      { n: "Levofloxacino", d: 50, unit: "mg", mv: "7 hs" },
-      { n: "Metronidazol", d: 50, unit: "mg", mv: "8 hs" },
-      { n: "Norfloxacino", d: 50, unit: "mg", mv: "4 hs" },
-      { n: "Sulfametoxazol + Trimetoprim", d: 50, unit: "mg", mv: "10 hs" },
-      { n: "Captopril", d: 1, unit: "mg", mv: "2 hs" },
-      { n: "Enalapril", d: 0.5, unit: "mg", mv: "11 hs" },
-      { n: "Losartana", d: 5, unit: "mg", mv: "2 hs" },
-      { n: "Valsartana", d: 5, unit: "mg", mv: "6 hs" },
-      { n: "Hidroclorotiazida", d: 5, unit: "mg", mv: "10 hs" },
-      { n: "Furosemida", d: 5, unit: "mg", mv: "2 hs" },
-      { n: "Espironolactona", d: 5, unit: "mg", mv: "15 hs" },
-      { n: "Anlodipino", d: 0.25, unit: "mg", mv: "40 hs" },
-      { n: "Nifedipino", d: 0.5, unit: "mg", mv: "3 hs" },
-      { n: "Propranolol", d: 1, unit: "mg", mv: "4 hs" },
-      { n: "Bisoprolol", d: 0.2, unit: "mg", mv: "11 hs" },
-      { n: "Carvedilol", d: 0.5, unit: "mg", mv: "8 hs" },
-      { n: "Clopidogrel", d: 5, unit: "mg", mv: "8 hs" },
-      { n: "Varfarina", d: 0.1, unit: "mg", mv: "40 hs" },
-      { n: "Rivaroxabana", d: 0.5, unit: "mg", mv: "9 hs" },
-      { n: "Apixabana", d: 0.25, unit: "mg", mv: "12 hs" },
-      { n: "Dabigatrana", d: 0.5, unit: "mg", mv: "14 hs" },
-      { n: "Insulina", d: 0.1, unit: "UI", mv: "6 hs" },
-      { n: "Glibenclamida", d: 0.1, unit: "mg", mv: "10 hs" },
-      { n: "Glimepirida", d: 0.1, unit: "mg", mv: "7 hs" },
-      { n: "Sitagliptina", d: 5, unit: "mg", mv: "12 hs" },
-      { n: "Saxagliptina", d: 0.5, unit: "mg", mv: "2.5 hs" },
-      { n: "Vildagliptina", d: 5, unit: "mg", mv: "3 hs" },
-      { n: "Linagliptina", d: 0.5, unit: "mg", mv: "12 hs" },
-      { n: "Empagliflozina", d: 0.5, unit: "mg", mv: "12 hs" },
-      { n: "Dapagliflozina", d: 0.5, unit: "mg", mv: "12 hs" },
-      { n: "Canagliflozina", d: 0.5, unit: "mg", mv: "10 hs" },
-      { n: "Levotiroxina", d: 0.005, unit: "mg", mv: "7 dias" },
-      { n: "Prednisolona", d: 5, unit: "mg", mv: "3 hs" },
-      { n: "Dexametasona", d: 0.5, unit: "mg", mv: "4 hs" },
-      { n: "Hidrocortisona", d: 5, unit: "mg", mv: "2 hs" },
-      { n: "Omeprazol", d: 5, unit: "mg", mv: "1.5 hs" },
-      { n: "Pantoprazol", d: 5, unit: "mg", mv: "1.5 hs" },
-      { n: "Lansoprazol", d: 5, unit: "mg", mv: "1.5 hs" },
-      { n: "Esomeprazol", d: 5, unit: "mg", mv: "1.5 hs" },
-      { n: "Domperidona", d: 0.5, unit: "mg", mv: "7 hs" },
-      { n: "Ondansetrona", d: 0.5, unit: "mg", mv: "4 hs" },
-      { n: "Bromoprida", d: 0.5, unit: "mg", mv: "3 hs" },
-      { n: "Metoclopramida", d: 0.5, unit: "mg", mv: "4 hs" },
-      { n: "Buscopan", d: 0.5, unit: "mg", mv: "2 hs" },
-      { n: "Dipirona", d: 50, unit: "mg", mv: "7 hs" },
-      { n: "Tramal", d: 5, unit: "mg", mv: "6 hs" },
-      { n: "Morfina", d: 0.5, unit: "mg", mv: "4 hs" },
-      { n: "Oxicodona", d: 0.5, unit: "mg", mv: "4 hs" },
-      { n: "Codeína", d: 0.5, unit: "mg", mv: "3 hs" },
-      { n: "Fentanil", d: 0.002, unit: "mg", mv: "7 hs" },
-      { n: "Naloxona", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Flumazenil", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Midazolam", d: 0.2, unit: "mg", mv: "3 hs" },
-      { n: "Lorazepam", d: 0.1, unit: "mg", mv: "15 hs" },
-      { n: "Clonazepam", d: 0.6, unit: "mg", mv: "40 hs" },
-      { n: "Diazepam", d: 0.7, unit: "mg", mv: "48 hs" },
-      { n: "Fenobarbital", d: 4, unit: "mg", mv: "5 dias" },
-      { n: "Fenitoína", d: 20, unit: "mg", mv: "24 hs" },
-      { n: "Carbamazepina", d: 20, unit: "mg", mv: "20 hs" },
-      { n: "Ácido Valpróico", d: 200, unit: "mg", mv: "15 hs" },
-      { n: "Topiramato", d: 5, unit: "mg", mv: "21 hs" },
-      { n: "Gabapentina", d: 50, unit: "mg", mv: "6 hs" },
-      { n: "Pregabalina", d: 5, unit: "mg", mv: "6 hs" },
-      { n: "Amitriptilina", d: 3, unit: "mg", mv: "25 hs" },
-      { n: "Nortriptilina", d: 3, unit: "mg", mv: "30 hs" },
-      { n: "Imipramina", d: 3, unit: "mg", mv: "20 hs" },
-      { n: "Clomipramina", d: 3, unit: "mg", mv: "30 hs" },
-      { n: "Fluoxetina", d: 10, unit: "mg", mv: "3 dias" },
-      { n: "Sertralina", d: 10, unit: "mg", mv: "26 hs" },
-      { n: "Paroxetina", d: 10, unit: "mg", mv: "24 hs" },
-      { n: "Citalopram", d: 10, unit: "mg", mv: "35 hs" },
-      { n: "Escitalopram", d: 5, unit: "mg", mv: "30 hs" },
-      { n: "Venlafaxina", d: 5, unit: "mg", mv: "8 hs" },
-      { n: "Duloxetina", d: 5, unit: "mg", mv: "12 hs" },
-      { n: "Bupropiona", d: 5, unit: "mg", mv: "20 hs" },
-      { n: "Mirtazapina", d: 1, unit: "mg", mv: "30 hs" },
-      { n: "Trazodona", d: 5, unit: "mg", mv: "7 hs" },
-      { n: "Quetiapina", d: 5, unit: "mg", mv: "7 hs" },
-      { n: "Risperidona", d: 0.5, unit: "mg", mv: "20 hs" },
-      { n: "Olanzapina", d: 0.5, unit: "mg", mv: "30 hs" },
-      { n: "Haloperidol", d: 0.5, unit: "mg", mv: "20 hs" },
-      { n: "Clorpromazina", d: 5, unit: "mg", mv: "30 hs" },
-      { n: "Lítio", d: 2, unit: "mg", mv: "24 hs", noCharcoal: true },
-      { n: "Digoxina", d: 20, unit: "mcg", mv: "40 hs" },
-      { n: "Amiodarona", d: 50, unit: "mg", mv: "50 dias" },
-      { n: "Sotalol", d: 5, unit: "mg", mv: "12 hs" },
-      { n: "Propafenona", d: 5, unit: "mg", mv: "6 hs" },
-      { n: "Flecainida", d: 1, unit: "mg", mv: "20 hs" },
-      { n: "Atenolol", d: 5, unit: "mg", mv: "7 hs" },
-      { n: "Metoprolol", d: 1, unit: "mg", mv: "5 hs" },
-      { n: "Propranolol", d: 1, unit: "mg", mv: "4 hs" },
-      { n: "Carvedilol", d: 0.5, unit: "mg", mv: "8 hs" },
-      { n: "Bisoprolol", d: 0.2, unit: "mg", mv: "11 hs" },
-      { n: "Anlodipino", d: 0.25, unit: "mg", mv: "40 hs" },
-      { n: "Nifedipino", d: 0.5, unit: "mg", mv: "3 hs" },
-      { n: "Diltiazem", d: 1, unit: "mg", mv: "5 hs" },
-      { n: "Verapamil", d: 1, unit: "mg", mv: "6 hs" },
-      { n: "Captopril", d: 1, unit: "mg", mv: "2 hs" },
-      { n: "Enalapril", d: 0.5, unit: "mg", mv: "11 hs" },
-      { n: "Losartana", d: 5, unit: "mg", mv: "2 hs" },
-      { n: "Valsartana", d: 5, unit: "mg", mv: "6 hs" },
-      { n: "Hidroclorotiazida", d: 5, unit: "mg", mv: "10 hs" },
-      { n: "Furosemida", d: 5, unit: "mg", mv: "2 hs" },
-      { n: "Espironolactona", d: 5, unit: "mg", mv: "15 hs" },
-      { n: "Clonidina", d: 0.01, unit: "mg", mv: "12 hs" },
-      { n: "Metildopa", d: 5, unit: "mg", mv: "2 hs" },
-      { n: "Prazosina", d: 0.1, unit: "mg", mv: "3 hs" },
-      { n: "Terazosina", d: 0.1, unit: "mg", mv: "12 hs" },
-      { n: "Doxazosina", d: 0.1, unit: "mg", mv: "22 hs" },
-      { n: "Sildenafila", d: 0.5, unit: "mg", mv: "4 hs" },
-      { n: "Tadalafila", d: 0.5, unit: "mg", mv: "17 hs" },
-      { n: "Vardenafila", d: 0.1, unit: "mg", mv: "4 hs" },
-      { n: "Acetaminofeno", d: 75, unit: "mg", mv: "3 hs" },
-      { n: "AAS", d: 100, unit: "mg", mv: "30 hs" },
-      { n: "Ibuprofeno", d: 100, unit: "mg", mv: "2 hs" },
-      { n: "Naproxeno", d: 50, unit: "mg", mv: "15 hs" },
-      { n: "Diclofenaco", d: 10, unit: "mg", mv: "2 hs" },
-      { n: "Piroxicam", d: 1, unit: "mg", mv: "50 hs" },
-      { n: "Meloxicam", d: 1, unit: "mg", mv: "20 hs" },
-      { n: "Nimesulida", d: 5, unit: "mg", mv: "3 hs" },
-      { n: "Celecoxibe", d: 5, unit: "mg", mv: "11 hs" },
-      { n: "Etodolaco", d: 50, unit: "mg", mv: "7 hs" },
-      { n: "Indometacina", d: 1, unit: "mg", mv: "4 hs" },
-      { n: "Cetoprofeno", d: 5, unit: "mg", mv: "2 hs" },
-      { n: "Tenoxicam", d: 1, unit: "mg", mv: "70 hs" },
-      { n: "Dipirona", d: 50, unit: "mg", mv: "7 hs" },
-      { n: "Paracetamol", d: 75, unit: "mg", mv: "3 hs" },
-      { n: "Metamizol", d: 50, unit: "mg", mv: "7 hs" },
-      { n: "Tramadol", d: 5, unit: "mg", mv: "6 hs" },
-      { n: "Codeína", d: 0.5, unit: "mg", mv: "3 hs" },
-      { n: "Morfina", d: 0.5, unit: "mg", mv: "4 hs" },
-      { n: "Oxicodona", d: 0.5, unit: "mg", mv: "4 hs" },
-      { n: "Fentanil", d: 0.002, unit: "mg", mv: "7 hs" },
-      { n: "Hidrocodona", d: 0.5, unit: "mg", mv: "4 hs" },
-      { n: "Buprenorfina", d: 0.01, unit: "mg", mv: "37 hs" },
-      { n: "Naloxona", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Naltrexona", d: 0.5, unit: "mg", mv: "4 hs" },
-      { n: "Cafeína", d: 150, unit: "mg", mv: "5 hs" },
-      { n: "Teofilina", d: 20, unit: "mg", mv: "8 hs" },
-      { n: "Aminofilina", d: 20, unit: "mg", mv: "8 hs" },
-      { n: "Salbutamol", d: 0.5, unit: "mg", mv: "4 hs" },
-      { n: "Fenoterol", d: 0.05, unit: "mg", mv: "3 hs" },
-      { n: "Formoterol", d: 0.005, unit: "mg", mv: "10 hs" },
-      { n: "Budesonida", d: 0.5, unit: "mg", mv: "3 hs" },
-      { n: "Fluticasona", d: 0.5, unit: "mg", mv: "14 hs" },
-      { n: "Montelucaste", d: 0.5, unit: "mg", mv: "5 hs" },
-      { n: "Zafirlucaste", d: 0.5, unit: "mg", mv: "10 hs" },
-      { n: "Omalizumabe", d: 0.5, unit: "mg", mv: "26 dias" },
-      { n: "Adrenalina", d: 0.01, unit: "mg", mv: "5 min" },
-      { n: "Noradrenalina", d: 0.01, unit: "mg", mv: "2 min" },
-      { n: "Dopamina", d: 0.5, unit: "mg", mv: "2 min" },
-      { n: "Dobutamina", d: 0.5, unit: "mg", mv: "2 min" },
-      { n: "Isoproterenol", d: 0.005, unit: "mg", mv: "2 min" },
-      { n: "Fenilefrina", d: 0.05, unit: "mg", mv: "20 min" },
-      { n: "Efedrina", d: 0.5, unit: "mg", mv: "4 hs" },
-      { n: "Pseudoefedrina", d: 0.5, unit: "mg", mv: "6 hs" },
-      { n: "Cocaína", d: 0.5, unit: "mg", mv: "1 hs" },
-      { n: "Anfetamina", d: 0.5, unit: "mg", mv: "12 hs" },
-      { n: "Metanfetamina", d: 0.5, unit: "mg", mv: "12 hs" },
-      { n: "MDMA", d: 0.5, unit: "mg", mv: "8 hs" },
-      { n: "LSD", d: 0.0001, unit: "mg", mv: "3 hs" },
-      { n: "Psilocibina", d: 0.01, unit: "mg", mv: "3 hs" },
-      { n: "Maconha", d: 0.5, unit: "mg", mv: "3 dias" },
-      { n: "Álcool Etílico", d: 500, unit: "mg", mv: "4 hs" },
-      { n: "Metanol", d: 100, unit: "mg", mv: "3 hs" },
-      { n: "Etilenoglicol", d: 100, unit: "mg", mv: "3 hs" },
-      { n: "Isopropanol", d: 500, unit: "mg", mv: "7 hs" },
-      { n: "Acetona", d: 500, unit: "mg", mv: "20 hs" },
-      { n: "Tolueno", d: 500, unit: "mg", mv: "10 hs" },
-      { n: "Benzeno", d: 500, unit: "mg", mv: "10 hs" },
-      { n: "Xileno", d: 500, unit: "mg", mv: "10 hs" },
-      { n: "Naftaleno", d: 50, unit: "mg", mv: "10 hs" },
-      { n: "Cianeto", d: 1, unit: "mg", mv: "1 hs" },
-      { n: "Monóxido de Carbono", d: 0.01, unit: "mg", mv: "5 hs" },
-      { n: "Arsênico", d: 1, unit: "mg", mv: "10 hs" },
-      { n: "Chumbo", d: 1, unit: "mg", mv: "30 dias" },
-      { n: "Mercúrio", d: 1, unit: "mg", mv: "60 dias" },
-      { n: "Cádmio", d: 1, unit: "mg", mv: "100 dias" },
-      { n: "Talio", d: 1, unit: "mg", mv: "3 dias" },
-      { n: "Ferro", d: 20, unit: "mg", mv: "6 hs" },
-      { n: "Cobre", d: 5, unit: "mg", mv: "10 hs" },
-      { n: "Zinco", d: 50, unit: "mg", mv: "10 hs" },
-      { n: "Flúor", d: 5, unit: "mg", mv: "10 hs" },
-      { n: "Iodo", d: 5, unit: "mg", mv: "10 hs" },
-      { n: "Boro", d: 50, unit: "mg", mv: "10 hs" },
-      { n: "Bário", d: 50, unit: "mg", mv: "10 hs" },
-      { n: "Estrôncio", d: 50, unit: "mg", mv: "10 hs" },
-      { n: "Césio", d: 50, unit: "mg", mv: "10 hs" },
-      { n: "Tálio", d: 1, unit: "mg", mv: "3 dias" },
-      { n: "Paraquat", d: 10, unit: "mg", mv: "24 hs" },
-      { n: "Glifosato", d: 500, unit: "mg", mv: "10 hs" },
-      { n: "Organofosforados", d: 1, unit: "mg", mv: "24 hs" },
-      { n: "Carbamatos", d: 1, unit: "mg", mv: "12 hs" },
-      { n: "Piretróides", d: 50, unit: "mg", mv: "12 hs" },
-      { n: "Warfarina", d: 0.1, unit: "mg", mv: "40 hs" },
-      { n: "Super-Warfarina", d: 0.01, unit: "mg", mv: "60 dias" },
-      { n: "Estricnina", d: 0.1, unit: "mg", mv: "10 hs" },
-      { n: "Cianeto", d: 1, unit: "mg", mv: "1 hs" },
-      { n: "Monóxido de Carbono", d: 0.01, unit: "mg", mv: "5 hs" },
-      { n: "Sulfeto de Hidrogênio", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Cloro", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Amônia", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Dióxido de Enxofre", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Óxidos de Nitrogênio", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Ozônio", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Fosgênio", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Gás Mostarda", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Sarin", d: 0.0001, unit: "mg", mv: "1 hs" },
-      { n: "VX", d: 0.00001, unit: "mg", mv: "1 hs" },
-      { n: "Ricino", d: 0.001, unit: "mg", mv: "24 hs" },
-      { n: "Botulínica", d: 0.000001, unit: "mg", mv: "30 dias" },
-      { n: "Tetrodotoxina", d: 0.0001, unit: "mg", mv: "6 hs" },
-      { n: "Saxitoxina", d: 0.0001, unit: "mg", mv: "6 hs" },
-      { n: "Ciguatoxina", d: 0.0001, unit: "mg", mv: "7 dias" },
-      { n: "Aconitina", d: 0.001, unit: "mg", mv: "6 hs" },
-      { n: "Colchicina", d: 0.1, unit: "mg", mv: "20 hs" },
-      { n: "Cicuta", d: 1, unit: "mg", mv: "6 hs" },
-      { n: "Beladona", d: 1, unit: "mg", mv: "6 hs" },
-      { n: "Estramônio", d: 1, unit: "mg", mv: "6 hs" },
-      { n: "Cogumelos (Amanita)", d: 1, unit: "mg", mv: "12 hs" },
-      { n: "Cogumelos (Psilocibina)", d: 0.01, unit: "mg", mv: "3 hs" },
-      { n: "Aranha Marrom", d: 0.01, unit: "mg", mv: "24 hs" },
-      { n: "Aranha Viúva Negra", d: 0.01, unit: "mg", mv: "24 hs" },
-      { n: "Escorpião Amarelo", d: 0.01, unit: "mg", mv: "24 hs" },
-      { n: "Serpente Coral", d: 0.01, unit: "mg", mv: "24 hs" },
-      { n: "Serpente Jararaca", d: 0.01, unit: "mg", mv: "24 hs" },
-      { n: "Serpente Cascavel", d: 0.01, unit: "mg", mv: "24 hs" },
-      { n: "Serpente Surucucu", d: 0.01, unit: "mg", mv: "24 hs" },
-      { n: "Abelha", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Vespa", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Formiga", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Ácido Fluorídrico", d: 0.1, unit: "mg", mv: "1 hs" },
-      { n: "Ácido Clorídrico", d: 0.1, unit: "mg", mv: "1 hs" },
-      { n: "Ácido Sulfúrico", d: 0.1, unit: "mg", mv: "1 hs" },
-      { n: "Hidróxido de Sódio", d: 0.1, unit: "mg", mv: "1 hs" },
-      { n: "Hidróxido de Potássio", d: 0.1, unit: "mg", mv: "1 hs" },
-      { n: "Hipoclorito de Sódio", d: 0.1, unit: "mg", mv: "1 hs" },
-      { n: "Permanganato de Potássio", d: 0.1, unit: "mg", mv: "1 hs" },
-      { n: "Peróxido de Hidrogênio", d: 0.1, unit: "mg", mv: "1 hs" },
-      { n: "Etanol", d: 500, unit: "mg", mv: "4 hs" },
-      { n: "Metanol", d: 100, unit: "mg", mv: "3 hs" },
-      { n: "Etilenoglicol", d: 100, unit: "mg", mv: "3 hs" },
-      { n: "Isopropanol", d: 500, unit: "mg", mv: "7 hs" },
-      { n: "Acetona", d: 500, unit: "mg", mv: "20 hs" },
-      { n: "Tolueno", d: 500, unit: "mg", mv: "10 hs" },
-      { n: "Benzeno", d: 500, unit: "mg", mv: "10 hs" },
-      { n: "Xileno", d: 500, unit: "mg", mv: "10 hs" },
-      { n: "Naftaleno", d: 50, unit: "mg", mv: "10 hs" },
-      { n: "Querosene", d: 500, unit: "mg", mv: "10 hs" },
-      { n: "Gasolina", d: 500, unit: "mg", mv: "10 hs" },
-      { n: "Diesel", d: 500, unit: "mg", mv: "10 hs" },
-      { n: "Óleo Mineral", d: 500, unit: "mg", mv: "10 hs" },
-      { n: "Parafina", d: 500, unit: "mg", mv: "10 hs" },
-      { n: "Solventes Orgânicos", d: 500, unit: "mg", mv: "10 hs" },
-      { n: "Thinner", d: 500, unit: "mg", mv: "10 hs" },
-      { n: "Aguarrás", d: 500, unit: "mg", mv: "10 hs" },
-      { n: "Removedor de Tinta", d: 500, unit: "mg", mv: "10 hs" },
-      { n: "Cola de Sapateiro", d: 500, unit: "mg", mv: "10 hs" },
-      { n: "Gás de Cozinha", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Gás Natural", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Gás Carbônico", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Gás Hélio", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Gás Nitrogênio", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Gás Oxigênio", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Gás Argônio", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Gás Xenônio", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Gás Criptônio", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Gás Neônio", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Gás Radônio", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Gás Flúor", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Gás Cloro", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Gás Bromo", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Gás Iodo", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Gás Ozônio", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Gás Fosgênio", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Gás Mostarda", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Gás Sarin", d: 0.0001, unit: "mg", mv: "1 hs" },
-      { n: "Gás VX", d: 0.00001, unit: "mg", mv: "1 hs" },
-      { n: "Gás Ricino", d: 0.001, unit: "mg", mv: "24 hs" },
-      { n: "Gás Botulínica", d: 0.000001, unit: "mg", mv: "30 dias" },
-      { n: "Gás Tetrodotoxina", d: 0.0001, unit: "mg", mv: "6 hs" },
-      { n: "Gás Saxitoxina", d: 0.0001, unit: "mg", mv: "6 hs" },
-      { n: "Gás Ciguatoxina", d: 0.0001, unit: "mg", mv: "7 dias" },
-      { n: "Gás Aconitina", d: 0.001, unit: "mg", mv: "6 hs" },
-      { n: "Gás Colchicina", d: 0.1, unit: "mg", mv: "20 hs" },
-      { n: "Gás Cicuta", d: 1, unit: "mg", mv: "6 hs" },
-      { n: "Gás Beladona", d: 1, unit: "mg", mv: "6 hs" },
-      { n: "Gás Estramônio", d: 1, unit: "mg", mv: "6 hs" },
-      { n: "Gás Cogumelos (Amanita)", d: 1, unit: "mg", mv: "12 hs" },
-      { n: "Gás Cogumelos (Psilocibina)", d: 0.01, unit: "mg", mv: "3 hs" },
-      { n: "Gás Aranha Marrom", d: 0.01, unit: "mg", mv: "24 hs" },
-      { n: "Gás Aranha Viúva Negra", d: 0.01, unit: "mg", mv: "24 hs" },
-      { n: "Gás Escorpião Amarelo", d: 0.01, unit: "mg", mv: "24 hs" },
-      { n: "Gás Serpente Coral", d: 0.01, unit: "mg", mv: "24 hs" },
-      { n: "Gás Serpente Jararaca", d: 0.01, unit: "mg", mv: "24 hs" },
-      { n: "Gás Serpente Cascavel", d: 0.01, unit: "mg", mv: "24 hs" },
-      { n: "Gás Serpente Surucucu", d: 0.01, unit: "mg", mv: "24 hs" },
-      { n: "Gás Abelha", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Gás Vespa", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Gás Formiga", d: 0.01, unit: "mg", mv: "1 hs" },
-      { n: "Gás Ácido Fluorídrico", d: 0.1, unit: "mg", mv: "1 hs" },
-      { n: "Gás Ácido Clorídrico", d: 0.1, unit: "mg", mv: "1 hs" },
-      { n: "Gás Ácido Sulfúrico", d: 0.1, unit: "mg", mv: "1 hs" },
-      { n: "Gás Hidróxido de Sódio", d: 0.1, unit: "mg", mv: "1 hs" },
-      { n: "Gás Hidróxido de Potássio", d: 0.1, unit: "mg", mv: "1 hs" },
-      { n: "Gás Hipoclorito de Sódio", d: 0.1, unit: "mg", mv: "1 hs" },
-      { n: "Gás Permanganato de Potássio", d: 0.1, unit: "mg", mv: "1 hs" },
-      { n: "Gás Peróxido de Hidrogênio", d: 0.1, unit: "mg", mv: "1 hs" }
-    ];
+    // --- PWA: registra Service Worker ---
+    (function registerSW(){
+      if (!('serviceWorker' in navigator)) return;
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js').catch(()=>{});
+      });
+    })();
 
+    // --- UI / Estado ---
     let selectedDrug = null;
-    let currentProcedure = '';
-    let searchTimeout;
+    let currentProcedure = "";
 
-    // Função de debounce para a busca
-    function debounce(func, delay) {
-      return function(...args) {
-        const context = this;
-        clearTimeout(searchTimeout);
-        searchTimeout = setTimeout(() => func.apply(context, args), delay);
-      };
+    const el = (id) => document.getElementById(id);
+
+    const searchInput = el('search');
+    const resultsBox = el('results');
+    const drugInfo = el('drugInfo');
+    const weightInput = el('weight');
+    const intakeInput = el('intake');
+    const intakeUnit = el('intakeUnit');
+    const intakeHint = el('intakeHint');
+    const timeWindow = el('timeWindow');
+
+    // --- Helpers de unidade ---
+    function getDoseMg() {
+      const value = parseFloat(intakeInput.value);
+      const unit = (intakeUnit.value || 'mg').toLowerCase();
+      if (!value || isNaN(value)) return null;
+      if (unit === 'g') return value * 1000;
+      if (unit === 'mcg') return value / 1000;
+      return value;
     }
 
-    function searchData() {
-      const term = document.getElementById('search').value.toLowerCase();
-      const res = document.getElementById('results');
-      res.innerHTML = '';
-      if (term.length < 2) { res.style.display = 'none'; return; }
+    function expectedUnitFromDrug(drug) {
+      const u = (drug?.unit || 'mg').toLowerCase();
+      return (u === 'mcg') ? 'mcg' : 'mg';
+    }
 
-      const filtered = database.filter(d => d.n.toLowerCase().includes(term));
-      
-      // Limita a 30 resultados para performance
-      filtered.slice(0, 30).forEach(d => {
+    function updateUnitUIForDrug(drug) {
+      const expected = expectedUnitFromDrug(drug);
+
+      // Sugere unidade no seletor
+      intakeUnit.value = expected;
+
+      if (expected === 'mcg') {
+        intakeHint.textContent = 'Esta substância usa limiar em mcg/kg. Preferencialmente informe a dose em mcg (ou use mg/g que o app converte).';
+      } else {
+        intakeHint.textContent = 'Esta substância usa limiar em mg/kg. Preferencialmente informe a dose em mg (ou use g/mcg que o app converte).';
+      }
+    }
+
+    // --- Busca (debounce) ---
+    let debounceTimer = null;
+    const MAX_RESULTS = 30;
+
+    function renderResults(items) {
+      resultsBox.innerHTML = '';
+      if (!items.length) {
+        resultsBox.style.display = 'none';
+        return;
+      }
+
+      items.slice(0, MAX_RESULTS).forEach(d => {
         const div = document.createElement('div');
         div.className = 'opt';
         div.textContent = d.n;
-        div.onclick = () => {
-          selectedDrug = d;
-          document.getElementById('search').value = d.n;
-          document.getElementById('drugInfo').textContent = `Dose tóxica: ${d.d}${d.unit||'mg'}/kg | Meia-vida: ${d.mv}`;
-          res.style.display = 'none';
-          calculate();
-        };
-        res.appendChild(div);
+        div.onclick = () => selectDrug(d);
+        resultsBox.appendChild(div);
       });
-      res.style.display = filtered.length ? 'block' : 'none';
+
+      resultsBox.style.display = 'block';
     }
 
-    // Aplica debounce à função de busca
-    document.getElementById('search').oninput = debounce(searchData, 150);
+    function selectDrug(d) {
+      selectedDrug = d;
+      searchInput.value = d.n;
 
+      const unitPerKg = (d.unit || 'mg').toLowerCase();
+      drugInfo.textContent = `Dose tóxica: ${d.d} ${unitPerKg}/kg | Meia-vida: ${d.mv || '-'}`;
+
+      updateUnitUIForDrug(d);
+
+      // Evita cálculo com dose anterior de outra droga
+      intakeInput.value = '';
+      el('panel').style.display = 'none';
+      el('clinical').style.display = 'none';
+
+      resultsBox.style.display = 'none';
+      calculate();
+    }
+
+    function searchData() {
+      const term = searchInput.value.trim().toLowerCase();
+      if (term.length < 2) {
+        resultsBox.style.display = 'none';
+        return;
+      }
+      // Acessa a base de dados globalmente definida em database.js
+      const filtered = window.database.filter(d => d.n.toLowerCase().includes(term));
+      filtered.sort((a, b) => a.n.localeCompare(b.n)); // Ordena alfabeticamente
+      renderResults(filtered);
+    }
+
+    searchInput.addEventListener('input', () => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(searchData, 150);
+    });
+
+    // Fecha resultados ao clicar fora
+    document.addEventListener('click', (e) => {
+      const card = el('searchCard');
+      if (!card.contains(e.target)) resultsBox.style.display = 'none';
+    });
+
+    // --- Cálculo / Clínica ---
     function calculate() {
       if (!selectedDrug) return;
-      const w = parseFloat(document.getElementById('weight').value);
-      const i = parseFloat(document.getElementById('intake').value);
-      const panel = document.getElementById('result-panel');
-      const clinical = document.getElementById('clinicalSection');
 
-      if (!w || isNaN(i)) { panel.style.display = 'none'; clinical.style.display = 'none'; return; }
+      const w = parseFloat(weightInput.value);
+      const doseMg = getDoseMg();
+
+      const panel = el('panel');
+      const clinical = el('clinical');
+
+      if (!w || isNaN(w) || doseMg === null) {
+        panel.style.display = 'none';
+        clinical.style.display = 'none';
+        return;
+      }
+
+      // Limiar em mg/kg:
+      // - Se o PDF estiver em ug/kg, no banco isso entra como unit:"mcg" e convertemos p/ mg/kg dividindo por 1000
+      const isMcgPerKg = (selectedDrug.unit || 'mg').toLowerCase() === 'mcg';
+      const toxicPerKgMg = isMcgPerKg ? (selectedDrug.d / 1000) : selectedDrug.d;
+      const limitMg = toxicPerKgMg * w;
 
       panel.style.display = 'block';
-      const limit = selectedDrug.d * w;
 
-      if (i >= limit) {
-        panel.className = 'bg-toxic';
-        document.getElementById('resTitle').textContent = "RISCO TÓXICO";
-        document.getElementById('resDetail').textContent = `Dose ingerida acima do limite (${limit.toFixed(1)}${selectedDrug.unit||'mg'}).`;
+      if (doseMg >= limitMg) {
+        panel.className = 'toxic';
+        el('panelTitle').textContent = 'RISCO TÓXICO';
+        el('panelDetail').textContent = `Dose ingerida: ${doseMg.toFixed(2)} mg | Limiar: ${limitMg.toFixed(2)} mg`;
         clinical.style.display = 'block';
-        
-        // Exibe antídoto/suporte se existirem
-        const antidoteBox = document.getElementById('antidoteBox');
-        const supportBox = document.getElementById('supportBox');
+
+        // Antídoto / suporte (somente quando houver)
         if (selectedDrug.ant) {
-          antidoteBox.style.display = 'block';
-          document.getElementById('antidoteText').textContent = selectedDrug.ant;
+          el('antBox').style.display = 'block';
+          el('antText').textContent = selectedDrug.ant;
         } else {
-          antidoteBox.style.display = 'none';
-        }
-        if (selectedDrug.support) {
-          supportBox.style.display = 'block';
-          document.getElementById('supportText').textContent = selectedDrug.support;
-        } else {
-          supportBox.style.display = 'none';
+          el('antBox').style.display = 'none';
         }
 
+        el('supportText').textContent = selectedDrug.support || 'Suporte clínico conforme avaliação e protocolos locais.';
         updateProtocols();
       } else {
-        panel.className = 'bg-safe';
-        document.getElementById('resTitle').textContent = "DOSE SEGURA";
-        document.getElementById('resDetail').textContent = "Abaixo do limiar de toxicidade.";
+        panel.className = 'safe';
+        el('panelTitle').textContent = 'DOSE SEGURA';
+        el('panelDetail').textContent = `Dose ingerida: ${doseMg.toFixed(2)} mg | Limiar: ${limitMg.toFixed(2)} mg`;
         clinical.style.display = 'none';
       }
     }
 
+    weightInput.addEventListener('input', calculate);
+    intakeInput.addEventListener('input', calculate);
+    intakeUnit.addEventListener('change', calculate);
+    timeWindow.addEventListener('change', updateProtocols);
+
     function updateProtocols() {
-      const time = document.getElementById('timeWindow').value;
-      const area = document.getElementById('buttonsArea');
+      const time = timeWindow.value;
+      const area = el('buttonsArea');
       area.innerHTML = '';
+
       if (!time || !selectedDrug) return;
 
-      // Lógica para Carvão Ativado
-      if (time <= 2 && !selectedDrug.noCharcoal) { // Carvão se tempo <= 2h E não contraindicado por substância
-        area.innerHTML += `<button class="btn btn-charcoal" onclick="openModal('charcoal')">🌑 Avaliar Carvão Ativado</button>`;
+      if (selectedDrug.noCharcoal) {
+        area.innerHTML = `<div style="margin-top:10px;background:#fef2f2;color:#991b1b;padding:12px;border-radius:12px;border:1px solid #fecaca;text-align:center;font-weight:800">
+          ⚠️ Carvão ativado não é eficaz / não indicado (conforme cadastro).
+        </div>`;
+        return;
       }
-      // Lógica para Lavagem Gástrica
-      if (time == 1) { // Lavagem Gástrica somente se tempo < 1h
-        area.innerHTML += `<button class="btn btn-lavage" onclick="openModal('lavage')">💧 Avaliar Lavagem Gástrica</button>`;
+
+      if (Number(time) <= 2) {
+        area.innerHTML += `<button class="btn btnChar" type="button" onclick="openModal('charcoal')">🌑 Avaliar Carvão Ativado</button>`;
+      }
+      if (Number(time) === 1) {
+        area.innerHTML += `<button class="btn btnLav" type="button" onclick="openModal('lavage')">💧 Avaliar Lavagem Gástrica</button>`;
       }
     }
 
+    // --- Modal contraindicações ---
     const ciData = {
       charcoal: [
-        'Rebaixamento do nível de consciência (sem IOT)',
-        'Íleo paralítico ou obstrução',
-        'Ingestão de cáusticos ou hidrocarbonetos'
+        'Rebaixamento do nível de consciência (sem via aérea protegida)',
+        'Íleo paralítico ou obstrução intestinal',
+        'Ingestão de cáusticos/corrosivos',
+        'Ingestão de hidrocarbonetos (alto risco de aspiração)'
       ],
       lavage: [
         'Via aérea desprotegida',
         'Ingestão de cáusticos/corrosivos',
-        'Ingestão de hidrocarbonetos (risco aspiração)'
+        'Ingestão de hidrocarbonetos (risco de aspiração)'
       ]
     };
 
     function openModal(type) {
       currentProcedure = type;
-      const list = document.getElementById('ciList');
+      const list = el('ciList');
       list.innerHTML = '';
-      ciData[type].forEach((txt, idx) => {
-        const item = document.createElement('div');
-        item.className = 'checklist-item';
-        item.innerHTML = `
-          <label>
-            <input type="checkbox" class="ci-check">
-            <span>${txt}</span>
-          </label>
-        `;
-        list.appendChild(item);
+
+      (ciData[type] || []).forEach((txt) => {
+        const wrap = document.createElement('div');
+        wrap.className = 'checkItem';
+        wrap.innerHTML = `<label><input type="checkbox" class="ci-check"><span>${txt}</span></label>`;
+        list.appendChild(wrap);
       });
-      document.getElementById('ciModal').style.display = 'flex';
+
+      el('ciModal').style.display = 'flex';
     }
 
-    function closeModal() { document.getElementById('ciModal').style.display = 'none'; }
+    function closeModal() {
+      el('ciModal').style.display = 'none';
+    }
 
     function confirmProcedure() {
       const checks = document.querySelectorAll('.ci-check');
       let blocked = false;
       checks.forEach(c => { if (c.checked) blocked = true; });
 
-      const area = document.getElementById('buttonsArea');
+      const area = el('buttonsArea');
       closeModal();
 
       if (blocked) {
-        area.innerHTML = `<div style="background:#fef2f2; color:#b91c1c; padding:15px; border-radius:10px; border:1px solid #fecaca; text-align:center">
-          <b>⛔ PROCEDIMENTO CONTRAINDICADO</b><br><small>Risco clínico identificado.</small>
+        area.innerHTML = `<div style="margin-top:12px;background:#fef2f2;color:#991b1b;padding:14px;border-radius:12px;border:1px solid #fecaca;text-align:center">
+          <b>⛔ PROCEDIMENTO CONTRAINDICADO</b><br><small>Há contraindicação marcada.</small>
         </div>`;
-      } else {
-        const w = parseFloat(document.getElementById('weight').value);
-        const dose = Math.min(50, w); // 1g/kg até 50g
-        const msg = currentProcedure === 'charcoal' 
-          ? `<b>✅ CARVÃO INDICADO</b><br>Dose: <b>${dose.toFixed(0)}g</b> (1g/kg até 50g).`
-          : `<b>✅ LAVAGEM INDICADA</b><br>Realizar técnica padrão com SNG/SOG.`;
-        
-        area.innerHTML = `<div style="background:#f0fdf4; color:#166534; padding:15px; border-radius:10px; border:1px solid #bbf7d0; text-align:center">
-          ${msg}
+        return;
+      }
+
+      const w = parseFloat(weightInput.value);
+      const doseChar = Math.min(50, w || 0);
+
+      if (currentProcedure === 'charcoal') {
+        area.innerHTML = `<div style="margin-top:12px;background:#f0fdf4;color:#166534;padding:14px;border-radius:12px;border:1px solid #bbf7d0;text-align:center">
+          <b>✅ CARVÃO POTENCIALMENTE INDICADO</b><br>
+          <small>Dose: <b>${doseChar.toFixed(0)} g</b> (1 g/kg até 50 g), conforme avaliação clínica.</small>
         </div>
-        <a href="https://open.spotify.com/episode/62MCHkjBz50b9khDrcOwEe?si=v8U2Sc57ToSJiaYqlOl1fw" target="_blank" class="btn btn-spotify">🎧 Ouvir Protocolo no Spotify</a>`;
+        <a class="btn btnSpotify" target="_blank" href="https://open.spotify.com/episode/62MCHkjBz50b9khDrcOwEe?si=v8U2Sc57ToSJiaYqlOl1fw">🎧 Ouvir Protocolo no Spotify</a>`;
+      } else {
+        area.innerHTML = `<div style="margin-top:12px;background:#f0fdf4;color:#166534;padding:14px;border-radius:12px;border:1px solid #bbf7d0;text-align:center">
+          <b>✅ LAVAGEM POTENCIALMENTE INDICADA</b><br>
+          <small>Considerar técnica conforme protocolo local e proteção de via aérea.</small>
+        </div>
+        <a class="btn btnSpotify" target="_blank" href="https://open.spotify.com/episode/62MCHkjBz50b9khDrcOwEe?si=v8U2Sc57ToSJiaYqlOl1fw">🎧 Ouvir Protocolo no Spotify</a>`;
       }
     }
 
-    // Service Worker Registration
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('service-worker.js')
-          .then(registration => {
-            console.log('Service Worker registered:', registration);
-          })
-          .catch(error => {
-            console.error('Service Worker registration failed:', error);
-          });
-      });
-    }
+    el('btnModalBack').addEventListener('click', closeModal);
+    el('btnModalConfirm').addEventListener('click', confirmProcedure);
+
+    // Fecha modal ao clicar fora
+    el('ciModal').addEventListener('click', (e) => {
+      if (e.target.id === 'ciModal') closeModal();
+    });
   </script>
 </body>
 </html>
