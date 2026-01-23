@@ -1,5 +1,10 @@
-const CACHE_NAME = "toxbasic-cache-v1";
-const ASSETS = ["/", "/index.html", "/manifest.json", "/service-worker.js"];
+const CACHE_NAME = "tokbase-v22-1-pwa-cache-1";
+const ASSETS = [
+  "/",
+  "/index.html",
+  "/manifest.json",
+  "/service-worker.js"
+];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
