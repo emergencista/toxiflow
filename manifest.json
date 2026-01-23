@@ -1,16 +1,22 @@
 {
-  "name": "ToxBasic",
-  "short_name": "ToxBasic",
+  "name": "TOKBASE | CIATox",
+  "short_name": "TOKBASE",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#0b1220",
-  "theme_color": "#0f172a",
-  "description": "Ferramenta PWA para suporte toxicológico com funcionamento offline após o primeiro acesso.",
+  "background_color": "#f8fafc",
+  "theme_color": "#1e3a8a",
+  "description": "Calculadora TOKBASE | CIATox - Protocolos v22.1. Instalável no iPhone e com suporte offline após o primeiro acesso.",
   "lang": "pt-BR",
   "icons": [
     {
-      "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMB/aqz7GQAAAAASUVORK5CYII=",
+      "src": "/icons/icon-192.png",
       "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
       "type": "image/png"
     }
   ]
