@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>ToxiFlow V21</title>
+  <title>ToxiFlow V22</title>
 
-  <!-- === ÍCONES LOCAIS === -->
-  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png" />
-  <link rel="icon" type="image/png" href="icons/apple-touch-icon.png" />
+  <!-- === ÍCONES (Cache Busting v2) === -->
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png?v=2" />
+  <link rel="icon" type="image/png" href="icons/apple-touch-icon.png?v=2" />
   <link rel="manifest" href='data:application/manifest+json,{"name":"ToxiFlow","short_name":"ToxiFlow","start_url":".","display":"standalone","theme_color":"#0f172a","background_color":"#f0f2f5","icons":[{"src":"icons/apple-touch-icon.png","sizes":"512x512","type":"image/png"}]}' />
 
   <meta name="theme-color" content="#0f172a" />
@@ -74,13 +74,13 @@
 
   <header>
     <h1>ToxiFlow</h1>
-    <p>CIATox-BA v21.0</p>
+    <p>CIATox-BA v22.0</p>
   </header>
 
   <div class="container">
     <div class="card">
       <label>Substância (Busca Rápida)</label>
-      <input type="text" id="search" placeholder="Ex: Diazepam, Mounjaro..." autocomplete="off">
+      <input type="text" id="search" placeholder="Ex: Mounjaro, Cetamina..." autocomplete="off">
       <div class="results" id="results"></div>
       <div id="drugInfo" style="margin-top:12px; font-size:0.95rem; color:#475569; padding-top:10px; border-top:1px dashed #e2e8f0;"></div>
     </div>
@@ -107,14 +107,10 @@
     </div>
 
     <div id="clinical" style="display:none;">
-      
-      <!-- BOTÕES DE AÇÃO (NAC, Antídoto) -->
       <div id="actionsArea"></div>
-
-      <!-- TEMPO DECORRIDO / CARVÃO -->
       <div class="card" style="margin-top:15px;">
         <label>Tempo Decorrido</label>
-        <select id="time" onchange="checkTime()">
+        <select id="time">
           <option value="">Selecione...</option>
           <option value="1">&lt; 1 hora</option>
           <option value="2">1 a 2 horas</option>
@@ -122,7 +118,6 @@
         </select>
         <div id="charcoalArea"></div>
       </div>
-
     </div>
   </div>
 
@@ -131,264 +126,298 @@
     <a href="tel:7131034343" class="phone-btn">📞 (71) 3103-4343</a>
   </div>
 
-  <!-- MODAL DE CHECKLIST -->
+  <!-- MODAL -->
   <div id="modal" class="modal-overlay">
     <div class="modal-box">
       <h3 id="modalTitle" style="color:#0f172a; margin:0 0 10px 0;"></h3>
       <p id="modalDesc" style="color:#64748b; font-size:0.9rem; margin-bottom:15px;"></p>
-      
       <div id="checkList"></div>
-      
       <div style="display:grid; grid-template-columns: 1fr 1.5fr; gap:10px; margin-top:20px;">
-        <button class="btn btn-dark" style="margin:0; background:#e2e8f0; color:#334155;" onclick="closeModal()">Cancelar</button>
-        <button class="btn btn-blue" style="margin:0;" onclick="confirmModal()">Confirmar</button>
+        <button class="btn btn-dark" style="margin:0; background:#e2e8f0; color:#334155;" id="btnCancel">Cancelar</button>
+        <button class="btn btn-blue" style="margin:0;" id="btnConfirm">Confirmar</button>
       </div>
     </div>
   </div>
 
   <script>
-    // === BANCO DE DADOS V21 (Sintaxe Blindada) ===
-    const db = [
-      // === INJETÁVEIS (SEM CARVÃO) ===
-      {
-        n:"Mounjaro (Tirzepatida)", d:0.01, u:"mg", mv:"5d", 
-        ant:"Suporte", 
-        risk:"⚠️ Desidratação Grave.", noChar:true, ref:"AACT"
-      },
-      {
-        n:"Ozempic (Semaglutida)", d:0.01, u:"mg", mv:"1sem", 
-        ant:"Suporte", 
-        risk:"⚠️ Vômitos incoercíveis.", noChar:true, ref:"AACT"
-      },
-      {
-        n:"Saxenda (Liraglutida)", d:0.1, u:"mg", mv:"13h", 
-        ant:"Suporte", 
-        risk:"⚠️ Desidratação grave.", noChar:true, ref:"AACT"
-      },
+    // === INICIALIZAÇÃO SEGURA ===
+    window.addEventListener('DOMContentLoaded', function() {
       
-      // === DROGAS ESPECIAIS (SEM CARVÃO EFETIVO) ===
-      {n:"Litio", d:50, u:"mg", mv:"24h", noChar:true, risk:"⚠️ Hemodiálise se intoxicação grave.", ref:"AACT"},
-      {n:"Ferro", d:20, u:"mg", mv:"6h", noChar:true, risk:"⚠️ Irritação gástrica grave.", ref:"AACT"},
+      // === BANCO DE DADOS ===
+      const drugData = [
+        { n:"Mounjaro (Tirzepatida)", d:0.01, u:"mg", mv:"5d", ant:"Suporte", risk:"⚠️ Desidratação Grave.", noChar:true, ref:"AACT" },
+        { n:"Ozempic (Semaglutida)", d:0.01, u:"mg", mv:"1sem", ant:"Suporte", risk:"⚠️ Vômitos incoercíveis.", noChar:true, ref:"AACT" },
+        { n:"Saxenda (Liraglutida)", d:0.1, u:"mg", mv:"13h", ant:"Suporte", risk:"⚠️ Desidratação grave.", noChar:true, ref:"AACT" },
+        { n:"Litio", d:50, u:"mg", mv:"24h", noChar:true, risk:"⚠️ Hemodiálise se grave.", ref:"AACT" },
+        { n:"Ferro", d:20, u:"mg", mv:"6h", noChar:true, risk:"⚠️ Irritação gástrica grave.", ref:"AACT" },
+        { n:"Cetamina (Ketamina)", d:2, u:"mg", mv:"2.5h", ant:"Benzos", inds:["Agitação"], ref:"AACT" },
+        { n:"Bupropiona", d:10, u:"mg", mv:"20h", ant:"Benzos", risk:"⚠️ Risco de convulsão tardia.", ref:"AACT" },
+        { n:"Ritalina (Metilfenidato)", d:1, u:"mg", mv:"3h", ant:"Benzos", risk:"⚠️ Síndrome Simpaticomimética.", ref:"AACT" },
+        { n:"Venvanse", d:1, u:"mg", mv:"1h", ant:"Benzos", risk:"⚠️ Síndrome Simpaticomimética.", ref:"AACT" },
+        { n:"Atomoxetina", d:2, u:"mg", mv:"5h", ant:"Suporte", risk:"⚠️ Taquicardia.", ref:"AACT" },
+        { n:"Propranolol", d:8, u:"mg", mv:"4h", ant:"Glucagon", inds:["Bradicardia"], ref:"AACT" },
+        { n:"Atenolol", d:5, u:"mg", mv:"6h", ant:"Glucagon", inds:["Bradicardia"], ref:"AACT" },
+        { n:"Anlodipino", d:0.3, u:"mg", mv:"50h", ant:"Cálcio+Insulina", inds:["Choque"], ref:"AACT" },
+        { n:"Glibenclamida", d:0.1, u:"mg", mv:"10h", ant:"Octreotide", inds:["Hipoglicemia"], ref:"AACT" },
+        { n:"Metformina", d:80, u:"mg", mv:"6h", ant:"Hemodiálise", risk:"⛔ Acidose Lática.", ref:"AACT" },
+        { n:"Carbamazepina", d:20, u:"mg", mv:"20h", ant:"Carvão Seriado", risk:"⚠️ Neurotoxicidade.", ref:"AACT" },
+        { n:"Varfarina", d:0.5, u:"mg", mv:"40h", ant:"Vitamina K", inds:["Sangramento"], ref:"AACT" },
+        { n:"Dipirona", d:100, u:"mg", mv:"2-4h", ant:"Suporte", risk:"⚠️ Choque.", ref:"AACT" },
+        { n:"Escopolamina", d:2, u:"mg", mv:"8h", ant:"Suporte", risk:"⚠️ Sínd. Anticolinérgica.", ref:"AACT" },
+        { n:"Metoclopramida", d:2, u:"mg", mv:"6h", ant:"Biperideno", inds:["Distonia"], ref:"AACT" },
+        { n:"Quetiapina", d:15, u:"mg", mv:"7h", ant:"Lipídeos", risk:"⚠️ Hipotensão.", ref:"AACT" },
+        { n:"Sertralina", d:10, u:"mg", mv:"26h", ant:"Suporte", risk:"⚠️ Sínd. Serotoninérgica.", ref:"AACT" },
+        { n:"Escitalopram", d:5, u:"mg", mv:"30h", ant:"Suporte", risk:"⚠️ QT Longo.", ref:"AACT" },
+        { n:"Cocaina", d:1.0, u:"mg", mv:"1h", ant:"Benzos", risk:"🚫 Não usar Beta-bloq.", ref:"AHA" },
+        { n:"Clonazepam", d:0.6, u:"mg", mv:"40h", ant:"Flumazenil", risk:"🚫 Risco convulsão.", ref:"AACT" },
+        { n:"Diazepam", d:0.7, u:"mg", mv:"48h", ant:"Flumazenil", risk:"🚫 Risco convulsão.", ref:"AACT" },
+        { n:"Midazolam", d:1.0, u:"mg", mv:"2.5h", ant:"Flumazenil", ref:"AACT" },
+        { n:"Morfina", d:0.4, u:"mg", mv:"3h", ant:"Naloxona", inds:["FR < 12"], ref:"AACT" },
+        { n:"Tramadol", d:4, u:"mg", mv:"9h", ant:"Naloxona", risk:"⚠️ Risco convulsão.", ref:"AACT" },
+        { n:"Paracetamol", d:75, u:"mg", mv:"3h", ant:"NAC", isNac:true, ref:"Rumack" },
+        { n:"Lidocaina", d:5, u:"mg", mv:"1.5h", ant:"Lipídeos", ref:"AACT" },
+        { n:"Digoxina", d:20, u:"mcg", mv:"40h", ant:"Ac Fab", ref:"AACT" },
+        { n:"Amitriptilina", d:3, u:"mg", mv:"25h", ant:"Bicarbonato", ref:"AACT" },
+        { n:"Jardiance", d:10, u:"mg", mv:"12h", ant:"Protocolo CAD", risk:"⛔ Cetoacidose.", ref:"AACT" },
+        { n:"Dapagliflozina", d:10, u:"mg", mv:"12h", ant:"Protocolo CAD", risk:"⛔ Cetoacidose.", ref:"AACT" },
+        { n:"AAS", d:100, u:"mg", mv:"30h", ref:"AACT" }
+      ];
 
-      // === COMUNS (COM CARVÃO SE ORAL) ===
-      {n:"Cetamina (Ketamina)", d:2, u:"mg", mv:"2.5h", ant:"Benzos", inds:["Agitação"], ref:"AACT"},
-      {n:"Bupropiona", d:10, u:"mg", mv:"20h", ant:"Benzos", risk:"⚠️ Risco de convulsão tardia.", ref:"AACT"},
-      {n:"Ritalina (Metilfenidato)", d:1, u:"mg", mv:"3h", ant:"Benzos", risk:"⚠️ Síndrome Simpaticomimética.", ref:"AACT"},
-      {n:"Venvanse", d:1, u:"mg", mv:"1h", ant:"Benzos", risk:"⚠️ Síndrome Simpaticomimética.", ref:"AACT"},
-      {n:"Atomoxetina", d:2, u:"mg", mv:"5h", ant:"Suporte", risk:"⚠️ Taquicardia.", ref:"AACT"},
-      {n:"Propranolol", d:8, u:"mg", mv:"4h", ant:"Glucagon", inds:["Bradicardia"], ref:"AACT"},
-      {n:"Atenolol", d:5, u:"mg", mv:"6h", ant:"Glucagon", inds:["Bradicardia"], ref:"AACT"},
-      {n:"Anlodipino", d:0.3, u:"mg", mv:"50h", ant:"Cálcio+Insulina", inds:["Choque"], ref:"AACT"},
-      {n:"Glibenclamida", d:0.1, u:"mg", mv:"10h", ant:"Octreotide", inds:["Hipoglicemia"], ref:"AACT"},
-      {n:"Metformina", d:80, u:"mg", mv:"6h", ant:"Hemodiálise", risk:"⛔ Acidose Lática.", ref:"AACT"},
-      {n:"Carbamazepina", d:20, u:"mg", mv:"20h", ant:"Carvão Seriado", risk:"⚠️ Neurotoxicidade.", ref:"AACT"},
-      {n:"Varfarina", d:0.5, u:"mg", mv:"40h", ant:"Vitamina K", inds:["Sangramento"], ref:"AACT"},
-      {n:"Dipirona", d:100, u:"mg", mv:"2-4h", ant:"Suporte", risk:"⚠️ Choque.", ref:"AACT"},
-      {n:"Escopolamina", d:2, u:"mg", mv:"8h", ant:"Suporte", risk:"⚠️ Síndrome Anticolinérgica.", ref:"AACT"},
-      {n:"Metoclopramida", d:2, u:"mg", mv:"6h", ant:"Biperideno", inds:["Distonia"], ref:"AACT"},
-      {n:"Quetiapina", d:15, u:"mg", mv:"7h", ant:"Lipídeos", risk:"⚠️ Hipotensão.", ref:"AACT"},
-      {n:"Sertralina", d:10, u:"mg", mv:"26h", ant:"Suporte", risk:"⚠️ Sínd. Serotoninérgica.", ref:"AACT"},
-      {n:"Escitalopram", d:5, u:"mg", mv:"30h", ant:"Suporte", risk:"⚠️ QT Longo.", ref:"AACT"},
-      {n:"Cocaina", d:1.0, u:"mg", mv:"1h", ant:"Benzos", risk:"🚫 Não usar Beta-bloq.", ref:"AHA"},
-      {n:"Clonazepam", d:0.6, u:"mg", mv:"40h", ant:"Flumazenil", risk:"🚫 Risco convulsão.", ref:"AACT"},
-      {n:"Diazepam", d:0.7, u:"mg", mv:"48h", ant:"Flumazenil", risk:"🚫 Risco convulsão.", ref:"AACT"},
-      {n:"Midazolam", d:1.0, u:"mg", mv:"2.5h", ant:"Flumazenil", ref:"AACT"},
-      {n:"Morfina", d:0.4, u:"mg", mv:"3h", ant:"Naloxona", inds:["FR &lt; 12"], ref:"AACT"},
-      {n:"Tramadol", d:4, u:"mg", mv:"9h", ant:"Naloxona", risk:"⚠️ Risco convulsão.", ref:"AACT"},
-      {n:"Paracetamol", d:75, u:"mg", mv:"3h", ant:"NAC", isNac:true, ref:"Rumack"},
-      {n:"Lidocaina", d:5, u:"mg", mv:"1.5h", ant:"Lipídeos", ref:"AACT"},
-      {n:"Digoxina", d:20, u:"mcg", mv:"40h", ant:"Ac Fab", ref:"AACT"},
-      {n:"Amitriptilina", d:3, u:"mg", mv:"25h", ant:"Bicarbonato", ref:"AACT"},
-      {n:"Jardiance", d:10, u:"mg", mv:"12h", ant:"Protocolo CAD", risk:"⛔ Cetoacidose.", ref:"AACT"},
-      {n:"Dapagliflozina", d:10, u:"mg", mv:"12h", ant:"Protocolo CAD", risk:"⛔ Cetoacidose.", ref:"AACT"}
-    ];
-
-    let sel = null; 
-    let modalType = ''; 
-    const el = id => document.getElementById(id);
-
-    // --- FUNÇÕES DE INTERFACE ---
-    el('search').oninput = (e) => {
-      const v = e.target.value.toLowerCase();
-      const res = el('results');
-      res.innerHTML = '';
-      if(v.length &lt; 2) { res.style.display='none'; return; }
-      const m = db.filter(d => d.n.toLowerCase().includes(v));
+      // === VARIÁVEIS GLOBAIS ===
+      let selectedDrug = null;
+      let modalType = '';
       
-      if(!m.length) {
-        res.innerHTML = '<div class="opt" style="color:#aaa">Sem resultados</div>';
-      } else {
-        m.forEach(d => {
-          const div = document.createElement('div');
-          div.className = 'opt'; 
-          div.textContent = d.n;
-          div.onclick = () => selectDrug(d);
-          res.appendChild(div);
+      const el = (id) => document.getElementById(id);
+
+      // === BUSCA ===
+      const searchInput = el('search');
+      const resultsDiv = el('results');
+
+      if (searchInput) {
+        searchInput.addEventListener('input', function(e) {
+          const v = e.target.value.toLowerCase();
+          resultsDiv.innerHTML = '';
+          
+          if (v.length < 2) {
+            resultsDiv.style.display = 'none';
+            return;
+          }
+
+          const matches = drugData.filter(d => d.n.toLowerCase().includes(v));
+
+          if (matches.length === 0) {
+            resultsDiv.innerHTML = '<div class="opt" style="color:#aaa">Sem resultados</div>';
+          } else {
+            matches.forEach(d => {
+              const div = document.createElement('div');
+              div.className = 'opt';
+              div.textContent = d.n;
+              div.addEventListener('click', () => selectDrug(d));
+              resultsDiv.appendChild(div);
+            });
+          }
+          resultsDiv.style.display = 'block';
         });
       }
-      res.style.display = 'block';
-    };
 
-    function selectDrug(d) {
-      sel = d;
-      el('search').value = d.n;
-      el('results').style.display = 'none';
-      el('drugInfo').innerHTML = `<b>Dose Tóxica:</b> ${d.d} ${d.u}/kg | <b>MV:</b> ${d.mv} <span style="color:#94a3b8">(${d.ref})</span>`;
-      el('panel').style.display='none'; 
-      el('clinical').style.display='none'; 
-      el('dose').value = '';
-      calc();
-    }
-
-    [el('weight'), el('dose'), el('unit')].forEach(i => i.oninput = calc);
-
-    function calc() {
-      if(!sel) return;
-      const w = parseFloat(el('weight').value);
-      const d = parseFloat(el('dose').value);
-      if(!w || !d) return;
-
-      const unit = el('unit').value;
-      const dMg = unit==='g'?d*1000 : (unit==='mcg'?d/1000 : d);
-      const limit = (sel.u==='mcg'?sel.d/1000 : sel.d) * w;
-
-      const p = el('panel');
-      p.style.display = 'block';
-      
-      if(dMg >= limit) {
-        p.className = 'panel toxic';
-        el('statusTitle').innerText = '⚠️ RISCO TÓXICO';
-        el('statusDesc').innerHTML = `Ingerido: <b>${dMg.toFixed(1)} mg</b><br>Limite: ${limit.toFixed(1)} mg`;
+      function selectDrug(d) {
+        selectedDrug = d;
+        el('search').value = d.n;
+        resultsDiv.style.display = 'none';
         
-        el('clinical').style.display = 'block';
-        buildActions(); 
-        checkTime();
-      } else {
-        p.className = 'panel safe';
-        el('statusTitle').innerText = '✅ SEGURO';
-        el('statusDesc').innerHTML = `Abaixo do limiar tóxico`;
+        let safeRef = d.ref ? `(${d.ref})` : '';
+        el('drugInfo').innerHTML = `<b>Dose Tóxica:</b> ${d.d} ${d.u}/kg | <b>MV:</b> ${d.mv} <span style="color:#94a3b8">${safeRef}</span>`;
+        
+        el('panel').style.display = 'none';
         el('clinical').style.display = 'none';
-      }
-    }
-
-    function buildActions() {
-      const area = el('actionsArea'); 
-      area.innerHTML = '';
-
-      if(sel.isNac) {
-        const btn = document.createElement('button'); 
-        btn.className = 'btn btn-nac'; 
-        btn.innerHTML = '💊 Calcular NAC (Protocolo)';
-        btn.onclick = () => {
-          const w = parseFloat(el('weight').value);
-          area.innerHTML = `<div class="result-box res-blue" style="display:block"><b>Protocolo NAC:</b><br>Ataque: ${(w*150).toFixed(0)} mg (1h)<br>Manutenção: ${(w*50).toFixed(0)} mg (4h)</div>`;
-        };
-        area.appendChild(btn);
+        el('dose').value = '';
+        recalc();
       }
 
-      if(sel.ant && sel.inds) {
-        const label = 'Avaliar Indicação';
-        const btn = document.createElement('button'); 
-        btn.className = 'btn btn-blue'; 
-        btn.innerHTML = `💉 ${label}: ${sel.ant}`;
-        btn.onclick = () => openModal('antidote');
-        area.appendChild(btn);
-        
-        const resDiv = document.createElement('div'); 
-        resDiv.id = 'antidoteResult'; 
-        resDiv.className = 'result-box';
-        area.appendChild(resDiv);
-      } else if (sel.ant) {
-        let html = `<b>Tratamento/Antídoto:</b> ${sel.ant}`;
-        if(sel.risk) html += `<br><small style="color:#b91c1c">${sel.risk}</small>`;
-        area.innerHTML += `<div class="result-box res-blue" style="display:block">${html}</div>`;
-      }
-    }
-
-    function checkTime() {
-      const t = el('time').value; 
-      const area = el('charcoalArea'); 
-      area.innerHTML = '';
-      if(!t) return;
-
-      if(t === '1') area.innerHTML += `<div class="result-box res-blue" style="display:block">🚫 Lavagem Gástrica: Contraindicada rotineiramente.</div>`;
-      
-      // LOGICA DE CARVÃO REVISADA E SEGURA
-      if(sel.noChar) {
-        area.innerHTML += `<div class="result-box res-red" style="display:block">⛔ <b>CARVÃO NÃO INDICADO</b><br>Substância injetável, não absorvível ou cáustica.</div>`;
-      } else if (sel.n.includes('Cocaina') || sel.n.includes('Ritalina') || sel.n.includes('Venvanse')) {
-         area.innerHTML += `<div class="result-box res-blue" style="display:block">⚠️ Carvão: Apenas se ingestão maciça &lt;1h e Via Aérea SEGURA (Risco de agitação/convulsão).</div>`;
-      } else if(t !== '4') {
-        const btn = document.createElement('button'); 
-        btn.className = 'btn btn-dark'; 
-        btn.innerHTML = '🌑 Avaliar Carvão Ativado';
-        btn.onclick = () => openModal('charcoal'); 
-        area.appendChild(btn);
-        const resDiv = document.createElement('div'); resDiv.id = 'charcoalResult'; resDiv.className = 'result-box';
-        area.appendChild(resDiv);
-      }
-    }
-
-    function openModal(type) {
-      modalType = type; 
-      const list = el('checkList'); 
-      list.innerHTML = '';
-      let title, items;
-      
-      if(type === 'charcoal') {
-        title = 'Contraindicações'; 
-        el('modalDesc').innerText = 'Marque se houver fator de risco:';
-        items = ['Rebaixamento s/ Via Aérea', 'Obstrução Intestinal', 'Ingestão de Cáusticos', 'Risco de Aspiração'];
-      } else {
-        title = `Indicações: ${sel.ant}`; 
-        el('modalDesc').innerText = 'Marque os sinais presentes:';
-        items = sel.inds || [];
-      }
-      
-      el('modalTitle').innerText = title;
-      
-      items.forEach(txt => {
-        const div = document.createElement('div'); 
-        div.className = 'check-item';
-        div.innerHTML = `<div class="circle"></div><span>${txt}</span>`;
-        div.onclick = function() { this.classList.toggle('checked'); };
-        list.appendChild(div);
+      // === CÁLCULO ===
+      const inputs = [el('weight'), el('dose'), el('unit')];
+      inputs.forEach(input => {
+        if(input) input.addEventListener('input', recalc);
       });
-      el('modal').style.display = 'flex';
-    }
 
-    function closeModal() { el('modal').style.display = 'none'; }
-    
-    function confirmModal() {
-      closeModal(); 
-      const count = document.querySelectorAll('.check-item.checked').length;
-      
-      if(modalType === 'charcoal') {
-        const res = el('charcoalResult'); 
-        res.style.display = 'block';
-        if(count > 0) { 
-          res.className = 'result-box res-red'; 
-          res.innerHTML = '⛔ <b>CARVÃO CONTRAINDICADO</b><br>Risco presente.'; 
-        } else { 
-          const w = parseFloat(el('weight').value); 
-          res.className = 'result-box res-green'; 
-          res.innerHTML = `✅ <b>CARVÃO INDICADO</b><br>Dose: ${Math.min(50, w).toFixed(0)}g (1g/kg)`; 
-        }
-      } else if(modalType === 'antidote') {
-        const res = el('antidoteResult'); 
-        res.style.display = 'block';
-        if(count > 0) {
-          res.className = 'result-box res-green';
-          let html = `✅ <b>INDICADO: ${sel.ant}</b>`;
-          if(sel.note) html += `<br>${sel.note}`;
-          if(sel.risk) html += `<br><b style="color:#b91c1c">${sel.risk}</b>`; 
-          res.innerHTML = html;
+      function recalc() {
+        if (!selectedDrug) return;
+        const w = parseFloat(el('weight').value);
+        const d = parseFloat(el('dose').value);
+        if (!w || !d) return;
+
+        const unit = el('unit').value;
+        const dMg = unit === 'g' ? d * 1000 : (unit === 'mcg' ? d / 1000 : d);
+        
+        let toxicLimit = selectedDrug.d;
+        if(selectedDrug.u === 'mcg') toxicLimit = toxicLimit / 1000;
+        
+        const totalToxicLimit = toxicLimit * w;
+
+        const p = el('panel');
+        p.style.display = 'block';
+
+        if (dMg >= totalToxicLimit) {
+          p.className = 'panel toxic';
+          el('statusTitle').innerText = '⚠️ RISCO TÓXICO';
+          el('statusDesc').innerHTML = `Ingerido: <b>${dMg.toFixed(1)} mg</b><br>Limite: ${totalToxicLimit.toFixed(1)} mg`;
+          el('clinical').style.display = 'block';
+          buildActions();
+          checkTime();
         } else {
-          res.className = 'result-box res-blue'; 
-          res.innerHTML = `👁️ <b>Observação Clínica</b><br>Critérios não preenchidos.`;
+          p.className = 'panel safe';
+          el('statusTitle').innerText = '✅ SEGURO';
+          el('statusDesc').innerHTML = `Abaixo do limiar tóxico`;
+          el('clinical').style.display = 'none';
         }
       }
-    }
+
+      function buildActions() {
+        const area = el('actionsArea');
+        area.innerHTML = '';
+
+        // NAC
+        if (selectedDrug.isNac) {
+          const btn = document.createElement('button');
+          btn.className = 'btn btn-nac';
+          btn.textContent = '💊 Calcular NAC (Protocolo)';
+          btn.onclick = () => {
+            const w = parseFloat(el('weight').value);
+            area.innerHTML = `<div class="result-box res-blue" style="display:block"><b>Protocolo NAC:</b><br>Ataque: ${(w * 150).toFixed(0)} mg (1h)<br>Manutenção: ${(w * 50).toFixed(0)} mg (4h)</div>`;
+          };
+          area.appendChild(btn);
+        }
+
+        // Antídotos
+        if (selectedDrug.ant && selectedDrug.inds) {
+          const label = 'Avaliar Indicação';
+          const btn = document.createElement('button');
+          btn.className = 'btn btn-blue';
+          btn.textContent = `💉 ${label}: ${selectedDrug.ant}`;
+          btn.onclick = () => openModal('antidote');
+          area.appendChild(btn);
+          
+          const resDiv = document.createElement('div');
+          resDiv.id = 'antidoteResult';
+          resDiv.className = 'result-box';
+          area.appendChild(resDiv);
+        } else if (selectedDrug.ant) {
+          let html = `<b>Tratamento:</b> ${selectedDrug.ant}`;
+          if (selectedDrug.risk) html += `<br><small style="color:#b91c1c">${selectedDrug.risk}</small>`;
+          const div = document.createElement('div');
+          div.className = 'result-box res-blue';
+          div.style.display = 'block';
+          div.innerHTML = html;
+          area.appendChild(div);
+        }
+      }
+
+      // === TEMPO / CARVÃO ===
+      const timeSelect = el('time');
+      if(timeSelect) timeSelect.addEventListener('change', checkTime);
+
+      function checkTime() {
+        const t = timeSelect.value;
+        const area = el('charcoalArea');
+        area.innerHTML = '';
+        if (!t) return;
+
+        if (t === '1') {
+          area.innerHTML += `<div class="result-box res-blue" style="display:block">🚫 Lavagem Gástrica: Contraindicada rotineiramente.</div>`;
+        }
+
+        if (selectedDrug.noChar) {
+          area.innerHTML += `<div class="result-box res-red" style="display:block">⛔ <b>CARVÃO NÃO INDICADO</b><br>Substância injetável, não absorvível ou cáustica.</div>`;
+        } else if (['Cocaina', 'Ritalina', 'Venvanse'].some(x => selectedDrug.n.includes(x))) {
+          area.innerHTML += `<div class="result-box res-blue" style="display:block">⚠️ Carvão: Apenas se ingestão maciça <1h e Via Aérea SEGURA.</div>`;
+        } else if (t !== '4') {
+          const btn = document.createElement('button');
+          btn.className = 'btn btn-dark';
+          btn.textContent = '🌑 Avaliar Carvão Ativado';
+          btn.onclick = () => openModal('charcoal');
+          area.appendChild(btn);
+          
+          const resDiv = document.createElement('div');
+          resDiv.id = 'charcoalResult';
+          resDiv.className = 'result-box';
+          area.appendChild(resDiv);
+        }
+      }
+
+      // === MODAL ===
+      const modal = el('modal');
+      const btnCancel = el('btnCancel');
+      const btnConfirm = el('btnConfirm');
+
+      function openModal(type) {
+        modalType = type;
+        const list = el('checkList');
+        list.innerHTML = '';
+        let title, items;
+
+        if (type === 'charcoal') {
+          title = 'Contraindicações';
+          el('modalDesc').textContent = 'Marque se houver fator de risco:';
+          items = ['Rebaixamento s/ Via Aérea', 'Obstrução Intestinal', 'Ingestão de Cáusticos', 'Risco de Aspiração'];
+        } else {
+          title = `Indicações: ${selectedDrug.ant}`;
+          el('modalDesc').textContent = 'Marque os sinais presentes:';
+          items = selectedDrug.inds || [];
+        }
+
+        el('modalTitle').textContent = title;
+
+        items.forEach(txt => {
+          const div = document.createElement('div');
+          div.className = 'check-item';
+          div.innerHTML = `<div class="circle"></div><span>${txt}</span>`;
+          div.addEventListener('click', function() {
+            this.classList.toggle('checked');
+          });
+          list.appendChild(div);
+        });
+
+        modal.style.display = 'flex';
+      }
+
+      function closeModal() {
+        modal.style.display = 'none';
+      }
+
+      if(btnCancel) btnCancel.onclick = closeModal;
+      
+      if(btnConfirm) btnConfirm.onclick = () => {
+        closeModal();
+        const count = document.querySelectorAll('.check-item.checked').length;
+
+        if (modalType === 'charcoal') {
+          const res = el('charcoalResult');
+          res.style.display = 'block';
+          if (count > 0) {
+            res.className = 'result-box res-red';
+            res.innerHTML = '⛔ <b>CARVÃO CONTRAINDICADO</b><br>Risco presente.';
+          } else {
+            const w = parseFloat(el('weight').value);
+            res.className = 'result-box res-green';
+            res.innerHTML = `✅ <b>CARVÃO INDICADO</b><br>Dose: ${Math.min(50, w).toFixed(0)}g (1g/kg)`;
+          }
+        } else if (modalType === 'antidote') {
+          const res = el('antidoteResult');
+          res.style.display = 'block';
+          if (count > 0) {
+            res.className = 'result-box res-green';
+            let html = `✅ <b>INDICADO: ${selectedDrug.ant}</b>`;
+            if (selectedDrug.note) html += `<br>${selectedDrug.note}`;
+            if (selectedDrug.risk) html += `<br><b style="color:#b91c1c">${selectedDrug.risk}</b>`;
+            res.innerHTML = html;
+          } else {
+            res.className = 'result-box res-blue';
+            res.innerHTML = `👁️ <b>Observação Clínica</b><br>Critérios não preenchidos.`;
+          }
+        }
+      };
+
+    }); // Fim do DOMContentLoaded
   </script>
 </body>
 </html>
