@@ -32,7 +32,7 @@ window.database = [
   { n:"Buprenorfina", syn:["Buprenorfina"], d:0.01, unit:"mg", mv:"7 hs" },
   { n:"Butobarbital", syn:["Butobarbital"], d:6, unit:"mg", mv:"42 hs" },
   { n:"Candesartana", syn:["Candesartana"], d:0.6, unit:"mg", mv:"9 hs" },
-  { n:"Captopril", syn:["Captopril"], d:3.5, unit:"mg", mv:"2 hs" }
+  { n:"Captopril", syn:["Captopril"], d:3.5, unit:"mg", mv:"2 hs" },
   { n:"Carbamazepina", syn:["Carbamazepina"], d:20, unit:"mg", mv:"20 hs" },
   { n:"Carbonato Litio", syn:["Carbonato Litio","Carbonato Lítio"], d:50, unit:"mg", mv:"24 hs" },
   { n:"Carprofeno", syn:["Carprofeno"], d:20, unit:"mg", mv:"27 hs" },
