@@ -10,91 +10,48 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="ToxiFlow" />
   
-  <!-- ÍCONE EMBUTIDO (Funciona em todos os celulares) -->
   <link rel="apple-touch-icon" href="data:image/png;base64,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" />
 
   <style>
-    :root {
-      --primary: #2563eb;
-      --bg: #f8fafc;
-      --surface: #ffffff;
-      --text: #1e293b;
-      --muted: #64748b;
-      --border: #e2e8f0;
-      --radius: 16px;
-      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    }
+    :root { --primary: #2563eb; --bg: #f8fafc; --surface: #ffffff; --text: #1e293b; --muted: #64748b; --border: #e2e8f0; --radius: 16px; --shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body { margin: 0; font-family: -apple-system, sans-serif; background: var(--bg); color: var(--text); display: flex; justify-content: center; min-height: 100vh; padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); }
     .app { width: 100%; max-width: 480px; background: var(--surface); display: flex; flex-direction: column; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
-    
-    /* Header */
     header { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; padding: 24px 20px 32px; border-radius: 0 0 24px 24px; box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.3); }
     header h1 { margin: 0; font-size: 1.6rem; font-weight: 800; }
     header p { margin: 4px 0 0; opacity: 0.9; font-size: 0.9rem; }
-    
-    .ciatox-banner { 
-      background: rgba(255,255,255,0.15); border-radius: 12px; padding: 12px; margin-top: 16px; 
-      font-size: 0.9rem; font-weight: 700; display:flex; flex-wrap: wrap; gap:12px; align-items:center; justify-content: center;
-      border: 1px solid rgba(255,255,255,0.2);
-    }
+    .ciatox-banner { background: rgba(255,255,255,0.15); border-radius: 12px; padding: 12px; margin-top: 16px; font-size: 0.9rem; font-weight: 700; display:flex; flex-wrap: wrap; gap:12px; align-items:center; justify-content: center; border: 1px solid rgba(255,255,255,0.2); }
     .phone-link { color: white; text-decoration: none; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
-    
     main { padding: 20px; flex: 1; margin-top: -10px; z-index: 20; }
     .card { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; margin-bottom: 16px; box-shadow: var(--shadow); position: relative; }
     .label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; }
     input, select { width: 100%; padding: 14px; border: 1px solid var(--border); border-radius: 12px; font-size: 1.05rem; background: #f8fafc; color: var(--text); -webkit-appearance: none; }
     input:focus, select:focus { outline: none; border-color: var(--primary); background: white; }
-
-    /* Resultados */
     #results { position: absolute; top: 90px; left: 0; right: 0; margin: 0 10px; background: white; border-radius: 14px; z-index: 50; box-shadow: 0 20px 40px rgba(0,0,0,0.2); border: 1px solid var(--border); max-height: 280px; overflow-y: auto; display: none; }
     .opt { padding: 14px 18px; border-bottom: 1px solid #f1f5f9; cursor: pointer; }
     .opt:active { background: #eff6ff; color: var(--primary); }
     #drugInfo { margin-top: 12px; padding-top:10px; border-top:1px dashed var(--border); font-size: 0.9rem; line-height: 1.5; color: var(--text); }
-
-    /* Botões */
     .btn { width: 100%; padding: 16px; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; transition: transform 0.1s; box-shadow: 0 4px 0 rgba(0,0,0,0.1); }
     .btn:active { transform: translateY(2px); box-shadow: none; }
     .btnChar { background: #1e293b; color: white; }
     .btnNac { background: #7c3aed; color: white; }
     .btnSpotify { background: #1db954; color: white; text-decoration: none; font-size:0.9rem; }
-    .btnWarning { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; box-shadow: none; cursor: default; }
-
-    /* Avisos */
-    .warning-box {
-      margin-top: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #94a3b8;
-      padding: 14px; border-radius: 10px; font-size: 0.9rem; color: #475569;
-    }
-    .warning-link {
-      display: inline-block; margin-top: 8px; color: #1db954; font-weight: 700; text-decoration: none;
-    }
-
+    .warning-box { margin-top: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #94a3b8; padding: 14px; border-radius: 10px; font-size: 0.9rem; color: #475569; }
+    .warning-link { display: inline-block; margin-top: 8px; color: #1db954; font-weight: 700; text-decoration: none; }
     #panel { display: none; padding: 20px; border-radius: var(--radius); color: white; text-align: center; margin-bottom: 16px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
     .toxic { background: linear-gradient(135deg, #ef4444, #b91c1c); }
     .safe { background: linear-gradient(135deg, #22c55e, #15803d); }
     .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .gridDose { display: grid; grid-template-columns: 1fr 80px; gap: 8px; }
-    
-    /* Modal Checkboxes - CORRIGIDO */
     .modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 9999; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(4px); padding: 20px; }
     .modalCard { width: 100%; max-width: 400px; background: white; border-radius: 20px; padding: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
-    
-    .checkItem { margin-bottom: 10px; }
-    /* Área de toque aumentada */
-    .checkItem label { 
-      display: flex; gap: 14px; padding: 16px; background: #f8fafc; 
-      border: 1px solid var(--border); border-radius: 12px; 
-      align-items: center; cursor: pointer; transition: background 0.2s;
-      min-height: 50px; /* Garante tamanho para o dedo */
-    }
+    .checkItem label { display: flex; gap: 14px; padding: 16px; background: #f8fafc; border: 1px solid var(--border); border-radius: 12px; align-items: center; cursor: pointer; transition: background 0.2s; min-height: 50px; }
     .checkItem label:active { background: #eef2ff; border-color: var(--primary); }
-    .checkItem input { width: 22px; height: 22px; margin: 0; pointer-events: none; /* Deixa o clique passar para o label */ }
+    .checkItem input { width: 22px; height: 22px; margin: 0; pointer-events: none; }
     .checkItem span { font-size: 0.95rem; line-height: 1.4; pointer-events: none; }
-
     .modalActions { display: grid; grid-template-columns: 1fr 1.5fr; gap: 10px; margin-top: 24px; }
     .btnLight { background: #e2e8f0; color: #334155; }
     .btnPrimary { background: var(--primary); color: white; }
-
     .footer { text-align: center; padding: 24px; color: #94a3b8; font-size: 0.8rem; background: #f8fafc; border-top: 1px solid var(--border); }
   </style>
 </head>
@@ -104,8 +61,6 @@
     <header>
       <h1>ToxiFlow</h1>
       <p>CIATox v22.1 — Doses Tóxicas</p>
-      
-      <!-- Dois números no topo -->
       <div class="ciatox-banner">
         <a href="tel:08002844343" class="phone-link">📞 0800 284 4343</a>
         <span style="opacity:0.3">|</span>
@@ -114,7 +69,6 @@
     </header>
 
     <main>
-      <!-- Busca -->
       <div class="card" id="searchCard" style="z-index: 30;">
         <span class="label">Substância</span>
         <input id="search" type="text" placeholder="Digite para buscar..." autocomplete="off" />
@@ -122,7 +76,6 @@
         <div id="drugInfo"></div>
       </div>
 
-      <!-- Calculadora -->
       <div class="card">
         <div class="grid2">
           <div><span class="label">Peso (kg)</span><input id="weight" type="number" placeholder="Ex: 70" inputmode="decimal" /></div>
@@ -130,27 +83,19 @@
         </div>
       </div>
 
-      <!-- Painel Risco -->
       <div id="panel">
         <div id="panelTitle" style="font-size:1.3rem; font-weight:800; margin-bottom:5px"></div>
         <div id="panelDetail" style="font-size:0.9rem; opacity:0.95"></div>
       </div>
 
-      <!-- Área Clínica -->
       <div id="clinical" style="display:none">
-        
-        <!-- NAC (Paracetamol) -->
         <div id="nacArea" style="display:none; margin-bottom:16px;">
-          <button class="btn btnNac" onclick="calculateNAC()">
-            💊 👆 Calcular Dose NAC (1h)
-          </button>
+          <button class="btn btnNac" onclick="calculateNAC()">💊 👆 Calcular Dose NAC (1h)</button>
           <div id="nacResult" style="margin-top:10px; background:#f3e8ff; color:#6b21a8; padding:12px; border-radius:12px; font-size:0.9rem; display:none; border:1px solid #d8b4fe;"></div>
         </div>
-
         <div id="antBox" style="background:#f5f3ff; border:1px solid #ddd6fe; border-left:4px solid #7c3aed; padding:16px; border-radius:12px; color:#5b21b6; margin-bottom:16px;">
           <b style="display:block; font-size:0.75rem; margin-bottom:4px">ANTÍDOTO ESPECÍFICO:</b> <span id="antText"></span>
         </div>
-
         <div class="card" style="border-left: 4px solid var(--primary);">
           <span class="label">Tempo decorrido</span>
           <select id="timeWindow">
@@ -159,9 +104,7 @@
             <option value="2">1 a 2 horas</option>
             <option value="4">> 2 horas</option>
           </select>
-          
           <div id="buttonsArea"></div>
-
           <div style="margin-top:16px; padding-top:14px; border-top:1px dashed #e2e8f0; font-size:0.9rem">
             <strong>Suporte Clínico:</strong> <span id="supportText" style="color:var(--muted)"></span>
           </div>
@@ -175,16 +118,11 @@
     </div>
   </div>
 
-  <!-- Modal Contraindicações -->
   <div id="ciModal" class="modal">
     <div class="modalCard">
       <h3 style="margin-top:0; color:#b91c1c; font-size:1.2rem">⚠️ Contraindicações</h3>
       <p style="color:var(--muted); font-size:0.9rem; margin-bottom:15px">Marque se houver:</p>
-      
-      <div id="ciList">
-        <!-- Itens serão gerados aqui via JS -->
-      </div>
-
+      <div id="ciList"></div>
       <div class="modalActions">
         <button class="btn btnLight" id="btnModalBack">Voltar</button>
         <button class="btn btnPrimary" id="btnModalConfirm">Confirmar</button>
@@ -193,27 +131,262 @@
   </div>
 
   <script>
-    // === BANCO DE DADOS ===
+    // === BANCO DE DADOS COMPLETO (200+ ITENS) ===
     window.database = [
-      { n:"AAS", syn:["AAS","Acido acetilsalicilico"], d:100, unit:"mg", mv:"30 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT" },
+      // PRINCIPAIS E CRÍTICOS (GARANTIA DE PRESENÇA)
+      { n:"Morfina", syn:["Morfina","Dimorf"], d:0.4, unit:"mg", mv:"3 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Naloxona (0.4-2mg IV)", support:"Depressão respiratória é o maior risco. Observar por 6-12h.", ref:"AACT/EAPCCT" },
+      { n:"Codeina", syn:["Codeina","Codeína"], d:2.5, unit:"mg", mv:"4 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Naloxona (0.4-2mg IV)", support:"Opióide fraco, mas risco de depressão resp em altas doses.", ref:"AACT/EAPCCT" },
+      { n:"Fentanil", syn:["Fentanil","Durogesic"], d:0.04, unit:"mg", mv:"8 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Naloxona (0.4-2mg IV)", support:"Opióide potente. Risco de tórax rígido e depressão resp grave.", ref:"AACT/EAPCCT" },
+      { n:"Tramadol", syn:["Tramadol"], d:4, unit:"mg", mv:"9 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Naloxona (0.4-2mg IV)", support:"Risco de convulsão. Naloxona deve ser usada com cautela (pode precipitar crise).", ref:"AACT/EAPCCT" },
+      { n:"Lidocaina", syn:["Lidocaina","Lidocaína","Xilocaína"], d:5, unit:"mg", mv:"1.5 hs", ca:"Sim (< 1h)", lg:"Não", support:"Risco de convulsão e arritmia cardíaca. Emulsão lipídica se colapso circulatório.", ref:"AACT/EAPCCT" },
+      { n:"Petidina", syn:["Petidina","Meperidina"], d:6, unit:"mg", mv:"48 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Naloxona", support:"Metabólito neurotóxico (risco de convulsão).", ref:"AACT/EAPCCT" },
+      { n:"Metadona", syn:["Metadona","Mytedon"], d:0.4, unit:"mg", mv:"60 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Naloxona (0.4-2mg IV)", support:"Meia-vida muito longa. Naloxona repetida pode ser necessária por 24h+.", ref:"AACT/EAPCCT" },
       { n:"Paracetamol", syn:["Paracetamol","Acetaminofeno","Tylenol"], d:75, unit:"mg", mv:"3 hs", ca:"Sim (< 2h)", lg:"Não", ant:"N-Acetilcisteína (NAC)", ref:"Rumack-Matthew Nomogram; IBCC/EmCrit" },
-      { n:"Ibuprofeno", syn:["Ibuprofeno"], d:100, unit:"mg", mv:"2,5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT" },
-      { n:"Dipirona", syn:["Dipirona"], d:100, unit:"mg", mv:"Update", ca:"Sim (< 1h)", lg:"Não", ref:"Bula" },
-      { n:"Diazepam", syn:["Diazepam"], d:0.7, unit:"mg", mv:"48 hs", ca:"Sim (< 1h)", lg:"Não", ref:"Goldfrank's" },
-      { n:"Amitriptilina", syn:["Amitriptilina"], d:3, unit:"mg", mv:"25 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT" },
-      { n:"Captopril", syn:["Captopril"], d:3.5, unit:"mg", mv:"2 hs", ca:"Sim (< 1h)", lg:"Não", ref:"Micromedex" },
-      { n:"Carbamazepina", syn:["Carbamazepina"], d:20, unit:"mg", mv:"20 hs", ca:"Sim (< 1h)", lg:"Não", ref:"Goldfrank's" },
-      { n:"Litio", syn:["Litio"], d:50, unit:"mg", mv:"24 hs", ca:"NÃO", lg:"Não", ref:"AACT", noCharcoal:true },
-      { n:"Ferro", syn:["Ferro"], d:20, unit:"mg", mv:"6 hs", ca:"NÃO", lg:"Sim (RX)", ref:"AACT", noCharcoal:true }
-      // Insira o restante da lista aqui
+      { n:"AAS", syn:["AAS","Acido acetilsalicilico","Aspirina"], d:100, unit:"mg", mv:"30 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT" },
+
+      // ORDEM ALFABÉTICA (RESTANTE)
+      { n:"Acebutolol", syn:["Acebutolol"], d:25, unit:"mg", mv:"10 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Aceclofenaco", syn:["Aceclofenaco"], d:15, unit:"mg", mv:"4 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Acemetacina", syn:["Acemetacina"], d:8.5, unit:"mg", mv:"11 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Aciclovir", syn:["Aciclovir"], d:300, unit:"mg", mv:"3 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Acido Nalidixico", syn:["Acido Nalidixico","Ácido Nalidíxico"], d:150, unit:"mg", mv:"7 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Acido Tiaprofenico", syn:["Acido Tiaprofenico","Ácido Tiaprofênico"], d:40, unit:"mg", mv:"2 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Acido Valproico", syn:["Acido Valproico","Ácido Valpróico","Depakene"], d:200, unit:"mg", mv:"20 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Alprazolam", syn:["Alprazolam","Frontal"], d:0.05, unit:"mg", mv:"15 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Flumazenil (se depressão respiratória grave)", support:"Observar depressão SNC. Meia-vida longa.", ref:"AACT/EAPCCT" },
+      { n:"Amilorida", syn:["Amilorida"], d:1.5, unit:"mg", mv:"9 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Amitriptilina", syn:["Amitriptilina"], d:3, unit:"mg", mv:"25 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Amlodipina", syn:["Amlodipina"], d:0.2, unit:"mg", mv:"50 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Amobarbital", syn:["Amobarbital"], d:4, unit:"mg", mv:"25 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Amoxicilina", syn:["Amoxicilina"], d:250, unit:"mg", mv:"1.5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Ampicilina", syn:["Ampicilina"], d:550, unit:"mg", mv:"1.5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Atenolol", syn:["Atenolol"], d:5, unit:"mg", mv:"7 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Avanafil", syn:["Avanafil"], d:6, unit:"mg", mv:"17 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Azapropazona", syn:["Azapropazona"], d:50, unit:"mg", mv:"14 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Azilsartana", syn:["Azilsartana"], d:5, unit:"mg", mv:"11 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Azitromicina", syn:["Azitromicina"], d:20, unit:"mg", mv:"4 dias", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Bambuterol", syn:["Bambuterol"], d:1.5, unit:"mg", mv:"21 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Barbital", syn:["Barbital"], d:20, unit:"mg", mv:"48 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Benazepril", syn:["Benazepril"], d:0.5, unit:"mg", mv:"22 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Bendroflumetiazida", syn:["Bendroflumetiazida"], d:0.4, unit:"mg", mv:"8.5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Betaxolol", syn:["Betaxolol"], d:1, unit:"mg", mv:"22 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Bisoprolol", syn:["Bisoprolol"], d:0.7, unit:"mg", mv:"12 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Bromazepam", syn:["Bromazepam"], d:0.7, unit:"mg", mv:"20 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Flumazenil (se depressão respiratória grave)", ref:"AACT/EAPCCT" },
+      { n:"Bronfenaco", syn:["Bronfenaco"], d:10, unit:"mg", mv:"4 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Bronfeniramina", syn:["Bronfeniramina"], d:3.5, unit:"mg", mv:"25 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Bumetanida", syn:["Bumetanida"], d:0.1, unit:"mg", mv:"3 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Buprenorfina", syn:["Buprenorfina"], d:0.01, unit:"mg", mv:"7 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Naloxona (0.4-2mg IV)", support:"Risco de depressão respiratória.", ref:"AACT/EAPCCT" },
+      { n:"Butobarbital", syn:["Butobarbital"], d:6, unit:"mg", mv:"42 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Candesartana", syn:["Candesartana"], d:0.6, unit:"mg", mv:"9 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Captopril", syn:["Captopril"], d:3.5, unit:"mg", mv:"2 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Carbamazepina", syn:["Carbamazepina"], d:20, unit:"mg", mv:"20 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Carbonato Litio", syn:["Carbonato Litio","Lítio"], d:50, unit:"mg", mv:"24 hs", ca:"NÃO", lg:"Sim (RX)", noCharcoal:true, ref:"AACT/EAPCCT" },
+      { n:"Carprofeno", syn:["Carprofeno"], d:20, unit:"mg", mv:"27 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Carteolol", syn:["Carteolol"], d:0.7, unit:"mg", mv:"12 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Carvedilol", syn:["Carvedilol"], d:2.5, unit:"mg", mv:"6 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Celiprolol", syn:["Celiprolol"], d:14, unit:"mg", mv:"6 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Cetobemidona", syn:["Cetobemidona"], d:0.4, unit:"mg", mv:"2.5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Cetoprofeno", syn:["Cetoprofeno"], d:10, unit:"mg", mv:"4 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Cetorolaco", syn:["Cetorolaco"], d:2, unit:"mg", mv:"5.5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Cetotifeno", syn:["Cetotifeno"], d:0.3, unit:"mg", mv:"21 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Ciclizina", syn:["Ciclizina"], d:5, unit:"mg", mv:"20 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Ciclobarbital", syn:["Ciclobarbital"], d:8, unit:"mg", mv:"12 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Cilazapril", syn:["Cilazapril"], d:0.2, unit:"mg", mv:"9 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Cinarizina", syn:["Cinarizina"], d:12, unit:"mg", mv:"6 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Ciprofloxacino", syn:["Ciprofloxacino"], d:70, unit:"mg", mv:"5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Ciproheptadina", syn:["Ciproheptadina"], d:2, unit:"mg", mv:"9 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Citalopram", syn:["Citalopram"], d:2, unit:"mg", mv:"36 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Claritromicina", syn:["Claritromicina"], d:70, unit:"mg", mv:"5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Clemastina", syn:["Clemastina"], d:0.3, unit:"mg", mv:"21 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Cliclobenzaprina", syn:["Cliclobenzaprina"], d:1.5, unit:"mg", mv:"32 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Clobazam", syn:["Clobazam"], d:1.5, unit:"mg", mv:"79 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Flumazenil (se necessário)", ref:"AACT/EAPCCT" },
+      { n:"Clomipramina", syn:["Clomipramina"], d:4, unit:"mg", mv:"36 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Clonazepam", syn:["Clonazepam","Rivotril"], d:0.6, unit:"mg", mv:"40 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Flumazenil (se necessário)", ref:"AACT/EAPCCT" },
+      { n:"Clonidina", syn:["Clonidina"], d:0.01, unit:"mg", mv:"24 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Clopamida", syn:["Clopamida"], d:1.4, unit:"mg", mv:"10 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Clordiazepoxido", syn:["Clordiazepoxido"], d:2, unit:"mg", mv:"78 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Flumazenil (se necessário)", ref:"AACT/EAPCCT" },
+      { n:"Clorfeniramina", syn:["Clorfeniramina"], d:0.85, unit:"mg", mv:"43 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Clorpromazina", syn:["Clorpromazina"], d:6, unit:"mg", mv:"40 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Clorprotixeno", syn:["Clorprotixeno"], d:6, unit:"mg", mv:"12 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Clortalidona", syn:["Clortalidona"], d:3.5, unit:"mg", mv:"50 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Clozapina", syn:["Clozapina"], d:10, unit:"mg", mv:"12 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Dapoxetina", syn:["Dapoxetina"], d:4, unit:"mg", mv:"19 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Dapsona", syn:["Dapsona"], d:5, unit:"mg", mv:"30 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Desipramina", syn:["Desipramina"], d:3, unit:"mg", mv:"27 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Desvenlafaxina", syn:["Desvenlafaxina"], d:3, unit:"mg", mv:"15 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Dexcetoprofeno", syn:["Dexcetoprofeno"], d:5, unit:"mg", mv:"4 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Dexibuprofeno", syn:["Dexibuprofeno"], d:60, unit:"mg", mv:"3.5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Diazepam", syn:["Diazepam","Valium"], d:0.7, unit:"mg", mv:"48 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Flumazenil (se necessário)", ref:"AACT/EAPCCT" },
+      { n:"Diclofenaco", syn:["Diclofenaco","Cataflam","Voltaren"], d:7, unit:"mg", mv:"2 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Difenidramina", syn:["Difenidramina"], d:7.5, unit:"mg", mv:"9.5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Diflunisal", syn:["Diflunisal"], d:50, unit:"mg", mv:"12 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Digoxina", syn:["Digoxina"], d:20, unit:"mcg", mv:"40 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Ac Anti-Digoxina (Fab)", ref:"AACT/EAPCCT" },
+      { n:"Dihidrocodeina", syn:["Dihidrocodeina"], d:0.4, unit:"mg", mv:"3.5 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Naloxona", ref:"AACT/EAPCCT" },
+      { n:"Diltiazem", syn:["Diltiazem"], d:5, unit:"mg", mv:"48 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Dipipanona", syn:["Dipipanona"], d:1.5, unit:"mg", mv:"3.5 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Naloxona", ref:"AACT/EAPCCT" },
+      { n:"Dipirona", syn:["Dipirona","Novalgina"], d:100, unit:"mg", mv:"Update", ca:"Sim (< 1h)", lg:"Não", ref:"Bula" },
+      { n:"Disopiramida", syn:["Disopiramida"], d:15, unit:"mg", mv:"11 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Doxepina", syn:["Doxepina"], d:4, unit:"mg", mv:"80 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Doxilamina", syn:["Doxilamina"], d:5, unit:"mg", mv:"10 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Duloxetina", syn:["Duloxetina"], d:5, unit:"mg", mv:"18 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Enalapril", syn:["Enalapril"], d:0.7, unit:"mg", mv:"11 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Eplerenona", syn:["Eplerenona"], d:7, unit:"mg", mv:"5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Eprosartana", syn:["Eprosartana"], d:40, unit:"mg", mv:"9 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Eritromicina", syn:["Eritromicina"], d:70, unit:"mg", mv:"2 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Escitalopram", syn:["Escitalopram"], d:1, unit:"mg", mv:"33 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Eslicarbazepina", syn:["Eslicarbazepina"], d:30, unit:"mg", mv:"20 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Espironolactona", syn:["Espironolactona"], d:10, unit:"mg", mv:"11.5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Estazolam", syn:["Estazolam"], d:0.2, unit:"mg", mv:"24 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Flumazenil", ref:"AACT/EAPCCT" },
+      { n:"Etizolam", syn:["Etizolam"], d:0.1, unit:"mg", mv:"8 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Flumazenil", ref:"AACT/EAPCCT" },
+      { n:"Etodolaco", syn:["Etodolaco"], d:30, unit:"mg", mv:"7 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Famciclovir", syn:["Famciclovir"], d:50, unit:"mg", mv:"2 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Felodipina", syn:["Felodipina"], d:0.2, unit:"mg", mv:"25 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Fenbufeno", syn:["Fenbufeno"], d:40, unit:"mg", mv:"17 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Fenilefrina", syn:["Fenilefrina"], d:1, unit:"mg", mv:"3 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Feniramina", syn:["Feniramina"], d:3.5, unit:"mg", mv:"19 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Fenitoina", syn:["Fenitoina","Fenitoína"], d:20, unit:"mg", mv:"230 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Fenobarbital", syn:["Fenobarbital","Gardenal"], d:4, unit:"mg", mv:"5 dias", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Fenoprofeno", syn:["Fenoprofeno"], d:85, unit:"mg", mv:"3 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Ferro", syn:["Ferro","Sulfato Ferroso"], d:20, unit:"mg", mv:"6 hs", ca:"NÃO", lg:"Sim (RX)", noCharcoal:true, ref:"AACT/EAPCCT" },
+      { n:"Flunitrazepam", syn:["Flunitrazepam","Rohypnol"], d:0.05, unit:"mg", mv:"35 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Flumazenil", ref:"AACT/EAPCCT" },
+      { n:"Fluoxetina", syn:["Fluoxetina","Prozac"], d:3, unit:"mg", mv:"16 dias", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Flurazepam", syn:["Flurazepam"], d:2, unit:"mg", mv:"5 dias", ca:"Sim (< 1h)", lg:"Não", ant:"Flumazenil", ref:"AACT/EAPCCT" },
+      { n:"Flurbiprofeno", syn:["Flurbiprofeno"], d:85, unit:"mg", mv:"6 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Fluvoxamina", syn:["Fluvoxamina"], d:15, unit:"mg", mv:"22 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Formoterol", syn:["Formoterol"], d:1.5, unit:"mcg", mv:"10 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Fosinopril", syn:["Fosinopril"], d:1, unit:"mg", mv:"11.5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Furosemida", syn:["Furosemida","Lasix"], d:3, unit:"mg", mv:"Update", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Glibenclamida", syn:["Glibenclamida"], d:0.2, unit:"mg", mv:"Update", ca:"Sim (< 1h)", lg:"Não", support:"Monitorar hipoglicemia grave e prolongada.", ref:"AACT/EAPCCT" },
+      { n:"Gliclazida", syn:["Gliclazida"], d:1.3, unit:"mg", mv:"12-20 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Glimepirida", syn:["Glimepirida"], d:0.04, unit:"mg", mv:"8 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Glipizida", syn:["Glipizida"], d:0.2, unit:"mg", mv:"4 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Guanfacina", syn:["Guanfacina"], d:0.15, unit:"mg", mv:"18 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Haloperidol", syn:["Haloperidol","Haldol"], d:0.5, unit:"mg", mv:"Update", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Hidroclorotiazida", syn:["Hidroclorotiazida","HCTZ"], d:3.5, unit:"mg", mv:"15 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Hidromorfona", syn:["Hidromorfona"], d:0.1, unit:"mg", mv:"2.5 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Naloxona", ref:"AACT/EAPCCT" },
+      { n:"Hidroxizine", syn:["Hidroxizine","Hidroxizina"], d:10, unit:"mg", mv:"20 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Ibuprofeno", syn:["Ibuprofeno","Alivium"], d:100, unit:"mg", mv:"2.5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Imepitoin", syn:["Imepitoin"], d:30, unit:"mg", mv:"20 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Imidapril", syn:["Imidapril"], d:0.7, unit:"mg", mv:"24 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Imipramina", syn:["Imipramina","Tofranil"], d:4, unit:"mg", mv:"19 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Indacaterol", syn:["Indacaterol"], d:10, unit:"mcg", mv:"5 dias", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Indapamida", syn:["Indapamida"], d:0.4, unit:"mg", mv:"24 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Indometacina", syn:["Indometacina"], d:7, unit:"mg", mv:"11 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Irbesartana", syn:["Irbesartana"], d:10, unit:"mg", mv:"15 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Lacidipina", syn:["Lacidipina"], d:0.15, unit:"mg", mv:"19 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Lenalidomida", syn:["Lenalidomida"], d:0.7, unit:"mg", mv:"5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Lercanidipina", syn:["Lercanidipina"], d:0.4, unit:"mg", mv:"10 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Levobunolol", syn:["Levobunolol"], d:1, unit:"mg", mv:"7 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Levofloxacino", syn:["Levofloxacino"], d:35, unit:"mg", mv:"8 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Levomepromazina", syn:["Levomepromazina","Neozine"], d:6, unit:"mg", mv:"78 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Levotiroxina", syn:["Levotiroxina","Puran","Euthyrox"], d:20, unit:"mcg", mv:"7 dias", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Lisinopril", syn:["Lisinopril"], d:0.7, unit:"mg", mv:"12.5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Litio", syn:["Litio","Lítio","Carbolitium"], d:50, unit:"mg", mv:"24 hs", ca:"NÃO", lg:"Não", noCharcoal:true, ref:"AACT/EAPCCT" },
+      { n:"Lofepramina", syn:["Lofepramina"], d:4.5, unit:"mg", mv:"24 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Loprazolam", syn:["Loprazolam"], d:0.07, unit:"mg", mv:"14 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Flumazenil", ref:"AACT/EAPCCT" },
+      { n:"Lorazepam", syn:["Lorazepam"], d:2, unit:"mg", mv:"20 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Flumazenil", ref:"AACT/EAPCCT" },
+      { n:"Lormetazepam", syn:["Lormetazepam"], d:0.07, unit:"mg", mv:"11 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Flumazenil", ref:"AACT/EAPCCT" },
+      { n:"Lornoxicam", syn:["Lornoxicam"], d:0.8, unit:"mg", mv:"4 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Losartana", syn:["Losartana"], d:3.5, unit:"mg", mv:"9 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Maprotilina", syn:["Maprotilina"], d:3, unit:"mg", mv:"90 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Meclozina", syn:["Meclozina"], d:5, unit:"mg", mv:"6 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Meloxicam", syn:["Meloxicam"], d:1, unit:"mg", mv:"20 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Meptazinol", syn:["Meptazinol"], d:8.5, unit:"mg", mv:"4 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Metformina", syn:["Metformina","Glifage"], d:80, unit:"mg", mv:"6.5 hs", ca:"Sim (< 1h)", lg:"Não", support:"Risco de acidose lática.", ref:"AACT/EAPCCT" },
+      { n:"Metildopa", syn:["Metildopa"], d:15, unit:"mg", mv:"Update", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Metilfenidato", syn:["Metilfenidato","Ritalina"], d:1, unit:"mg", mv:"2 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Metolazona", syn:["Metolazona"], d:0.7, unit:"mg", mv:"10 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Metoprolol", syn:["Metoprolol","Selozok"], d:10, unit:"mg", mv:"3.5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Midazolam", syn:["Midazolam","Dormonid"], d:1.0, unit:"mg", mv:"2.5 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Flumazenil (se necessário)", ref:"AACT/EAPCCT" },
+      { n:"Misoprostol", syn:["Misoprostol"], d:0.03, unit:"mg", mv:"40 min", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Moexipril", syn:["Moexipril"], d:1, unit:"mg", mv:"12 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Moxifloxacino", syn:["Moxifloxacino"], d:25, unit:"mg", mv:"12 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Moxonidina", syn:["Moxonidina"], d:0.02, unit:"mg", mv:"3 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Nabumetona", syn:["Nabumetona"], d:70, unit:"mg", mv:"27 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Nadolol", syn:["Nadolol"], d:11, unit:"mg", mv:"24 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Nafazolina", syn:["Nafazolina","Neosoro"], d:0.1, unit:"mg", mv:"Update", ca:"Sim (< 1h)", lg:"Não", support:"Bradicardia e depressão SNC em crianças.", ref:"AACT/EAPCCT" },
+      { n:"Naproxeno", syn:["Naproxeno","Flanax"], d:35, unit:"mg", mv:"17 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Nebivolol", syn:["Nebivolol"], d:0.3, unit:"mg", mv:"50 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Nicardipina", syn:["Nicardipina"], d:3.5, unit:"mg", mv:"9 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Nifedipina", syn:["Nifedipina","Adalat"], d:1.2, unit:"mg", mv:"3.5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Nimodipina", syn:["Nimodipina"], d:6, unit:"mg", mv:"10 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Nitrazepam", syn:["Nitrazepam"], d:0.4, unit:"mg", mv:"24 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Flumazenil", ref:"AACT/EAPCCT" },
+      { n:"Norfloxacino", syn:["Norfloxacino"], d:50, unit:"mg", mv:"4 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Nortriptilina", syn:["Nortriptilina","Pamelor"], d:2.5, unit:"mg", mv:"26 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Ofloxacino", syn:["Ofloxacino"], d:25, unit:"mg", mv:"6 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Olmesartana", syn:["Olmesartana"], d:1.5, unit:"mg", mv:"15 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Olodaterol", syn:["Olodaterol"], d:0.35, unit:"mcg", mv:"22/45 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Oxazepam", syn:["Oxazepam"], d:3.5, unit:"mg", mv:"20 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Flumazenil", ref:"AACT/EAPCCT" },
+      { n:"Oxcarbazepina", syn:["Oxcarbazepina"], d:40, unit:"mg", mv:"9.5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Oxicodona", syn:["Oxicodona","Oxycontin"], d:0.2, unit:"mg", mv:"3 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Naloxona (0.4-2mg IV)", ref:"AACT/EAPCCT" },
+      { n:"Oximetazolina", syn:["Oximetazolina"], d:0.4, unit:"mg", mv:"8 dias", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Oxprenolol", syn:["Oxprenolol"], d:11, unit:"mg", mv:"2 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Paroxetina", syn:["Paroxetina"], d:3, unit:"mg", mv:"21 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Pentazocina", syn:["Pentazocina"], d:2.5, unit:"mg", mv:"3 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Naloxona", ref:"AACT/EAPCCT" },
+      { n:"Perfenazina", syn:["Perfenazina"], d:0.6, unit:"mg", mv:"12 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Periciazina", syn:["Periciazina"], d:1, unit:"mg", mv:"Update", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Perindopril", syn:["Perindopril"], d:0.3, unit:"mg", mv:"17 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Pimozida", syn:["Pimozida"], d:0.5, unit:"mg", mv:"55 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Pindolol", syn:["Pindolol"], d:1, unit:"mg", mv:"4 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Pipotiazina", syn:["Pipotiazina"], d:0.2, unit:"mg", mv:"Update", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Piroxicam", syn:["Piroxicam"], d:1, unit:"mg", mv:"50 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Pomalidomida", syn:["Pomalidomida"], d:0.2, unit:"mg", mv:"9.5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Prazepam", syn:["Prazepam"], d:2, unit:"mg", mv:"70 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Flumazenil", ref:"AACT/EAPCCT" },
+      { n:"Primidona", syn:["Primidona"], d:60, unit:"mg", mv:"5 dias", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Proclorperazina", syn:["Proclorperazina"], d:2, unit:"mg", mv:"9 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Promazina", syn:["Promazina"], d:12, unit:"mg", mv:"40 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Prometazina", syn:["Prometazina","Fenergan"], d:3.5, unit:"mg", mv:"14 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Propranolol", syn:["Propranolol"], d:4.5, unit:"mg", mv:"6 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Quetiapina", syn:["Quetiapina"], d:15, unit:"mg", mv:"22 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Quinapril", syn:["Quinapril"], d:1, unit:"mg", mv:"3 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Ramipril", syn:["Ramipril"], d:3.2, unit:"mg", mv:"17 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Reboxetina", syn:["Reboxetina"], d:0.5, unit:"mg", mv:"Update", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Risperidona", syn:["Risperidona"], d:1, unit:"mg", mv:"24 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Ritalina", syn:["Ritalina","Metilfenidato"], d:1, unit:"mg", mv:"2 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Salbutamol", syn:["Salbutamol","Aerolin"], d:0.5, unit:"mg", mv:"4 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Salmeterol", syn:["Salmeterol"], d:7, unit:"mcg", mv:"5.5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Secobarbital", syn:["Secobarbital"], d:4, unit:"mg", mv:"40 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Sertralina", syn:["Sertralina"], d:7, unit:"mg", mv:"26 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Sibutramina", syn:["Sibutramina"], d:50, unit:"mg", mv:"Update", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Sildenafil", syn:["Sildenafil","Viagra"], d:3, unit:"mg", mv:"5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Sotalol", syn:["Sotalol"], d:7, unit:"mg", mv:"20 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Sulindaco", syn:["Sulindaco"], d:30, unit:"mg", mv:"17 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Tadalafil", syn:["Tadalafil","Cialis"], d:1, unit:"mg", mv:"17 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Talidomida", syn:["Talidomida"], d:7, unit:"mg", mv:"7.5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Tapentadol", syn:["Tapentadol"], d:2, unit:"mg", mv:"4 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Naloxona", ref:"AACT/EAPCCT" },
+      { n:"Telitromicina", syn:["Telitromicina"], d:100, unit:"mg", mv:"3 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Telmisartana", syn:["Telmisartana"], d:3, unit:"mg", mv:"24 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Temazepam", syn:["Temazepam"], d:1.5, unit:"mg", mv:"11 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Flumazenil", ref:"AACT/EAPCCT" },
+      { n:"Tenoxicam", syn:["Tenoxicam"], d:1.5, unit:"mg", mv:"81 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Terbutalina", syn:["Terbutalina"], d:1, unit:"mg", mv:"3.5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Timolol", syn:["Timolol"], d:1, unit:"mg", mv:"5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Tioridazina", syn:["Tioridazina"], d:6, unit:"mg", mv:"10 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Tolbutamida", syn:["Tolbutamida"], d:30, unit:"mg", mv:"8 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Tolmetino", syn:["Tolmetino"], d:85, unit:"mg", mv:"5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Topiramato", syn:["Topiramato"], d:10, unit:"mg", mv:"21 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Torasemida", syn:["Torasemida"], d:0.4, unit:"mg", mv:"6 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Triamterene", syn:["Triamterene"], d:15, unit:"mg", mv:"2 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Triazolam", syn:["Triazolam"], d:0.02, unit:"mg", mv:"5.5 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Flumazenil", ref:"AACT/EAPCCT" },
+      { n:"Trifluoperazina", syn:["Trifluoperazina"], d:0.4, unit:"mg", mv:"22 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Trimipramina", syn:["Trimipramina"], d:5, unit:"mg", mv:"23 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Tripelenamina", syn:["Tripelenamina"], d:5, unit:"mg", mv:"5.5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Triprolidina", syn:["Triprolidina"], d:1, unit:"mg", mv:"5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Valaciclovir", syn:["Valaciclovir"], d:200, unit:"mg", mv:"3 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Valsartana", syn:["Valsartana"], d:5, unit:"mg", mv:"9 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Vardenafil", syn:["Vardenafil"], d:0.5, unit:"mg", mv:"6 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Venlafaxina", syn:["Venlafaxina"], d:7, unit:"mg", mv:"15 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Verapamil", syn:["Verapamil"], d:5, unit:"mg", mv:"8 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Vilanterol", syn:["Vilanterol"], d:1.5, unit:"mcg", mv:"11 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Xilometazolina", syn:["Xilometazolina","Neosoro"], d:0.4, unit:"mg", mv:"Update", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Xipamida", syn:["Xipamida"], d:3, unit:"mg", mv:"8 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Zofenopril", syn:["Zofenopril"], d:2, unit:"mg", mv:"5.5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" }
     ];
 
     const el = id => document.getElementById(id);
     const searchInput = el('search'), resultsBox = el('results'), weightInput = el('weight');
     const intakeInput = el('intake'), intakeUnit = el('intakeUnit'), timeWindow = el('timeWindow');
     let selectedDrug = null;
-    let currentProcedure = "";
     let searchTimer = null;
+    let currentProcedure = "";
 
     function normalize(s) { return (s||'').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim(); }
     
@@ -298,19 +471,16 @@
       area.innerHTML = '';
       if (!t) return;
 
-      // 1. AVISO DE LAVAGEM GÁSTRICA (Novo Padrão)
-      // Se o tempo for < 1h, mostramos o aviso educativo em vez do botão
       if (t <= 1) {
         area.innerHTML += `
         <div class="warning-box">
-          🚫 <b>Lavagem Gástrica:</b> Não recomendada rotineiramente. Reservada para casos excepcionais (ingestão letal < 1h).
+          🚫 <b>Lavagem Gástrica:</b> Não recomendada rotineiramente.
           <a href="https://open.spotify.com/episode/62MCHkjBz50b9khDrcOwEe" target="_blank" class="warning-link">🎧 Ouvir Podcast (Explicação)</a>
         </div>`;
       }
 
-      // 2. CARVÃO ATIVADO
       if (selectedDrug.noCharcoal || (selectedDrug.ca && selectedDrug.ca.toUpperCase().includes('NÃO'))) {
-        area.innerHTML += `<div style="margin-top:10px; padding:12px;background:#fee2e2;color:#991b1b;border-radius:10px;text-align:center;font-weight:700">🚫 Carvão Contraindicado para esta substância</div>`;
+        area.innerHTML += `<div style="margin-top:10px; padding:12px;background:#fee2e2;color:#991b1b;border-radius:10px;text-align:center;font-weight:700">🚫 Carvão Contraindicado</div>`;
       } else if (t <= 2) {
         area.innerHTML += `<button class="btn btnChar" onclick="openModal('charcoal')">🌑 👆 Avaliar Carvão Ativado</button>`;
       }
@@ -322,7 +492,6 @@
 
     function openModal(type) {
       currentProcedure = type;
-      // Estrutura HTML corrigida para clique funcionar no Label inteiro
       el('ciList').innerHTML = ciData[type].map(t => `
         <div class="checkItem">
           <label>
@@ -340,22 +509,15 @@
       el('ciModal').style.display = 'none';
       const area = el('buttonsArea');
       
-      // Mantém o aviso da lavagem se existir e adiciona o resultado do carvão
-      const currentHTML = area.innerHTML; 
-      
       if (checked) {
         area.insertAdjacentHTML('beforeend', `<div style="margin-top:10px; padding:15px;background:#fee2e2;color:#991b1b;border-radius:12px;text-align:center;font-weight:700">⛔ CARVÃO CONTRAINDICADO<br><small>Fator de risco presente.</small></div>`);
       } else {
         const w = parseFloat(weightInput.value) || 0;
         const msg = `✅ CARVÃO INDICADO<br><small>Dose: ${Math.min(50, w).toFixed(0)}g (1g/kg até 50g)</small>`;
-        
-        area.insertAdjacentHTML('beforeend', `
-          <div style="margin-top:10px; padding:15px;background:#dcfce7;color:#166534;border-radius:12px;text-align:center;font-weight:700;margin-bottom:10px">${msg}</div>
-        `);
+        area.insertAdjacentHTML('beforeend', `<div style="margin-top:10px; padding:15px;background:#dcfce7;color:#166534;border-radius:12px;text-align:center;font-weight:700;margin-bottom:10px">${msg}</div>`);
       }
     };
 
-    // Eventos
     searchInput.oninput = () => { clearTimeout(searchTimer); searchTimer = setTimeout(search, 200); };
     searchInput.onfocus = () => { if(searchInput.value.length > 1) resultsBox.style.display='block'; };
     [weightInput, intakeInput, intakeUnit].forEach(i => i.oninput = calculate);
