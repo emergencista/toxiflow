@@ -74,7 +74,7 @@ window.database = [
   { n:"Diazepam", syn:["Diazepam"], d:0.7, unit:"mg", mv:"48 hs" },
   { n:"Diclofenaco", syn:["Diclofenaco"], d:7, unit:"mg", mv:"2 hs" },
   { n:"Difenidramina", syn:["Difenidramina"], d:7.5, unit:"mg", mv:"9,5 hs" },
-  { n:"Diflunisal", syn:["Diflunisal"], d:50, unit:"mg", mv:"12 hs" }
+  { n:"Diflunisal", syn:["Diflunisal"], d:50, unit:"mg", mv:"12 hs" },
   { n:"Digoxina", syn:["Digoxina"], d:20, unit:"mcg", mv:"40 hs" },
   { n:"Dihidrocodeina", syn:["Dihidrocodeina"], d:0.4, unit:"mg", mv:"3,5 hs" },
   { n:"Diltiazem", syn:["Diltiazem"], d:5, unit:"mg", mv:"48 hs" },
@@ -117,7 +117,7 @@ window.database = [
   { n:"Glimepirida", syn:["Glimepirida"], d:0.04, unit:"mg", mv:"8 hs" },
   { n:"Glipizida", syn:["Glipizida"], d:0.2, unit:"mg", mv:"4 hs" },
   { n:"Guanfacina", syn:["Guanfacina"], d:0.15, unit:"mg", mv:"18 hs" },
-  { n:"Haloperidol", syn:["Haloperidol"], d:0.5, unit:"mg", mv:"", mvStatus:"update" }
+  { n:"Haloperidol", syn:["Haloperidol"], d:0.5, unit:"mg", mv:"", mvStatus:"update" },
   { n:"Hidroclorotiazida", syn:["Hidroclorotiazida"], d:3.5, unit:"mg", mv:"15 hs" },
   { n:"Hidromorfona", syn:["Hidromorfona"], d:0.1, unit:"mg", mv:"2,5 hs" },
   { n:"Hidroxizine", syn:["Hidroxizine","Hidroxizina"], d:10, unit:"mg", mv:"20 hs" },
@@ -240,5 +240,5 @@ window.database = [
   { n:"Vilanterol", syn:["Vilanterol"], d:1.5, unit:"mcg", mv:"11 hs" },
   { n:"Xilometazolina", syn:["Xilometazolina"], d:0.4, unit:"mg", mv:"", mvStatus:"update" },
   { n:"Xipamida", syn:["Xipamida"], d:3, unit:"mg", mv:"8 hs" },
-  { n:"Zofenopril", syn:["Zofenopril"], d:2, unit:"mg", mv:"5,5 hs" }
+  { n:"Zofenopril", syn:["Zofenopril"], d:2, unit:"mg", mv:"5,5 hs" },
 ];
