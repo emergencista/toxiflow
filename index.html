@@ -187,56 +187,38 @@
   </div>
 
   <script>
-    // === BANCO DE DADOS V31 (COMPLETO) ===
+    // === BANCO DE DADOS V32 ===
     const db = [
-      // === EMERGÊNCIA ===
-      { 
-        n:"Chumbinho (Carbamato)", d:0.01, u:"mg", mv:"varia", 
-        ant:"Atropina", inds:["Miose/Sialorreia", "Bradicardia", "Broncorreia"], 
-        risk:"⛔ EMERGÊNCIA: Risco iminente de insuficiência respiratória.", ref:"AACT/Goldfrank's", r:['oral'] 
-      },
-      // === ANALGÉSICOS / AINES ===
+      { n:"Chumbinho (Carbamato)", d:0.01, u:"mg", mv:"varia", ant:"Atropina", inds:["Miose/Sialorreia", "Bradicardia", "Broncorreia"], risk:"⛔ EMERGÊNCIA: Risco iminente de insuficiência respiratória.", ref:"AACT/Goldfrank's", r:['oral'] },
       { n:"AAS (Ácido Acetilsalicílico)", d:150, u:"mg", mv:"30h", ant:"Bicarbonato/Diálise", inds:["Acidose Metabólica", "Nível Sérico > 30"], risk:"⚠️ Risco de Acidose e Edema Cerebral.", ref:"AACT", r:['oral'] },
       { n:"Paracetamol", d:75, u:"mg", mv:"3h", ant:"NAC", isNac:true, ref:"Rumack-Matthew", r:['oral'] },
       { n:"Dipirona", d:100, u:"mg", mv:"2-4h", ant:"Suporte", risk:"⚠️ Risco de Choque Hipotensivo.", ref:"AACT", r:['oral', 'iv', 'im'] },
       { n:"Ibuprofeno", d:100, u:"mg", mv:"2h", ant:"Suporte", risk:"⚠️ Toxicidade Renal/GI.", ref:"UpToDate", r:['oral'] },
-
-      // === BENZODIAZEPÍNICOS ===
       { n:"Clonazepam (Rivotril)", d:0.6, u:"mg", mv:"40h", ant:"Flumazenil", isBenzo:true, risk:"🚫 Risco de convulsão em uso crônico.", ref:"UpToDate", r:['oral', 'iv'] },
       { n:"Diazepam", d:0.7, u:"mg", mv:"48h", ant:"Flumazenil", isBenzo:true, risk:"🚫 Risco de convulsão em uso crônico.", ref:"UpToDate", r:['oral', 'iv', 'im'] },
       { n:"Midazolam", d:1.0, u:"mg", mv:"2.5h", ant:"Flumazenil", isBenzo:true, ref:"UpToDate", r:['oral', 'iv', 'im'] },
       { n:"Alprazolam", d:0.5, u:"mg", mv:"11h", ant:"Flumazenil", isBenzo:true, ref:"UpToDate", r:['oral'] },
       { n:"Lorazepam", d:0.1, u:"mg", mv:"14h", ant:"Flumazenil", isBenzo:true, ref:"UpToDate", r:['oral', 'iv', 'im'] },
-
-      // === OPIOIDES ===
       { n:"Morfina", d:0.4, u:"mg", mv:"3h", ant:"Naloxona", inds:["FR &lt; 12", "Miose"], ref:"AACT", r:['oral', 'iv', 'im'] },
       { n:"Tramadol", d:4, u:"mg", mv:"9h", ant:"Naloxona", risk:"⚠️ Risco convulsão.", ref:"AACT", r:['oral', 'iv', 'im'] },
       { n:"Codeína", d:2, u:"mg", mv:"3h", ant:"Naloxona", inds:["FR &lt; 12"], ref:"AACT", r:['oral'] },
-
-      // === ANTIDIABÉTICOS / PERDA DE PESO ===
       { n:"Mounjaro (Tirzepatida)", d:0.01, u:"mg", mv:"5d", ant:"Suporte", risk:"⚠️ Risco de Desidratação Grave.", noChar:true, ref:"Bula/AACT", r:['sc'] },
       { n:"Ozempic (Semaglutida)", d:0.01, u:"mg", mv:"1sem", ant:"Suporte", risk:"⚠️ Vômitos incoercíveis.", noChar:true, ref:"Bula/AACT", r:['sc'] },
       { n:"Saxenda (Liraglutida)", d:0.1, u:"mg", mv:"13h", ant:"Suporte", risk:"⚠️ Desidratação.", noChar:true, ref:"Bula/AACT", r:['sc'] },
       { n:"Metformina", d:80, u:"mg", mv:"6h", ant:"Hemodiálise", risk:"⛔ Acidose Lática.", ref:"AACT", r:['oral'] },
       { n:"Glibenclamida", d:0.1, u:"mg", mv:"10h", ant:"Octreotide", inds:["Hipoglicemia Refratária"], ref:"AACT", r:['oral'] },
-
-      // === PSICOTRÓPICOS ===
       { n:"Litio", d:40, u:"mg", mv:"24h", noChar:true, risk:"⚠️ Hemodiálise se grave.", ref:"AACT", r:['oral'] },
       { n:"Quetiapina", d:15, u:"mg", mv:"7h", ant:"Lipídeos (se PCR)", risk:"⚠️ Hipotensão/Taquicardia.", ref:"AACT", r:['oral'] },
       { n:"Escitalopram", d:5, u:"mg", mv:"30h", ant:"Suporte", risk:"⚠️ Risco de QT Longo.", ref:"AACT", r:['oral'] },
       { n:"Sertralina", d:10, u:"mg", mv:"26h", ant:"Suporte", risk:"⚠️ Sínd. Serotoninérgica.", ref:"AACT", r:['oral'] },
       { n:"Amitriptilina", d:3, u:"mg", mv:"25h", ant:"Bicarbonato", inds:["QRS > 100ms"], ref:"AACT", r:['oral'] },
       { n:"Bupropiona", d:10, u:"mg", mv:"20h", ant:"Benzos", risk:"⚠️ Risco de convulsão tardia.", ref:"AACT", r:['oral'] },
-      
-      // === CARDIOLÓGICOS / NOACS ===
       { n:"Digoxina", d:0.07, u:"mg", mv:"40h", ant:"Ac Fab", inds:["Arritmia Grave", "K+ > 5.0"], ref:"AACT", r:['oral'] },
       { n:"Propranolol", d:8, u:"mg", mv:"4h", ant:"Glucagon", inds:["Bradicardia"], ref:"AHA", r:['oral', 'iv'] },
       { n:"Atenolol", d:5, u:"mg", mv:"6h", ant:"Glucagon", inds:["Bradicardia"], ref:"AHA", r:['oral'] },
       { n:"Anlodipino", d:0.3, u:"mg", mv:"50h", ant:"Cálcio+Insulina", inds:["Choque"], ref:"AACT/HIET", r:['oral'] },
       { n:"Rivaroxabana (Xarelto)", d:10, u:"mg", mv:"9h", ant:"Andexanet/CCP", inds:["Sangramento Grave"], ref:"AHA", r:['oral'] },
       { n:"Apixabana (Eliquis)", d:5, u:"mg", mv:"12h", ant:"Andexanet/CCP", inds:["Sangramento Grave"], ref:"AHA", r:['oral'] },
-
-      // === DIVERSOS ===
       { n:"Escopolamina (Buscopan)", d:2, u:"mg", mv:"8h", ant:"Fisostigmina (raro)", risk:"⚠️ Sínd. Anticolinérgica.", ref:"AACT", r:['oral', 'iv'] },
       { n:"Metoclopramida (Plasil)", d:2, u:"mg", mv:"6h", ant:"Biperideno", inds:["Reação Extrapiramidal"], ref:"AACT", r:['oral', 'iv', 'im'] },
       { n:"Ferro (Sulfato Ferroso)", d:20, u:"mg", mv:"6h", noChar:true, risk:"⚠️ Corrosivo GI. Carvão INEFICAZ.", ref:"AACT", r:['oral'] },
@@ -249,39 +231,41 @@
     let sel = null;
     let modalAction = null;
     const el = id => document.getElementById(id);
-    
-    const routeMap = {
-      'oral': 'Oral (Comprimido/Líquido)',
-      'iv': 'Intravenosa (IV)',
-      'im': 'Intramuscular (IM)',
-      'sc': 'Subcutânea (SC)',
-      'nasal': 'Inalatória/Nasal'
-    };
+    const routeMap = { 'oral': 'Oral (Comprimido/Líquido)', 'iv': 'Intravenosa (IV)', 'im': 'Intramuscular (IM)', 'sc': 'Subcutânea (SC)', 'nasal': 'Inalatória/Nasal' };
 
-    window.addEventListener('DOMContentLoaded', () => {
-      el('search').addEventListener('input', (e) => {
-        const val = e.target.value.toLowerCase();
-        const res = el('results');
-        res.innerHTML = '';
-        if(val.length &lt; 2) { res.style.display='none'; return; }
-        const matches = db.filter(d => d.n.toLowerCase().includes(val));
-        if(!matches.length) {
-          res.innerHTML = '<div class="opt" style="color:#aaa">Sem resultados</div>';
-        } else {
-          matches.forEach(d => {
-            const div = document.createElement('div');
-            div.className = 'opt';
-            div.innerHTML = `<span>${d.n}</span>`;
-            div.onclick = () => selectDrug(d);
-            res.appendChild(div);
-          });
-        }
-        res.style.display = 'block';
+    // === INICIALIZAÇÃO ROBUSTA (Correção do Bug de Carregamento) ===
+    window.addEventListener('load', () => {
+      
+      const sInput = el('search');
+      if(sInput) {
+        sInput.addEventListener('input', (e) => {
+          const val = e.target.value.toLowerCase();
+          const res = el('results');
+          res.innerHTML = '';
+          if(val.length &lt; 2) { res.style.display='none'; return; }
+          
+          const matches = db.filter(d => d.n.toLowerCase().includes(val));
+          if(!matches.length) {
+            res.innerHTML = '<div class="opt" style="color:#aaa">Sem resultados</div>';
+          } else {
+            matches.forEach(d => {
+              const div = document.createElement('div');
+              div.className = 'opt';
+              div.innerHTML = `<span>${d.n}</span>`;
+              div.onclick = () => selectDrug(d);
+              res.appendChild(div);
+            });
+          }
+          res.style.display = 'block';
+        });
+      }
+
+      [el('weight'), el('dose'), el('unit')].forEach(i => {
+        if(i) i.addEventListener('input', calculate);
       });
-
-      [el('weight'), el('dose'), el('unit')].forEach(i => i.addEventListener('input', calculate));
-      el('time').addEventListener('change', checkTime);
-      el('route').addEventListener('change', () => { calculate(); checkTime(); });
+      
+      if(el('time')) el('time').addEventListener('change', checkTime);
+      if(el('route')) el('route').addEventListener('change', () => { calculate(); checkTime(); });
     });
 
     function selectDrug(d) {
