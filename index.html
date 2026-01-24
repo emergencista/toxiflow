@@ -3,72 +3,258 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>TOKBASE | CIATox</title>
+  <title>ToxiFlow | CIATox</title>
 
+  <!-- PWA -->
   <meta name="theme-color" content="#1e3a8a" />
   <link rel="manifest" href="manifest.json" />
 
+  <!-- iOS PWA -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="TOKBASE" />
+  <meta name="apple-mobile-web-app-title" content="ToxiFlow" />
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
 
   <style>
-    :root{--primary:#1e3a8a;--bg:#f8fafc;--surface:#ffffff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;--danger:#b91c1c;--warn:#d97706}
+    :root{
+      --primary:#1e3a8a;
+      --bg:#f8fafc;
+      --surface:#ffffff;
+      --text:#0f172a;
+      --muted:#64748b;
+      --border:#e2e8f0;
+      --danger:#b91c1c;
+      --warn:#d97706;
+    }
     *{box-sizing:border-box}
-    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;justify-content:center;padding-top:calc(env(safe-area-inset-top) + 8px);padding-bottom:calc(env(safe-area-inset-bottom) + 8px)}
-    .app{width:100%;max-width:520px;min-height:100vh;background:var(--surface);box-shadow:0 8px 24px rgba(15,23,42,.08);display:flex;flex-direction:column}
-    header{background:var(--primary);color:#fff;padding:22px 18px;border-bottom-left-radius:22px;border-bottom-right-radius:22px;text-align:center}
-    header h1{margin:0;font-size:1.25rem;font-weight:800;letter-spacing:.3px}
-    header p{margin:6px 0 0;font-size:.82rem;opacity:.85}
-    main{padding:18px;flex:1}
-    .card{border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:12px;background:#fff;position:relative}
-    .label{display:block;font-size:.72rem;font-weight:800;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      padding-top:calc(env(safe-area-inset-top) + 8px);
+      padding-bottom:calc(env(safe-area-inset-bottom) + 8px);
+    }
+    .app{
+      width:100%;
+      max-width:520px;
+      min-height:100vh;
+      background:var(--surface);
+      box-shadow:0 8px 24px rgba(15,23,42,.08);
+      display:flex;
+      flex-direction:column;
+    }
+    header{
+      background:var(--primary);
+      color:#fff;
+      padding:22px 18px;
+      border-bottom-left-radius:22px;
+      border-bottom-right-radius:22px;
+      text-align:center;
+    }
+    header h1{
+      margin:0;
+      font-size:1.35rem;
+      font-weight:900;
+      letter-spacing:.4px;
+      text-transform:none;
+    }
+    header p{
+      margin:6px 0 0;
+      font-size:.82rem;
+      opacity:.85;
+    }
+    main{padding:18px; flex:1}
+    .card{
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:14px;
+      margin-bottom:12px;
+      background:#fff;
+      position:relative;
+    }
+    .label{
+      display:block;
+      font-size:.72rem;
+      font-weight:800;
+      color:var(--muted);
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      margin-bottom:6px;
+    }
 
-    input:not([type="checkbox"]), select{width:100%;padding:12px;border:2px solid var(--border);border-radius:10px;font-size:1rem;background:#f8fafc;-webkit-appearance:none}
-    input:not([type="checkbox"]):focus, select:focus{outline:none;border-color:#93c5fd;background:#fff}
+    /* ✅ não aplicar width:100% em checkbox */
+    input:not([type="checkbox"]), select{
+      width:100%;
+      padding:12px;
+      border:2px solid var(--border);
+      border-radius:10px;
+      font-size:1rem;
+      background:#f8fafc;
+      -webkit-appearance:none;
+    }
+    input:not([type="checkbox"]):focus, select:focus{
+      outline:none;
+      border-color:#93c5fd;
+      background:#fff;
+    }
 
-    input[type="checkbox"]{width:22px;height:22px;padding:0;margin:0;-webkit-appearance:auto;appearance:auto;background:transparent}
+    /* ✅ Checkbox clicável no iOS */
+    input[type="checkbox"]{
+      width:22px;
+      height:22px;
+      padding:0;
+      margin:0;
+      -webkit-appearance:auto;
+      appearance:auto;
+      background:transparent;
+    }
 
-    #results{position:absolute;left:14px;right:14px;top:82px;z-index:2000;display:none;background:#fff;border:1px solid #cbd5e1;border-radius:12px;max-height:260px;overflow:auto;-webkit-overflow-scrolling:touch;box-shadow:0 18px 30px rgba(15,23,42,.12)}
-    .opt{padding:14px;border-bottom:1px solid #f1f5f9;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
+    #results{
+      position:absolute;
+      left:14px;
+      right:14px;
+      top:82px;
+      z-index:2000;
+      display:none;
+      background:#fff;
+      border:1px solid #cbd5e1;
+      border-radius:12px;
+      max-height:260px;
+      overflow:auto;
+      -webkit-overflow-scrolling:touch;
+      box-shadow:0 18px 30px rgba(15,23,42,.12);
+    }
+    .opt{
+      padding:14px;
+      border-bottom:1px solid #f1f5f9;
+      cursor:pointer;
+      user-select:none;
+      -webkit-tap-highlight-color:transparent;
+    }
     .opt:last-child{border-bottom:none}
     .opt:active{background:#f1f5f9}
-    .optEmpty{padding:14px;color:#64748b;font-weight:700;cursor:default;user-select:none}
+    .optEmpty{
+      padding:14px;
+      color:#64748b;
+      font-weight:700;
+      cursor:default;
+      user-select:none;
+    }
 
-    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .gridDose{display:grid;grid-template-columns:1fr 120px;gap:10px}
-    .hint{display:block;margin-top:6px;color:var(--muted);font-size:.78rem;line-height:1.25}
-    #panel{display:none;padding:16px;border-radius:14px;color:#fff;text-align:center;margin-bottom:12px}
+    .grid2{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+    .gridDose{display:grid; grid-template-columns:1fr 120px; gap:10px}
+    .hint{display:block; margin-top:6px; color:var(--muted); font-size:.78rem; line-height:1.25}
+    #panel{
+      display:none;
+      padding:16px;
+      border-radius:14px;
+      color:#fff;
+      text-align:center;
+      margin-bottom:12px;
+    }
     .toxic{background:linear-gradient(135deg,#dc2626,#7f1d1d)}
     .safe{background:linear-gradient(135deg,#16a34a,#14532d)}
-    .panelTitle{font-weight:900;font-size:1.2rem}
-    .panelDetail{margin-top:6px;font-size:.92rem;opacity:.95}
-    .antBox{display:none;background:#f5f3ff;border:1px solid #ddd6fe;border-left:5px solid #7c3aed;padding:12px;border-radius:12px;color:#4c1d95;margin-bottom:12px;font-size:.92rem}
+    .panelTitle{font-weight:900; font-size:1.2rem}
+    .panelDetail{margin-top:6px; font-size:.92rem; opacity:.95}
+    .antBox{
+      display:none;
+      background:#f5f3ff;
+      border:1px solid #ddd6fe;
+      border-left:5px solid #7c3aed;
+      padding:12px;
+      border-radius:12px;
+      color:#4c1d95;
+      margin-bottom:12px;
+      font-size:.92rem;
+    }
     .antBox b{color:#3b0764}
-    .btn{width:100%;padding:15px;border:none;border-radius:12px;font-weight:900;font-size:1rem;cursor:pointer;margin-top:10px;-webkit-tap-highlight-color:transparent}
-    .btnChar{background:#334155;color:#fff}
-    .btnLav{background:var(--warn);color:#fff}
-    .btnSpotify{background:#1db954;color:#fff;text-decoration:none;display:block;text-align:center}
-    .footer{text-align:center;padding:16px 12px 22px;color:#94a3b8;font-size:.78rem}
+    .btn{
+      width:100%;
+      padding:15px;
+      border:none;
+      border-radius:12px;
+      font-weight:900;
+      font-size:1rem;
+      cursor:pointer;
+      margin-top:10px;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .btnChar{background:#334155; color:#fff}
+    .btnLav{background:var(--warn); color:#fff}
+    .btnSpotify{background:#1db954; color:#fff; text-decoration:none; display:block; text-align:center}
+    .footer{
+      text-align:center;
+      padding:16px 12px 22px;
+      color:#94a3b8;
+      font-size:.78rem;
+    }
 
-    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:9999;background:rgba(0,0,0,.68);backdrop-filter:blur(4px)}
-    .modalCard{width:88%;max-width:420px;background:#fff;border-radius:18px;padding:18px;box-shadow:0 30px 60px rgba(15,23,42,.24)}
-    .modalCard h3{margin:0 0 6px;color:#b91c1c;font-size:1.15rem}
-    .modalCard p{margin:0 0 14px;color:var(--muted);font-size:.86rem;line-height:1.35}
+    /* Modal */
+    .modal{
+      position:fixed; inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:9999;
+      background:rgba(0,0,0,.68);
+      backdrop-filter:blur(4px);
+    }
+    .modalCard{
+      width:88%;
+      max-width:420px;
+      background:#fff;
+      border-radius:18px;
+      padding:18px;
+      box-shadow:0 30px 60px rgba(15,23,42,.24);
+    }
+    .modalCard h3{
+      margin:0 0 6px;
+      color:#b91c1c;
+      font-size:1.15rem;
+    }
+    .modalCard p{
+      margin:0 0 14px;
+      color:var(--muted);
+      font-size:.86rem;
+      line-height:1.35;
+    }
     .checkItem{margin-bottom:10px}
-    .checkItem label{display:flex;gap:12px;align-items:flex-start;background:#f1f5f9;border:1px solid #e2e8f0;padding:12px;border-radius:12px;cursor:pointer;font-size:.95rem;line-height:1.2;-webkit-tap-highlight-color:transparent}
-    .checkItem input{margin-top:2px;flex:0 0 auto}
-    .modalActions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
-    .btnLight{background:#e2e8f0;color:#334155}
-    .btnPrimary{background:var(--primary);color:#fff}
+    .checkItem label{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      background:#f1f5f9;
+      border:1px solid #e2e8f0;
+      padding:12px;
+      border-radius:12px;
+      cursor:pointer;
+      font-size:.95rem;
+      line-height:1.2;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .checkItem input{
+      margin-top:2px;
+      flex:0 0 auto;
+    }
+    .modalActions{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-top:14px;
+    }
+    .btnLight{background:#e2e8f0; color:#334155}
+    .btnPrimary{background:var(--primary); color:#fff}
   </style>
 </head>
 
 <body>
   <div class="app">
     <header>
-      <h1>TOKBASE</h1>
+      <h1>ToxiFlow</h1>
       <p>Protocolos CIATox v22.1 — Doses tóxicas (referência)</p>
     </header>
 
@@ -97,7 +283,9 @@
                 <option value="mcg">mcg</option>
               </select>
             </div>
-            <small id="intakeHint" class="hint">Escolha a unidade informada (mg, g ou mcg). O app converte automaticamente.</small>
+            <small id="intakeHint" class="hint">
+              Escolha a unidade informada (mg, g ou mcg). O app converte automaticamente.
+            </small>
           </div>
         </div>
       </div>
@@ -123,7 +311,7 @@
 
           <div id="buttonsArea"></div>
 
-          <div style="margin-top:14px;font-size:.92rem">
+          <div style="margin-top:14px; font-size:.92rem">
             <b>Suporte:</b> <span id="supportText" style="color:#475569"></span>
           </div>
         </div>
@@ -133,6 +321,7 @@
     <div class="footer">Desenvolvido por @biaandrade_c</div>
   </div>
 
+  <!-- Modal -->
   <div id="ciModal" class="modal">
     <div class="modalCard">
       <h3>Contraindicações</h3>
@@ -145,9 +334,11 @@
     </div>
   </div>
 
+  <!-- Base externa -->
   <script src="/database.js"></script>
 
   <script>
+    // Service Worker
     (function registerSW(){
       if (!('serviceWorker' in navigator)) return;
       window.addEventListener('load', () => {
@@ -155,6 +346,7 @@
       });
     })();
 
+    // Base tolerante
     if (!window.database || !Array.isArray(window.database)) window.database = [];
     window.database = window.database
       .filter(Boolean)
@@ -166,6 +358,8 @@
           d: (obj.d ?? null),
           unit: (obj.unit ?? 'mg').toString(),
           mv: (obj.mv ?? '').toString(),
+          mvStatus: (obj.mvStatus ?? '').toString(),
+          doseStatus: (obj.doseStatus ?? '').toString(),
           ant: (obj.ant ?? '').toString(),
           support: (obj.support ?? '').toString(),
           noCharcoal: !!obj.noCharcoal
@@ -178,6 +372,7 @@
     let lastMatches = [];
 
     const el = (id) => document.getElementById(id);
+
     const searchInput = el('search');
     const resultsBox = el('results');
     const drugInfo = el('drugInfo');
@@ -227,6 +422,7 @@
         div.onclick = () => selectDrug(d);
         resultsBox.appendChild(div);
       });
+
       resultsBox.style.display = 'block';
     }
 
@@ -235,7 +431,11 @@
       searchInput.value = d.n;
 
       const unitPerKg = (d.unit || 'mg').toLowerCase();
-      drugInfo.textContent = `Dose tóxica: ${d.d} ${unitPerKg}/kg | Meia-vida: ${d.mv || '-'}`;
+
+      const mvText = (d.mvStatus === "update") ? "EM ATUALIZAÇÃO" : (d.mv || "-");
+      const doseText = (d.doseStatus === "update" || d.d === null || d.d === undefined) ? "EM ATUALIZAÇÃO" : d.d;
+
+      drugInfo.textContent = `Dose tóxica: ${doseText} ${unitPerKg}/kg | Meia-vida: ${mvText}`;
 
       const expected = unitPerKg === 'mcg' ? 'mcg' : 'mg';
       intakeUnit.value = expected;
@@ -248,7 +448,7 @@
       el('clinical').style.display = 'none';
       resultsBox.style.display = 'none';
 
-      // ✅ NOVO: fecha teclado no iPhone quando seleciona (blur)
+      // fecha teclado no iPhone ao selecionar
       searchInput.blur();
 
       calculate();
@@ -299,7 +499,7 @@
       debounceTimer = setTimeout(searchData, 150);
     });
 
-    // ✅ NOVO: Enter seleciona o primeiro resultado (desktop)
+    // Enter seleciona o primeiro resultado (desktop)
     searchInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
         const first = lastMatches && lastMatches.length ? lastMatches[0] : null;
