@@ -84,7 +84,9 @@
       text-transform:uppercase;
       margin-bottom:6px;
     }
-    input, select{
+
+    /* ✅ CORREÇÃO: não aplicar width:100% em checkbox */
+    input:not([type="checkbox"]), select{
       width:100%;
       padding:12px;
       border:2px solid var(--border);
@@ -93,11 +95,23 @@
       background:#f8fafc;
       -webkit-appearance:none;
     }
-    input:focus, select:focus{
+    input:not([type="checkbox"]):focus, select:focus{
       outline:none;
       border-color:#93c5fd;
       background:#fff;
     }
+
+    /* ✅ Checkbox clicável no iOS */
+    input[type="checkbox"]{
+      width:22px;
+      height:22px;
+      padding:0;
+      margin:0;
+      -webkit-appearance:auto;
+      appearance:auto;
+      background:transparent;
+    }
+
     #results{
       position:absolute;
       left:14px;
@@ -209,10 +223,9 @@
       cursor:pointer;
       font-size:.95rem;
       line-height:1.2;
+      -webkit-tap-highlight-color: transparent;
     }
     .checkItem input{
-      width:22px;
-      height:22px;
       margin-top:2px;
       flex:0 0 auto;
     }
@@ -315,7 +328,7 @@
   </div>
 
   <!-- Base externa -->
-  <script src="./database.js"></script>
+  <script src="/database.js"></script>
 
   <script>
     // Service Worker
