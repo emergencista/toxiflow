@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>ToxiFlow V20</title>
+  <title>ToxiFlow V21</title>
 
   <!-- === ÍCONES LOCAIS === -->
   <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png" />
@@ -74,13 +74,13 @@
 
   <header>
     <h1>ToxiFlow</h1>
-    <p>CIATox-BA v20.0</p>
+    <p>CIATox-BA v21.0</p>
   </header>
 
   <div class="container">
     <div class="card">
       <label>Substância (Busca Rápida)</label>
-      <input type="text" id="search" placeholder="Ex: Mounjaro, Cetamina..." autocomplete="off">
+      <input type="text" id="search" placeholder="Ex: Diazepam, Mounjaro..." autocomplete="off">
       <div class="results" id="results"></div>
       <div id="drugInfo" style="margin-top:12px; font-size:0.95rem; color:#475569; padding-top:10px; border-top:1px dashed #e2e8f0;"></div>
     </div>
@@ -147,7 +147,7 @@
   </div>
 
   <script>
-    // === BANCO DE DADOS REVISADO V20 ===
+    // === BANCO DE DADOS V21 (Sintaxe Blindada) ===
     const db = [
       // === INJETÁVEIS (SEM CARVÃO) ===
       {
@@ -193,7 +193,7 @@
       {n:"Clonazepam", d:0.6, u:"mg", mv:"40h", ant:"Flumazenil", risk:"🚫 Risco convulsão.", ref:"AACT"},
       {n:"Diazepam", d:0.7, u:"mg", mv:"48h", ant:"Flumazenil", risk:"🚫 Risco convulsão.", ref:"AACT"},
       {n:"Midazolam", d:1.0, u:"mg", mv:"2.5h", ant:"Flumazenil", ref:"AACT"},
-      {n:"Morfina", d:0.4, u:"mg", mv:"3h", ant:"Naloxona", inds:["FR < 12"], ref:"AACT"},
+      {n:"Morfina", d:0.4, u:"mg", mv:"3h", ant:"Naloxona", inds:["FR &lt; 12"], ref:"AACT"},
       {n:"Tramadol", d:4, u:"mg", mv:"9h", ant:"Naloxona", risk:"⚠️ Risco convulsão.", ref:"AACT"},
       {n:"Paracetamol", d:75, u:"mg", mv:"3h", ant:"NAC", isNac:true, ref:"Rumack"},
       {n:"Lidocaina", d:5, u:"mg", mv:"1.5h", ant:"Lipídeos", ref:"AACT"},
@@ -313,11 +313,11 @@
 
       if(t === '1') area.innerHTML += `<div class="result-box res-blue" style="display:block">🚫 Lavagem Gástrica: Contraindicada rotineiramente.</div>`;
       
-      // LOGICA DE CARVÃO REVISADA
+      // LOGICA DE CARVÃO REVISADA E SEGURA
       if(sel.noChar) {
         area.innerHTML += `<div class="result-box res-red" style="display:block">⛔ <b>CARVÃO NÃO INDICADO</b><br>Substância injetável, não absorvível ou cáustica.</div>`;
       } else if (sel.n.includes('Cocaina') || sel.n.includes('Ritalina') || sel.n.includes('Venvanse')) {
-         area.innerHTML += `<div class="result-box res-blue" style="display:block">⚠️ Carvão: Apenas se ingestão maciça <1h e Via Aérea SEGURA (Risco de agitação/convulsão).</div>`;
+         area.innerHTML += `<div class="result-box res-blue" style="display:block">⚠️ Carvão: Apenas se ingestão maciça &lt;1h e Via Aérea SEGURA (Risco de agitação/convulsão).</div>`;
       } else if(t !== '4') {
         const btn = document.createElement('button'); 
         btn.className = 'btn btn-dark'; 
