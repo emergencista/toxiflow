@@ -1,29 +1,75 @@
 window.database = [
   { n: "AAS", syn: ["Ácido acetilsalicílico", "Acido acetilsalicilico", "Aspirina"], d: 100, unit: "mg", mv: "30 hs", ant: "Bicarbonato de sódio (alcalinização)", support: "Suporte clínico, correção hidroeletrolítica, considerar carvão ativado precoce se indicado." },
-
   { n: "Amitriptilina", syn: ["Tricíclicos", "ADT"], d: 3, unit: "mg", mv: "25 hs", ant: "Bicarbonato de sódio (QRS alargado)", support: "Monitorização contínua, tratar convulsões, suporte ventilatório se necessário." },
-
+  { n: "Amlodipina", syn: ["Amlod"], d: 0.6, unit: "mg", mv: "35 hs", ant: "Cálcio/insulina (conforme protocolo)", support: "Suporte hemodinâmico, vasopressores conforme necessidade." },
   { n: "Atenolol", syn: ["Beta-bloqueador"], d: 5, unit: "mg", mv: "7 hs", ant: "Glucagon / insulina em alta dose (conforme protocolo)", support: "Monitorar FC/PA, ECG, suporte hemodinâmico." },
-
   { n: "Carbamazepina", syn: ["Tegretol"], d: 20, unit: "mg", mv: "20 hs", support: "Considerar carvão ativado em doses múltiplas (MDAC) conforme avaliação clínica." },
-
   { n: "Clonazepam", syn: ["Rivotril", "Benzodiazepínico"], d: 0.6, unit: "mg", mv: "40 hs", ant: "Flumazenil (uso selecionado, cautela)", support: "Suporte ventilatório e clínico conforme necessidade." },
-
   { n: "Diazepam", syn: ["Valium", "Benzodiazepínico"], d: 0.7, unit: "mg", mv: "48 hs", ant: "Flumazenil (uso selecionado, cautela)", support: "Suporte ventilatório e clínico conforme necessidade." },
-
   { n: "Digoxina", syn: ["Digital", "Lanoxin"], d: 20, unit: "mcg", mv: "40 hs", ant: "Fab anti-digoxina", support: "Monitorar ECG e potássio. Tratar arritmias conforme protocolo." },
-
   { n: "Fenobarbital", syn: ["Barbitúrico"], d: 4, unit: "mg", mv: "5 dias", support: "Suporte ventilatório. Considerar alcalinização urinária conforme avaliação." },
-
   { n: "Haloperidol", syn: ["Haldol"], d: 0.5, unit: "mg", mv: "35 hs", support: "Monitorar QT. Tratar distonia/agitação conforme protocolo." },
-
   { n: "Lítio", syn: ["Litio", "Carbonato de lítio", "Carbonato de litio"], d: 50, unit: "mg", mv: "24 hs", noCharcoal: true, ant: "Hemodiálise (casos selecionados)", support: "Hidratação, monitorar níveis e função renal. Carvão não é eficaz." },
-
   { n: "Metformina", syn: ["Biguanida"], d: 80, unit: "mg", mv: "6,5 hs", support: "Observar acidose láctica. Suporte hemodinâmico conforme quadro." },
-
   { n: "Paracetamol", syn: ["Acetaminofeno", "Tylenol"], d: 75, unit: "mg", mv: "3 hs", ant: "N-acetilcisteína", support: "Dosar paracetamol em 4h e aplicar nomograma conforme protocolo." },
-
   { n: "Sertralina", syn: ["ISRS", "Zoloft"], d: 7, unit: "mg", mv: "26 hs", support: "Suporte clínico. Observar síndrome serotoninérgica." },
-
-  { n: "Ácido Valpróico", syn: ["Acido valproico", "Valproato"], d: 200, unit: "mg", mv: "20 hs", support: "Suporte clínico. Considerar carnitina em situações selecionadas." }
+  { n: "Ácido Valpróico", syn: ["Acido valproico", "Valproato"], d: 200, unit: "mg", mv: "20 hs", support: "Suporte clínico. Considerar carnitina em situações selecionadas." }, 
+  { n: "Alprazolam", syn: ["Frontal", "Xanax"], d: 2, unit: "mg", mv: "12 hs", ant: "Flumazenil (uso selecionado, cautela)", support: "Suporte ventilatório conforme necessidade." },
+  { n: "Amiodarona", syn: ["Cordarone"], d: 20, unit: "mg", mv: "20 dias", support: "Monitorar QT e bradicardia. Suporte conforme quadro." },
+  { n: "Atropina", syn: ["Anticolinérgico"], d: 0.5, unit: "mg", mv: "2 hs", support: "Suporte clínico. Monitorização." },
+  { n: "Baclofeno", syn: ["Lioresal"], d: 5, unit: "mg", mv: "4 hs", support: "Suporte ventilatório e hemodinâmico." },
+  { n: "Bupropiona", syn: ["Wellbutrin"], d: 10, unit: "mg", mv: "21 hs", support: "Risco de convulsões. Suporte e benzodiazepínicos se necessário." },
+  { n: "Cafeína", syn: ["Caffeine"], d: 15, unit: "mg", mv: "5 hs", support: "Suporte clínico. Tratar arritmias conforme quadro." },
+  { n: "Carvedilol", syn: ["Coreg"], d: 5, unit: "mg", mv: "7 hs", ant: "Glucagon / insulina (conforme protocolo)", support: "Monitorar FC/PA. Suporte hemodinâmico." },
+  { n: "Clorpromazina", syn: ["Amplictil"], d: 2, unit: "mg", mv: "30 hs", support: "Monitorar QT. Suporte clínico." },
+  { n: "Cocaína", syn: ["Coke"], d: 1, unit: "mg", mv: "1 hs", support: "Sedação com benzodiazepínicos. Controle de PA/temperatura." },
+  { n: "Codeína", syn: ["Codeine"], d: 5, unit: "mg", mv: "3 hs", ant: "Naloxona", support: "Suporte ventilatório. Considerar naloxona se depressão respiratória." },
+  { n: "Colchicina", syn: ["Colchicine"], d: 0.5, unit: "mg", mv: "30 hs", support: "Suporte intensivo, risco de falência multissistêmica." },
+  { n: "Dextrometorfano", syn: ["DM", "Vick"], d: 7.5, unit: "mg", mv: "4 hs", support: "Observar síndrome serotoninérgica. Suporte clínico." },
+  { n: "Diazepam (retal)", syn: ["Diastat"], d: 0.7, unit: "mg", mv: "48 hs", ant: "Flumazenil (uso selecionado, cautela)", support: "Suporte ventilatório e clínico conforme necessidade." },
+  { n: "Diltiazem", syn: ["Cardizem"], d: 5, unit: "mg", mv: "4 hs", ant: "Cálcio/insulina (conforme protocolo)", support: "Suporte hemodinâmico. Vasopressores se necessário." },
+  { n: "Dipirona", syn: ["Metamizol"], d: 100, unit: "mg", mv: "2 hs", support: "Suporte clínico." },
+  { n: "Escitalopram", syn: ["Lexapro"], d: 5, unit: "mg", mv: "27 hs", support: "Monitorar QT em altas doses. Suporte clínico." },
+  { n: "Etanol", syn: ["Álcool", "Alcool"], d: 150, unit: "mg", mv: "variável", support: "Suporte clínico. Considerar hipoglicemia/hipotermia." },
+  { n: "Fenitoína", syn: ["Phenytoin", "Hidantal"], d: 20, unit: "mg", mv: "22 hs", support: "Monitorar ataxia/nistagmo. Suporte clínico." },
+  { n: "Fluoxetina", syn: ["Prozac"], d: 5, unit: "mg", mv: "4 dias", support: "Observar síndrome serotoninérgica. Suporte clínico." },
+  { n: "Furosemida", syn: ["Lasix"], d: 40, unit: "mg", mv: "2 hs", support: "Suporte clínico. Monitorar eletrólitos." },
+  { n: "Hidroxicloroquina", syn: ["HCQ"], d: 5, unit: "mg", mv: "40 dias", support: "Risco de arritmias. Suporte intensivo conforme quadro." },
+  { n: "Ibuprofeno", syn: ["Ibu"], d: 100, unit: "mg", mv: "2 hs", support: "Suporte clínico. Observar sintomas GI/renal." },
+  { n: "Imipramina", syn: ["Tofranil"], d: 3, unit: "mg", mv: "19 hs", ant: "Bicarbonato de sódio (QRS alargado)", support: "Monitorização contínua, tratar convulsões." },
+  { n: "Insulina", syn: ["Insulin"], d: 2, unit: "UI", mv: "variável", support: "Monitorar glicemia. Reposição de glicose conforme necessidade." },
+  { n: "Isoniazida", syn: ["INH"], d: 20, unit: "mg", mv: "2 hs", ant: "Piridoxina", support: "Tratar convulsões. Suporte clínico." },
+  { n: "Loperamida", syn: ["Imodium"], d: 0.4, unit: "mg", mv: "10 hs", support: "Risco de QT/arritmias em abuso. Suporte clínico." },
+  { n: "Lorazepam", syn: ["Ativan"], d: 0.5, unit: "mg", mv: "12 hs", ant: "Flumazenil (uso selecionado, cautela)", support: "Suporte ventilatório conforme necessidade." },
+  { n: "Losartana", syn: ["Cozaar"], d: 10, unit: "mg", mv: "2 hs", support: "Suporte clínico. Monitorar PA." },
+  { n: "Metoprolol", syn: ["Seloken"], d: 5, unit: "mg", mv: "4 hs", ant: "Glucagon / insulina (conforme protocolo)", support: "Monitorar FC/PA. Suporte hemodinâmico." },
+  { n: "Morfina", syn: ["Morphine"], d: 0.5, unit: "mg", mv: "2 hs", ant: "Naloxona", support: "Suporte ventilatório. Considerar naloxona se depressão respiratória." },
+  { n: "Nifedipina", syn: ["Adalat"], d: 1, unit: "mg", mv: "2 hs", ant: "Cálcio/insulina (conforme protocolo)", support: "Suporte hemodinâmico." },
+  { n: "Olanzapina", syn: ["Zyprexa"], d: 0.5, unit: "mg", mv: "30 hs", support: "Suporte clínico. Monitorar sedação." },
+  { n: "Propranolol", syn: ["Inderal"], d: 5, unit: "mg", mv: "4 hs", ant: "Glucagon / insulina (conforme protocolo)", support: "Monitorar FC/PA. Suporte hemodinâmico." },
+  { n: "Quetiapina", syn: ["Seroquel"], d: 10, unit: "mg", mv: "6 hs", support: "Suporte clínico. Monitorar hipotensão e sedação." },
+  { n: "Fenitoína", syn: ["Phenytoin", "Hidantal"], d: 20, unit: "mg", mv: "22 hs", support: "Monitorar ataxia/nistagmo. Suporte clínico." },
+  { n: "Fluoxetina", syn: ["Prozac"], d: 5, unit: "mg", mv: "4 dias", support: "Observar síndrome serotoninérgica. Suporte clínico." },
+  { n: "Furosemida", syn: ["Lasix"], d: 40, unit: "mg", mv: "2 hs", support: "Suporte clínico. Monitorar eletrólitos." },
+  { n: "Hidroxicloroquina", syn: ["HCQ"], d: 5, unit: "mg", mv: "40 dias", support: "Risco de arritmias. Suporte intensivo conforme quadro." },
+  { n: "Ibuprofeno", syn: ["Ibu"], d: 100, unit: "mg", mv: "2 hs", support: "Suporte clínico. Observar sintomas GI/renal." },
+  { n: "Imipramina", syn: ["Tofranil"], d: 3, unit: "mg", mv: "19 hs", ant: "Bicarbonato de sódio (QRS alargado)", support: "Monitorização contínua, tratar convulsões." },
+  { n: "Insulina", syn: ["Insulin"], d: 2, unit: "UI", mv: "variável", support: "Monitorar glicemia. Reposição de glicose conforme necessidade." },
+  { n: "Isoniazida", syn: ["INH"], d: 20, unit: "mg", mv: "2 hs", ant: "Piridoxina", support: "Tratar convulsões. Suporte clínico." },
+  { n: "Loperamida", syn: ["Imodium"], d: 0.4, unit: "mg", mv: "10 hs", support: "Risco de QT/arritmias em abuso. Suporte clínico." },
+  { n: "Lorazepam", syn: ["Ativan"], d: 0.5, unit: "mg", mv: "12 hs", ant: "Flumazenil (uso selecionado, cautela)", support: "Suporte ventilatório conforme necessidade." },
+  { n: "Losartana", syn: ["Cozaar"], d: 10, unit: "mg", mv: "2 hs", support: "Suporte clínico. Monitorar PA." },
+  { n: "Metoprolol", syn: ["Seloken"], d: 5, unit: "mg", mv: "4 hs", ant: "Glucagon / insulina (conforme protocolo)", support: "Monitorar FC/PA. Suporte hemodinâmico." },
+  { n: "Morfina", syn: ["Morphine"], d: 0.5, unit: "mg", mv: "2 hs", ant: "Naloxona", support: "Suporte ventilatório. Considerar naloxona se depressão respiratória." },
+  { n: "Nifedipina", syn: ["Adalat"], d: 1, unit: "mg", mv: "2 hs", ant: "Cálcio/insulina (conforme protocolo)", support: "Suporte hemodinâmico." },
+  { n: "Olanzapina", syn: ["Zyprexa"], d: 0.5, unit: "mg", mv: "30 hs", support: "Suporte clínico. Monitorar sedação." },
+  { n: "Propranolol", syn: ["Inderal"], d: 5, unit: "mg", mv: "4 hs", ant: "Glucagon / insulina (conforme protocolo)", support: "Monitorar FC/PA. Suporte hemodinâmico." },
+  { n: "Quetiapina", syn: ["Seroquel"], d: 10, unit: "mg", mv: "6 hs", support: "Suporte clínico. Monitorar hipotensão e sedação." },
+    { n: "Risperidona", syn: ["Risperdal"], d: 1, unit: "mg", mv: "20 hs", support: "Suporte clínico. Monitorar sedação e efeitos extrapiramidais." },
+  { n: "Salbutamol", syn: ["Albuterol", "Aerolin"], d: 6, unit: "mg", mv: "4 hs", support: "Monitorar tremor/taquicardia/hipocalemia." },
+  { n: "Sildenafila", syn: ["Viagra"], d: 2, unit: "mg", mv: "4 hs", support: "Suporte clínico. Monitorar hipotensão, contraindicação com nitratos." },
+  { n: "Sinvastatina", syn: ["Zocor"], d: 10, unit: "mg", mv: "2 hs", support: "Suporte clínico. Monitorar CPK se mialgia importante." },
+  { n: "Tramadol", syn: ["Tramal"], d: 10, unit: "mg", mv: "6 hs", support: "Risco de convulsões e síndrome serotoninérgica. Suporte clínico." },
+  { n: "Varfarina", syn: ["Warfarin", "Marevan"], d: 0.5, unit: "mg", mv: "40 hs", ant: "Vitamina K (conforme necessidade)", support: "Monitorar INR e sinais de sangramento." },
+  { n: "Venlafaxina", syn: ["Efexor"], d: 10, unit: "mg", mv: "5 hs", support: "Monitorar PA e QT. Suporte clínico." }
 ];
