@@ -29,7 +29,6 @@
     .ref-btn:active { background: rgba(255,255,255,0.2); transform: scale(0.95); }
 
     /* CONTAINER & CARDS */
-    /* Ajuste final de margem para evitar aperto no topo */
     .container { max-width: 500px; margin: 15px auto 0; padding: 0 20px; position: relative; z-index: 5; }
     .card { background: white; padding: 20px; border-radius: 16px; margin-bottom: 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid #e2e8f0; }
     
@@ -105,7 +104,7 @@
     <div class="card">
       <label>Substância</label>
       <div class="search-wrapper">
-        <input type="text" id="search" placeholder="Ex: Chumbinho, Diazepam..." autocomplete="off">
+        <input type="text" id="search" placeholder="Ex: Chumbinho, AAS, Diazepam..." autocomplete="off">
         <div class="results" id="results"></div>
       </div>
       <div id="drugInfo" style="margin-top: 12px; font-size: 0.9rem; color: #64748b; padding-top: 10px; border-top: 1px dashed #e2e8f0; display: none;"></div>
@@ -188,40 +187,63 @@
   </div>
 
   <script>
-    // === BANCO DE DADOS V30 ===
+    // === BANCO DE DADOS V31 (COMPLETO) ===
     const db = [
+      // === EMERGÊNCIA ===
       { 
         n:"Chumbinho (Carbamato)", d:0.01, u:"mg", mv:"varia", 
         ant:"Atropina", inds:["Miose/Sialorreia", "Bradicardia", "Broncorreia"], 
         risk:"⛔ EMERGÊNCIA: Risco iminente de insuficiência respiratória.", ref:"AACT/Goldfrank's", r:['oral'] 
       },
-      { n:"Mounjaro (Tirzepatida)", d:0.01, u:"mg", mv:"5d", ant:"Suporte", risk:"⚠️ Risco de Desidratação Grave.", noChar:true, ref:"Bula/AACT", r:['sc'] },
-      { n:"Ozempic (Semaglutida)", d:0.01, u:"mg", mv:"1sem", ant:"Suporte", risk:"⚠️ Vômitos incoercíveis.", noChar:true, ref:"Bula/AACT", r:['sc'] },
-      { n:"Saxenda (Liraglutida)", d:0.1, u:"mg", mv:"13h", ant:"Suporte", risk:"⚠️ Desidratação.", noChar:true, ref:"Bula/AACT", r:['sc'] },
-      
+      // === ANALGÉSICOS / AINES ===
+      { n:"AAS (Ácido Acetilsalicílico)", d:150, u:"mg", mv:"30h", ant:"Bicarbonato/Diálise", inds:["Acidose Metabólica", "Nível Sérico > 30"], risk:"⚠️ Risco de Acidose e Edema Cerebral.", ref:"AACT", r:['oral'] },
+      { n:"Paracetamol", d:75, u:"mg", mv:"3h", ant:"NAC", isNac:true, ref:"Rumack-Matthew", r:['oral'] },
+      { n:"Dipirona", d:100, u:"mg", mv:"2-4h", ant:"Suporte", risk:"⚠️ Risco de Choque Hipotensivo.", ref:"AACT", r:['oral', 'iv', 'im'] },
+      { n:"Ibuprofeno", d:100, u:"mg", mv:"2h", ant:"Suporte", risk:"⚠️ Toxicidade Renal/GI.", ref:"UpToDate", r:['oral'] },
+
+      // === BENZODIAZEPÍNICOS ===
       { n:"Clonazepam (Rivotril)", d:0.6, u:"mg", mv:"40h", ant:"Flumazenil", isBenzo:true, risk:"🚫 Risco de convulsão em uso crônico.", ref:"UpToDate", r:['oral', 'iv'] },
       { n:"Diazepam", d:0.7, u:"mg", mv:"48h", ant:"Flumazenil", isBenzo:true, risk:"🚫 Risco de convulsão em uso crônico.", ref:"UpToDate", r:['oral', 'iv', 'im'] },
       { n:"Midazolam", d:1.0, u:"mg", mv:"2.5h", ant:"Flumazenil", isBenzo:true, ref:"UpToDate", r:['oral', 'iv', 'im'] },
       { n:"Alprazolam", d:0.5, u:"mg", mv:"11h", ant:"Flumazenil", isBenzo:true, ref:"UpToDate", r:['oral'] },
+      { n:"Lorazepam", d:0.1, u:"mg", mv:"14h", ant:"Flumazenil", isBenzo:true, ref:"UpToDate", r:['oral', 'iv', 'im'] },
 
+      // === OPIOIDES ===
       { n:"Morfina", d:0.4, u:"mg", mv:"3h", ant:"Naloxona", inds:["FR &lt; 12", "Miose"], ref:"AACT", r:['oral', 'iv', 'im'] },
       { n:"Tramadol", d:4, u:"mg", mv:"9h", ant:"Naloxona", risk:"⚠️ Risco convulsão.", ref:"AACT", r:['oral', 'iv', 'im'] },
+      { n:"Codeína", d:2, u:"mg", mv:"3h", ant:"Naloxona", inds:["FR &lt; 12"], ref:"AACT", r:['oral'] },
 
-      { n:"Cetamina", d:2, u:"mg", mv:"2.5h", ant:"Benzos", inds:["Agitação"], ref:"AACT", r:['iv', 'im', 'oral'] },
-      { n:"Cocaina", d:1.0, u:"mg", mv:"1h", ant:"Benzos", risk:"🚫 Não usar Beta-bloq.", ref:"AHA", r:['nasal', 'iv', 'oral'] },
-      
-      { n:"Litio", d:50, u:"mg", mv:"24h", noChar:true, risk:"⚠️ Hemodiálise se grave.", ref:"AACT", r:['oral'] },
-      { n:"Paracetamol", d:75, u:"mg", mv:"3h", ant:"NAC", isNac:true, ref:"Rumack-Matthew", r:['oral'] },
-      { n:"Rivaroxabana (Xarelto)", d:10, u:"mg", mv:"9h", ant:"Andexanet/CCP", inds:["Sangramento Grave"], ref:"AHA", r:['oral'] },
-      { n:"Apixabana (Eliquis)", d:5, u:"mg", mv:"12h", ant:"Andexanet/CCP", inds:["Sangramento Grave"], ref:"AHA", r:['oral'] },
+      // === ANTIDIABÉTICOS / PERDA DE PESO ===
+      { n:"Mounjaro (Tirzepatida)", d:0.01, u:"mg", mv:"5d", ant:"Suporte", risk:"⚠️ Risco de Desidratação Grave.", noChar:true, ref:"Bula/AACT", r:['sc'] },
+      { n:"Ozempic (Semaglutida)", d:0.01, u:"mg", mv:"1sem", ant:"Suporte", risk:"⚠️ Vômitos incoercíveis.", noChar:true, ref:"Bula/AACT", r:['sc'] },
+      { n:"Saxenda (Liraglutida)", d:0.1, u:"mg", mv:"13h", ant:"Suporte", risk:"⚠️ Desidratação.", noChar:true, ref:"Bula/AACT", r:['sc'] },
+      { n:"Metformina", d:80, u:"mg", mv:"6h", ant:"Hemodiálise", risk:"⛔ Acidose Lática.", ref:"AACT", r:['oral'] },
+      { n:"Glibenclamida", d:0.1, u:"mg", mv:"10h", ant:"Octreotide", inds:["Hipoglicemia Refratária"], ref:"AACT", r:['oral'] },
+
+      // === PSICOTRÓPICOS ===
+      { n:"Litio", d:40, u:"mg", mv:"24h", noChar:true, risk:"⚠️ Hemodiálise se grave.", ref:"AACT", r:['oral'] },
+      { n:"Quetiapina", d:15, u:"mg", mv:"7h", ant:"Lipídeos (se PCR)", risk:"⚠️ Hipotensão/Taquicardia.", ref:"AACT", r:['oral'] },
+      { n:"Escitalopram", d:5, u:"mg", mv:"30h", ant:"Suporte", risk:"⚠️ Risco de QT Longo.", ref:"AACT", r:['oral'] },
+      { n:"Sertralina", d:10, u:"mg", mv:"26h", ant:"Suporte", risk:"⚠️ Sínd. Serotoninérgica.", ref:"AACT", r:['oral'] },
+      { n:"Amitriptilina", d:3, u:"mg", mv:"25h", ant:"Bicarbonato", inds:["QRS > 100ms"], ref:"AACT", r:['oral'] },
       { n:"Bupropiona", d:10, u:"mg", mv:"20h", ant:"Benzos", risk:"⚠️ Risco de convulsão tardia.", ref:"AACT", r:['oral'] },
-      { n:"Ritalina", d:1, u:"mg", mv:"3h", ant:"Benzos", risk:"⚠️ Sínd. Simpaticomimética.", ref:"AACT", r:['oral'] },
-      { n:"Venvanse", d:1, u:"mg", mv:"1h", ant:"Benzos", risk:"⚠️ Sínd. Simpaticomimética.", ref:"AACT", r:['oral'] },
+      
+      // === CARDIOLÓGICOS / NOACS ===
+      { n:"Digoxina", d:0.07, u:"mg", mv:"40h", ant:"Ac Fab", inds:["Arritmia Grave", "K+ > 5.0"], ref:"AACT", r:['oral'] },
       { n:"Propranolol", d:8, u:"mg", mv:"4h", ant:"Glucagon", inds:["Bradicardia"], ref:"AHA", r:['oral', 'iv'] },
       { n:"Atenolol", d:5, u:"mg", mv:"6h", ant:"Glucagon", inds:["Bradicardia"], ref:"AHA", r:['oral'] },
       { n:"Anlodipino", d:0.3, u:"mg", mv:"50h", ant:"Cálcio+Insulina", inds:["Choque"], ref:"AACT/HIET", r:['oral'] },
-      { n:"Metformina", d:80, u:"mg", mv:"6h", ant:"Hemodiálise", risk:"⛔ Acidose Lática.", ref:"AACT", r:['oral'] },
-      { n:"Amitriptilina", d:3, u:"mg", mv:"25h", ant:"Bicarbonato", inds:["QRS > 100ms"], ref:"AACT", r:['oral'] }
+      { n:"Rivaroxabana (Xarelto)", d:10, u:"mg", mv:"9h", ant:"Andexanet/CCP", inds:["Sangramento Grave"], ref:"AHA", r:['oral'] },
+      { n:"Apixabana (Eliquis)", d:5, u:"mg", mv:"12h", ant:"Andexanet/CCP", inds:["Sangramento Grave"], ref:"AHA", r:['oral'] },
+
+      // === DIVERSOS ===
+      { n:"Escopolamina (Buscopan)", d:2, u:"mg", mv:"8h", ant:"Fisostigmina (raro)", risk:"⚠️ Sínd. Anticolinérgica.", ref:"AACT", r:['oral', 'iv'] },
+      { n:"Metoclopramida (Plasil)", d:2, u:"mg", mv:"6h", ant:"Biperideno", inds:["Reação Extrapiramidal"], ref:"AACT", r:['oral', 'iv', 'im'] },
+      { n:"Ferro (Sulfato Ferroso)", d:20, u:"mg", mv:"6h", noChar:true, risk:"⚠️ Corrosivo GI. Carvão INEFICAZ.", ref:"AACT", r:['oral'] },
+      { n:"Cetamina", d:2, u:"mg", mv:"2.5h", ant:"Benzos", inds:["Agitação"], ref:"AACT", r:['iv', 'im', 'oral'] },
+      { n:"Cocaina", d:1.0, u:"mg", mv:"1h", ant:"Benzos", risk:"🚫 Não usar Beta-bloq.", ref:"AHA", r:['nasal', 'iv', 'oral'] },
+      { n:"Ritalina", d:1, u:"mg", mv:"3h", ant:"Benzos", risk:"⚠️ Sínd. Simpaticomimética.", ref:"AACT", r:['oral'] },
+      { n:"Venvanse", d:1, u:"mg", mv:"1h", ant:"Benzos", risk:"⚠️ Sínd. Simpaticomimética.", ref:"AACT", r:['oral'] }
     ];
 
     let sel = null;
@@ -241,7 +263,7 @@
         const val = e.target.value.toLowerCase();
         const res = el('results');
         res.innerHTML = '';
-        if(val.length < 2) { res.style.display='none'; return; }
+        if(val.length &lt; 2) { res.style.display='none'; return; }
         const matches = db.filter(d => d.n.toLowerCase().includes(val));
         if(!matches.length) {
           res.innerHTML = '<div class="opt" style="color:#aaa">Sem resultados</div>';
@@ -361,9 +383,9 @@
       }
       if(t === '1') showResult(area, 'alert-info', '🚫 Lavagem Gástrica: Contraindicada rotineiramente.');
       if(sel.noChar) {
-        showResult(area, 'alert-danger', '⛔ <b>CARVÃO NÃO INDICADO</b><br>Substância não absorvível pelo carvão.');
+        showResult(area, 'alert-danger', '⛔ <b>CARVÃO NÃO INDICADO</b><br>Substância não absorvível ou cáustica.');
       } else if (sel.n.includes('Cocaina') || sel.n.includes('Ritalina') || sel.n.includes('Venvanse')) {
-        showResult(area, 'alert-info', '⚠️ Carvão: Apenas se <1h e Via Aérea SEGURA (Risco de agitação).');
+        showResult(area, 'alert-info', '⚠️ Carvão: Apenas se &lt;1h e Via Aérea SEGURA (Risco de agitação).');
       } else if (t !== '4') {
         const btn = document.createElement('button');
         btn.className = 'btn btn-dark';
