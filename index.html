@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>ToxiFlow Pro V33</title>
+  <title>ToxiFlow Pro V35</title>
 
   <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png" />
   <link rel="icon" type="image/png" href="icons/apple-touch-icon.png" />
@@ -12,6 +12,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
   <style>
+    /* --- ESTILOS FIXOS --- */
     :root { --primary: #0f172a; --danger: #ef4444; --success: #22c55e; }
     * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f8fafc; padding-bottom: 160px; color: #334155; }
@@ -34,6 +35,7 @@
     .panel.toxic { background: linear-gradient(135deg, #dc2626, #991b1b); color: white; box-shadow: 0 8px 20px rgba(220, 38, 38, 0.25); }
     .panel.safe { background: linear-gradient(135deg, #16a34a, #15803d); color: white; }
     
+    /* BUSCA */
     .search-wrapper { position: relative; }
     .results { background: white; border: 1px solid #e2e8f0; max-height: 250px; overflow-y: auto; display: none; position: absolute; top: 100%; left: 0; right: 0; border-radius: 12px; z-index: 100; box-shadow: 0 10px 40px rgba(0,0,0,0.1); margin-top: 5px; }
     .opt { padding: 14px 16px; border-bottom: 1px solid #f1f5f9; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
@@ -67,7 +69,6 @@
     .check-row.selected .checkbox::after { content: '✓'; color: white; font-size: 12px; font-weight: bold; }
     .ref-list { list-style: none; text-align: left; }
     .ref-list li { margin-bottom: 12px; font-size: 0.9rem; color: #475569; display: flex; gap: 10px; }
-    .ref-icon { color: #3b82f6; font-weight: bold; }
     @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
   </style>
 </head>
@@ -162,11 +163,11 @@
   </div>
 
   <script>
-    // === BANCO DE DADOS ===
+    // === BANCO DE DADOS ATUALIZADO (V35) ===
     const db = [
       { n:"Chumbinho (Carbamato)", d:0.01, u:"mg", mv:"varia", ant:"Atropina", inds:["Miose/Sialorreia", "Bradicardia", "Broncorreia"], risk:"⛔ EMERGÊNCIA: Risco iminente de insuficiência respiratória.", ref:"AACT/Goldfrank's", r:['oral'] },
       { n:"AAS (Ácido Acetilsalicílico)", d:150, u:"mg", mv:"30h", ant:"Bicarbonato/Diálise", inds:["Acidose Metabólica", "Nível Sérico > 30"], risk:"⚠️ Risco de Acidose e Edema Cerebral.", ref:"AACT", r:['oral'] },
-      { n:"Paracetamol", d:75, u:"mg", mv:"3h", ant:"NAC", isNac:true, ref:"Rumack-Matthew", r:['oral'] },
+      { n:"Paracetamol", d:75, u:"mg", mv:"3h", ant:"N-acetilcisteína", isNac:true, ref:"Rumack-Matthew", r:['oral'] },
       { n:"Dipirona", d:100, u:"mg", mv:"2-4h", ant:"Suporte", risk:"⚠️ Risco de Choque Hipotensivo.", ref:"AACT", r:['oral', 'iv', 'im'] },
       { n:"Ibuprofeno", d:100, u:"mg", mv:"2h", ant:"Suporte", risk:"⚠️ Toxicidade Renal/GI.", ref:"UpToDate", r:['oral'] },
       { n:"Clonazepam (Rivotril)", d:0.6, u:"mg", mv:"40h", ant:"Flumazenil", isBenzo:true, risk:"🚫 Risco de convulsão em uso crônico.", ref:"UpToDate", r:['oral', 'iv'] },
@@ -174,6 +175,7 @@
       { n:"Midazolam", d:1.0, u:"mg", mv:"2.5h", ant:"Flumazenil", isBenzo:true, ref:"UpToDate", r:['oral', 'iv', 'im'] },
       { n:"Alprazolam", d:0.5, u:"mg", mv:"11h", ant:"Flumazenil", isBenzo:true, ref:"UpToDate", r:['oral'] },
       { n:"Lorazepam", d:0.1, u:"mg", mv:"14h", ant:"Flumazenil", isBenzo:true, ref:"UpToDate", r:['oral', 'iv', 'im'] },
+      { n:"Risperidona", d:0.1, u:"mg", mv:"3h", ant:"Suporte", risk:"⚠️ Sintomas extrapiramidais e QT longo.", ref:"UpToDate", r:['oral'] },
       { n:"Morfina", d:0.4, u:"mg", mv:"3h", ant:"Naloxona", inds:["FR &lt; 12", "Miose"], ref:"AACT", r:['oral', 'iv', 'im'] },
       { n:"Tramadol", d:4, u:"mg", mv:"9h", ant:"Naloxona", risk:"⚠️ Risco convulsão.", ref:"AACT", r:['oral', 'iv', 'im'] },
       { n:"Codeína", d:2, u:"mg", mv:"3h", ant:"Naloxona", inds:["FR &lt; 12"], ref:"AACT", r:['oral'] },
@@ -203,54 +205,43 @@
       { n:"Venvanse", d:1, u:"mg", mv:"1h", ant:"Benzos", risk:"⚠️ Sínd. Simpaticomimética.", ref:"AACT", r:['oral'] }
     ];
 
-    // === VARIÁVEIS GLOBAIS ===
     let sel = null;
     let modalAction = null;
     const el = id => document.getElementById(id);
     const routeMap = { 'oral': 'Oral (Comprimido/Líquido)', 'iv': 'Intravenosa (IV)', 'im': 'Intramuscular (IM)', 'sc': 'Subcutânea (SC)', 'nasal': 'Inalatória/Nasal' };
 
-    // === EXECUÇÃO IMEDIATA (SEM ESPERA) ===
-    const sInput = document.getElementById('search');
-    const resultsDiv = document.getElementById('results');
-
-    if(sInput) {
-      sInput.addEventListener('input', function(e) {
-        const val = e.target.value.toLowerCase();
-        resultsDiv.innerHTML = '';
-        
-        if(val.length < 2) { 
-          resultsDiv.style.display = 'none'; 
-          return; 
-        }
-        
-        const matches = db.filter(d => d.n.toLowerCase().includes(val));
-        
-        if(matches.length === 0) {
-          resultsDiv.innerHTML = '<div class="opt" style="color:#aaa">Sem resultados</div>';
-        } else {
-          matches.forEach(d => {
-            const div = document.createElement('div');
-            div.className = 'opt';
-            div.innerHTML = `<span>${d.n}</span>`;
-            div.onclick = function() { selectDrug(d); };
-            resultsDiv.appendChild(div);
-          });
-        }
-        resultsDiv.style.display = 'block';
-      });
-    }
-
-    // Bind dos outros inputs
-    const inputs = ['weight', 'dose', 'unit'];
-    inputs.forEach(id => {
-      const elInput = document.getElementById(id);
-      if(elInput) elInput.addEventListener('input', calculate);
+    // === LÓGICA DE BUSCA DIRETA ===
+    document.getElementById('search').addEventListener('input', function(e) {
+      const val = e.target.value.toLowerCase();
+      const res = document.getElementById('results');
+      res.innerHTML = '';
+      
+      if(val.length &lt; 2) { 
+        res.style.display = 'none'; 
+        return; 
+      }
+      
+      const matches = db.filter(d => d.n.toLowerCase().includes(val));
+      
+      if(matches.length === 0) {
+        res.innerHTML = '<div class="opt" style="color:#aaa">Sem resultados</div>';
+      } else {
+        matches.forEach(d => {
+          const div = document.createElement('div');
+          div.className = 'opt';
+          div.innerHTML = `<span>${d.n}</span>`;
+          div.onclick = function() { selectDrug(d); };
+          res.appendChild(div);
+        });
+      }
+      res.style.display = 'block';
     });
-    
+
+    // === LISTENERS ===
+    ['weight', 'dose', 'unit'].forEach(id => document.getElementById(id).addEventListener('input', calculate));
     document.getElementById('time').addEventListener('change', checkTime);
     document.getElementById('route').addEventListener('change', function() { calculate(); checkTime(); });
 
-    // === FUNÇÕES AUXILIARES ===
     function selectDrug(d) {
       sel = d;
       el('search').value = d.n;
@@ -316,7 +307,8 @@
       if(sel.isNac) {
         const btn = document.createElement('button');
         btn.className = 'btn btn-nac';
-        btn.textContent = '💊 Calcular Protocolo NAC';
+        // Atualizado para nome completo: N-acetilcisteína
+        btn.textContent = '💊 Calcular Protocolo N-acetilcisteína';
         btn.onclick = () => showResult(area, 'res-blue', `<b>Protocolo 21h:</b><br>Ataque: ${(el('weight').value * 150).toFixed(0)}mg (1h)<br>Manut: ${(el('weight').value * 50).toFixed(0)}mg (4/4h)`);
         area.appendChild(btn);
       }
