@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>ToxiFlow Pro V37</title>
+  <title>ToxiFlow Pro V38</title>
 
   <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png" />
   <link rel="icon" type="image/png" href="icons/apple-touch-icon.png" />
@@ -162,305 +162,322 @@
   </div>
 
   <script>
-    // === BANCO DE DADOS (V37) ===
-    const db = [
-      { n:"Chumbinho (Carbamato)", d:0.01, u:"mg", mv:"varia", ant:"Atropina", inds:["Miose/Sialorreia", "Bradicardia", "Broncorreia"], risk:"⛔ EMERGÊNCIA: Risco iminente de insuficiência respiratória.", ref:"AACT/Goldfrank's", r:['oral'] },
-      { n:"AAS (Ácido Acetilsalicílico)", d:150, u:"mg", mv:"30h", ant:"Bicarbonato/Diálise", inds:["Acidose Metabólica", "Nível Sérico > 30"], risk:"⚠️ Risco de Acidose e Edema Cerebral.", ref:"AACT", r:['oral'] },
-      { n:"Paracetamol", d:75, u:"mg", mv:"3h", ant:"N-acetilcisteína", isNac:true, ref:"Rumack-Matthew", r:['oral'] },
-      { n:"Dipirona", d:100, u:"mg", mv:"2-4h", ant:"Suporte", risk:"⚠️ Risco de Choque Hipotensivo.", ref:"AACT", r:['oral', 'iv', 'im'] },
-      { n:"Ibuprofeno", d:100, u:"mg", mv:"2h", ant:"Suporte", risk:"⚠️ Toxicidade Renal/GI.", ref:"UpToDate", r:['oral'] },
-      { n:"Clonazepam (Rivotril)", d:0.6, u:"mg", mv:"40h", ant:"Flumazenil", isBenzo:true, risk:"🚫 Risco de convulsão em uso crônico.", ref:"UpToDate", r:['oral', 'iv'] },
-      { n:"Diazepam", d:0.7, u:"mg", mv:"48h", ant:"Flumazenil", isBenzo:true, risk:"🚫 Risco de convulsão em uso crônico.", ref:"UpToDate", r:['oral', 'iv', 'im'] },
-      { n:"Midazolam", d:1.0, u:"mg", mv:"2.5h", ant:"Flumazenil", isBenzo:true, ref:"UpToDate", r:['oral', 'iv', 'im'] },
-      { n:"Alprazolam", d:0.5, u:"mg", mv:"11h", ant:"Flumazenil", isBenzo:true, ref:"UpToDate", r:['oral'] },
-      { n:"Lorazepam", d:0.1, u:"mg", mv:"14h", ant:"Flumazenil", isBenzo:true, ref:"UpToDate", r:['oral', 'iv', 'im'] },
-      { n:"Risperidona", d:0.1, u:"mg", mv:"3h", ant:"Suporte", risk:"⚠️ Sintomas extrapiramidais e QT longo.", ref:"UpToDate", r:['oral'] },
-      { n:"Morfina", d:0.4, u:"mg", mv:"3h", ant:"Naloxona", inds:["FR &lt; 12", "Miose"], ref:"AACT", r:['oral', 'iv', 'im'] },
-      { n:"Tramadol", d:4, u:"mg", mv:"9h", ant:"Naloxona", risk:"⚠️ Risco convulsão.", ref:"AACT", r:['oral', 'iv', 'im'] },
-      { n:"Codeína", d:2, u:"mg", mv:"3h", ant:"Naloxona", inds:["FR &lt; 12"], ref:"AACT", r:['oral'] },
-      { n:"Mounjaro (Tirzepatida)", d:0.01, u:"mg", mv:"5d", ant:"Suporte", risk:"⚠️ Risco de Desidratação Grave.", noChar:true, ref:"Bula/AACT", r:['sc'] },
-      { n:"Ozempic (Semaglutida)", d:0.01, u:"mg", mv:"1sem", ant:"Suporte", risk:"⚠️ Vômitos incoercíveis.", noChar:true, ref:"Bula/AACT", r:['sc'] },
-      { n:"Saxenda (Liraglutida)", d:0.1, u:"mg", mv:"13h", ant:"Suporte", risk:"⚠️ Desidratação.", noChar:true, ref:"Bula/AACT", r:['sc'] },
-      { n:"Metformina", d:80, u:"mg", mv:"6h", ant:"Hemodiálise", risk:"⛔ Acidose Lática.", ref:"AACT", r:['oral'] },
-      { n:"Glibenclamida", d:0.1, u:"mg", mv:"10h", ant:"Octreotide", inds:["Hipoglicemia Refratária"], ref:"AACT", r:['oral'] },
-      { n:"Litio", d:40, u:"mg", mv:"24h", noChar:true, risk:"⚠️ Hemodiálise se grave.", ref:"AACT", r:['oral'] },
-      { n:"Quetiapina", d:15, u:"mg", mv:"7h", ant:"Lipídeos (se PCR)", risk:"⚠️ Hipotensão/Taquicardia.", ref:"AACT", r:['oral'] },
-      { n:"Escitalopram", d:5, u:"mg", mv:"30h", ant:"Suporte", risk:"⚠️ Risco de QT Longo.", ref:"AACT", r:['oral'] },
-      { n:"Sertralina", d:10, u:"mg", mv:"26h", ant:"Suporte", risk:"⚠️ Sínd. Serotoninérgica.", ref:"AACT", r:['oral'] },
-      { n:"Amitriptilina", d:3, u:"mg", mv:"25h", ant:"Bicarbonato", inds:["QRS > 100ms"], ref:"AACT", r:['oral'] },
-      { n:"Bupropiona", d:10, u:"mg", mv:"20h", ant:"Benzos", risk:"⚠️ Risco de convulsão tardia.", ref:"AACT", r:['oral'] },
-      { n:"Digoxina", d:0.07, u:"mg", mv:"40h", ant:"Ac Fab", inds:["Arritmia Grave", "K+ > 5.0"], ref:"AACT", r:['oral'] },
-      { n:"Propranolol", d:8, u:"mg", mv:"4h", ant:"Glucagon", inds:["Bradicardia"], ref:"AHA", r:['oral', 'iv'] },
-      { n:"Atenolol", d:5, u:"mg", mv:"6h", ant:"Glucagon", inds:["Bradicardia"], ref:"AHA", r:['oral'] },
-      { n:"Anlodipino", d:0.3, u:"mg", mv:"50h", ant:"Cálcio+Insulina", inds:["Choque"], ref:"AACT/HIET", r:['oral'] },
-      { n:"Rivaroxabana (Xarelto)", d:10, u:"mg", mv:"9h", ant:"Andexanet/CCP", inds:["Sangramento Grave"], ref:"AHA", r:['oral'] },
-      { n:"Apixabana (Eliquis)", d:5, u:"mg", mv:"12h", ant:"Andexanet/CCP", inds:["Sangramento Grave"], ref:"AHA", r:['oral'] },
-      { n:"Escopolamina (Buscopan)", d:2, u:"mg", mv:"8h", ant:"Fisostigmina (raro)", risk:"⚠️ Sínd. Anticolinérgica.", ref:"AACT", r:['oral', 'iv'] },
-      { n:"Metoclopramida (Plasil)", d:2, u:"mg", mv:"6h", ant:"Biperideno", inds:["Reação Extrapiramidal"], ref:"AACT", r:['oral', 'iv', 'im'] },
-      { n:"Ferro (Sulfato Ferroso)", d:20, u:"mg", mv:"6h", noChar:true, risk:"⚠️ Corrosivo GI. Carvão INEFICAZ.", ref:"AACT", r:['oral'] },
-      { n:"Cetamina", d:2, u:"mg", mv:"2.5h", ant:"Benzos", inds:["Agitação"], ref:"AACT", r:['iv', 'im', 'oral'] },
-      { n:"Cocaina", d:1.0, u:"mg", mv:"1h", ant:"Benzos", risk:"🚫 Não usar Beta-bloq.", ref:"AHA", r:['nasal', 'iv', 'oral'] },
-      { n:"Ritalina", d:1, u:"mg", mv:"3h", ant:"Benzos", risk:"⚠️ Sínd. Simpaticomimética.", ref:"AACT", r:['oral'] },
-      { n:"Venvanse", d:1, u:"mg", mv:"1h", ant:"Benzos", risk:"⚠️ Sínd. Simpaticomimética.", ref:"AACT", r:['oral'] }
-    ];
+    // === CÁPSULA DE SEGURANÇA (DOMContentLoaded) ===
+    document.addEventListener('DOMContentLoaded', function() {
+      
+      // FUNÇÃO AUXILIAR
+      const el = id => document.getElementById(id);
+      
+      // BANCO DE DADOS ATUALIZADO
+      const db = [
+        { n:"Chumbinho (Carbamato)", d:0.01, u:"mg", mv:"varia", ant:"Atropina", inds:["Miose/Sialorreia", "Bradicardia", "Broncorreia"], risk:"⛔ EMERGÊNCIA: Risco iminente de insuficiência respiratória.", ref:"AACT/Goldfrank's", r:['oral'] },
+        { n:"AAS (Ácido Acetilsalicílico)", d:150, u:"mg", mv:"30h", ant:"Bicarbonato/Diálise", inds:["Acidose Metabólica", "Nível Sérico > 30"], risk:"⚠️ Risco de Acidose e Edema Cerebral.", ref:"AACT", r:['oral'] },
+        { n:"Paracetamol", d:75, u:"mg", mv:"3h", ant:"N-acetilcisteína", isNac:true, ref:"Rumack-Matthew", r:['oral'] },
+        { n:"Dipirona", d:100, u:"mg", mv:"2-4h", ant:"Suporte", risk:"⚠️ Risco de Choque Hipotensivo.", ref:"AACT", r:['oral', 'iv', 'im'] },
+        { n:"Ibuprofeno", d:100, u:"mg", mv:"2h", ant:"Suporte", risk:"⚠️ Toxicidade Renal/GI.", ref:"UpToDate", r:['oral'] },
+        { n:"Clonazepam (Rivotril)", d:0.6, u:"mg", mv:"40h", ant:"Flumazenil", isBenzo:true, risk:"🚫 Risco de convulsão em uso crônico.", ref:"UpToDate", r:['oral', 'iv'] },
+        { n:"Diazepam", d:0.7, u:"mg", mv:"48h", ant:"Flumazenil", isBenzo:true, risk:"🚫 Risco de convulsão em uso crônico.", ref:"UpToDate", r:['oral', 'iv', 'im'] },
+        { n:"Midazolam", d:1.0, u:"mg", mv:"2.5h", ant:"Flumazenil", isBenzo:true, ref:"UpToDate", r:['oral', 'iv', 'im'] },
+        { n:"Alprazolam", d:0.5, u:"mg", mv:"11h", ant:"Flumazenil", isBenzo:true, ref:"UpToDate", r:['oral'] },
+        { n:"Lorazepam", d:0.1, u:"mg", mv:"14h", ant:"Flumazenil", isBenzo:true, ref:"UpToDate", r:['oral', 'iv', 'im'] },
+        { n:"Risperidona", d:0.1, u:"mg", mv:"3h", ant:"Suporte", risk:"⚠️ Sintomas extrapiramidais e QT longo.", ref:"UpToDate", r:['oral'] },
+        { n:"Morfina", d:0.4, u:"mg", mv:"3h", ant:"Naloxona", inds:["FR &lt; 12", "Miose"], ref:"AACT", r:['oral', 'iv', 'im'] },
+        { n:"Tramadol", d:4, u:"mg", mv:"9h", ant:"Naloxona", risk:"⚠️ Risco convulsão.", ref:"AACT", r:['oral', 'iv', 'im'] },
+        { n:"Codeína", d:2, u:"mg", mv:"3h", ant:"Naloxona", inds:["FR &lt; 12"], ref:"AACT", r:['oral'] },
+        { n:"Mounjaro (Tirzepatida)", d:0.01, u:"mg", mv:"5d", ant:"Suporte", risk:"⚠️ Risco de Desidratação Grave.", noChar:true, ref:"Bula/AACT", r:['sc'] },
+        { n:"Ozempic (Semaglutida)", d:0.01, u:"mg", mv:"1sem", ant:"Suporte", risk:"⚠️ Vômitos incoercíveis.", noChar:true, ref:"Bula/AACT", r:['sc'] },
+        { n:"Saxenda (Liraglutida)", d:0.1, u:"mg", mv:"13h", ant:"Suporte", risk:"⚠️ Desidratação.", noChar:true, ref:"Bula/AACT", r:['sc'] },
+        { n:"Metformina", d:80, u:"mg", mv:"6h", ant:"Hemodiálise", risk:"⛔ Acidose Lática.", ref:"AACT", r:['oral'] },
+        { n:"Glibenclamida", d:0.1, u:"mg", mv:"10h", ant:"Octreotide", inds:["Hipoglicemia Refratária"], ref:"AACT", r:['oral'] },
+        { n:"Litio", d:40, u:"mg", mv:"24h", noChar:true, risk:"⚠️ Hemodiálise se grave.", ref:"AACT", r:['oral'] },
+        { n:"Quetiapina", d:15, u:"mg", mv:"7h", ant:"Lipídeos (se PCR)", risk:"⚠️ Hipotensão/Taquicardia.", ref:"AACT", r:['oral'] },
+        { n:"Escitalopram", d:5, u:"mg", mv:"30h", ant:"Suporte", risk:"⚠️ Risco de QT Longo.", ref:"AACT", r:['oral'] },
+        { n:"Sertralina", d:10, u:"mg", mv:"26h", ant:"Suporte", risk:"⚠️ Sínd. Serotoninérgica.", ref:"AACT", r:['oral'] },
+        { n:"Amitriptilina", d:3, u:"mg", mv:"25h", ant:"Bicarbonato", inds:["QRS > 100ms"], ref:"AACT", r:['oral'] },
+        { n:"Bupropiona", d:10, u:"mg", mv:"20h", ant:"Benzos", risk:"⚠️ Risco de convulsão tardia.", ref:"AACT", r:['oral'] },
+        { n:"Digoxina", d:0.07, u:"mg", mv:"40h", ant:"Ac Fab", inds:["Arritmia Grave", "K+ > 5.0"], ref:"AACT", r:['oral'] },
+        { n:"Propranolol", d:8, u:"mg", mv:"4h", ant:"Glucagon", inds:["Bradicardia"], ref:"AHA", r:['oral', 'iv'] },
+        { n:"Atenolol", d:5, u:"mg", mv:"6h", ant:"Glucagon", inds:["Bradicardia"], ref:"AHA", r:['oral'] },
+        { n:"Anlodipino", d:0.3, u:"mg", mv:"50h", ant:"Cálcio+Insulina", inds:["Choque"], ref:"AACT/HIET", r:['oral'] },
+        { n:"Rivaroxabana (Xarelto)", d:10, u:"mg", mv:"9h", ant:"Andexanet/CCP", inds:["Sangramento Grave"], ref:"AHA", r:['oral'] },
+        { n:"Apixabana (Eliquis)", d:5, u:"mg", mv:"12h", ant:"Andexanet/CCP", inds:["Sangramento Grave"], ref:"AHA", r:['oral'] },
+        { n:"Escopolamina (Buscopan)", d:2, u:"mg", mv:"8h", ant:"Fisostigmina (raro)", risk:"⚠️ Sínd. Anticolinérgica.", ref:"AACT", r:['oral', 'iv'] },
+        { n:"Metoclopramida (Plasil)", d:2, u:"mg", mv:"6h", ant:"Biperideno", inds:["Reação Extrapiramidal"], ref:"AACT", r:['oral', 'iv', 'im'] },
+        { n:"Ferro (Sulfato Ferroso)", d:20, u:"mg", mv:"6h", noChar:true, risk:"⚠️ Corrosivo GI. Carvão INEFICAZ.", ref:"AACT", r:['oral'] },
+        { n:"Cetamina", d:2, u:"mg", mv:"2.5h", ant:"Benzos", inds:["Agitação"], ref:"AACT", r:['iv', 'im', 'oral'] },
+        { n:"Cocaina", d:1.0, u:"mg", mv:"1h", ant:"Benzos", risk:"🚫 Não usar Beta-bloq.", ref:"AHA", r:['nasal', 'iv', 'oral'] },
+        { n:"Ritalina", d:1, u:"mg", mv:"3h", ant:"Benzos", risk:"⚠️ Sínd. Simpaticomimética.", ref:"AACT", r:['oral'] },
+        { n:"Venvanse", d:1, u:"mg", mv:"1h", ant:"Benzos", risk:"⚠️ Sínd. Simpaticomimética.", ref:"AACT", r:['oral'] }
+      ];
 
-    let sel = null;
-    let modalAction = null;
-    const el = id => document.getElementById(id);
-    const routeMap = { 'oral': 'Oral (Comprimido/Líquido)', 'iv': 'Intravenosa (IV)', 'im': 'Intramuscular (IM)', 'sc': 'Subcutânea (SC)', 'nasal': 'Inalatória/Nasal' };
+      // VARIÁVEIS DE ESTADO
+      let sel = null;
+      let modalAction = null;
+      const routeMap = { 'oral': 'Oral (Comprimido/Líquido)', 'iv': 'Intravenosa (IV)', 'im': 'Intramuscular (IM)', 'sc': 'Subcutânea (SC)', 'nasal': 'Inalatória/Nasal' };
 
-    // === CÓDIGO DE BUSCA "BRUTO" DA V34 (QUE FUNCIONA) ===
-    // Sem event delegation, direto no elemento.
-    const sInput = document.getElementById('search');
-    const resultsDiv = document.getElementById('results');
+      // BIND DA BUSCA
+      const sInput = el('search');
+      if (sInput) {
+        sInput.addEventListener('input', function(e) {
+          const val = e.target.value.toLowerCase();
+          const res = el('results');
+          res.innerHTML = '';
+          
+          if(val.length &lt; 2) { 
+            res.style.display = 'none'; 
+            return; 
+          }
+          
+          const matches = db.filter(d => d.n.toLowerCase().includes(val));
+          
+          if(matches.length === 0) {
+            res.innerHTML = '<div class="opt" style="color:#aaa">Sem resultados</div>';
+          } else {
+            matches.forEach(d => {
+              const div = document.createElement('div');
+              div.className = 'opt';
+              div.innerHTML = `<span>${d.n}</span>`;
+              div.onclick = function() { selectDrug(d); };
+              res.appendChild(div);
+            });
+          }
+          res.style.display = 'block';
+        });
+      }
 
-    if(sInput) {
-      sInput.addEventListener('input', function(e) {
-        const val = e.target.value.toLowerCase();
-        resultsDiv.innerHTML = '';
-        
-        if(val.length &lt; 2) { 
-          resultsDiv.style.display = 'none'; 
-          return; 
-        }
-        
-        const matches = db.filter(d => d.n.toLowerCase().includes(val));
-        
-        if(matches.length === 0) {
-          resultsDiv.innerHTML = '<div class="opt" style="color:#aaa">Sem resultados</div>';
-        } else {
-          matches.forEach(d => {
-            const div = document.createElement('div');
-            div.className = 'opt';
-            div.innerHTML = `<span>${d.n}</span>`;
-            div.onclick = function() { selectDrug(d); };
-            resultsDiv.appendChild(div);
-          });
-        }
-        resultsDiv.style.display = 'block';
+      // BIND DOS INPUTS
+      ['weight', 'dose', 'unit'].forEach(id => {
+        const inp = el(id);
+        if(inp) inp.addEventListener('input', calculate);
       });
-    }
-
-    // === OUTROS LISTENERS (V34 STYLE) ===
-    ['weight', 'dose', 'unit'].forEach(id => {
-       const elm = document.getElementById(id);
-       if(elm) elm.addEventListener('input', calculate);
-    });
-    
-    if(document.getElementById('time')) document.getElementById('time').addEventListener('change', checkTime);
-    if(document.getElementById('route')) document.getElementById('route').addEventListener('change', function() { calculate(); checkTime(); });
-
-    function selectDrug(d) {
-      sel = d;
-      el('search').value = d.n;
-      el('results').style.display = 'none';
+      
+      const timeSel = el('time');
+      if(timeSel) timeSel.addEventListener('change', checkTime);
+      
       const routeSel = el('route');
-      routeSel.innerHTML = '';
-      const routes = d.r || ['oral']; 
-      routes.forEach(r => {
-        const opt = document.createElement('option');
-        opt.value = r;
-        opt.text = routeMap[r] || r;
-        routeSel.appendChild(opt);
-      });
-      if(routes.length === 1) routeSel.disabled = true; else routeSel.disabled = false;
-      el('drugInfo').style.display = 'block';
-      el('drugInfo').innerHTML = `<b>Dose Ref:</b> ${d.d} ${d.u}/kg | <b>MV:</b> ${d.mv} <br><span style="color:#3b82f6; font-size:0.85rem">📚 Fonte: ${d.ref}</span>`;
-      el('panel').style.display = 'none';
-      el('clinical').style.display = 'none';
-      el('dose').value = '';
-      el('callBtn').classList.remove('pulse-animation');
-      el('callBtn').innerText = '📞 Ligar para CIATox';
-      calculate();
-    }
+      if(routeSel) routeSel.addEventListener('change', function() { calculate(); checkTime(); });
 
-    function calculate() {
-      if(!sel) return;
-      const w = parseFloat(el('weight').value) || 0;
-      const d = parseFloat(el('dose').value) || 0;
-      if(!w || !d) return;
-      const unit = el('unit').value;
-      let ingested = d;
-      if(unit === 'g') ingested = d * 1000;
-      if(unit === 'mcg') ingested = d / 1000;
-      let limit = sel.d; 
-      if(sel.u === 'mcg') limit = limit / 1000;
-      const totalLimit = limit * w;
-      const p = el('panel');
-      const callBtn = el('callBtn');
-      p.style.display = 'block';
+      // BIND DOS BOTÕES DE MODAL (SEGURANÇA EXTRA)
+      window.openRefModal = function() {
+        const content = el('modalContent');
+        content.innerHTML = `
+          <ul class="ref-list">
+            <li><span class="ref-icon">1.</span> AACT / EAPCCT Position Papers</li>
+            <li><span class="ref-icon">2.</span> Goldfrank's Toxicologic Emergencies</li>
+            <li><span class="ref-icon">3.</span> AHA Guidelines (ACLS)</li>
+            <li><span class="ref-icon">4.</span> Rumack-Matthew Nomogram</li>
+            <li><span class="ref-icon">5.</span> UpToDate (Drug Information)</li>
+          </ul>
+          <p style="font-size:0.8rem; color:#64748b; margin-top:15px; text-align:center">As doses tóxicas são baseadas em consensos internacionais. Em caso de divergência, prevalece a orientação do CIATox local.</p>
+        `;
+        el('modalTitle').innerText = 'Referências Bibliográficas';
+        el('modalDesc').innerText = 'Este aplicativo segue as diretrizes:';
+        el('modalButtons').style.display = 'none';
+        el('modalCloseOnly').style.display = 'block';
+        el('modal').style.display = 'flex';
+      };
 
-      if(ingested >= totalLimit || sel.n.includes('Chumbinho')) {
-        p.className = 'panel toxic';
-        el('statusTitle').innerText = '⚠️ RISCO TÓXICO';
-        el('statusDesc').innerHTML = `Ingerido: <b>${ingested.toFixed(1)} mg</b><br>Limite: ${totalLimit.toFixed(1)} mg`;
-        el('clinical').style.display = 'block';
-        callBtn.classList.add('pulse-animation');
-        callBtn.innerHTML = `🚨 LIGAR URGENTE CIATox`;
-        buildActions();
-        checkTime();
-      } else {
-        p.className = 'panel safe';
-        el('statusTitle').innerText = '✅ DOSE SEGURA';
-        el('statusDesc').innerHTML = `Abaixo do limiar tóxico`;
+      window.openPhoneModal = function() {
+        const content = el('modalContent');
+        content.innerHTML = '';
+        el('modalTitle').innerText = 'Contatos de Emergência';
+        el('modalDesc').innerText = 'Toque para ligar:';
+        const nums = [{l:'0800 284 4343 (Geral)', n:'08002844343'}, {l:'(71) 3103-4343 (Local)', n:'7131034343'}];
+        nums.forEach(p => {
+          const a = document.createElement('a');
+          a.className = 'btn btn-blue';
+          a.style.marginBottom = '10px';
+          a.style.textDecoration = 'none';
+          a.href = `tel:${p.n}`;
+          a.innerText = `📞 ${p.l}`;
+          content.appendChild(a);
+        });
+        el('modalButtons').style.display = 'none';
+        el('modalCloseOnly').style.display = 'block';
+        el('modal').style.display = 'flex';
+      };
+
+      window.closeModal = function() {
+        el('modal').style.display = 'none';
+      };
+
+      // FUNÇÕES DE LÓGICA
+      function selectDrug(d) {
+        sel = d;
+        el('search').value = d.n;
+        el('results').style.display = 'none';
+        
+        const rSel = el('route');
+        rSel.innerHTML = '';
+        const routes = d.r || ['oral']; 
+        routes.forEach(r => {
+          const opt = document.createElement('option');
+          opt.value = r;
+          opt.text = routeMap[r] || r;
+          rSel.appendChild(opt);
+        });
+        if(routes.length === 1) rSel.disabled = true; else rSel.disabled = false;
+        
+        el('drugInfo').style.display = 'block';
+        el('drugInfo').innerHTML = `<b>Dose Ref:</b> ${d.d} ${d.u}/kg | <b>MV:</b> ${d.mv} <br><span style="color:#3b82f6; font-size:0.85rem">📚 Fonte: ${d.ref}</span>`;
+        el('panel').style.display = 'none';
         el('clinical').style.display = 'none';
-        callBtn.classList.remove('pulse-animation');
-        callBtn.innerHTML = `📞 Ligar para CIATox`;
+        el('dose').value = '';
+        el('callBtn').classList.remove('pulse-animation');
+        el('callBtn').innerText = '📞 Ligar para CIATox';
+        calculate();
       }
-    }
 
-    function buildActions() {
-      const area = el('actionsArea');
-      area.innerHTML = '';
-      if(sel.isNac) {
-        const btn = document.createElement('button');
-        btn.className = 'btn btn-nac';
-        // Atualizado V37
-        btn.textContent = '💊 Calcular Protocolo N-acetilcisteína';
-        btn.onclick = () => showResult(area, 'res-blue', `<b>Protocolo 21h:</b><br>Ataque: ${(el('weight').value * 150).toFixed(0)}mg (1h)<br>Manut: ${(el('weight').value * 50).toFixed(0)}mg (4/4h)`);
-        area.appendChild(btn);
-      }
-      if(sel.ant) {
-        const btn = document.createElement('button');
-        if(sel.isBenzo) {
-          btn.className = 'btn btn-red';
-          btn.innerHTML = '⚠️ Avaliar Riscos do Flumazenil';
-          btn.onclick = () => openChecklistModal('flumazenil');
-        } else if (sel.inds) {
-          btn.className = 'btn btn-blue';
-          btn.textContent = `💉 Avaliar Indicação: ${sel.ant}`;
-          btn.onclick = () => openChecklistModal('antidote');
+      function calculate() {
+        if(!sel) return;
+        const w = parseFloat(el('weight').value) || 0;
+        const d = parseFloat(el('dose').value) || 0;
+        if(!w || !d) return;
+        const unit = el('unit').value;
+        let ingested = d;
+        if(unit === 'g') ingested = d * 1000;
+        if(unit === 'mcg') ingested = d / 1000;
+        let limit = sel.d; 
+        if(sel.u === 'mcg') limit = limit / 1000;
+        const totalLimit = limit * w;
+        const p = el('panel');
+        const callBtn = el('callBtn');
+        p.style.display = 'block';
+
+        if(ingested >= totalLimit || sel.n.includes('Chumbinho')) {
+          p.className = 'panel toxic';
+          el('statusTitle').innerText = '⚠️ RISCO TÓXICO';
+          el('statusDesc').innerHTML = `Ingerido: <b>${ingested.toFixed(1)} mg</b><br>Limite: ${totalLimit.toFixed(1)} mg`;
+          el('clinical').style.display = 'block';
+          callBtn.classList.add('pulse-animation');
+          callBtn.innerHTML = `🚨 LIGAR URGENTE CIATox`;
+          buildActions();
+          checkTime();
         } else {
-          btn.className = 'btn btn-blue';
-          btn.textContent = `ℹ️ Ver Tratamento: ${sel.ant}`;
-          btn.onclick = () => showResult(area, 'alert-info', `<b>Tratamento:</b> ${sel.ant}<br><small>${sel.risk || ''}</small>`);
+          p.className = 'panel safe';
+          el('statusTitle').innerText = '✅ DOSE SEGURA';
+          el('statusDesc').innerHTML = `Abaixo do limiar tóxico`;
+          el('clinical').style.display = 'none';
+          callBtn.classList.remove('pulse-animation');
+          callBtn.innerHTML = `📞 Ligar para CIATox`;
         }
-        area.appendChild(btn);
       }
-    }
 
-    function checkTime() {
-      const t = el('time').value;
-      const route = el('route').value;
-      const area = el('charcoalArea');
-      area.innerHTML = '';
-      if(!t) return;
-      if(route !== 'oral') {
-        showResult(area, 'alert-danger', '⛔ <b>VIA PARENTERAL</b><br>Substância já absorvida. Carvão ativado não indicado.');
-        return;
+      function buildActions() {
+        const area = el('actionsArea');
+        area.innerHTML = '';
+        if(sel.isNac) {
+          const btn = document.createElement('button');
+          btn.className = 'btn btn-nac';
+          btn.textContent = '💊 Calcular Protocolo N-acetilcisteína';
+          btn.onclick = () => showResult(area, 'res-blue', `<b>Protocolo 21h:</b><br>Ataque: ${(el('weight').value * 150).toFixed(0)}mg (1h)<br>Manut: ${(el('weight').value * 50).toFixed(0)}mg (4/4h)`);
+          area.appendChild(btn);
+        }
+        if(sel.ant) {
+          const btn = document.createElement('button');
+          if(sel.isBenzo) {
+            btn.className = 'btn btn-red';
+            btn.innerHTML = '⚠️ Avaliar Riscos do Flumazenil';
+            btn.onclick = () => openChecklistModal('flumazenil');
+          } else if (sel.inds) {
+            btn.className = 'btn btn-blue';
+            btn.textContent = `💉 Avaliar Indicação: ${sel.ant}`;
+            btn.onclick = () => openChecklistModal('antidote');
+          } else {
+            btn.className = 'btn btn-blue';
+            btn.textContent = `ℹ️ Ver Tratamento: ${sel.ant}`;
+            btn.onclick = () => showResult(area, 'alert-info', `<b>Tratamento:</b> ${sel.ant}<br><small>${sel.risk || ''}</small>`);
+          }
+          area.appendChild(btn);
+        }
       }
-      if(t === '1') showResult(area, 'alert-info', '🚫 Lavagem Gástrica: Contraindicada rotineiramente.');
-      if(sel.noChar) {
-        showResult(area, 'alert-danger', '⛔ <b>CARVÃO NÃO INDICADO</b><br>Substância não absorvível ou cáustica.');
-      } else if (sel.n.includes('Cocaina') || sel.n.includes('Ritalina') || sel.n.includes('Venvanse')) {
-        showResult(area, 'alert-info', '⚠️ Carvão: Apenas se &lt;1h e Via Aérea SEGURA (Risco de agitação).');
-      } else if (t !== '4') {
-        const btn = document.createElement('button');
-        btn.className = 'btn btn-dark';
-        btn.textContent = '🌑 Checklist Carvão Ativado';
-        btn.onclick = () => openChecklistModal('charcoal');
-        area.appendChild(btn);
+
+      function checkTime() {
+        const t = el('time').value;
+        const route = el('route').value;
+        const area = el('charcoalArea');
+        area.innerHTML = '';
+        if(!t) return;
+        if(route !== 'oral') {
+          showResult(area, 'alert-danger', '⛔ <b>VIA PARENTERAL</b><br>Substância já absorvida. Carvão ativado não indicado.');
+          return;
+        }
+        if(t === '1') showResult(area, 'alert-info', '🚫 Lavagem Gástrica: Contraindicada rotineiramente.');
+        if(sel.noChar) {
+          showResult(area, 'alert-danger', '⛔ <b>CARVÃO NÃO INDICADO</b><br>Substância não absorvível ou cáustica.');
+        } else if (sel.n.includes('Cocaina') || sel.n.includes('Ritalina') || sel.n.includes('Venvanse')) {
+          showResult(area, 'alert-info', '⚠️ Carvão: Apenas se &lt;1h e Via Aérea SEGURA (Risco de agitação).');
+        } else if (t !== '4') {
+          const btn = document.createElement('button');
+          btn.className = 'btn btn-dark';
+          btn.textContent = '🌑 Checklist Carvão Ativado';
+          btn.onclick = () => openChecklistModal('charcoal');
+          area.appendChild(btn);
+        }
       }
-    }
 
-    function openRefModal() {
-      const content = el('modalContent');
-      content.innerHTML = `
-        <ul class="ref-list">
-          <li><span class="ref-icon">1.</span> AACT / EAPCCT Position Papers</li>
-          <li><span class="ref-icon">2.</span> Goldfrank's Toxicologic Emergencies</li>
-          <li><span class="ref-icon">3.</span> AHA Guidelines (ACLS)</li>
-          <li><span class="ref-icon">4.</span> Rumack-Matthew Nomogram</li>
-          <li><span class="ref-icon">5.</span> UpToDate (Drug Information)</li>
-        </ul>
-        <p style="font-size:0.8rem; color:#64748b; margin-top:15px; text-align:center">As doses tóxicas são baseadas em consensos internacionais. Em caso de divergência, prevalece a orientação do CIATox local.</p>
-      `;
-      el('modalTitle').innerText = 'Referências Bibliográficas';
-      el('modalDesc').innerText = 'Este aplicativo segue as diretrizes:';
-      el('modalButtons').style.display = 'none';
-      el('modalCloseOnly').style.display = 'block';
-      el('modal').style.display = 'flex';
-    }
-
-    function openChecklistModal(type) {
-      modalAction = type;
-      const content = el('modalContent');
-      content.innerHTML = '';
-      let title = '';
-      let items = [];
-      if(type === 'charcoal') {
-        title = 'Contraindicações Carvão';
-        items = ['Rebaixamento s/ Via Aérea', 'Obstrução Intestinal', 'Risco de Aspiração', 'Cirurgia Recente'];
-      } else if (type === 'flumazenil') {
-        title = '⛔ Contraindicações Flumazenil';
-        items = ['Uso crônico de Benzos', 'História de Epilepsia/Convulsão', 'Ingestão de Tricíclicos/Cocaina', 'QRS Alargado no ECG'];
-      } else {
-        title = `Indicações: ${sel.ant}`;
-        items = sel.inds || [];
-      }
-      el('modalTitle').innerText = title;
-      el('modalDesc').innerText = type === 'flumazenil' ? 'Se houver ALGUM item abaixo, o antídoto é PROIBIDO:' : 'Selecione os itens presentes:';
-      items.forEach(i => {
-        const row = document.createElement('div');
-        row.className = 'check-row';
-        row.innerHTML = `<div class="checkbox"></div><span>${i}</span>`;
-        row.onclick = function() { this.classList.toggle('selected'); };
-        content.appendChild(row);
-      });
-      el('modalButtons').style.display = 'grid';
-      el('modalCloseOnly').style.display = 'none';
-      el('modalConfirm').innerText = type === 'flumazenil' ? 'Verificar Segurança' : 'Confirmar Indicação';
-      el('modal').style.display = 'flex';
-    }
-
-    el('modalConfirm').onclick = () => {
-      closeModal();
-      const checks = document.querySelectorAll('.check-row.selected').length;
-      const area = modalAction === 'charcoal' ? el('charcoalArea') : el('actionsArea');
-      if(modalAction === 'flumazenil') {
-        if(checks > 0) {
-          showResult(area, 'alert-danger', `⛔ <b>FLUMAZENIL CONTRAINDICADO!</b><br>Risco de convulsão intratável.`);
+      function openChecklistModal(type) {
+        modalAction = type;
+        const content = el('modalContent');
+        content.innerHTML = '';
+        let title = '';
+        let items = [];
+        if(type === 'charcoal') {
+          title = 'Contraindicações Carvão';
+          items = ['Rebaixamento s/ Via Aérea', 'Obstrução Intestinal', 'Risco de Aspiração', 'Cirurgia Recente'];
+        } else if (type === 'flumazenil') {
+          title = '⛔ Contraindicações Flumazenil';
+          items = ['Uso crônico de Benzos', 'História de Epilepsia/Convulsão', 'Ingestão de Tricíclicos/Cocaina', 'QRS Alargado no ECG'];
         } else {
-          showResult(area, 'alert-success', `✅ <b>Flumazenil Possível</b><br>Dose: 0.2mg IV lento (repetir s/n). Monitorar ressedação.`);
+          title = `Indicações: ${sel.ant}`;
+          items = sel.inds || [];
         }
-      } else if (modalAction === 'charcoal') {
-        if(checks > 0) showResult(area, 'alert-danger', '⛔ <b>CARVÃO CONTRAINDICADO</b>');
-        else showResult(area, 'alert-success', `✅ <b>Carvão Indicado</b><br>Dose: ${(el('weight').value * 1).toFixed(0)}g`);
-      } else {
-        if(checks > 0) showResult(area, 'alert-success', `✅ <b>Indicado: ${sel.ant}</b>`);
-        else showResult(area, 'alert-info', 'ℹ️ Critérios não preenchidos.');
+        el('modalTitle').innerText = title;
+        el('modalDesc').innerText = type === 'flumazenil' ? 'Se houver ALGUM item abaixo, o antídoto é PROIBIDO:' : 'Selecione os itens presentes:';
+        items.forEach(i => {
+          const row = document.createElement('div');
+          row.className = 'check-row';
+          row.innerHTML = `<div class="checkbox"></div><span>${i}</span>`;
+          row.onclick = function() { this.classList.toggle('selected'); };
+          content.appendChild(row);
+        });
+        el('modalButtons').style.display = 'grid';
+        el('modalCloseOnly').style.display = 'none';
+        el('modalConfirm').innerText = type === 'flumazenil' ? 'Verificar Segurança' : 'Confirmar Indicação';
+        el('modal').style.display = 'flex';
       }
-    };
 
-    function openPhoneModal() {
-      const content = el('modalContent');
-      content.innerHTML = '';
-      el('modalTitle').innerText = 'Contatos de Emergência';
-      el('modalDesc').innerText = 'Toque para ligar:';
-      const nums = [{l:'0800 284 4343 (Geral)', n:'08002844343'}, {l:'(71) 3103-4343 (Local)', n:'7131034343'}];
-      nums.forEach(p => {
-        const a = document.createElement('a');
-        a.className = 'btn btn-blue';
-        a.style.marginBottom = '10px';
-        a.style.textDecoration = 'none';
-        a.href = `tel:${p.n}`;
-        a.innerText = `📞 ${p.l}`;
-        content.appendChild(a);
-      });
-      el('modalButtons').style.display = 'none';
-      el('modalCloseOnly').style.display = 'block';
-      el('modal').style.display = 'flex';
-    }
+      const confirmBtn = el('modalConfirm');
+      if(confirmBtn) {
+        confirmBtn.onclick = () => {
+          closeModal();
+          const checks = document.querySelectorAll('.check-row.selected').length;
+          const area = modalAction === 'charcoal' ? el('charcoalArea') : el('actionsArea');
+          if(modalAction === 'flumazenil') {
+            if(checks > 0) {
+              showResult(area, 'alert-danger', `⛔ <b>FLUMAZENIL CONTRAINDICADO!</b><br>Risco de convulsão intratável.`);
+            } else {
+              showResult(area, 'alert-success', `✅ <b>Flumazenil Possível</b><br>Dose: 0.2mg IV lento (repetir s/n). Monitorar ressedação.`);
+            }
+          } else if (modalAction === 'charcoal') {
+            if(checks > 0) showResult(area, 'alert-danger', '⛔ <b>CARVÃO CONTRAINDICADO</b>');
+            else showResult(area, 'alert-success', `✅ <b>Carvão Indicado</b><br>Dose: ${(el('weight').value * 1).toFixed(0)}g`);
+          } else {
+            if(checks > 0) showResult(area, 'alert-success', `✅ <b>Indicado: ${sel.ant}</b>`);
+            else showResult(area, 'alert-info', 'ℹ️ Critérios não preenchidos.');
+          }
+        };
+      }
 
-    function showResult(target, type, html) {
-      const div = document.createElement('div');
-      div.className = `alert-box ${type}`;
-      div.style.display = 'block';
-      div.innerHTML = html;
-      target.appendChild(div);
-    }
-
-    function closeModal() { el('modal').style.display = 'none'; }
+      function showResult(target, type, html) {
+        const div = document.createElement('div');
+        div.className = `alert-box ${type}`;
+        div.style.display = 'block';
+        div.innerHTML = html;
+        target.appendChild(div);
+      }
+      
+    }); // FIM DO DOMContentLoaded
   </script>
 </body>
 </html>
