@@ -19,7 +19,7 @@
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f8fafc; padding-bottom: 160px; color: #334155; }
     
     /* HEADER */
-    header { background: var(--primary); color: white; padding: 15px 20px 25px; border-radius: 0 0 24px 24px; position: relative; box-shadow: 0 4px 20px rgba(15, 23, 42, 0.15); }
+    header { background: var(--primary); color: white; padding: 15px 20px 25px; border-radius: 0 0 24px 24px; position: relative; box-shadow: 0 4px 20px rgba(15, 23, 42, 0.15); z-index: 10; }
     .header-content { max-width: 500px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
     .title-area { text-align: left; }
     h1 { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px; margin: 0; }
@@ -29,7 +29,8 @@
     .ref-btn:active { background: rgba(255,255,255,0.2); transform: scale(0.95); }
 
     /* CONTAINER & CARDS */
-    .container { max-width: 500px; margin: -20px auto 0; padding: 0 20px; }
+    /* Ajuste de Margem Superior: margin-top alterado de -20px para 15px */
+    .container { max-width: 500px; margin: 15px auto 0; padding: 0 20px; position: relative; z-index: 5; }
     .card { background: white; padding: 20px; border-radius: 16px; margin-bottom: 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid #e2e8f0; }
     
     /* INPUTS */
@@ -187,8 +188,7 @@
   </div>
 
   <script>
-    // === BANCO DE DADOS V28 (COM VIAS) ===
-    // r: rotas permitidas ['oral', 'iv', 'im', 'sc', 'nasal']
+    // === BANCO DE DADOS V29 ===
     const db = [
       { 
         n:"Chumbinho (Carbamato)", d:0.01, u:"mg", mv:"varia", 
@@ -199,21 +199,17 @@
       { n:"Ozempic (Semaglutida)", d:0.01, u:"mg", mv:"1sem", ant:"Suporte", risk:"⚠️ Vômitos incoercíveis.", noChar:true, ref:"Bula/AACT", r:['sc'] },
       { n:"Saxenda (Liraglutida)", d:0.1, u:"mg", mv:"13h", ant:"Suporte", risk:"⚠️ Desidratação.", noChar:true, ref:"Bula/AACT", r:['sc'] },
       
-      // Benzos (Múltiplas Vias)
       { n:"Clonazepam (Rivotril)", d:0.6, u:"mg", mv:"40h", ant:"Flumazenil", isBenzo:true, risk:"🚫 Risco de convulsão em uso crônico.", ref:"UpToDate", r:['oral', 'iv'] },
       { n:"Diazepam", d:0.7, u:"mg", mv:"48h", ant:"Flumazenil", isBenzo:true, risk:"🚫 Risco de convulsão em uso crônico.", ref:"UpToDate", r:['oral', 'iv', 'im'] },
       { n:"Midazolam", d:1.0, u:"mg", mv:"2.5h", ant:"Flumazenil", isBenzo:true, ref:"UpToDate", r:['oral', 'iv', 'im'] },
       { n:"Alprazolam", d:0.5, u:"mg", mv:"11h", ant:"Flumazenil", isBenzo:true, ref:"UpToDate", r:['oral'] },
 
-      // Opioides (Múltiplas Vias)
       { n:"Morfina", d:0.4, u:"mg", mv:"3h", ant:"Naloxona", inds:["FR &lt; 12", "Miose"], ref:"AACT", r:['oral', 'iv', 'im'] },
       { n:"Tramadol", d:4, u:"mg", mv:"9h", ant:"Naloxona", risk:"⚠️ Risco convulsão.", ref:"AACT", r:['oral', 'iv', 'im'] },
 
-      // Outros
       { n:"Cetamina", d:2, u:"mg", mv:"2.5h", ant:"Benzos", inds:["Agitação"], ref:"AACT", r:['iv', 'im', 'oral'] },
       { n:"Cocaina", d:1.0, u:"mg", mv:"1h", ant:"Benzos", risk:"🚫 Não usar Beta-bloq.", ref:"AHA", r:['nasal', 'iv', 'oral'] },
       
-      // Comuns (Maioria Oral)
       { n:"Litio", d:50, u:"mg", mv:"24h", noChar:true, risk:"⚠️ Hemodiálise se grave.", ref:"AACT", r:['oral'] },
       { n:"Paracetamol", d:75, u:"mg", mv:"3h", ant:"NAC", isNac:true, ref:"Rumack-Matthew", r:['oral'] },
       { n:"Rivaroxabana (Xarelto)", d:10, u:"mg", mv:"9h", ant:"Andexanet/CCP", inds:["Sangramento Grave"], ref:"AHA", r:['oral'] },
@@ -232,7 +228,6 @@
     let modalAction = null;
     const el = id => document.getElementById(id);
     
-    // Mapeamento de Vias
     const routeMap = {
       'oral': 'Oral (Comprimido/Líquido)',
       'iv': 'Intravenosa (IV)',
@@ -242,13 +237,11 @@
     };
 
     window.addEventListener('DOMContentLoaded', () => {
-      // Busca
       el('search').addEventListener('input', (e) => {
         const val = e.target.value.toLowerCase();
         const res = el('results');
         res.innerHTML = '';
         if(val.length < 2) { res.style.display='none'; return; }
-        
         const matches = db.filter(d => d.n.toLowerCase().includes(val));
         if(!matches.length) {
           res.innerHTML = '<div class="opt" style="color:#aaa">Sem resultados</div>';
@@ -264,7 +257,6 @@
         res.style.display = 'block';
       });
 
-      // Inputs
       [el('weight'), el('dose'), el('unit')].forEach(i => i.addEventListener('input', calculate));
       el('time').addEventListener('change', checkTime);
       el('route').addEventListener('change', () => { calculate(); checkTime(); });
@@ -274,32 +266,21 @@
       sel = d;
       el('search').value = d.n;
       el('results').style.display = 'none';
-      
-      // Configurar Vias Disponíveis
       const routeSel = el('route');
       routeSel.innerHTML = '';
       const routes = d.r || ['oral']; 
-      
       routes.forEach(r => {
         const opt = document.createElement('option');
         opt.value = r;
         opt.text = routeMap[r] || r;
         routeSel.appendChild(opt);
       });
-      
-      // Se só tem 1 rota, seleciona e trava
-      if(routes.length === 1) {
-        routeSel.disabled = true;
-      } else {
-        routeSel.disabled = false;
-      }
-      
+      if(routes.length === 1) routeSel.disabled = true; else routeSel.disabled = false;
       el('drugInfo').style.display = 'block';
       el('drugInfo').innerHTML = `<b>Dose Ref:</b> ${d.d} ${d.u}/kg | <b>MV:</b> ${d.mv} <br><span style="color:#3b82f6; font-size:0.85rem">📚 Fonte: ${d.ref}</span>`;
       el('panel').style.display = 'none';
       el('clinical').style.display = 'none';
       el('dose').value = '';
-      
       el('callBtn').classList.remove('pulse-animation');
       el('callBtn').innerText = '📞 Ligar para CIATox';
       calculate();
@@ -310,20 +291,16 @@
       const w = parseFloat(el('weight').value) || 0;
       const d = parseFloat(el('dose').value) || 0;
       if(!w || !d) return;
-
       const unit = el('unit').value;
       let ingested = d;
       if(unit === 'g') ingested = d * 1000;
       if(unit === 'mcg') ingested = d / 1000;
-      
       let limit = sel.d; 
       if(sel.u === 'mcg') limit = limit / 1000;
       const totalLimit = limit * w;
-
       const p = el('panel');
       p.style.display = 'block';
       const callBtn = el('callBtn');
-
       if(ingested >= totalLimit || sel.n.includes('Chumbinho')) {
         p.className = 'panel toxic';
         el('statusTitle').innerText = '⚠️ RISCO TÓXICO';
@@ -346,7 +323,6 @@
     function buildActions() {
       const area = el('actionsArea');
       area.innerHTML = '';
-
       if(sel.isNac) {
         const btn = document.createElement('button');
         btn.className = 'btn btn-nac';
@@ -354,7 +330,6 @@
         btn.onclick = () => showResult(area, 'res-blue', `<b>Protocolo 21h:</b><br>Ataque: ${(el('weight').value * 150).toFixed(0)}mg (1h)<br>Manut: ${(el('weight').value * 50).toFixed(0)}mg (4/4h)`);
         area.appendChild(btn);
       }
-
       if(sel.ant) {
         const btn = document.createElement('button');
         if(sel.isBenzo) {
@@ -380,15 +355,11 @@
       const area = el('charcoalArea');
       area.innerHTML = '';
       if(!t) return;
-
-      // === LÓGICA DE VIA ===
       if(route !== 'oral') {
         showResult(area, 'alert-danger', '⛔ <b>VIA PARENTERAL</b><br>Substância já absorvida. Carvão ativado não indicado.');
         return;
       }
-
       if(t === '1') showResult(area, 'alert-info', '🚫 Lavagem Gástrica: Contraindicada rotineiramente.');
-
       if(sel.noChar) {
         showResult(area, 'alert-danger', '⛔ <b>CARVÃO NÃO INDICADO</b><br>Substância não absorvível pelo carvão.');
       } else if (sel.n.includes('Cocaina') || sel.n.includes('Ritalina') || sel.n.includes('Venvanse')) {
@@ -402,7 +373,6 @@
       }
     }
 
-    // --- MODAIS ---
     function openRefModal() {
       const content = el('modalContent');
       content.innerHTML = `
@@ -428,7 +398,6 @@
       content.innerHTML = '';
       let title = '';
       let items = [];
-
       if(type === 'charcoal') {
         title = 'Contraindicações Carvão';
         items = ['Rebaixamento s/ Via Aérea', 'Obstrução Intestinal', 'Risco de Aspiração', 'Cirurgia Recente'];
@@ -439,10 +408,8 @@
         title = `Indicações: ${sel.ant}`;
         items = sel.inds || [];
       }
-
       el('modalTitle').innerText = title;
       el('modalDesc').innerText = type === 'flumazenil' ? 'Se houver ALGUM item abaixo, o antídoto é PROIBIDO:' : 'Selecione os itens presentes:';
-
       items.forEach(i => {
         const row = document.createElement('div');
         row.className = 'check-row';
@@ -450,7 +417,6 @@
         row.onclick = function() { this.classList.toggle('selected'); };
         content.appendChild(row);
       });
-
       el('modalButtons').style.display = 'grid';
       el('modalCloseOnly').style.display = 'none';
       el('modalConfirm').innerText = type === 'flumazenil' ? 'Verificar Segurança' : 'Confirmar Indicação';
@@ -461,7 +427,6 @@
       closeModal();
       const checks = document.querySelectorAll('.check-row.selected').length;
       const area = modalAction === 'charcoal' ? el('charcoalArea') : el('actionsArea');
-      
       if(modalAction === 'flumazenil') {
         if(checks > 0) {
           showResult(area, 'alert-danger', `⛔ <b>FLUMAZENIL CONTRAINDICADO!</b><br>Risco de convulsão intratável.`);
