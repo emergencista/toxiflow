@@ -43,12 +43,27 @@
     .safe { background: linear-gradient(135deg, #22c55e, #15803d); }
     .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .gridDose { display: grid; grid-template-columns: 1fr 80px; gap: 8px; }
+    
+    /* MODAL E CHECKBOX CORRIGIDOS */
     .modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 9999; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(4px); padding: 20px; }
     .modalCard { width: 100%; max-width: 400px; background: white; border-radius: 20px; padding: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
-    .checkItem label { display: flex; gap: 14px; padding: 16px; background: #f8fafc; border: 1px solid var(--border); border-radius: 12px; align-items: center; cursor: pointer; transition: background 0.2s; min-height: 50px; }
+    
+    .checkItem label { 
+        display: flex; gap: 16px; padding: 16px; 
+        background: #f8fafc; border: 1px solid var(--border); border-radius: 12px; 
+        align-items: center; cursor: pointer; transition: background 0.2s; 
+        min-height: 54px; user-select: none;
+    }
     .checkItem label:active { background: #eef2ff; border-color: var(--primary); }
-    .checkItem input { width: 22px; height: 22px; margin: 0; pointer-events: none; }
+    
+    /* CORREÇÃO DO CLIQUE AQUI: pointer-events: auto */
+    .checkItem input { 
+        width: 24px; height: 24px; margin: 0; flex-shrink: 0;
+        pointer-events: auto; accent-color: var(--primary);
+    }
+    
     .checkItem span { font-size: 0.95rem; line-height: 1.4; pointer-events: none; }
+    
     .modalActions { display: grid; grid-template-columns: 1fr 1.5fr; gap: 10px; margin-top: 24px; }
     .btnLight { background: #e2e8f0; color: #334155; }
     .btnPrimary { background: var(--primary); color: white; }
@@ -131,20 +146,20 @@
   </div>
 
   <script>
-    // === BANCO DE DADOS COMPLETO (200+ ITENS) ===
+    // === BANCO DE DADOS COMPLETO (ORDEM DE PRIORIDADE) ===
     window.database = [
-      // PRINCIPAIS E CRÍTICOS (GARANTIA DE PRESENÇA)
+      // 1. OPIÓIDES E CRÍTICOS (Primeiros para garantir carregamento)
       { n:"Morfina", syn:["Morfina","Dimorf"], d:0.4, unit:"mg", mv:"3 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Naloxona (0.4-2mg IV)", support:"Depressão respiratória é o maior risco. Observar por 6-12h.", ref:"AACT/EAPCCT" },
-      { n:"Codeina", syn:["Codeina","Codeína"], d:2.5, unit:"mg", mv:"4 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Naloxona (0.4-2mg IV)", support:"Opióide fraco, mas risco de depressão resp em altas doses.", ref:"AACT/EAPCCT" },
+      { n:"Codeina", syn:["Codeina","Codeína"], d:2.5, unit:"mg", mv:"4 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Naloxona (0.4-2mg IV)", support:"Opióide fraco, risco de depressão resp em altas doses.", ref:"AACT/EAPCCT" },
       { n:"Fentanil", syn:["Fentanil","Durogesic"], d:0.04, unit:"mg", mv:"8 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Naloxona (0.4-2mg IV)", support:"Opióide potente. Risco de tórax rígido e depressão resp grave.", ref:"AACT/EAPCCT" },
       { n:"Tramadol", syn:["Tramadol"], d:4, unit:"mg", mv:"9 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Naloxona (0.4-2mg IV)", support:"Risco de convulsão. Naloxona deve ser usada com cautela (pode precipitar crise).", ref:"AACT/EAPCCT" },
       { n:"Lidocaina", syn:["Lidocaina","Lidocaína","Xilocaína"], d:5, unit:"mg", mv:"1.5 hs", ca:"Sim (< 1h)", lg:"Não", support:"Risco de convulsão e arritmia cardíaca. Emulsão lipídica se colapso circulatório.", ref:"AACT/EAPCCT" },
       { n:"Petidina", syn:["Petidina","Meperidina"], d:6, unit:"mg", mv:"48 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Naloxona", support:"Metabólito neurotóxico (risco de convulsão).", ref:"AACT/EAPCCT" },
-      { n:"Metadona", syn:["Metadona","Mytedon"], d:0.4, unit:"mg", mv:"60 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Naloxona (0.4-2mg IV)", support:"Meia-vida muito longa. Naloxona repetida pode ser necessária por 24h+.", ref:"AACT/EAPCCT" },
+      { n:"Metadona", syn:["Metadona","Mytedon"], d:0.4, unit:"mg", mv:"60 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Naloxona (0.4-2mg IV)", support:"Meia-vida muito longa. Naloxona repetida necessária.", ref:"AACT/EAPCCT" },
       { n:"Paracetamol", syn:["Paracetamol","Acetaminofeno","Tylenol"], d:75, unit:"mg", mv:"3 hs", ca:"Sim (< 2h)", lg:"Não", ant:"N-Acetilcisteína (NAC)", ref:"Rumack-Matthew Nomogram; IBCC/EmCrit" },
       { n:"AAS", syn:["AAS","Acido acetilsalicilico","Aspirina"], d:100, unit:"mg", mv:"30 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT" },
 
-      // ORDEM ALFABÉTICA (RESTANTE)
+      // 2. ORDEM ALFABÉTICA (RESTANTE)
       { n:"Acebutolol", syn:["Acebutolol"], d:25, unit:"mg", mv:"10 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
       { n:"Aceclofenaco", syn:["Aceclofenaco"], d:15, unit:"mg", mv:"4 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
       { n:"Acemetacina", syn:["Acemetacina"], d:8.5, unit:"mg", mv:"11 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
