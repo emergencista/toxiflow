@@ -211,7 +211,7 @@ window.database = [
   { n:"Sildenafil", syn:["Sildenafil"], d:3, unit:"mg", mv:"5 hs" },
   { n:"Sotalol", syn:["Sotalol"], d:7, unit:"mg", mv:"20 hs" },
   { n:"Sulindaco", syn:["Sulindaco"], d:30, unit:"mg", mv:"17 hs" },
-  { n:"Tadalafil", syn:["Tadalafil"], d:1, unit:"mg", mv:"17 hs" }
+  { n:"Tadalafil", syn:["Tadalafil"], d:1, unit:"mg", mv:"17 hs" },
   { n:"Talidomida", syn:["Talidomida"], d:7, unit:"mg", mv:"7,5 hs" },
   { n:"Tapentalol", syn:["Tapentalol","Tapentalol"], d:2, unit:"mg", mv:"4 hs" },
   { n:"Telitromicina", syn:["Telitromicina"], d:100, unit:"mg", mv:"3 hs" },
