@@ -1,4 +1,4 @@
-# ToxBasic (PWA)
+# ToxiFlow (PWA)
 
 Aplicação web simples (PWA) para suporte rápido em toxicologia.
 - Instalável no iPhone (Safari → Compartilhar → Adicionar à Tela de Início)
