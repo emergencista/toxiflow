@@ -5,238 +5,63 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>TOKBASE | CIATox</title>
 
-  <!-- PWA -->
   <meta name="theme-color" content="#1e3a8a" />
   <link rel="manifest" href="manifest.json" />
 
-  <!-- iOS PWA -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="TOKBASE" />
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
 
   <style>
-    :root{
-      --primary:#1e3a8a;
-      --bg:#f8fafc;
-      --surface:#ffffff;
-      --text:#0f172a;
-      --muted:#64748b;
-      --border:#e2e8f0;
-      --danger:#b91c1c;
-      --warn:#d97706;
-    }
+    :root{--primary:#1e3a8a;--bg:#f8fafc;--surface:#ffffff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;--danger:#b91c1c;--warn:#d97706}
     *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
-      background:var(--bg);
-      color:var(--text);
-      min-height:100vh;
-      display:flex;
-      justify-content:center;
-      padding-top:calc(env(safe-area-inset-top) + 8px);
-      padding-bottom:calc(env(safe-area-inset-bottom) + 8px);
-    }
-    .app{
-      width:100%;
-      max-width:520px;
-      min-height:100vh;
-      background:var(--surface);
-      box-shadow:0 8px 24px rgba(15,23,42,.08);
-      display:flex;
-      flex-direction:column;
-    }
-    header{
-      background:var(--primary);
-      color:#fff;
-      padding:22px 18px;
-      border-bottom-left-radius:22px;
-      border-bottom-right-radius:22px;
-      text-align:center;
-    }
-    header h1{
-      margin:0;
-      font-size:1.25rem;
-      font-weight:800;
-      letter-spacing:.3px;
-    }
-    header p{
-      margin:6px 0 0;
-      font-size:.82rem;
-      opacity:.85;
-    }
-    main{padding:18px; flex:1}
-    .card{
-      border:1px solid var(--border);
-      border-radius:14px;
-      padding:14px;
-      margin-bottom:12px;
-      background:#fff;
-      position:relative;
-    }
-    .label{
-      display:block;
-      font-size:.72rem;
-      font-weight:800;
-      color:var(--muted);
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      margin-bottom:6px;
-    }
+    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;justify-content:center;padding-top:calc(env(safe-area-inset-top) + 8px);padding-bottom:calc(env(safe-area-inset-bottom) + 8px)}
+    .app{width:100%;max-width:520px;min-height:100vh;background:var(--surface);box-shadow:0 8px 24px rgba(15,23,42,.08);display:flex;flex-direction:column}
+    header{background:var(--primary);color:#fff;padding:22px 18px;border-bottom-left-radius:22px;border-bottom-right-radius:22px;text-align:center}
+    header h1{margin:0;font-size:1.25rem;font-weight:800;letter-spacing:.3px}
+    header p{margin:6px 0 0;font-size:.82rem;opacity:.85}
+    main{padding:18px;flex:1}
+    .card{border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:12px;background:#fff;position:relative}
+    .label{display:block;font-size:.72rem;font-weight:800;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
 
-    /* ✅ CORREÇÃO: não aplicar width:100% em checkbox */
-    input:not([type="checkbox"]), select{
-      width:100%;
-      padding:12px;
-      border:2px solid var(--border);
-      border-radius:10px;
-      font-size:1rem;
-      background:#f8fafc;
-      -webkit-appearance:none;
-    }
-    input:not([type="checkbox"]):focus, select:focus{
-      outline:none;
-      border-color:#93c5fd;
-      background:#fff;
-    }
+    input:not([type="checkbox"]), select{width:100%;padding:12px;border:2px solid var(--border);border-radius:10px;font-size:1rem;background:#f8fafc;-webkit-appearance:none}
+    input:not([type="checkbox"]):focus, select:focus{outline:none;border-color:#93c5fd;background:#fff}
 
-    /* ✅ Checkbox clicável no iOS */
-    input[type="checkbox"]{
-      width:22px;
-      height:22px;
-      padding:0;
-      margin:0;
-      -webkit-appearance:auto;
-      appearance:auto;
-      background:transparent;
-    }
+    input[type="checkbox"]{width:22px;height:22px;padding:0;margin:0;-webkit-appearance:auto;appearance:auto;background:transparent}
 
-    #results{
-      position:absolute;
-      left:14px;
-      right:14px;
-      top:82px;
-      z-index:2000;
-      display:none;
-      background:#fff;
-      border:1px solid #cbd5e1;
-      border-radius:12px;
-      max-height:240px;
-      overflow:auto;
-      -webkit-overflow-scrolling:touch;
-      box-shadow:0 18px 30px rgba(15,23,42,.12);
-    }
-    .opt{
-      padding:14px;
-      border-bottom:1px solid #f1f5f9;
-      cursor:pointer;
-    }
+    #results{position:absolute;left:14px;right:14px;top:82px;z-index:2000;display:none;background:#fff;border:1px solid #cbd5e1;border-radius:12px;max-height:260px;overflow:auto;-webkit-overflow-scrolling:touch;box-shadow:0 18px 30px rgba(15,23,42,.12)}
+    .opt{padding:14px;border-bottom:1px solid #f1f5f9;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
     .opt:last-child{border-bottom:none}
     .opt:active{background:#f1f5f9}
-    .grid2{display:grid; grid-template-columns:1fr 1fr; gap:12px}
-    .gridDose{display:grid; grid-template-columns:1fr 120px; gap:10px}
-    .hint{display:block; margin-top:6px; color:var(--muted); font-size:.78rem; line-height:1.25}
-    #panel{
-      display:none;
-      padding:16px;
-      border-radius:14px;
-      color:#fff;
-      text-align:center;
-      margin-bottom:12px;
-    }
+    .optEmpty{padding:14px;color:#64748b;font-weight:700;cursor:default;user-select:none}
+
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .gridDose{display:grid;grid-template-columns:1fr 120px;gap:10px}
+    .hint{display:block;margin-top:6px;color:var(--muted);font-size:.78rem;line-height:1.25}
+    #panel{display:none;padding:16px;border-radius:14px;color:#fff;text-align:center;margin-bottom:12px}
     .toxic{background:linear-gradient(135deg,#dc2626,#7f1d1d)}
     .safe{background:linear-gradient(135deg,#16a34a,#14532d)}
-    .panelTitle{font-weight:900; font-size:1.2rem}
-    .panelDetail{margin-top:6px; font-size:.92rem; opacity:.95}
-    .antBox{
-      display:none;
-      background:#f5f3ff;
-      border:1px solid #ddd6fe;
-      border-left:5px solid #7c3aed;
-      padding:12px;
-      border-radius:12px;
-      color:#4c1d95;
-      margin-bottom:12px;
-      font-size:.92rem;
-    }
+    .panelTitle{font-weight:900;font-size:1.2rem}
+    .panelDetail{margin-top:6px;font-size:.92rem;opacity:.95}
+    .antBox{display:none;background:#f5f3ff;border:1px solid #ddd6fe;border-left:5px solid #7c3aed;padding:12px;border-radius:12px;color:#4c1d95;margin-bottom:12px;font-size:.92rem}
     .antBox b{color:#3b0764}
-    .btn{
-      width:100%;
-      padding:15px;
-      border:none;
-      border-radius:12px;
-      font-weight:900;
-      font-size:1rem;
-      cursor:pointer;
-      margin-top:10px;
-      -webkit-tap-highlight-color:transparent;
-    }
-    .btnChar{background:#334155; color:#fff}
-    .btnLav{background:var(--warn); color:#fff}
-    .btnSpotify{background:#1db954; color:#fff; text-decoration:none; display:block; text-align:center}
-    .footer{
-      text-align:center;
-      padding:16px 12px 22px;
-      color:#94a3b8;
-      font-size:.78rem;
-    }
+    .btn{width:100%;padding:15px;border:none;border-radius:12px;font-weight:900;font-size:1rem;cursor:pointer;margin-top:10px;-webkit-tap-highlight-color:transparent}
+    .btnChar{background:#334155;color:#fff}
+    .btnLav{background:var(--warn);color:#fff}
+    .btnSpotify{background:#1db954;color:#fff;text-decoration:none;display:block;text-align:center}
+    .footer{text-align:center;padding:16px 12px 22px;color:#94a3b8;font-size:.78rem}
 
-    /* Modal */
-    .modal{
-      position:fixed; inset:0;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      z-index:9999;
-      background:rgba(0,0,0,.68);
-      backdrop-filter:blur(4px);
-    }
-    .modalCard{
-      width:88%;
-      max-width:420px;
-      background:#fff;
-      border-radius:18px;
-      padding:18px;
-      box-shadow:0 30px 60px rgba(15,23,42,.24);
-    }
-    .modalCard h3{
-      margin:0 0 6px;
-      color:#b91c1c;
-      font-size:1.15rem;
-    }
-    .modalCard p{
-      margin:0 0 14px;
-      color:var(--muted);
-      font-size:.86rem;
-      line-height:1.35;
-    }
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:9999;background:rgba(0,0,0,.68);backdrop-filter:blur(4px)}
+    .modalCard{width:88%;max-width:420px;background:#fff;border-radius:18px;padding:18px;box-shadow:0 30px 60px rgba(15,23,42,.24)}
+    .modalCard h3{margin:0 0 6px;color:#b91c1c;font-size:1.15rem}
+    .modalCard p{margin:0 0 14px;color:var(--muted);font-size:.86rem;line-height:1.35}
     .checkItem{margin-bottom:10px}
-    .checkItem label{
-      display:flex;
-      gap:12px;
-      align-items:flex-start;
-      background:#f1f5f9;
-      border:1px solid #e2e8f0;
-      padding:12px;
-      border-radius:12px;
-      cursor:pointer;
-      font-size:.95rem;
-      line-height:1.2;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .checkItem input{
-      margin-top:2px;
-      flex:0 0 auto;
-    }
-    .modalActions{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-      margin-top:14px;
-    }
-    .btnLight{background:#e2e8f0; color:#334155}
-    .btnPrimary{background:var(--primary); color:#fff}
+    .checkItem label{display:flex;gap:12px;align-items:flex-start;background:#f1f5f9;border:1px solid #e2e8f0;padding:12px;border-radius:12px;cursor:pointer;font-size:.95rem;line-height:1.2;-webkit-tap-highlight-color:transparent}
+    .checkItem input{margin-top:2px;flex:0 0 auto}
+    .modalActions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+    .btnLight{background:#e2e8f0;color:#334155}
+    .btnPrimary{background:var(--primary);color:#fff}
   </style>
 </head>
 
@@ -248,7 +73,6 @@
     </header>
 
     <main>
-      <!-- Busca -->
       <div class="card" id="searchCard">
         <span class="label">Substância</span>
         <input id="search" type="text" placeholder="Buscar..." autocomplete="off" />
@@ -256,7 +80,6 @@
         <small id="drugInfo" class="hint"></small>
       </div>
 
-      <!-- Inputs -->
       <div class="card">
         <div class="grid2">
           <div>
@@ -274,20 +97,16 @@
                 <option value="mcg">mcg</option>
               </select>
             </div>
-            <small id="intakeHint" class="hint">
-              Escolha a unidade informada (mg, g ou mcg). O app converte automaticamente.
-            </small>
+            <small id="intakeHint" class="hint">Escolha a unidade informada (mg, g ou mcg). O app converte automaticamente.</small>
           </div>
         </div>
       </div>
 
-      <!-- Resultado -->
       <div id="panel">
         <div id="panelTitle" class="panelTitle"></div>
         <div id="panelDetail" class="panelDetail"></div>
       </div>
 
-      <!-- Clínica -->
       <div id="clinical" style="display:none">
         <div id="antBox" class="antBox">
           <b>ANTÍDOTO:</b> <span id="antText"></span>
@@ -304,7 +123,7 @@
 
           <div id="buttonsArea"></div>
 
-          <div style="margin-top:14px; font-size:.92rem">
+          <div style="margin-top:14px;font-size:.92rem">
             <b>Suporte:</b> <span id="supportText" style="color:#475569"></span>
           </div>
         </div>
@@ -314,7 +133,6 @@
     <div class="footer">Desenvolvido por @biaandrade_c</div>
   </div>
 
-  <!-- Modal -->
   <div id="ciModal" class="modal">
     <div class="modalCard">
       <h3>Contraindicações</h3>
@@ -327,11 +145,9 @@
     </div>
   </div>
 
-  <!-- Base externa -->
   <script src="/database.js"></script>
 
   <script>
-    // Service Worker
     (function registerSW(){
       if (!('serviceWorker' in navigator)) return;
       window.addEventListener('load', () => {
@@ -339,15 +155,29 @@
       });
     })();
 
-    if (!window.database || !Array.isArray(window.database)) {
-      window.database = [];
-    }
+    if (!window.database || !Array.isArray(window.database)) window.database = [];
+    window.database = window.database
+      .filter(Boolean)
+      .map(d => {
+        const obj = (d && typeof d === 'object') ? d : {};
+        return {
+          n: (obj.n ?? '').toString(),
+          syn: Array.isArray(obj.syn) ? obj.syn : [],
+          d: (obj.d ?? null),
+          unit: (obj.unit ?? 'mg').toString(),
+          mv: (obj.mv ?? '').toString(),
+          ant: (obj.ant ?? '').toString(),
+          support: (obj.support ?? '').toString(),
+          noCharcoal: !!obj.noCharcoal
+        };
+      })
+      .filter(d => d.n && d.d !== null && d.d !== undefined && d.d !== '');
 
     let selectedDrug = null;
     let currentProcedure = "";
+    let lastMatches = [];
 
     const el = (id) => document.getElementById(id);
-
     const searchInput = el('search');
     const resultsBox = el('results');
     const drugInfo = el('drugInfo');
@@ -378,12 +208,18 @@
     let debounceTimer = null;
     const MAX_RESULTS = 30;
 
-    function renderResults(items) {
+    function renderResults(items, term) {
       resultsBox.innerHTML = '';
+
       if (!items.length) {
-        resultsBox.style.display = 'none';
+        const div = document.createElement('div');
+        div.className = 'optEmpty';
+        div.textContent = term && term.length >= 2 ? 'Sem resultados' : '';
+        resultsBox.appendChild(div);
+        resultsBox.style.display = term && term.length >= 2 ? 'block' : 'none';
         return;
       }
+
       items.slice(0, MAX_RESULTS).forEach(d => {
         const div = document.createElement('div');
         div.className = 'opt';
@@ -401,7 +237,6 @@
       const unitPerKg = (d.unit || 'mg').toLowerCase();
       drugInfo.textContent = `Dose tóxica: ${d.d} ${unitPerKg}/kg | Meia-vida: ${d.mv || '-'}`;
 
-      // sugere unidade
       const expected = unitPerKg === 'mcg' ? 'mcg' : 'mg';
       intakeUnit.value = expected;
       intakeHint.textContent = expected === 'mcg'
@@ -412,7 +247,29 @@
       el('panel').style.display = 'none';
       el('clinical').style.display = 'none';
       resultsBox.style.display = 'none';
+
+      // ✅ NOVO: fecha teclado no iPhone quando seleciona (blur)
+      searchInput.blur();
+
       calculate();
+    }
+
+    function scoreMatch(d, term) {
+      const nameN = normalizeText(d.n);
+      const syns = Array.isArray(d.syn) ? d.syn : [];
+      const synN = syns.map(s => normalizeText(s));
+
+      let best = Infinity;
+
+      if (nameN.startsWith(term)) best = Math.min(best, 0);
+      else if (nameN.includes(term)) best = Math.min(best, 2);
+
+      for (const s of synN) {
+        if (s.startsWith(term)) best = Math.min(best, 1);
+        else if (s.includes(term)) best = Math.min(best, 3);
+      }
+
+      return best;
     }
 
     function searchData() {
@@ -420,25 +277,41 @@
 
       if (term.length < 2) {
         resultsBox.style.display = 'none';
+        lastMatches = [];
         return;
       }
 
-      const filtered = window.database
-        .filter(d => {
-          const name = normalizeText(d.n);
-          if (name.includes(term)) return true;
-
-          const syns = Array.isArray(d.syn) ? d.syn : [];
-          return syns.some(s => normalizeText(s).includes(term));
+      const matches = window.database
+        .map(d => ({ d, s: scoreMatch(d, term) }))
+        .filter(x => x.s !== Infinity)
+        .sort((a, b) => {
+          if (a.s !== b.s) return a.s - b.s;
+          return (a.d.n || '').localeCompare(b.d.n || '');
         })
-        .sort((a, b) => (a.n || '').localeCompare(b.n || ''));
+        .map(x => x.d);
 
-      renderResults(filtered);
+      lastMatches = matches;
+      renderResults(matches, term);
     }
 
     searchInput.addEventListener('input', () => {
       clearTimeout(debounceTimer);
       debounceTimer = setTimeout(searchData, 150);
+    });
+
+    // ✅ NOVO: Enter seleciona o primeiro resultado (desktop)
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const first = lastMatches && lastMatches.length ? lastMatches[0] : null;
+        if (first) {
+          e.preventDefault();
+          selectDrug(first);
+        }
+      }
+      if (e.key === 'Escape') {
+        resultsBox.style.display = 'none';
+        searchInput.blur();
+      }
     });
 
     document.addEventListener('click', (e) => {
@@ -462,7 +335,7 @@
       }
 
       const isMcgPerKg = (selectedDrug.unit || 'mg').toLowerCase() === 'mcg';
-      const toxicPerKgMg = isMcgPerKg ? (selectedDrug.d / 1000) : selectedDrug.d;
+      const toxicPerKgMg = isMcgPerKg ? (Number(selectedDrug.d) / 1000) : Number(selectedDrug.d);
       const limitMg = toxicPerKgMg * w;
 
       panel.style.display = 'block';
