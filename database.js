@@ -1,3 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>ToxiFlow | CIATox-BA</title>
+
+  <meta name="theme-color" content="#2563eb" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="ToxiFlow" />
+  
+  <!-- ÍCONE EMBUTIDO -->
+  <link rel="apple-touch-icon" href="data:image/png;base64,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" />
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --radius: 16px;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body { margin: 0; font-family: -apple-system, sans-serif; background: var(--bg); color: var(--text); display: flex; justify-content: center; min-height: 100vh; padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); }
+    .app { width: 100%; max-width: 480px; background: var(--surface); display: flex; flex-direction: column; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+    
+    header { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; padding: 24px 20px 32px; border-radius: 0 0 24px 24px; box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.3); }
+    header h1 { margin: 0; font-size: 1.6rem; font-weight: 800; }
+    header p { margin: 4px 0 0; opacity: 0.9; font-size: 0.9rem; }
+    
+    .ciatox-banner { 
+      background: rgba(255,255,255,0.15); border-radius: 12px; padding: 12px; margin-top: 16px; 
+      font-size: 0.9rem; font-weight: 700; display:flex; flex-wrap: wrap; gap:12px; align-items:center; justify-content: center;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .phone-link { color: white; text-decoration: none; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+    
+    main { padding: 20px; flex: 1; margin-top: -10px; z-index: 20; }
+    .card { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; margin-bottom: 16px; box-shadow: var(--shadow); position: relative; }
+    .label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; }
+    input, select { width: 100%; padding: 14px; border: 1px solid var(--border); border-radius: 12px; font-size: 1.05rem; background: #f8fafc; color: var(--text); -webkit-appearance: none; }
+    input:focus, select:focus { outline: none; border-color: var(--primary); background: white; }
+
+    #results { position: absolute; top: 90px; left: 0; right: 0; margin: 0 10px; background: white; border-radius: 14px; z-index: 50; box-shadow: 0 20px 40px rgba(0,0,0,0.2); border: 1px solid var(--border); max-height: 280px; overflow-y: auto; display: none; }
+    .opt { padding: 14px 18px; border-bottom: 1px solid #f1f5f9; cursor: pointer; }
+    .opt:active { background: #eff6ff; color: var(--primary); }
+    #drugInfo { margin-top: 12px; padding-top:10px; border-top:1px dashed var(--border); font-size: 0.9rem; line-height: 1.5; color: var(--text); }
+
+    .btn { width: 100%; padding: 16px; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; transition: transform 0.1s; box-shadow: 0 4px 0 rgba(0,0,0,0.1); }
+    .btn:active { transform: translateY(2px); box-shadow: none; }
+    .btnChar { background: #1e293b; color: white; }
+    .btnNac { background: #7c3aed; color: white; }
+    .btnSpotify { background: #1db954; color: white; text-decoration: none; font-size:0.9rem; }
+    
+    .warning-box {
+      margin-top: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #94a3b8;
+      padding: 14px; border-radius: 10px; font-size: 0.9rem; color: #475569;
+    }
+    .warning-link { display: inline-block; margin-top: 8px; color: #1db954; font-weight: 700; text-decoration: none; }
+
+    #panel { display: none; padding: 20px; border-radius: var(--radius); color: white; text-align: center; margin-bottom: 16px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+    .toxic { background: linear-gradient(135deg, #ef4444, #b91c1c); }
+    .safe { background: linear-gradient(135deg, #22c55e, #15803d); }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .gridDose { display: grid; grid-template-columns: 1fr 80px; gap: 8px; }
+    
+    .modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 9999; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(4px); padding: 20px; }
+    .modalCard { width: 100%; max-width: 400px; background: white; border-radius: 20px; padding: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
+    .checkItem label { display: flex; gap: 14px; padding: 16px; background: #f8fafc; border: 1px solid var(--border); border-radius: 12px; align-items: center; cursor: pointer; transition: background 0.2s; min-height: 50px; }
+    .checkItem label:active { background: #eef2ff; border-color: var(--primary); }
+    .checkItem input { width: 22px; height: 22px; margin: 0; pointer-events: none; }
+    .checkItem span { font-size: 0.95rem; line-height: 1.4; pointer-events: none; }
+    .modalActions { display: grid; grid-template-columns: 1fr 1.5fr; gap: 10px; margin-top: 24px; }
+    .btnLight { background: #e2e8f0; color: #334155; }
+    .btnPrimary { background: var(--primary); color: white; }
+
+    .footer { text-align: center; padding: 24px; color: #94a3b8; font-size: 0.8rem; background: #f8fafc; border-top: 1px solid var(--border); }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <header>
+      <h1>ToxiFlow</h1>
+      <p>CIATox v22.1 — Doses Tóxicas</p>
+      <div class="ciatox-banner">
+        <a href="tel:08002844343" class="phone-link">📞 0800 284 4343</a>
+        <span style="opacity:0.3">|</span>
+        <a href="tel:7131034343" class="phone-link">📞 (71) 3103-4343</a>
+      </div>
+    </header>
+
+    <main>
+      <div class="card" id="searchCard" style="z-index: 30;">
+        <span class="label">Substância</span>
+        <input id="search" type="text" placeholder="Digite para buscar..." autocomplete="off" />
+        <div id="results"></div>
+        <div id="drugInfo"></div>
+      </div>
+
+      <div class="card">
+        <div class="grid2">
+          <div><span class="label">Peso (kg)</span><input id="weight" type="number" placeholder="Ex: 70" inputmode="decimal" /></div>
+          <div><span class="label">Dose</span><div class="gridDose"><input id="intake" type="number" placeholder="0" inputmode="decimal" /><select id="intakeUnit"><option value="mg">mg</option><option value="g">g</option><option value="mcg">mcg</option></select></div></div>
+        </div>
+      </div>
+
+      <div id="panel">
+        <div id="panelTitle" style="font-size:1.3rem; font-weight:800; margin-bottom:5px"></div>
+        <div id="panelDetail" style="font-size:0.9rem; opacity:0.95"></div>
+      </div>
+
+      <div id="clinical" style="display:none">
+        
+        <!-- NAC (Paracetamol) -->
+        <div id="nacArea" style="display:none; margin-bottom:16px;">
+          <button class="btn btnNac" onclick="calculateNAC()">💊 👆 Calcular Dose NAC (1h)</button>
+          <div id="nacResult" style="margin-top:10px; background:#f3e8ff; color:#6b21a8; padding:12px; border-radius:12px; font-size:0.9rem; display:none; border:1px solid #d8b4fe;"></div>
+        </div>
+
+        <div id="antBox" style="background:#f5f3ff; border:1px solid #ddd6fe; border-left:4px solid #7c3aed; padding:16px; border-radius:12px; color:#5b21b6; margin-bottom:16px;">
+          <b style="display:block; font-size:0.75rem; margin-bottom:4px">ANTÍDOTO ESPECÍFICO:</b> <span id="antText"></span>
+        </div>
+
+        <div class="card" style="border-left: 4px solid var(--primary);">
+          <span class="label">Tempo decorrido</span>
+          <select id="timeWindow">
+            <option value="">Selecione...</option>
+            <option value="1">&lt; 1 hora</option>
+            <option value="2">1 a 2 horas</option>
+            <option value="4">> 2 horas</option>
+          </select>
+          <div id="buttonsArea"></div>
+          <div style="margin-top:16px; padding-top:14px; border-top:1px dashed #e2e8f0; font-size:0.9rem">
+            <strong>Suporte Clínico:</strong> <span id="supportText" style="color:var(--muted)"></span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div class="footer">
+      <p style="margin:0; font-weight:700">CIATox-BA</p>
+      <p style="margin:5px 0 0; opacity:0.7">Dev: @biaandrade_c</p>
+    </div>
+  </div>
+
+  <div id="ciModal" class="modal">
+    <div class="modalCard">
+      <h3 style="margin-top:0; color:#b91c1c; font-size:1.2rem">⚠️ Contraindicações</h3>
+      <p style="color:var(--muted); font-size:0.9rem; margin-bottom:15px">Marque se houver:</p>
+      <div id="ciList"></div>
+      <div class="modalActions">
+        <button class="btn btnLight" id="btnModalBack">Voltar</button>
+        <button class="btn btnPrimary" id="btnModalConfirm">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // === BANCO DE DADOS COMPLETO (TODAS AS PARTES JUNTAS) ===
     window.database = [
       { n:"AAS", syn:["AAS","Acido acetilsalicilico","Aspirina"], d:100, unit:"mg", mv:"30 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT" },
       { n:"Acebutolol", syn:["Acebutolol"], d:25, unit:"mg", mv:"10 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
@@ -62,6 +226,9 @@
       { n:"Clorfeniramina", syn:["Clorfeniramina"], d:0.85, unit:"mg", mv:"43 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
       { n:"Clorpromazina", syn:["Clorpromazina"], d:6, unit:"mg", mv:"40 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
       { n:"Clorprotixeno", syn:["Clorprotixeno"], d:6, unit:"mg", mv:"12 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Clortalidona", syn:["Clortalidona"], d:3.5, unit:"mg", mv:"50 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Clozapina", syn:["Clozapina"], d:10, unit:"mg", mv:"12 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Codeina", syn:["Codeina","Codeína"], d:2.5, unit:"mg", mv:"4 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Naloxona (0.4-2mg IV)", support:"Opióide fraco. Risco de depressão resp.", ref:"AACT/EAPCCT" },
       { n:"Dapoxetina", syn:["Dapoxetina"], d:4, unit:"mg", mv:"19 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
       { n:"Dapsona", syn:["Dapsona"], d:5, unit:"mg", mv:"30 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
       { n:"Desipramina", syn:["Desipramina"], d:3, unit:"mg", mv:"27 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
@@ -109,9 +276,6 @@
       { n:"Formoterol", syn:["Formoterol"], d:1.5, unit:"mcg", mv:"10 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
       { n:"Fosinopril", syn:["Fosinopril"], d:1, unit:"mg", mv:"11.5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
       { n:"Furosemida", syn:["Furosemida","Lasix"], d:3, unit:"mg", mv:"Update", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
-      { n:"Clortalidona", syn:["Clortalidona"], d:3.5, unit:"mg", mv:"50 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
-      { n:"Clozapina", syn:["Clozapina"], d:10, unit:"mg", mv:"12 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
-      { n:"Codeina", syn:["Codeina","Codeína"], d:2.5, unit:"mg", mv:"4 hs", ca:"Sim (< 1h)", lg:"Não", ant:"Naloxona (0.4-2mg IV)", support:"Opióide fraco. Risco de depressão resp.", ref:"AACT/EAPCCT" },
       { n:"Glibenclamida", syn:["Glibenclamida"], d:0.2, unit:"mg", mv:"Update", ca:"Sim (< 1h)", lg:"Não", support:"Monitorar hipoglicemia grave e prolongada.", ref:"AACT/EAPCCT" },
       { n:"Gliclazida", syn:["Gliclazida"], d:1.3, unit:"mg", mv:"12-20 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
       { n:"Glimepirida", syn:["Glimepirida"], d:0.04, unit:"mg", mv:"8 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
@@ -243,3 +407,151 @@
       { n:"Xipamida", syn:["Xipamida"], d:3, unit:"mg", mv:"8 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
       { n:"Zofenopril", syn:["Zofenopril"], d:2, unit:"mg", mv:"5.5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
     ];
+
+    const el = id => document.getElementById(id);
+    const searchInput = el('search'), resultsBox = el('results'), weightInput = el('weight');
+    const intakeInput = el('intake'), intakeUnit = el('intakeUnit'), timeWindow = el('timeWindow');
+    let selectedDrug = null;
+    let currentProcedure = "";
+    let searchTimer = null;
+
+    function normalize(s) { return (s||'').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim(); }
+    
+    function search() {
+      const term = normalize(searchInput.value);
+      resultsBox.innerHTML = '';
+      if(term.length < 2) { resultsBox.style.display='none'; return; }
+
+      const matches = window.database.filter(d => {
+        return normalize(d.n).includes(term) || (d.syn || []).some(s => normalize(s).includes(term));
+      }).slice(0, 30);
+
+      if(matches.length === 0) resultsBox.innerHTML = '<div class="opt" style="color:#999; cursor:default">Sem resultados</div>';
+      else matches.forEach(d => {
+        const div = document.createElement('div');
+        div.className = 'opt'; div.textContent = d.n; div.onclick = () => selectDrug(d);
+        resultsBox.appendChild(div);
+      });
+      resultsBox.style.display = 'block';
+    }
+
+    function selectDrug(d) {
+      selectedDrug = d;
+      searchInput.value = d.n;
+      resultsBox.style.display='none';
+      let info = `⚠️ Dose Tóxica: <b>${d.d||'?'} ${d.unit}/kg</b><br>⏱️ Meia-vida: ${d.mv||'-'}`;
+      if(d.ref) {
+         info += `<br><span style="font-size:0.8em;color:#666">📚 Ref: ${d.ref}</span>`;
+         if(d.n==='Paracetamol') info += ` | <a href="https://emcrit.org/ibcc/acetaminophen/" target="_blank" style="color:#2563eb">Protocolo 🔗</a>`;
+      }
+      el('drugInfo').innerHTML = info;
+      el('panel').style.display='none';
+      el('clinical').style.display='none';
+      el('nacArea').style.display='none';
+      intakeInput.value='';
+      calculate();
+    }
+
+    function calculate() {
+      if (!selectedDrug) return;
+      const w = parseFloat(weightInput.value), dose = parseFloat(intakeInput.value);
+      if (!w || !dose) return;
+
+      const unitMult = intakeUnit.value==='g'?1000 : (intakeUnit.value==='mcg'?0.001 : 1);
+      const doseMg = dose * unitMult;
+      const toxicVal = (selectedDrug.unit==='mcg' ? selectedDrug.d/1000 : selectedDrug.d);
+      const limit = toxicVal * w;
+
+      const panel = el('panel');
+      panel.style.display = 'block';
+      el('clinical').style.display = (doseMg >= limit) ? 'block' : 'none';
+
+      if (doseMg >= limit) {
+        panel.className = 'toxic';
+        el('panelTitle').textContent = '⚠️ RISCO TÓXICO DETECTADO';
+        el('panelDetail').innerHTML = `Ingerido: <b>${doseMg.toFixed(1)} mg</b><br>Limiar: ${limit.toFixed(1)} mg`;
+        
+        el('antText').textContent = selectedDrug.ant || 'Não específico';
+        el('antBox').style.display = selectedDrug.ant ? 'block' : 'none';
+        
+        if (selectedDrug.n === 'Paracetamol') el('nacArea').style.display = 'block';
+        el('supportText').textContent = selectedDrug.support || 'Suporte clínico (ABCDE) + Sintomáticos';
+        updateProtocols();
+      } else {
+        panel.className = 'safe';
+        el('panelTitle').textContent = '✅ PROVAVELMENTE SEGURO';
+        el('panelDetail').innerHTML = `Ingerido: <b>${doseMg.toFixed(1)} mg</b><br>Limiar: ${limit.toFixed(1)} mg`;
+      }
+    }
+
+    function calculateNAC() {
+      const w = parseFloat(weightInput.value);
+      if (!w) return alert('Digite o peso do paciente!');
+      const dose = w * 150; 
+      el('nacResult').style.display = 'block';
+      el('nacResult').innerHTML = `<b>Dose de Ataque (1h):</b> ${dose} mg (${(dose/1000).toFixed(1)} g)<br><small>Diluir em Glicose 5% conforme protocolo.</small>`;
+    }
+
+    function updateProtocols() {
+      const t = parseFloat(timeWindow.value);
+      const area = el('buttonsArea');
+      area.innerHTML = '';
+      if (!t) return;
+
+      if (t <= 1) {
+        area.innerHTML += `
+        <div class="warning-box">
+          🚫 <b>Lavagem Gástrica:</b> Não recomendada rotineiramente. Reservada para casos excepcionais (ingestão letal < 1h).
+          <a href="https://open.spotify.com/episode/62MCHkjBz50b9khDrcOwEe" target="_blank" class="warning-link">🎧 Ouvir Podcast (Explicação)</a>
+        </div>`;
+      }
+
+      if (selectedDrug.noCharcoal || (selectedDrug.ca && selectedDrug.ca.toUpperCase().includes('NÃO'))) {
+        area.innerHTML += `<div style="margin-top:10px; padding:12px;background:#fee2e2;color:#991b1b;border-radius:10px;text-align:center;font-weight:700">🚫 Carvão Contraindicado para esta substância</div>`;
+      } else if (t <= 2) {
+        area.innerHTML += `<button class="btn btnChar" onclick="openModal('charcoal')">🌑 👆 Avaliar Carvão Ativado</button>`;
+      }
+    }
+
+    const ciData = { 
+      charcoal: ['Rebaixamento de consciência sem IOT', 'Obstrução intestinal ou íleo', 'Ingestão de cáusticos ou hidrocarbonetos', 'Via aérea em risco'] 
+    };
+
+    function openModal(type) {
+      currentProcedure = type;
+      el('ciList').innerHTML = ciData[type].map(t => `
+        <div class="checkItem">
+          <label>
+            <input type="checkbox" class="ci-check">
+            <span>${t}</span>
+          </label>
+        </div>
+      `).join('');
+      el('ciModal').style.display = 'flex';
+    }
+
+    el('btnModalBack').onclick = () => el('ciModal').style.display = 'none';
+    el('btnModalConfirm').onclick = () => {
+      const checked = document.querySelectorAll('.ci-check:checked').length > 0;
+      el('ciModal').style.display = 'none';
+      const area = el('buttonsArea');
+      
+      const currentHTML = area.innerHTML; 
+      
+      if (checked) {
+        area.insertAdjacentHTML('beforeend', `<div style="margin-top:10px; padding:15px;background:#fee2e2;color:#991b1b;border-radius:12px;text-align:center;font-weight:700">⛔ CARVÃO CONTRAINDICADO<br><small>Fator de risco presente.</small></div>`);
+      } else {
+        const w = parseFloat(weightInput.value) || 0;
+        const msg = `✅ CARVÃO INDICADO<br><small>Dose: ${Math.min(50, w).toFixed(0)}g (1g/kg até 50g)</small>`;
+        area.insertAdjacentHTML('beforeend', `<div style="margin-top:10px; padding:15px;background:#dcfce7;color:#166534;border-radius:12px;text-align:center;font-weight:700;margin-bottom:10px">${msg}</div>`);
+      }
+    };
+
+    searchInput.oninput = () => { clearTimeout(searchTimer); searchTimer = setTimeout(search, 200); };
+    searchInput.onfocus = () => { if(searchInput.value.length > 1) resultsBox.style.display='block'; };
+    [weightInput, intakeInput, intakeUnit].forEach(i => i.oninput = calculate);
+    timeWindow.onchange = updateProtocols;
+    document.onclick = (e) => { if(!el('searchCard').contains(e.target)) resultsBox.style.display = 'none'; };
+  </script>
+</body>
+</html>
