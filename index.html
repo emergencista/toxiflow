@@ -5,12 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>ToxiFlow | CIATox-BA</title>
 
-  <!-- Ícone e Cor da Barra (iOS/Android) -->
   <meta name="theme-color" content="#2563eb" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="ToxiFlow" />
-  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  
+  <!-- ÍCONE EMBUTIDO (Funciona em todos os celulares) -->
+  <link rel="apple-touch-icon" href="data:image/png;base64,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" />
 
   <style>
     :root {
@@ -27,12 +28,17 @@
     body { margin: 0; font-family: -apple-system, sans-serif; background: var(--bg); color: var(--text); display: flex; justify-content: center; min-height: 100vh; padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); }
     .app { width: 100%; max-width: 480px; background: var(--surface); display: flex; flex-direction: column; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
     
-    /* Header Azul */
+    /* Header */
     header { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; padding: 24px 20px 32px; border-radius: 0 0 24px 24px; box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.3); }
     header h1 { margin: 0; font-size: 1.6rem; font-weight: 800; }
     header p { margin: 4px 0 0; opacity: 0.9; font-size: 0.9rem; }
-    .ciatox-banner { background: rgba(255,255,255,0.15); border-radius: 12px; padding: 12px; margin-top: 16px; font-size: 0.9rem; font-weight: 700; display:flex; gap:12px; align-items:center; border: 1px solid rgba(255,255,255,0.2); }
-    .phone-link { color: white; text-decoration: none; display: flex; align-items: center; gap: 6px; }
+    
+    .ciatox-banner { 
+      background: rgba(255,255,255,0.15); border-radius: 12px; padding: 12px; margin-top: 16px; 
+      font-size: 0.9rem; font-weight: 700; display:flex; flex-wrap: wrap; gap:12px; align-items:center; justify-content: center;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .phone-link { color: white; text-decoration: none; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
     
     main { padding: 20px; flex: 1; margin-top: -10px; z-index: 20; }
     .card { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; margin-bottom: 16px; box-shadow: var(--shadow); position: relative; }
@@ -40,7 +46,7 @@
     input, select { width: 100%; padding: 14px; border: 1px solid var(--border); border-radius: 12px; font-size: 1.05rem; background: #f8fafc; color: var(--text); -webkit-appearance: none; }
     input:focus, select:focus { outline: none; border-color: var(--primary); background: white; }
 
-    /* Resultados Busca */
+    /* Resultados */
     #results { position: absolute; top: 90px; left: 0; right: 0; margin: 0 10px; background: white; border-radius: 14px; z-index: 50; box-shadow: 0 20px 40px rgba(0,0,0,0.2); border: 1px solid var(--border); max-height: 280px; overflow-y: auto; display: none; }
     .opt { padding: 14px 18px; border-bottom: 1px solid #f1f5f9; cursor: pointer; }
     .opt:active { background: #eff6ff; color: var(--primary); }
@@ -50,21 +56,42 @@
     .btn { width: 100%; padding: 16px; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; transition: transform 0.1s; box-shadow: 0 4px 0 rgba(0,0,0,0.1); }
     .btn:active { transform: translateY(2px); box-shadow: none; }
     .btnChar { background: #1e293b; color: white; }
-    .btnLav { background: #d97706; color: white; }
     .btnNac { background: #7c3aed; color: white; }
-    .btnSpotify { background: #1db954; color: white; text-decoration: none; }
+    .btnSpotify { background: #1db954; color: white; text-decoration: none; font-size:0.9rem; }
+    .btnWarning { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; box-shadow: none; cursor: default; }
 
-    /* Painéis e Modal */
+    /* Avisos */
+    .warning-box {
+      margin-top: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #94a3b8;
+      padding: 14px; border-radius: 10px; font-size: 0.9rem; color: #475569;
+    }
+    .warning-link {
+      display: inline-block; margin-top: 8px; color: #1db954; font-weight: 700; text-decoration: none;
+    }
+
     #panel { display: none; padding: 20px; border-radius: var(--radius); color: white; text-align: center; margin-bottom: 16px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
     .toxic { background: linear-gradient(135deg, #ef4444, #b91c1c); }
     .safe { background: linear-gradient(135deg, #22c55e, #15803d); }
     .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .gridDose { display: grid; grid-template-columns: 1fr 80px; gap: 8px; }
     
-    .modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 9999; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(4px); padding: 20px; }
+    /* Modal Checkboxes - CORRIGIDO */
+    .modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 9999; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(4px); padding: 20px; }
     .modalCard { width: 100%; max-width: 400px; background: white; border-radius: 20px; padding: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
-    .checkItem label { display: flex; gap: 10px; padding: 12px; background: #f8fafc; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 8px; align-items: flex-start; }
-    .modalActions { display: grid; grid-template-columns: 1fr 1.5fr; gap: 10px; margin-top: 20px; }
+    
+    .checkItem { margin-bottom: 10px; }
+    /* Área de toque aumentada */
+    .checkItem label { 
+      display: flex; gap: 14px; padding: 16px; background: #f8fafc; 
+      border: 1px solid var(--border); border-radius: 12px; 
+      align-items: center; cursor: pointer; transition: background 0.2s;
+      min-height: 50px; /* Garante tamanho para o dedo */
+    }
+    .checkItem label:active { background: #eef2ff; border-color: var(--primary); }
+    .checkItem input { width: 22px; height: 22px; margin: 0; pointer-events: none; /* Deixa o clique passar para o label */ }
+    .checkItem span { font-size: 0.95rem; line-height: 1.4; pointer-events: none; }
+
+    .modalActions { display: grid; grid-template-columns: 1fr 1.5fr; gap: 10px; margin-top: 24px; }
     .btnLight { background: #e2e8f0; color: #334155; }
     .btnPrimary { background: var(--primary); color: white; }
 
@@ -77,9 +104,12 @@
     <header>
       <h1>ToxiFlow</h1>
       <p>CIATox v22.1 — Doses Tóxicas</p>
+      
+      <!-- Dois números no topo -->
       <div class="ciatox-banner">
-        <span>CIATox-BA:</span>
         <a href="tel:08002844343" class="phone-link">📞 0800 284 4343</a>
+        <span style="opacity:0.3">|</span>
+        <a href="tel:7131034343" class="phone-link">📞 (71) 3103-4343</a>
       </div>
     </header>
 
@@ -100,7 +130,7 @@
         </div>
       </div>
 
-      <!-- Painel de Risco -->
+      <!-- Painel Risco -->
       <div id="panel">
         <div id="panelTitle" style="font-size:1.3rem; font-weight:800; margin-bottom:5px"></div>
         <div id="panelDetail" style="font-size:0.9rem; opacity:0.95"></div>
@@ -109,10 +139,10 @@
       <!-- Área Clínica -->
       <div id="clinical" style="display:none">
         
-        <!-- Botão NAC (Exclusivo Paracetamol) -->
+        <!-- NAC (Paracetamol) -->
         <div id="nacArea" style="display:none; margin-bottom:16px;">
           <button class="btn btnNac" onclick="calculateNAC()">
-            💊 👆 Calcular Dose NAC (150mg/kg)
+            💊 👆 Calcular Dose NAC (1h)
           </button>
           <div id="nacResult" style="margin-top:10px; background:#f3e8ff; color:#6b21a8; padding:12px; border-radius:12px; font-size:0.9rem; display:none; border:1px solid #d8b4fe;"></div>
         </div>
@@ -124,12 +154,14 @@
         <div class="card" style="border-left: 4px solid var(--primary);">
           <span class="label">Tempo decorrido</span>
           <select id="timeWindow">
-            <option value="">Selecione o tempo...</option>
+            <option value="">Selecione...</option>
             <option value="1">&lt; 1 hora</option>
             <option value="2">1 a 2 horas</option>
             <option value="4">> 2 horas</option>
           </select>
+          
           <div id="buttonsArea"></div>
+
           <div style="margin-top:16px; padding-top:14px; border-top:1px dashed #e2e8f0; font-size:0.9rem">
             <strong>Suporte Clínico:</strong> <span id="supportText" style="color:var(--muted)"></span>
           </div>
@@ -138,17 +170,21 @@
     </main>
 
     <div class="footer">
-      <p style="margin:0; font-weight:700">CIATox-BA: 0800 284 4343</p>
-      <p style="margin:5px 0 0; opacity:0.7">Desenvolvido por @biaandrade_c</p>
+      <p style="margin:0; font-weight:700">CIATox-BA</p>
+      <p style="margin:5px 0 0; opacity:0.7">Dev: @biaandrade_c</p>
     </div>
   </div>
 
   <!-- Modal Contraindicações -->
   <div id="ciModal" class="modal">
     <div class="modalCard">
-      <h3 style="margin-top:0; color:#b91c1c">⚠️ Contraindicações</h3>
+      <h3 style="margin-top:0; color:#b91c1c; font-size:1.2rem">⚠️ Contraindicações</h3>
       <p style="color:var(--muted); font-size:0.9rem; margin-bottom:15px">Marque se houver:</p>
-      <div id="ciList"></div>
+      
+      <div id="ciList">
+        <!-- Itens serão gerados aqui via JS -->
+      </div>
+
       <div class="modalActions">
         <button class="btn btnLight" id="btnModalBack">Voltar</button>
         <button class="btn btnPrimary" id="btnModalConfirm">Confirmar</button>
@@ -157,7 +193,7 @@
   </div>
 
   <script>
-    // === BANCO DE DADOS EMBUTIDO (Pequena amostra para teste + Paracetamol) ===
+    // === BANCO DE DADOS ===
     window.database = [
       { n:"AAS", syn:["AAS","Acido acetilsalicilico"], d:100, unit:"mg", mv:"30 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT" },
       { n:"Paracetamol", syn:["Paracetamol","Acetaminofeno","Tylenol"], d:75, unit:"mg", mv:"3 hs", ca:"Sim (< 2h)", lg:"Não", ant:"N-Acetilcisteína (NAC)", ref:"Rumack-Matthew Nomogram; IBCC/EmCrit" },
@@ -169,10 +205,9 @@
       { n:"Carbamazepina", syn:["Carbamazepina"], d:20, unit:"mg", mv:"20 hs", ca:"Sim (< 1h)", lg:"Não", ref:"Goldfrank's" },
       { n:"Litio", syn:["Litio"], d:50, unit:"mg", mv:"24 hs", ca:"NÃO", lg:"Não", ref:"AACT", noCharcoal:true },
       { n:"Ferro", syn:["Ferro"], d:20, unit:"mg", mv:"6 hs", ca:"NÃO", lg:"Sim (RX)", ref:"AACT", noCharcoal:true }
-      // ... Para a lista completa, adicione os outros itens aqui
+      // Insira o restante da lista aqui
     ];
 
-    // === LÓGICA DE BUSCA E CÁLCULO ===
     const el = id => document.getElementById(id);
     const searchInput = el('search'), resultsBox = el('results'), weightInput = el('weight');
     const intakeInput = el('intake'), intakeUnit = el('intakeUnit'), timeWindow = el('timeWindow');
@@ -180,39 +215,23 @@
     let currentProcedure = "";
     let searchTimer = null;
 
-    // Remove acentos e minúsculas
     function normalize(s) { return (s||'').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim(); }
     
-    // Função de Busca Otimizada
     function search() {
       const term = normalize(searchInput.value);
-      
-      // Limpa resultados
       resultsBox.innerHTML = '';
-      
-      // Só busca se tiver 2+ letras
-      if(term.length < 2) { 
-        resultsBox.style.display='none'; 
-        return; 
-      }
+      if(term.length < 2) { resultsBox.style.display='none'; return; }
 
       const matches = window.database.filter(d => {
-        const nameMatch = normalize(d.n).includes(term);
-        const synMatch = (d.syn || []).some(s => normalize(s).includes(term));
-        return nameMatch || synMatch;
-      }).slice(0, 30); // Limita a 30 resultados para não travar
+        return normalize(d.n).includes(term) || (d.syn || []).some(s => normalize(s).includes(term));
+      }).slice(0, 30);
 
-      if(matches.length === 0) {
-        resultsBox.innerHTML = '<div class="opt" style="color:#999; cursor:default">Sem resultados</div>';
-      } else {
-        matches.forEach(d => {
-          const div = document.createElement('div');
-          div.className = 'opt';
-          div.textContent = d.n;
-          div.onclick = () => selectDrug(d);
-          resultsBox.appendChild(div);
-        });
-      }
+      if(matches.length === 0) resultsBox.innerHTML = '<div class="opt" style="color:#999; cursor:default">Sem resultados</div>';
+      else matches.forEach(d => {
+        const div = document.createElement('div');
+        div.className = 'opt'; div.textContent = d.n; div.onclick = () => selectDrug(d);
+        resultsBox.appendChild(div);
+      });
       resultsBox.style.display = 'block';
     }
 
@@ -220,18 +239,16 @@
       selectedDrug = d;
       searchInput.value = d.n;
       resultsBox.style.display='none';
-      
       let info = `⚠️ Dose Tóxica: <b>${d.d||'?'} ${d.unit}/kg</b><br>⏱️ Meia-vida: ${d.mv||'-'}`;
       if(d.ref) {
          info += `<br><span style="font-size:0.8em;color:#666">📚 Ref: ${d.ref}</span>`;
          if(d.n==='Paracetamol') info += ` | <a href="https://emcrit.org/ibcc/acetaminophen/" target="_blank" style="color:#2563eb">Protocolo 🔗</a>`;
       }
-      
       el('drugInfo').innerHTML = info;
       el('panel').style.display='none';
       el('clinical').style.display='none';
       el('nacArea').style.display='none';
-      intakeInput.value=''; // Limpa dose anterior
+      intakeInput.value='';
       calculate();
     }
 
@@ -242,8 +259,6 @@
 
       const unitMult = intakeUnit.value==='g'?1000 : (intakeUnit.value==='mcg'?0.001 : 1);
       const doseMg = dose * unitMult;
-      
-      // Se a dose tóxica for em mcg, converte para mg
       const toxicVal = (selectedDrug.unit==='mcg' ? selectedDrug.d/1000 : selectedDrug.d);
       const limit = toxicVal * w;
 
@@ -259,9 +274,7 @@
         el('antText').textContent = selectedDrug.ant || 'Não específico';
         el('antBox').style.display = selectedDrug.ant ? 'block' : 'none';
         
-        // Exibe NAC apenas se for Paracetamol
         if (selectedDrug.n === 'Paracetamol') el('nacArea').style.display = 'block';
-        
         el('supportText').textContent = selectedDrug.support || 'Suporte clínico (ABCDE) + Sintomáticos';
         updateProtocols();
       } else {
@@ -274,9 +287,9 @@
     function calculateNAC() {
       const w = parseFloat(weightInput.value);
       if (!w) return alert('Digite o peso do paciente!');
-      const dose = w * 150; // 150 mg/kg
+      const dose = w * 150; 
       el('nacResult').style.display = 'block';
-      el('nacResult').innerHTML = `<b>Dose de Ataque (1h):</b> ${dose} mg (${(dose/1000).toFixed(1)} g)<br><small>Diluir em Glicose 5% conforme protocolo institucional.</small>`;
+      el('nacResult').innerHTML = `<b>Dose de Ataque (1h):</b> ${dose} mg (${(dose/1000).toFixed(1)} g)<br><small>Diluir em Glicose 5% conforme protocolo.</small>`;
     }
 
     function updateProtocols() {
@@ -285,25 +298,39 @@
       area.innerHTML = '';
       if (!t) return;
 
-      // Verifica se Carvão é Proibido (ex: Lítio, Ferro ou texto "NÃO")
-      if (selectedDrug.noCharcoal || (selectedDrug.ca && selectedDrug.ca.toUpperCase().includes('NÃO'))) {
-        area.innerHTML = `<div style="padding:12px;background:#fee2e2;color:#991b1b;border-radius:10px;text-align:center;font-weight:700">🚫 Carvão Contraindicado</div>`;
-        return;
+      // 1. AVISO DE LAVAGEM GÁSTRICA (Novo Padrão)
+      // Se o tempo for < 1h, mostramos o aviso educativo em vez do botão
+      if (t <= 1) {
+        area.innerHTML += `
+        <div class="warning-box">
+          🚫 <b>Lavagem Gástrica:</b> Não recomendada rotineiramente. Reservada para casos excepcionais (ingestão letal < 1h).
+          <a href="https://open.spotify.com/episode/62MCHkjBz50b9khDrcOwEe" target="_blank" class="warning-link">🎧 Ouvir Podcast (Explicação)</a>
+        </div>`;
       }
 
-      if (t <= 2) area.innerHTML += `<button class="btn btnChar" onclick="openModal('charcoal')">🌑 👆 Avaliar Carvão Ativado</button>`;
-      if (t <= 1) area.innerHTML += `<button class="btn btnLav" onclick="openModal('lavage')">💧 👆 Avaliar Lavagem Gástrica</button>`;
+      // 2. CARVÃO ATIVADO
+      if (selectedDrug.noCharcoal || (selectedDrug.ca && selectedDrug.ca.toUpperCase().includes('NÃO'))) {
+        area.innerHTML += `<div style="margin-top:10px; padding:12px;background:#fee2e2;color:#991b1b;border-radius:10px;text-align:center;font-weight:700">🚫 Carvão Contraindicado para esta substância</div>`;
+      } else if (t <= 2) {
+        area.innerHTML += `<button class="btn btnChar" onclick="openModal('charcoal')">🌑 👆 Avaliar Carvão Ativado</button>`;
+      }
     }
 
-    // Modal Logic
     const ciData = { 
-      charcoal: ['Rebaixamento de consciência sem IOT', 'Obstrução intestinal ou íleo', 'Ingestão de cáusticos ou hidrocarbonetos'], 
-      lavage: ['Via aérea não protegida', 'Ingestão de cáusticos ou corrosivos', 'Risco de perfuração ou hemorragia'] 
+      charcoal: ['Rebaixamento de consciência sem IOT', 'Obstrução intestinal ou íleo', 'Ingestão de cáusticos ou hidrocarbonetos', 'Via aérea em risco'] 
     };
 
     function openModal(type) {
       currentProcedure = type;
-      el('ciList').innerHTML = ciData[type].map(t => `<label><input type="checkbox" class="ci-check"> ${t}</label>`).join('');
+      // Estrutura HTML corrigida para clique funcionar no Label inteiro
+      el('ciList').innerHTML = ciData[type].map(t => `
+        <div class="checkItem">
+          <label>
+            <input type="checkbox" class="ci-check">
+            <span>${t}</span>
+          </label>
+        </div>
+      `).join('');
       el('ciModal').style.display = 'flex';
     }
 
@@ -313,16 +340,18 @@
       el('ciModal').style.display = 'none';
       const area = el('buttonsArea');
       
+      // Mantém o aviso da lavagem se existir e adiciona o resultado do carvão
+      const currentHTML = area.innerHTML; 
+      
       if (checked) {
-        area.innerHTML = `<div style="padding:15px;background:#fee2e2;color:#991b1b;border-radius:12px;text-align:center;font-weight:700">⛔ CONTRAINDICADO<br><small>Fator de risco presente.</small></div>`;
+        area.insertAdjacentHTML('beforeend', `<div style="margin-top:10px; padding:15px;background:#fee2e2;color:#991b1b;border-radius:12px;text-align:center;font-weight:700">⛔ CARVÃO CONTRAINDICADO<br><small>Fator de risco presente.</small></div>`);
       } else {
         const w = parseFloat(weightInput.value) || 0;
-        const msg = currentProcedure === 'charcoal' 
-          ? `✅ CARVÃO INDICADO<br><small>Dose: ${Math.min(50, w).toFixed(0)}g (1g/kg até 50g)</small>` 
-          : `✅ LAVAGEM GÁSTRICA INDICADA<br><small>Decúbito Lateral Esquerdo + Proteção de VA</small>`;
+        const msg = `✅ CARVÃO INDICADO<br><small>Dose: ${Math.min(50, w).toFixed(0)}g (1g/kg até 50g)</small>`;
         
-        area.innerHTML = `<div style="padding:15px;background:#dcfce7;color:#166534;border-radius:12px;text-align:center;font-weight:700;margin-bottom:10px">${msg}</div>
-        <a href="https://open.spotify.com/episode/62MCHkjBz50b9khDrcOwEe" target="_blank" class="btn btnSpotify">🎧 👆 Ouvir Protocolo no Spotify</a>`;
+        area.insertAdjacentHTML('beforeend', `
+          <div style="margin-top:10px; padding:15px;background:#dcfce7;color:#166534;border-radius:12px;text-align:center;font-weight:700;margin-bottom:10px">${msg}</div>
+        `);
       }
     };
 
@@ -331,8 +360,6 @@
     searchInput.onfocus = () => { if(searchInput.value.length > 1) resultsBox.style.display='block'; };
     [weightInput, intakeInput, intakeUnit].forEach(i => i.oninput = calculate);
     timeWindow.onchange = updateProtocols;
-    
-    // Fecha busca ao clicar fora
     document.onclick = (e) => { if(!el('searchCard').contains(e.target)) resultsBox.style.display = 'none'; };
   </script>
 </body>
