@@ -162,6 +162,28 @@
 
   <script>
     // === BANCO DE DADOS COMPLETO (TODAS AS PARTES JUNTAS) ===
+    const toxiflowDB = [
+      {
+        name: "Ácido Valproico",
+        category: "Anticonvulsivantes",
+        toxicDose: "> 200 mg/kg (não linear com toxicidade)",
+        clinicalPresentation: "Depressão do SNC, hiperamonemia, hepatotoxicidade.",
+        treatment: [
+          "Suporte clínico e proteção de via aérea.",
+          "Carvão ativado se ingestão < 1 hora."
+        ],
+        antidote: {
+          name: "L-Carnitina",
+          indication: "Hiperamonemia sintomática ou hepatotoxicidade.",
+          dose: "100 mg/kg IV em bolus (máx 6g), seguido de 50 mg/kg a cada 8h (máx 3g)."
+        },
+        guidelineRef: "EMCrit (IBCC) / CoreEM"
+      }
+      // Adicione as demais seguindo essa mesma estrutura...
+    ];
+
+    window.toxiflowDB = toxiflowDB;
+
     window.database = [
       { n:"AAS", syn:["AAS","Acido acetilsalicilico","Aspirina"], d:100, unit:"mg", mv:"30 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT" },
       { n:"Acebutolol", syn:["Acebutolol"], d:25, unit:"mg", mv:"10 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
@@ -214,6 +236,7 @@
       { n:"Ciprofloxacino", syn:["Ciprofloxacino"], d:70, unit:"mg", mv:"5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
       { n:"Ciproheptadina", syn:["Ciproheptadina"], d:2, unit:"mg", mv:"9 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
       { n:"Citalopram", syn:["Citalopram"], d:2, unit:"mg", mv:"36 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
+      { n:"Chumbinho (Carbamato / Organofosforado)", syn:["Chumbinho","Carbamato","Organofosforado"], isDoseUnknown:true, alertMessage:"⚠️ Produto clandestino. Concentração imprevisível. NUNCA calcule dose por mg/kg. Guie-se pela clínica!", support:"Monitorização respiratória intensiva, secreções e sinais colinérgicos contínuos.", ref:"CoreEM / emDOCs" },
       { n:"Claritromicina", syn:["Claritromicina"], d:70, unit:"mg", mv:"5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
       { n:"Clemastina", syn:["Clemastina"], d:0.3, unit:"mg", mv:"21 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
       { n:"Cliclobenzaprina", syn:["Cliclobenzaprina"], d:1.5, unit:"mg", mv:"32 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },

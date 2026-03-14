@@ -1,0 +1,6791 @@
+[
+  {
+    "slug": "aas",
+    "name": "AAS",
+    "category": "Anti-inflamatórios",
+    "synonyms": [
+      "AAS",
+      "Acido acetilsalicilico",
+      "Aspirina"
+    ],
+    "toxicDose": "> 100 mg/kg",
+    "toxicDoseValue": 100,
+    "toxicDoseUnit": "mg",
+    "halfLife": "30 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT",
+    "notes": [
+      "Meia-vida informada no legado: 30 hs."
+    ]
+  },
+  {
+    "slug": "acebutolol",
+    "name": "Acebutolol",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Acebutolol"
+    ],
+    "toxicDose": "> 25 mg/kg",
+    "toxicDoseValue": 25,
+    "toxicDoseUnit": "mg",
+    "halfLife": "10 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 10 hs."
+    ]
+  },
+  {
+    "slug": "aceclofenaco",
+    "name": "Aceclofenaco",
+    "category": "Anti-inflamatórios",
+    "synonyms": [
+      "Aceclofenaco"
+    ],
+    "toxicDose": "> 15 mg/kg",
+    "toxicDoseValue": 15,
+    "toxicDoseUnit": "mg",
+    "halfLife": "4 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 4 hs."
+    ]
+  },
+  {
+    "slug": "acemetacina",
+    "name": "Acemetacina",
+    "category": "Anti-inflamatórios",
+    "synonyms": [
+      "Acemetacina"
+    ],
+    "toxicDose": "> 8.5 mg/kg",
+    "toxicDoseValue": 8.5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "11 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 11 hs."
+    ]
+  },
+  {
+    "slug": "aciclovir",
+    "name": "Aciclovir",
+    "category": "Antibióticos",
+    "synonyms": [
+      "Aciclovir"
+    ],
+    "toxicDose": "> 300 mg/kg",
+    "toxicDoseValue": 300,
+    "toxicDoseUnit": "mg",
+    "halfLife": "3 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 3 hs."
+    ]
+  },
+  {
+    "slug": "acido-nalidixico",
+    "name": "Acido Nalidixico",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Acido Nalidixico",
+      "Ácido Nalidíxico"
+    ],
+    "toxicDose": "> 150 mg/kg",
+    "toxicDoseValue": 150,
+    "toxicDoseUnit": "mg",
+    "halfLife": "7 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 7 hs."
+    ]
+  },
+  {
+    "slug": "acido-tiaprofenico",
+    "name": "Acido Tiaprofenico",
+    "category": "Anti-inflamatórios",
+    "synonyms": [
+      "Acido Tiaprofenico",
+      "Ácido Tiaprofênico"
+    ],
+    "toxicDose": "> 40 mg/kg",
+    "toxicDoseValue": 40,
+    "toxicDoseUnit": "mg",
+    "halfLife": "2 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 2 hs."
+    ]
+  },
+  {
+    "slug": "acido-valproico",
+    "name": "Acido Valproico",
+    "category": "Anticonvulsivantes",
+    "synonyms": [
+      "Acido Valproico",
+      "Ácido Valpróico",
+      "Depakene"
+    ],
+    "toxicDose": "> 200 mg/kg",
+    "toxicDoseValue": 200,
+    "toxicDoseUnit": "mg",
+    "halfLife": "20 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Depressão do SNC, hiperamonemia, hepatotoxicidade.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado se ingestão muito recente e via aérea protegida."
+    ],
+    "antidote": {
+      "name": "L-Carnitina",
+      "indication": "Hiperamonemia sintomática, encefalopatia ou hepatotoxicidade.",
+      "dose": "100 mg/kg IV em bolus (máx 6 g), seguido de 50 mg/kg IV a cada 8 h (máx 3 g)."
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Monitorização neurológica, amônia, função hepática e suporte intensivo quando necessário.",
+    "guidelineRef": "EMCrit (IBCC) / CoreEM",
+    "notes": [
+      "Toxicidade pode não ser linear com a dose ingerida."
+    ]
+  },
+  {
+    "slug": "alprazolam",
+    "name": "Alprazolam",
+    "category": "Benzodiazepínicos",
+    "synonyms": [
+      "Alprazolam",
+      "Frontal"
+    ],
+    "toxicDose": "> 0.05 mg/kg",
+    "toxicDoseValue": 0.05,
+    "toxicDoseUnit": "mg",
+    "halfLife": "15 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Observar depressão SNC. Meia-vida longa.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Flumazenil (se depressão respiratória grave)",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Observar depressão SNC. Meia-vida longa.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 15 hs."
+    ]
+  },
+  {
+    "slug": "amilorida",
+    "name": "Amilorida",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Amilorida"
+    ],
+    "toxicDose": "> 1.5 mg/kg",
+    "toxicDoseValue": 1.5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "9 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 9 hs."
+    ]
+  },
+  {
+    "slug": "amitriptilina",
+    "name": "Amitriptilina",
+    "category": "Antidepressivos",
+    "synonyms": [
+      "Amitriptilina"
+    ],
+    "toxicDose": "> 3 mg/kg",
+    "toxicDoseValue": 3,
+    "toxicDoseUnit": "mg",
+    "halfLife": "25 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 25 hs."
+    ]
+  },
+  {
+    "slug": "amlodipina",
+    "name": "Amlodipina",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Amlodipina"
+    ],
+    "toxicDose": "> 0.2 mg/kg",
+    "toxicDoseValue": 0.2,
+    "toxicDoseUnit": "mg",
+    "halfLife": "50 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 50 hs."
+    ]
+  },
+  {
+    "slug": "amobarbital",
+    "name": "Amobarbital",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Amobarbital"
+    ],
+    "toxicDose": "> 4 mg/kg",
+    "toxicDoseValue": 4,
+    "toxicDoseUnit": "mg",
+    "halfLife": "25 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 25 hs."
+    ]
+  },
+  {
+    "slug": "amoxicilina",
+    "name": "Amoxicilina",
+    "category": "Antibióticos",
+    "synonyms": [
+      "Amoxicilina"
+    ],
+    "toxicDose": "> 250 mg/kg",
+    "toxicDoseValue": 250,
+    "toxicDoseUnit": "mg",
+    "halfLife": "1.5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 1.5 hs."
+    ]
+  },
+  {
+    "slug": "ampicilina",
+    "name": "Ampicilina",
+    "category": "Antibióticos",
+    "synonyms": [
+      "Ampicilina"
+    ],
+    "toxicDose": "> 550 mg/kg",
+    "toxicDoseValue": 550,
+    "toxicDoseUnit": "mg",
+    "halfLife": "1.5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 1.5 hs."
+    ]
+  },
+  {
+    "slug": "atenolol",
+    "name": "Atenolol",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Atenolol"
+    ],
+    "toxicDose": "> 5 mg/kg",
+    "toxicDoseValue": 5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "7 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 7 hs."
+    ]
+  },
+  {
+    "slug": "avanafil",
+    "name": "Avanafil",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Avanafil"
+    ],
+    "toxicDose": "> 6 mg/kg",
+    "toxicDoseValue": 6,
+    "toxicDoseUnit": "mg",
+    "halfLife": "17 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 17 hs."
+    ]
+  },
+  {
+    "slug": "azapropazona",
+    "name": "Azapropazona",
+    "category": "Anti-inflamatórios",
+    "synonyms": [
+      "Azapropazona"
+    ],
+    "toxicDose": "> 50 mg/kg",
+    "toxicDoseValue": 50,
+    "toxicDoseUnit": "mg",
+    "halfLife": "14 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 14 hs."
+    ]
+  },
+  {
+    "slug": "azilsartana",
+    "name": "Azilsartana",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Azilsartana"
+    ],
+    "toxicDose": "> 5 mg/kg",
+    "toxicDoseValue": 5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "11 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 11 hs."
+    ]
+  },
+  {
+    "slug": "azitromicina",
+    "name": "Azitromicina",
+    "category": "Antibióticos",
+    "synonyms": [
+      "Azitromicina"
+    ],
+    "toxicDose": "> 20 mg/kg",
+    "toxicDoseValue": 20,
+    "toxicDoseUnit": "mg",
+    "halfLife": "4 dias",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 4 dias."
+    ]
+  },
+  {
+    "slug": "bambuterol",
+    "name": "Bambuterol",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Bambuterol"
+    ],
+    "toxicDose": "> 1.5 mg/kg",
+    "toxicDoseValue": 1.5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "21 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 21 hs."
+    ]
+  },
+  {
+    "slug": "barbital",
+    "name": "Barbital",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Barbital"
+    ],
+    "toxicDose": "> 20 mg/kg",
+    "toxicDoseValue": 20,
+    "toxicDoseUnit": "mg",
+    "halfLife": "48 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 48 hs."
+    ]
+  },
+  {
+    "slug": "benazepril",
+    "name": "Benazepril",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Benazepril"
+    ],
+    "toxicDose": "> 0.5 mg/kg",
+    "toxicDoseValue": 0.5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "22 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 22 hs."
+    ]
+  },
+  {
+    "slug": "bendroflumetiazida",
+    "name": "Bendroflumetiazida",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Bendroflumetiazida"
+    ],
+    "toxicDose": "> 0.4 mg/kg",
+    "toxicDoseValue": 0.4,
+    "toxicDoseUnit": "mg",
+    "halfLife": "8.5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 8.5 hs."
+    ]
+  },
+  {
+    "slug": "betaxolol",
+    "name": "Betaxolol",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Betaxolol"
+    ],
+    "toxicDose": "> 1 mg/kg",
+    "toxicDoseValue": 1,
+    "toxicDoseUnit": "mg",
+    "halfLife": "22 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 22 hs."
+    ]
+  },
+  {
+    "slug": "bisoprolol",
+    "name": "Bisoprolol",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Bisoprolol"
+    ],
+    "toxicDose": "> 0.7 mg/kg",
+    "toxicDoseValue": 0.7,
+    "toxicDoseUnit": "mg",
+    "halfLife": "12 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 12 hs."
+    ]
+  },
+  {
+    "slug": "bromazepam",
+    "name": "Bromazepam",
+    "category": "Benzodiazepínicos",
+    "synonyms": [
+      "Bromazepam"
+    ],
+    "toxicDose": "> 0.7 mg/kg",
+    "toxicDoseValue": 0.7,
+    "toxicDoseUnit": "mg",
+    "halfLife": "20 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Flumazenil (se depressão respiratória grave)",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 20 hs."
+    ]
+  },
+  {
+    "slug": "bronfenaco",
+    "name": "Bronfenaco",
+    "category": "Anti-inflamatórios",
+    "synonyms": [
+      "Bronfenaco"
+    ],
+    "toxicDose": "> 10 mg/kg",
+    "toxicDoseValue": 10,
+    "toxicDoseUnit": "mg",
+    "halfLife": "4 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 4 hs."
+    ]
+  },
+  {
+    "slug": "bronfeniramina",
+    "name": "Bronfeniramina",
+    "category": "Anti-histamínicos",
+    "synonyms": [
+      "Bronfeniramina"
+    ],
+    "toxicDose": "> 3.5 mg/kg",
+    "toxicDoseValue": 3.5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "25 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 25 hs."
+    ]
+  },
+  {
+    "slug": "bumetanida",
+    "name": "Bumetanida",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Bumetanida"
+    ],
+    "toxicDose": "> 0.1 mg/kg",
+    "toxicDoseValue": 0.1,
+    "toxicDoseUnit": "mg",
+    "halfLife": "3 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 3 hs."
+    ]
+  },
+  {
+    "slug": "buprenorfina",
+    "name": "Buprenorfina",
+    "category": "Opioides",
+    "synonyms": [
+      "Buprenorfina"
+    ],
+    "toxicDose": "> 0.01 mg/kg",
+    "toxicDoseValue": 0.01,
+    "toxicDoseUnit": "mg",
+    "halfLife": "7 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Risco de depressão respiratória.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Naloxona (0.4-2mg IV)",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Risco de depressão respiratória.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 7 hs."
+    ]
+  },
+  {
+    "slug": "butobarbital",
+    "name": "Butobarbital",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Butobarbital"
+    ],
+    "toxicDose": "> 6 mg/kg",
+    "toxicDoseValue": 6,
+    "toxicDoseUnit": "mg",
+    "halfLife": "42 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 42 hs."
+    ]
+  },
+  {
+    "slug": "candesartana",
+    "name": "Candesartana",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Candesartana"
+    ],
+    "toxicDose": "> 0.6 mg/kg",
+    "toxicDoseValue": 0.6,
+    "toxicDoseUnit": "mg",
+    "halfLife": "9 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 9 hs."
+    ]
+  },
+  {
+    "slug": "captopril",
+    "name": "Captopril",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Captopril"
+    ],
+    "toxicDose": "> 3.5 mg/kg",
+    "toxicDoseValue": 3.5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "2 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 2 hs."
+    ]
+  },
+  {
+    "slug": "carbamazepina",
+    "name": "Carbamazepina",
+    "category": "Anticonvulsivantes",
+    "synonyms": [
+      "Carbamazepina"
+    ],
+    "toxicDose": "> 20 mg/kg",
+    "toxicDoseValue": 20,
+    "toxicDoseUnit": "mg",
+    "halfLife": "20 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 20 hs."
+    ]
+  },
+  {
+    "slug": "carbonato-litio",
+    "name": "Carbonato Litio",
+    "category": "Tóxicos diversos",
+    "synonyms": [
+      "Carbonato Litio",
+      "Lítio"
+    ],
+    "toxicDose": "> 50 mg/kg",
+    "toxicDoseValue": 50,
+    "toxicDoseUnit": "mg",
+    "halfLife": "24 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: NÃO.",
+      "Lavagem gástrica apenas em cenários excepcionais de apresentação muito precoce."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "contraindicated",
+    "lavage": "consider",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 24 hs."
+    ]
+  },
+  {
+    "slug": "carprofeno",
+    "name": "Carprofeno",
+    "category": "Anti-inflamatórios",
+    "synonyms": [
+      "Carprofeno"
+    ],
+    "toxicDose": "> 20 mg/kg",
+    "toxicDoseValue": 20,
+    "toxicDoseUnit": "mg",
+    "halfLife": "27 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 27 hs."
+    ]
+  },
+  {
+    "slug": "carteolol",
+    "name": "Carteolol",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Carteolol"
+    ],
+    "toxicDose": "> 0.7 mg/kg",
+    "toxicDoseValue": 0.7,
+    "toxicDoseUnit": "mg",
+    "halfLife": "12 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 12 hs."
+    ]
+  },
+  {
+    "slug": "carvedilol",
+    "name": "Carvedilol",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Carvedilol"
+    ],
+    "toxicDose": "> 2.5 mg/kg",
+    "toxicDoseValue": 2.5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "6 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 6 hs."
+    ]
+  },
+  {
+    "slug": "celiprolol",
+    "name": "Celiprolol",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Celiprolol"
+    ],
+    "toxicDose": "> 14 mg/kg",
+    "toxicDoseValue": 14,
+    "toxicDoseUnit": "mg",
+    "halfLife": "6 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 6 hs."
+    ]
+  },
+  {
+    "slug": "cetobemidona",
+    "name": "Cetobemidona",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Cetobemidona"
+    ],
+    "toxicDose": "> 0.4 mg/kg",
+    "toxicDoseValue": 0.4,
+    "toxicDoseUnit": "mg",
+    "halfLife": "2.5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 2.5 hs."
+    ]
+  },
+  {
+    "slug": "cetoprofeno",
+    "name": "Cetoprofeno",
+    "category": "Anti-inflamatórios",
+    "synonyms": [
+      "Cetoprofeno"
+    ],
+    "toxicDose": "> 10 mg/kg",
+    "toxicDoseValue": 10,
+    "toxicDoseUnit": "mg",
+    "halfLife": "4 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 4 hs."
+    ]
+  },
+  {
+    "slug": "cetorolaco",
+    "name": "Cetorolaco",
+    "category": "Anti-inflamatórios",
+    "synonyms": [
+      "Cetorolaco"
+    ],
+    "toxicDose": "> 2 mg/kg",
+    "toxicDoseValue": 2,
+    "toxicDoseUnit": "mg",
+    "halfLife": "5.5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 5.5 hs."
+    ]
+  },
+  {
+    "slug": "cetotifeno",
+    "name": "Cetotifeno",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Cetotifeno"
+    ],
+    "toxicDose": "> 0.3 mg/kg",
+    "toxicDoseValue": 0.3,
+    "toxicDoseUnit": "mg",
+    "halfLife": "21 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 21 hs."
+    ]
+  },
+  {
+    "slug": "chumbinho-carbamato-organofosforado",
+    "name": "Chumbinho (Carbamato / Organofosforado)",
+    "category": "Praguicidas",
+    "synonyms": [
+      "Chumbinho",
+      "Carbamato",
+      "Organofosforado"
+    ],
+    "toxicDose": null,
+    "toxicDoseValue": null,
+    "toxicDoseUnit": null,
+    "halfLife": null,
+    "isDoseUnknown": true,
+    "alertMessage": "⚠️ Produto clandestino. Concentração imprevisível. NUNCA calcule dose por mg/kg. Guie-se pela clínica!",
+    "clinicalPresentation": "Toxidrome Colinérgica: SLUDGE/DUMBELS (Miose, Sialorreia, Broncorréia, Bradicardia, Fasciculações).",
+    "treatment": [
+      "Suporte de VA (Cuidado: muita secreção).",
+      "Descontaminação cutânea (tirar roupas, lavar com água e sabão) se exposição dérmica.",
+      "Lavagem Gástrica APENAS se via aérea protegida (IOT)."
+    ],
+    "antidote": {
+      "name": "Atropina (Foco muscarínico)",
+      "indication": "Broncorréia (secreção pulmonar), broncoespasmo e bradicardia grave.",
+      "dose": "1 a 3 mg IV. DOBRAR a dose a cada 5 min (2, 4, 8, 16mg...) até ATROPINIZAÇÃO (secagem de secreções)."
+    },
+    "activatedCharcoal": "conditional",
+    "lavage": "consider",
+    "supportiveCare": "Monitorização respiratória intensiva, secreções e sinais colinérgicos contínuos.",
+    "guidelineRef": "CoreEM / emDOCs",
+    "notes": []
+  },
+  {
+    "slug": "ciclizina",
+    "name": "Ciclizina",
+    "category": "Anti-histamínicos",
+    "synonyms": [
+      "Ciclizina"
+    ],
+    "toxicDose": "> 5 mg/kg",
+    "toxicDoseValue": 5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "20 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 20 hs."
+    ]
+  },
+  {
+    "slug": "ciclobarbital",
+    "name": "Ciclobarbital",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Ciclobarbital"
+    ],
+    "toxicDose": "> 8 mg/kg",
+    "toxicDoseValue": 8,
+    "toxicDoseUnit": "mg",
+    "halfLife": "12 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 12 hs."
+    ]
+  },
+  {
+    "slug": "cilazapril",
+    "name": "Cilazapril",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Cilazapril"
+    ],
+    "toxicDose": "> 0.2 mg/kg",
+    "toxicDoseValue": 0.2,
+    "toxicDoseUnit": "mg",
+    "halfLife": "9 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 9 hs."
+    ]
+  },
+  {
+    "slug": "cinarizina",
+    "name": "Cinarizina",
+    "category": "Anti-histamínicos",
+    "synonyms": [
+      "Cinarizina"
+    ],
+    "toxicDose": "> 12 mg/kg",
+    "toxicDoseValue": 12,
+    "toxicDoseUnit": "mg",
+    "halfLife": "6 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 6 hs."
+    ]
+  },
+  {
+    "slug": "ciprofloxacino",
+    "name": "Ciprofloxacino",
+    "category": "Antibióticos",
+    "synonyms": [
+      "Ciprofloxacino"
+    ],
+    "toxicDose": "> 70 mg/kg",
+    "toxicDoseValue": 70,
+    "toxicDoseUnit": "mg",
+    "halfLife": "5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 5 hs."
+    ]
+  },
+  {
+    "slug": "ciproheptadina",
+    "name": "Ciproheptadina",
+    "category": "Anti-histamínicos",
+    "synonyms": [
+      "Ciproheptadina"
+    ],
+    "toxicDose": "> 2 mg/kg",
+    "toxicDoseValue": 2,
+    "toxicDoseUnit": "mg",
+    "halfLife": "9 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 9 hs."
+    ]
+  },
+  {
+    "slug": "citalopram",
+    "name": "Citalopram",
+    "category": "Antidepressivos",
+    "synonyms": [
+      "Citalopram"
+    ],
+    "toxicDose": "> 2 mg/kg",
+    "toxicDoseValue": 2,
+    "toxicDoseUnit": "mg",
+    "halfLife": "36 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 36 hs."
+    ]
+  },
+  {
+    "slug": "claritromicina",
+    "name": "Claritromicina",
+    "category": "Antibióticos",
+    "synonyms": [
+      "Claritromicina"
+    ],
+    "toxicDose": "> 70 mg/kg",
+    "toxicDoseValue": 70,
+    "toxicDoseUnit": "mg",
+    "halfLife": "5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 5 hs."
+    ]
+  },
+  {
+    "slug": "clemastina",
+    "name": "Clemastina",
+    "category": "Anti-histamínicos",
+    "synonyms": [
+      "Clemastina"
+    ],
+    "toxicDose": "> 0.3 mg/kg",
+    "toxicDoseValue": 0.3,
+    "toxicDoseUnit": "mg",
+    "halfLife": "21 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 21 hs."
+    ]
+  },
+  {
+    "slug": "cliclobenzaprina",
+    "name": "Cliclobenzaprina",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Cliclobenzaprina"
+    ],
+    "toxicDose": "> 1.5 mg/kg",
+    "toxicDoseValue": 1.5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "32 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 32 hs."
+    ]
+  },
+  {
+    "slug": "clobazam",
+    "name": "Clobazam",
+    "category": "Anticonvulsivantes",
+    "synonyms": [
+      "Clobazam"
+    ],
+    "toxicDose": "> 1.5 mg/kg",
+    "toxicDoseValue": 1.5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "79 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Flumazenil (se necessário)",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 79 hs."
+    ]
+  },
+  {
+    "slug": "clomipramina",
+    "name": "Clomipramina",
+    "category": "Antidepressivos",
+    "synonyms": [
+      "Clomipramina"
+    ],
+    "toxicDose": "> 4 mg/kg",
+    "toxicDoseValue": 4,
+    "toxicDoseUnit": "mg",
+    "halfLife": "36 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 36 hs."
+    ]
+  },
+  {
+    "slug": "clonazepam",
+    "name": "Clonazepam",
+    "category": "Anticonvulsivantes",
+    "synonyms": [
+      "Clonazepam",
+      "Rivotril"
+    ],
+    "toxicDose": "> 0.6 mg/kg",
+    "toxicDoseValue": 0.6,
+    "toxicDoseUnit": "mg",
+    "halfLife": "40 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Flumazenil (se necessário)",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 40 hs."
+    ]
+  },
+  {
+    "slug": "clonidina",
+    "name": "Clonidina",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Clonidina"
+    ],
+    "toxicDose": "> 0.01 mg/kg",
+    "toxicDoseValue": 0.01,
+    "toxicDoseUnit": "mg",
+    "halfLife": "24 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 24 hs."
+    ]
+  },
+  {
+    "slug": "clopamida",
+    "name": "Clopamida",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Clopamida"
+    ],
+    "toxicDose": "> 1.4 mg/kg",
+    "toxicDoseValue": 1.4,
+    "toxicDoseUnit": "mg",
+    "halfLife": "10 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 10 hs."
+    ]
+  },
+  {
+    "slug": "clordiazepoxido",
+    "name": "Clordiazepoxido",
+    "category": "Benzodiazepínicos",
+    "synonyms": [
+      "Clordiazepoxido"
+    ],
+    "toxicDose": "> 2 mg/kg",
+    "toxicDoseValue": 2,
+    "toxicDoseUnit": "mg",
+    "halfLife": "78 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Flumazenil (se necessário)",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 78 hs."
+    ]
+  },
+  {
+    "slug": "clorfeniramina",
+    "name": "Clorfeniramina",
+    "category": "Anti-histamínicos",
+    "synonyms": [
+      "Clorfeniramina"
+    ],
+    "toxicDose": "> 0.85 mg/kg",
+    "toxicDoseValue": 0.85,
+    "toxicDoseUnit": "mg",
+    "halfLife": "43 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 43 hs."
+    ]
+  },
+  {
+    "slug": "clorpromazina",
+    "name": "Clorpromazina",
+    "category": "Antipsicóticos",
+    "synonyms": [
+      "Clorpromazina"
+    ],
+    "toxicDose": "> 6 mg/kg",
+    "toxicDoseValue": 6,
+    "toxicDoseUnit": "mg",
+    "halfLife": "40 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 40 hs."
+    ]
+  },
+  {
+    "slug": "clorprotixeno",
+    "name": "Clorprotixeno",
+    "category": "Antipsicóticos",
+    "synonyms": [
+      "Clorprotixeno"
+    ],
+    "toxicDose": "> 6 mg/kg",
+    "toxicDoseValue": 6,
+    "toxicDoseUnit": "mg",
+    "halfLife": "12 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 12 hs."
+    ]
+  },
+  {
+    "slug": "clortalidona",
+    "name": "Clortalidona",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Clortalidona"
+    ],
+    "toxicDose": "> 3.5 mg/kg",
+    "toxicDoseValue": 3.5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "50 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 50 hs."
+    ]
+  },
+  {
+    "slug": "clozapina",
+    "name": "Clozapina",
+    "category": "Antipsicóticos",
+    "synonyms": [
+      "Clozapina"
+    ],
+    "toxicDose": "> 10 mg/kg",
+    "toxicDoseValue": 10,
+    "toxicDoseUnit": "mg",
+    "halfLife": "12 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 12 hs."
+    ]
+  },
+  {
+    "slug": "codeina",
+    "name": "Codeina",
+    "category": "Opioides",
+    "synonyms": [
+      "Codeina",
+      "Codeína"
+    ],
+    "toxicDose": "> 2.5 mg/kg",
+    "toxicDoseValue": 2.5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "4 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Opióide fraco. Risco de depressão resp.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Naloxona (0.4-2mg IV)",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Opióide fraco. Risco de depressão resp.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 4 hs."
+    ]
+  },
+  {
+    "slug": "dapoxetina",
+    "name": "Dapoxetina",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Dapoxetina"
+    ],
+    "toxicDose": "> 4 mg/kg",
+    "toxicDoseValue": 4,
+    "toxicDoseUnit": "mg",
+    "halfLife": "19 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 19 hs."
+    ]
+  },
+  {
+    "slug": "dapsona",
+    "name": "Dapsona",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Dapsona"
+    ],
+    "toxicDose": "> 5 mg/kg",
+    "toxicDoseValue": 5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "30 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 30 hs."
+    ]
+  },
+  {
+    "slug": "desipramina",
+    "name": "Desipramina",
+    "category": "Antidepressivos",
+    "synonyms": [
+      "Desipramina"
+    ],
+    "toxicDose": "> 3 mg/kg",
+    "toxicDoseValue": 3,
+    "toxicDoseUnit": "mg",
+    "halfLife": "27 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 27 hs."
+    ]
+  },
+  {
+    "slug": "desvenlafaxina",
+    "name": "Desvenlafaxina",
+    "category": "Antidepressivos",
+    "synonyms": [
+      "Desvenlafaxina"
+    ],
+    "toxicDose": "> 3 mg/kg",
+    "toxicDoseValue": 3,
+    "toxicDoseUnit": "mg",
+    "halfLife": "15 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 15 hs."
+    ]
+  },
+  {
+    "slug": "dexcetoprofeno",
+    "name": "Dexcetoprofeno",
+    "category": "Anti-inflamatórios",
+    "synonyms": [
+      "Dexcetoprofeno"
+    ],
+    "toxicDose": "> 5 mg/kg",
+    "toxicDoseValue": 5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "4 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 4 hs."
+    ]
+  },
+  {
+    "slug": "dexibuprofeno",
+    "name": "Dexibuprofeno",
+    "category": "Anti-inflamatórios",
+    "synonyms": [
+      "Dexibuprofeno"
+    ],
+    "toxicDose": "> 60 mg/kg",
+    "toxicDoseValue": 60,
+    "toxicDoseUnit": "mg",
+    "halfLife": "3.5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 3.5 hs."
+    ]
+  },
+  {
+    "slug": "diazepam",
+    "name": "Diazepam",
+    "category": "Benzodiazepínicos",
+    "synonyms": [
+      "Diazepam",
+      "Valium"
+    ],
+    "toxicDose": "> 0.7 mg/kg",
+    "toxicDoseValue": 0.7,
+    "toxicDoseUnit": "mg",
+    "halfLife": "48 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Flumazenil (se necessário)",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 48 hs."
+    ]
+  },
+  {
+    "slug": "diclofenaco",
+    "name": "Diclofenaco",
+    "category": "Anti-inflamatórios",
+    "synonyms": [
+      "Diclofenaco",
+      "Cataflam",
+      "Voltaren"
+    ],
+    "toxicDose": "> 7 mg/kg",
+    "toxicDoseValue": 7,
+    "toxicDoseUnit": "mg",
+    "halfLife": "2 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 2 hs."
+    ]
+  },
+  {
+    "slug": "difenidramina",
+    "name": "Difenidramina",
+    "category": "Anti-histamínicos",
+    "synonyms": [
+      "Difenidramina"
+    ],
+    "toxicDose": "> 7.5 mg/kg",
+    "toxicDoseValue": 7.5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "9.5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 9.5 hs."
+    ]
+  },
+  {
+    "slug": "diflunisal",
+    "name": "Diflunisal",
+    "category": "Anti-inflamatórios",
+    "synonyms": [
+      "Diflunisal"
+    ],
+    "toxicDose": "> 50 mg/kg",
+    "toxicDoseValue": 50,
+    "toxicDoseUnit": "mg",
+    "halfLife": "12 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 12 hs."
+    ]
+  },
+  {
+    "slug": "digoxina",
+    "name": "Digoxina",
+    "category": "Tóxicos diversos",
+    "synonyms": [
+      "Digoxina"
+    ],
+    "toxicDose": "> 20 mcg/kg",
+    "toxicDoseValue": 20,
+    "toxicDoseUnit": "mcg",
+    "halfLife": "40 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Ac Anti-Digoxina (Fab)",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 40 hs."
+    ]
+  },
+  {
+    "slug": "dihidrocodeina",
+    "name": "Dihidrocodeina",
+    "category": "Opioides",
+    "synonyms": [
+      "Dihidrocodeina"
+    ],
+    "toxicDose": "> 0.4 mg/kg",
+    "toxicDoseValue": 0.4,
+    "toxicDoseUnit": "mg",
+    "halfLife": "3.5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Depressão respiratória e rebaixamento do nível de consciência são os riscos centrais.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Naloxona",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 3.5 hs."
+    ]
+  },
+  {
+    "slug": "diltiazem",
+    "name": "Diltiazem",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Diltiazem"
+    ],
+    "toxicDose": "> 5 mg/kg",
+    "toxicDoseValue": 5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "48 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 48 hs."
+    ]
+  },
+  {
+    "slug": "dipipanona",
+    "name": "Dipipanona",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Dipipanona"
+    ],
+    "toxicDose": "> 1.5 mg/kg",
+    "toxicDoseValue": 1.5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "3.5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Depressão respiratória e rebaixamento do nível de consciência são os riscos centrais.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Naloxona",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 3.5 hs."
+    ]
+  },
+  {
+    "slug": "dipirona",
+    "name": "Dipirona",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Dipirona",
+      "Novalgina"
+    ],
+    "toxicDose": "> 100 mg/kg",
+    "toxicDoseValue": 100,
+    "toxicDoseUnit": "mg",
+    "halfLife": "Update",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "Bula",
+    "notes": [
+      "Meia-vida informada no legado: Update."
+    ]
+  },
+  {
+    "slug": "disopiramida",
+    "name": "Disopiramida",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Disopiramida"
+    ],
+    "toxicDose": "> 15 mg/kg",
+    "toxicDoseValue": 15,
+    "toxicDoseUnit": "mg",
+    "halfLife": "11 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 11 hs."
+    ]
+  },
+  {
+    "slug": "doxepina",
+    "name": "Doxepina",
+    "category": "Antidepressivos",
+    "synonyms": [
+      "Doxepina"
+    ],
+    "toxicDose": "> 4 mg/kg",
+    "toxicDoseValue": 4,
+    "toxicDoseUnit": "mg",
+    "halfLife": "80 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 80 hs."
+    ]
+  },
+  {
+    "slug": "doxilamina",
+    "name": "Doxilamina",
+    "category": "Anti-histamínicos",
+    "synonyms": [
+      "Doxilamina"
+    ],
+    "toxicDose": "> 5 mg/kg",
+    "toxicDoseValue": 5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "10 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 10 hs."
+    ]
+  },
+  {
+    "slug": "duloxetina",
+    "name": "Duloxetina",
+    "category": "Antidepressivos",
+    "synonyms": [
+      "Duloxetina"
+    ],
+    "toxicDose": "> 5 mg/kg",
+    "toxicDoseValue": 5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "18 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 18 hs."
+    ]
+  },
+  {
+    "slug": "enalapril",
+    "name": "Enalapril",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Enalapril"
+    ],
+    "toxicDose": "> 0.7 mg/kg",
+    "toxicDoseValue": 0.7,
+    "toxicDoseUnit": "mg",
+    "halfLife": "11 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 11 hs."
+    ]
+  },
+  {
+    "slug": "eplerenona",
+    "name": "Eplerenona",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Eplerenona"
+    ],
+    "toxicDose": "> 7 mg/kg",
+    "toxicDoseValue": 7,
+    "toxicDoseUnit": "mg",
+    "halfLife": "5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 5 hs."
+    ]
+  },
+  {
+    "slug": "eprosartana",
+    "name": "Eprosartana",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Eprosartana"
+    ],
+    "toxicDose": "> 40 mg/kg",
+    "toxicDoseValue": 40,
+    "toxicDoseUnit": "mg",
+    "halfLife": "9 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 9 hs."
+    ]
+  },
+  {
+    "slug": "eritromicina",
+    "name": "Eritromicina",
+    "category": "Antibióticos",
+    "synonyms": [
+      "Eritromicina"
+    ],
+    "toxicDose": "> 70 mg/kg",
+    "toxicDoseValue": 70,
+    "toxicDoseUnit": "mg",
+    "halfLife": "2 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 2 hs."
+    ]
+  },
+  {
+    "slug": "escitalopram",
+    "name": "Escitalopram",
+    "category": "Antidepressivos",
+    "synonyms": [
+      "Escitalopram"
+    ],
+    "toxicDose": "> 1 mg/kg",
+    "toxicDoseValue": 1,
+    "toxicDoseUnit": "mg",
+    "halfLife": "33 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 33 hs."
+    ]
+  },
+  {
+    "slug": "eslicarbazepina",
+    "name": "Eslicarbazepina",
+    "category": "Anticonvulsivantes",
+    "synonyms": [
+      "Eslicarbazepina"
+    ],
+    "toxicDose": "> 30 mg/kg",
+    "toxicDoseValue": 30,
+    "toxicDoseUnit": "mg",
+    "halfLife": "20 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 20 hs."
+    ]
+  },
+  {
+    "slug": "espironolactona",
+    "name": "Espironolactona",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Espironolactona"
+    ],
+    "toxicDose": "> 10 mg/kg",
+    "toxicDoseValue": 10,
+    "toxicDoseUnit": "mg",
+    "halfLife": "11.5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 11.5 hs."
+    ]
+  },
+  {
+    "slug": "estazolam",
+    "name": "Estazolam",
+    "category": "Benzodiazepínicos",
+    "synonyms": [
+      "Estazolam"
+    ],
+    "toxicDose": "> 0.2 mg/kg",
+    "toxicDoseValue": 0.2,
+    "toxicDoseUnit": "mg",
+    "halfLife": "24 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Flumazenil",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 24 hs."
+    ]
+  },
+  {
+    "slug": "etizolam",
+    "name": "Etizolam",
+    "category": "Benzodiazepínicos",
+    "synonyms": [
+      "Etizolam"
+    ],
+    "toxicDose": "> 0.1 mg/kg",
+    "toxicDoseValue": 0.1,
+    "toxicDoseUnit": "mg",
+    "halfLife": "8 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Flumazenil",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 8 hs."
+    ]
+  },
+  {
+    "slug": "etodolaco",
+    "name": "Etodolaco",
+    "category": "Anti-inflamatórios",
+    "synonyms": [
+      "Etodolaco"
+    ],
+    "toxicDose": "> 30 mg/kg",
+    "toxicDoseValue": 30,
+    "toxicDoseUnit": "mg",
+    "halfLife": "7 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 7 hs."
+    ]
+  },
+  {
+    "slug": "famciclovir",
+    "name": "Famciclovir",
+    "category": "Antibióticos",
+    "synonyms": [
+      "Famciclovir"
+    ],
+    "toxicDose": "> 50 mg/kg",
+    "toxicDoseValue": 50,
+    "toxicDoseUnit": "mg",
+    "halfLife": "2 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 2 hs."
+    ]
+  },
+  {
+    "slug": "felodipina",
+    "name": "Felodipina",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Felodipina"
+    ],
+    "toxicDose": "> 0.2 mg/kg",
+    "toxicDoseValue": 0.2,
+    "toxicDoseUnit": "mg",
+    "halfLife": "25 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 25 hs."
+    ]
+  },
+  {
+    "slug": "fenbufeno",
+    "name": "Fenbufeno",
+    "category": "Anti-inflamatórios",
+    "synonyms": [
+      "Fenbufeno"
+    ],
+    "toxicDose": "> 40 mg/kg",
+    "toxicDoseValue": 40,
+    "toxicDoseUnit": "mg",
+    "halfLife": "17 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 17 hs."
+    ]
+  },
+  {
+    "slug": "fenilefrina",
+    "name": "Fenilefrina",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Fenilefrina"
+    ],
+    "toxicDose": "> 1 mg/kg",
+    "toxicDoseValue": 1,
+    "toxicDoseUnit": "mg",
+    "halfLife": "3 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 3 hs."
+    ]
+  },
+  {
+    "slug": "feniramina",
+    "name": "Feniramina",
+    "category": "Anti-histamínicos",
+    "synonyms": [
+      "Feniramina"
+    ],
+    "toxicDose": "> 3.5 mg/kg",
+    "toxicDoseValue": 3.5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "19 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 19 hs."
+    ]
+  },
+  {
+    "slug": "fenitoina",
+    "name": "Fenitoina",
+    "category": "Anticonvulsivantes",
+    "synonyms": [
+      "Fenitoina",
+      "Fenitoína"
+    ],
+    "toxicDose": "> 20 mg/kg",
+    "toxicDoseValue": 20,
+    "toxicDoseUnit": "mg",
+    "halfLife": "230 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 230 hs."
+    ]
+  },
+  {
+    "slug": "fenobarbital",
+    "name": "Fenobarbital",
+    "category": "Anticonvulsivantes",
+    "synonyms": [
+      "Fenobarbital",
+      "Gardenal"
+    ],
+    "toxicDose": "> 4 mg/kg",
+    "toxicDoseValue": 4,
+    "toxicDoseUnit": "mg",
+    "halfLife": "5 dias",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 5 dias."
+    ]
+  },
+  {
+    "slug": "fenoprofeno",
+    "name": "Fenoprofeno",
+    "category": "Anti-inflamatórios",
+    "synonyms": [
+      "Fenoprofeno"
+    ],
+    "toxicDose": "> 85 mg/kg",
+    "toxicDoseValue": 85,
+    "toxicDoseUnit": "mg",
+    "halfLife": "3 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 3 hs."
+    ]
+  },
+  {
+    "slug": "fentanil",
+    "name": "Fentanil",
+    "category": "Opioides",
+    "synonyms": [
+      "Fentanil"
+    ],
+    "toxicDose": "> 0.04 mg/kg",
+    "toxicDoseValue": 0.04,
+    "toxicDoseUnit": "mg",
+    "halfLife": "8 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Opióide potente. Risco de tórax rígido.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Naloxona (0.4-2mg IV)",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Opióide potente. Risco de tórax rígido.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 8 hs."
+    ]
+  },
+  {
+    "slug": "ferro",
+    "name": "Ferro",
+    "category": "Minerais",
+    "synonyms": [
+      "Ferro",
+      "Sulfato Ferroso"
+    ],
+    "toxicDose": "> 20 mg/kg",
+    "toxicDoseValue": 20,
+    "toxicDoseUnit": "mg",
+    "halfLife": "6 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Irritação gastrointestinal importante, acidose e toxicidade sistêmica nos casos graves.",
+    "treatment": [
+      "Carvão ativado é ineficaz.",
+      "Avaliar radiografia abdominal e quelante conforme ferro sérico e quadro clínico."
+    ],
+    "antidote": {
+      "name": "Desferroxamina",
+      "indication": "Toxicidade sistêmica, acidose, choque ou ferro sérico elevado.",
+      "dose": "Seguir protocolo institucional e monitorização intensiva."
+    },
+    "activatedCharcoal": "contraindicated",
+    "lavage": "consider",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT / Goldfrank",
+    "notes": [
+      "Meia-vida informada no legado: 6 hs."
+    ]
+  },
+  {
+    "slug": "flunitrazepam",
+    "name": "Flunitrazepam",
+    "category": "Benzodiazepínicos",
+    "synonyms": [
+      "Flunitrazepam",
+      "Rohypnol"
+    ],
+    "toxicDose": "> 0.05 mg/kg",
+    "toxicDoseValue": 0.05,
+    "toxicDoseUnit": "mg",
+    "halfLife": "35 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Flumazenil",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 35 hs."
+    ]
+  },
+  {
+    "slug": "fluoxetina",
+    "name": "Fluoxetina",
+    "category": "Antidepressivos",
+    "synonyms": [
+      "Fluoxetina",
+      "Prozac"
+    ],
+    "toxicDose": "> 3 mg/kg",
+    "toxicDoseValue": 3,
+    "toxicDoseUnit": "mg",
+    "halfLife": "16 dias",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 16 dias."
+    ]
+  },
+  {
+    "slug": "flurazepam",
+    "name": "Flurazepam",
+    "category": "Benzodiazepínicos",
+    "synonyms": [
+      "Flurazepam"
+    ],
+    "toxicDose": "> 2 mg/kg",
+    "toxicDoseValue": 2,
+    "toxicDoseUnit": "mg",
+    "halfLife": "5 dias",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Flumazenil",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 5 dias."
+    ]
+  },
+  {
+    "slug": "flurbiprofeno",
+    "name": "Flurbiprofeno",
+    "category": "Anti-inflamatórios",
+    "synonyms": [
+      "Flurbiprofeno"
+    ],
+    "toxicDose": "> 85 mg/kg",
+    "toxicDoseValue": 85,
+    "toxicDoseUnit": "mg",
+    "halfLife": "6 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 6 hs."
+    ]
+  },
+  {
+    "slug": "fluvoxamina",
+    "name": "Fluvoxamina",
+    "category": "Antidepressivos",
+    "synonyms": [
+      "Fluvoxamina"
+    ],
+    "toxicDose": "> 15 mg/kg",
+    "toxicDoseValue": 15,
+    "toxicDoseUnit": "mg",
+    "halfLife": "22 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 22 hs."
+    ]
+  },
+  {
+    "slug": "formoterol",
+    "name": "Formoterol",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Formoterol"
+    ],
+    "toxicDose": "> 1.5 mcg/kg",
+    "toxicDoseValue": 1.5,
+    "toxicDoseUnit": "mcg",
+    "halfLife": "10 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 10 hs."
+    ]
+  },
+  {
+    "slug": "fosinopril",
+    "name": "Fosinopril",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Fosinopril"
+    ],
+    "toxicDose": "> 1 mg/kg",
+    "toxicDoseValue": 1,
+    "toxicDoseUnit": "mg",
+    "halfLife": "11.5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 11.5 hs."
+    ]
+  },
+  {
+    "slug": "furosemida",
+    "name": "Furosemida",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Furosemida",
+      "Lasix"
+    ],
+    "toxicDose": "> 3 mg/kg",
+    "toxicDoseValue": 3,
+    "toxicDoseUnit": "mg",
+    "halfLife": "Update",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: Update."
+    ]
+  },
+  {
+    "slug": "glibenclamida",
+    "name": "Glibenclamida",
+    "category": "Hipoglicemiantes",
+    "synonyms": [
+      "Glibenclamida"
+    ],
+    "toxicDose": "> 0.2 mg/kg",
+    "toxicDoseValue": 0.2,
+    "toxicDoseUnit": "mg",
+    "halfLife": "Update",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Monitorar hipoglicemia grave e prolongada.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Monitorar hipoglicemia grave e prolongada.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: Update."
+    ]
+  },
+  {
+    "slug": "gliclazida",
+    "name": "Gliclazida",
+    "category": "Hipoglicemiantes",
+    "synonyms": [
+      "Gliclazida"
+    ],
+    "toxicDose": "> 1.3 mg/kg",
+    "toxicDoseValue": 1.3,
+    "toxicDoseUnit": "mg",
+    "halfLife": "12-20 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 12-20 hs."
+    ]
+  },
+  {
+    "slug": "glimepirida",
+    "name": "Glimepirida",
+    "category": "Hipoglicemiantes",
+    "synonyms": [
+      "Glimepirida"
+    ],
+    "toxicDose": "> 0.04 mg/kg",
+    "toxicDoseValue": 0.04,
+    "toxicDoseUnit": "mg",
+    "halfLife": "8 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 8 hs."
+    ]
+  },
+  {
+    "slug": "glipizida",
+    "name": "Glipizida",
+    "category": "Hipoglicemiantes",
+    "synonyms": [
+      "Glipizida"
+    ],
+    "toxicDose": "> 0.2 mg/kg",
+    "toxicDoseValue": 0.2,
+    "toxicDoseUnit": "mg",
+    "halfLife": "4 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 4 hs."
+    ]
+  },
+  {
+    "slug": "guanfacina",
+    "name": "Guanfacina",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Guanfacina"
+    ],
+    "toxicDose": "> 0.15 mg/kg",
+    "toxicDoseValue": 0.15,
+    "toxicDoseUnit": "mg",
+    "halfLife": "18 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 18 hs."
+    ]
+  },
+  {
+    "slug": "haloperidol",
+    "name": "Haloperidol",
+    "category": "Antipsicóticos",
+    "synonyms": [
+      "Haloperidol",
+      "Haldol"
+    ],
+    "toxicDose": "> 0.5 mg/kg",
+    "toxicDoseValue": 0.5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "Update",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: Update."
+    ]
+  },
+  {
+    "slug": "hidroclorotiazida",
+    "name": "Hidroclorotiazida",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Hidroclorotiazida",
+      "HCTZ"
+    ],
+    "toxicDose": "> 3.5 mg/kg",
+    "toxicDoseValue": 3.5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "15 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 15 hs."
+    ]
+  },
+  {
+    "slug": "hidromorfona",
+    "name": "Hidromorfona",
+    "category": "Opioides",
+    "synonyms": [
+      "Hidromorfona"
+    ],
+    "toxicDose": "> 0.1 mg/kg",
+    "toxicDoseValue": 0.1,
+    "toxicDoseUnit": "mg",
+    "halfLife": "2.5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Depressão respiratória e rebaixamento do nível de consciência são os riscos centrais.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Naloxona",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 2.5 hs."
+    ]
+  },
+  {
+    "slug": "hidroxizine",
+    "name": "Hidroxizine",
+    "category": "Anti-histamínicos",
+    "synonyms": [
+      "Hidroxizine",
+      "Hidroxizina"
+    ],
+    "toxicDose": "> 10 mg/kg",
+    "toxicDoseValue": 10,
+    "toxicDoseUnit": "mg",
+    "halfLife": "20 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 20 hs."
+    ]
+  },
+  {
+    "slug": "ibuprofeno",
+    "name": "Ibuprofeno",
+    "category": "Anti-inflamatórios",
+    "synonyms": [
+      "Ibuprofeno",
+      "Alivium"
+    ],
+    "toxicDose": "> 100 mg/kg",
+    "toxicDoseValue": 100,
+    "toxicDoseUnit": "mg",
+    "halfLife": "2.5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 2.5 hs."
+    ]
+  },
+  {
+    "slug": "imepitoin",
+    "name": "Imepitoin",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Imepitoin"
+    ],
+    "toxicDose": "> 30 mg/kg",
+    "toxicDoseValue": 30,
+    "toxicDoseUnit": "mg",
+    "halfLife": "20 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 20 hs."
+    ]
+  },
+  {
+    "slug": "imidapril",
+    "name": "Imidapril",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Imidapril"
+    ],
+    "toxicDose": "> 0.7 mg/kg",
+    "toxicDoseValue": 0.7,
+    "toxicDoseUnit": "mg",
+    "halfLife": "24 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 24 hs."
+    ]
+  },
+  {
+    "slug": "imipramina",
+    "name": "Imipramina",
+    "category": "Antidepressivos",
+    "synonyms": [
+      "Imipramina",
+      "Tofranil"
+    ],
+    "toxicDose": "> 4 mg/kg",
+    "toxicDoseValue": 4,
+    "toxicDoseUnit": "mg",
+    "halfLife": "19 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 19 hs."
+    ]
+  },
+  {
+    "slug": "indacaterol",
+    "name": "Indacaterol",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Indacaterol"
+    ],
+    "toxicDose": "> 10 mcg/kg",
+    "toxicDoseValue": 10,
+    "toxicDoseUnit": "mcg",
+    "halfLife": "5 dias",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 5 dias."
+    ]
+  },
+  {
+    "slug": "indapamida",
+    "name": "Indapamida",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Indapamida"
+    ],
+    "toxicDose": "> 0.4 mg/kg",
+    "toxicDoseValue": 0.4,
+    "toxicDoseUnit": "mg",
+    "halfLife": "24 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 24 hs."
+    ]
+  },
+  {
+    "slug": "indometacina",
+    "name": "Indometacina",
+    "category": "Anti-inflamatórios",
+    "synonyms": [
+      "Indometacina"
+    ],
+    "toxicDose": "> 7 mg/kg",
+    "toxicDoseValue": 7,
+    "toxicDoseUnit": "mg",
+    "halfLife": "11 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 11 hs."
+    ]
+  },
+  {
+    "slug": "irbesartana",
+    "name": "Irbesartana",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Irbesartana"
+    ],
+    "toxicDose": "> 10 mg/kg",
+    "toxicDoseValue": 10,
+    "toxicDoseUnit": "mg",
+    "halfLife": "15 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 15 hs."
+    ]
+  },
+  {
+    "slug": "lacidipina",
+    "name": "Lacidipina",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Lacidipina"
+    ],
+    "toxicDose": "> 0.15 mg/kg",
+    "toxicDoseValue": 0.15,
+    "toxicDoseUnit": "mg",
+    "halfLife": "19 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 19 hs."
+    ]
+  },
+  {
+    "slug": "lenalidomida",
+    "name": "Lenalidomida",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Lenalidomida"
+    ],
+    "toxicDose": "> 0.7 mg/kg",
+    "toxicDoseValue": 0.7,
+    "toxicDoseUnit": "mg",
+    "halfLife": "5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 5 hs."
+    ]
+  },
+  {
+    "slug": "lercanidipina",
+    "name": "Lercanidipina",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Lercanidipina"
+    ],
+    "toxicDose": "> 0.4 mg/kg",
+    "toxicDoseValue": 0.4,
+    "toxicDoseUnit": "mg",
+    "halfLife": "10 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 10 hs."
+    ]
+  },
+  {
+    "slug": "levobunolol",
+    "name": "Levobunolol",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Levobunolol"
+    ],
+    "toxicDose": "> 1 mg/kg",
+    "toxicDoseValue": 1,
+    "toxicDoseUnit": "mg",
+    "halfLife": "7 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 7 hs."
+    ]
+  },
+  {
+    "slug": "levofloxacino",
+    "name": "Levofloxacino",
+    "category": "Antibióticos",
+    "synonyms": [
+      "Levofloxacino"
+    ],
+    "toxicDose": "> 35 mg/kg",
+    "toxicDoseValue": 35,
+    "toxicDoseUnit": "mg",
+    "halfLife": "8 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 8 hs."
+    ]
+  },
+  {
+    "slug": "levomepromazina",
+    "name": "Levomepromazina",
+    "category": "Antipsicóticos",
+    "synonyms": [
+      "Levomepromazina",
+      "Neozine"
+    ],
+    "toxicDose": "> 6 mg/kg",
+    "toxicDoseValue": 6,
+    "toxicDoseUnit": "mg",
+    "halfLife": "78 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 78 hs."
+    ]
+  },
+  {
+    "slug": "levotiroxina",
+    "name": "Levotiroxina",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Levotiroxina",
+      "Puran",
+      "Euthyrox"
+    ],
+    "toxicDose": "> 20 mcg/kg",
+    "toxicDoseValue": 20,
+    "toxicDoseUnit": "mcg",
+    "halfLife": "7 dias",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 7 dias."
+    ]
+  },
+  {
+    "slug": "lidocaina",
+    "name": "Lidocaina",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Lidocaina",
+      "Lidocaína"
+    ],
+    "toxicDose": "> 5 mg/kg",
+    "toxicDoseValue": 5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "1.5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Risco de convulsão e arritmia.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Risco de convulsão e arritmia.",
+    "guidelineRef": "AACT",
+    "notes": [
+      "Meia-vida informada no legado: 1.5 hs."
+    ]
+  },
+  {
+    "slug": "lisinopril",
+    "name": "Lisinopril",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Lisinopril"
+    ],
+    "toxicDose": "> 0.7 mg/kg",
+    "toxicDoseValue": 0.7,
+    "toxicDoseUnit": "mg",
+    "halfLife": "12.5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 12.5 hs."
+    ]
+  },
+  {
+    "slug": "litio",
+    "name": "Litio",
+    "category": "Estabilizadores do humor",
+    "synonyms": [
+      "Litio",
+      "Lítio",
+      "Carbolitium"
+    ],
+    "toxicDose": "> 50 mg/kg",
+    "toxicDoseValue": 50,
+    "toxicDoseUnit": "mg",
+    "halfLife": "24 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e hidratação vigorosa.",
+      "Considerar hemodiálise em toxicidade grave, neurológica ou com insuficiência renal."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "contraindicated",
+    "lavage": "not-routine",
+    "supportiveCare": "Monitorar litemia seriada, função renal e ECG.",
+    "guidelineRef": "EXTRIP / AACT",
+    "notes": [
+      "Meia-vida informada no legado: 24 hs."
+    ]
+  },
+  {
+    "slug": "lofepramina",
+    "name": "Lofepramina",
+    "category": "Antidepressivos",
+    "synonyms": [
+      "Lofepramina"
+    ],
+    "toxicDose": "> 4.5 mg/kg",
+    "toxicDoseValue": 4.5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "24 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 24 hs."
+    ]
+  },
+  {
+    "slug": "loprazolam",
+    "name": "Loprazolam",
+    "category": "Benzodiazepínicos",
+    "synonyms": [
+      "Loprazolam"
+    ],
+    "toxicDose": "> 0.07 mg/kg",
+    "toxicDoseValue": 0.07,
+    "toxicDoseUnit": "mg",
+    "halfLife": "14 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Flumazenil",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 14 hs."
+    ]
+  },
+  {
+    "slug": "lorazepam",
+    "name": "Lorazepam",
+    "category": "Benzodiazepínicos",
+    "synonyms": [
+      "Lorazepam"
+    ],
+    "toxicDose": "> 2 mg/kg",
+    "toxicDoseValue": 2,
+    "toxicDoseUnit": "mg",
+    "halfLife": "20 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Flumazenil",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 20 hs."
+    ]
+  },
+  {
+    "slug": "lormetazepam",
+    "name": "Lormetazepam",
+    "category": "Benzodiazepínicos",
+    "synonyms": [
+      "Lormetazepam"
+    ],
+    "toxicDose": "> 0.07 mg/kg",
+    "toxicDoseValue": 0.07,
+    "toxicDoseUnit": "mg",
+    "halfLife": "11 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Flumazenil",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 11 hs."
+    ]
+  },
+  {
+    "slug": "lornoxicam",
+    "name": "Lornoxicam",
+    "category": "Anti-inflamatórios",
+    "synonyms": [
+      "Lornoxicam"
+    ],
+    "toxicDose": "> 0.8 mg/kg",
+    "toxicDoseValue": 0.8,
+    "toxicDoseUnit": "mg",
+    "halfLife": "4 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 4 hs."
+    ]
+  },
+  {
+    "slug": "losartana",
+    "name": "Losartana",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Losartana"
+    ],
+    "toxicDose": "> 3.5 mg/kg",
+    "toxicDoseValue": 3.5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "9 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 9 hs."
+    ]
+  },
+  {
+    "slug": "maprotilina",
+    "name": "Maprotilina",
+    "category": "Antidepressivos",
+    "synonyms": [
+      "Maprotilina"
+    ],
+    "toxicDose": "> 3 mg/kg",
+    "toxicDoseValue": 3,
+    "toxicDoseUnit": "mg",
+    "halfLife": "90 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 90 hs."
+    ]
+  },
+  {
+    "slug": "meclozina",
+    "name": "Meclozina",
+    "category": "Anti-histamínicos",
+    "synonyms": [
+      "Meclozina"
+    ],
+    "toxicDose": "> 5 mg/kg",
+    "toxicDoseValue": 5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "6 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 6 hs."
+    ]
+  },
+  {
+    "slug": "meloxicam",
+    "name": "Meloxicam",
+    "category": "Anti-inflamatórios",
+    "synonyms": [
+      "Meloxicam"
+    ],
+    "toxicDose": "> 1 mg/kg",
+    "toxicDoseValue": 1,
+    "toxicDoseUnit": "mg",
+    "halfLife": "20 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 20 hs."
+    ]
+  },
+  {
+    "slug": "meptazinol",
+    "name": "Meptazinol",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Meptazinol"
+    ],
+    "toxicDose": "> 8.5 mg/kg",
+    "toxicDoseValue": 8.5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "4 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 4 hs."
+    ]
+  },
+  {
+    "slug": "metadona",
+    "name": "Metadona",
+    "category": "Opioides",
+    "synonyms": [
+      "Metadona",
+      "Mytedon"
+    ],
+    "toxicDose": "> 0.4 mg/kg",
+    "toxicDoseValue": 0.4,
+    "toxicDoseUnit": "mg",
+    "halfLife": "60 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Meia-vida muito longa. Naloxona repetida pode ser necessária.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Naloxona (0.4-2mg IV)",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Meia-vida muito longa. Naloxona repetida pode ser necessária.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 60 hs."
+    ]
+  },
+  {
+    "slug": "metformina",
+    "name": "Metformina",
+    "category": "Hipoglicemiantes",
+    "synonyms": [
+      "Metformina",
+      "Glifage"
+    ],
+    "toxicDose": "> 80 mg/kg",
+    "toxicDoseValue": 80,
+    "toxicDoseUnit": "mg",
+    "halfLife": "6.5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Risco de acidose lática.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Risco de acidose lática.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 6.5 hs."
+    ]
+  },
+  {
+    "slug": "metildopa",
+    "name": "Metildopa",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Metildopa"
+    ],
+    "toxicDose": "> 15 mg/kg",
+    "toxicDoseValue": 15,
+    "toxicDoseUnit": "mg",
+    "halfLife": "Update",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: Update."
+    ]
+  },
+  {
+    "slug": "metilfenidato",
+    "name": "Metilfenidato",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Metilfenidato",
+      "Ritalina"
+    ],
+    "toxicDose": "> 1 mg/kg",
+    "toxicDoseValue": 1,
+    "toxicDoseUnit": "mg",
+    "halfLife": "2 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 2 hs."
+    ]
+  },
+  {
+    "slug": "metolazona",
+    "name": "Metolazona",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Metolazona"
+    ],
+    "toxicDose": "> 0.7 mg/kg",
+    "toxicDoseValue": 0.7,
+    "toxicDoseUnit": "mg",
+    "halfLife": "10 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 10 hs."
+    ]
+  },
+  {
+    "slug": "metoprolol",
+    "name": "Metoprolol",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Metoprolol",
+      "Selozok"
+    ],
+    "toxicDose": "> 10 mg/kg",
+    "toxicDoseValue": 10,
+    "toxicDoseUnit": "mg",
+    "halfLife": "3.5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 3.5 hs."
+    ]
+  },
+  {
+    "slug": "midazolam",
+    "name": "Midazolam",
+    "category": "Benzodiazepínicos",
+    "synonyms": [
+      "Midazolam",
+      "Dormonid"
+    ],
+    "toxicDose": "> 1 mg/kg",
+    "toxicDoseValue": 1,
+    "toxicDoseUnit": "mg",
+    "halfLife": "2.5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Flumazenil (se necessário)",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 2.5 hs."
+    ]
+  },
+  {
+    "slug": "misoprostol",
+    "name": "Misoprostol",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Misoprostol"
+    ],
+    "toxicDose": "> 0.03 mg/kg",
+    "toxicDoseValue": 0.03,
+    "toxicDoseUnit": "mg",
+    "halfLife": "40 min",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 40 min."
+    ]
+  },
+  {
+    "slug": "moexipril",
+    "name": "Moexipril",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Moexipril"
+    ],
+    "toxicDose": "> 1 mg/kg",
+    "toxicDoseValue": 1,
+    "toxicDoseUnit": "mg",
+    "halfLife": "12 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 12 hs."
+    ]
+  },
+  {
+    "slug": "morfina",
+    "name": "Morfina",
+    "category": "Opioides",
+    "synonyms": [
+      "Morfina",
+      "Dimorf"
+    ],
+    "toxicDose": "> 0.4 mg/kg",
+    "toxicDoseValue": 0.4,
+    "toxicDoseUnit": "mg",
+    "halfLife": "3 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Depressão respiratória é o maior risco.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Naloxona (0.4-2mg IV)",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Depressão respiratória é o maior risco.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 3 hs."
+    ]
+  },
+  {
+    "slug": "moxifloxacino",
+    "name": "Moxifloxacino",
+    "category": "Antibióticos",
+    "synonyms": [
+      "Moxifloxacino"
+    ],
+    "toxicDose": "> 25 mg/kg",
+    "toxicDoseValue": 25,
+    "toxicDoseUnit": "mg",
+    "halfLife": "12 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 12 hs."
+    ]
+  },
+  {
+    "slug": "moxonidina",
+    "name": "Moxonidina",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Moxonidina"
+    ],
+    "toxicDose": "> 0.02 mg/kg",
+    "toxicDoseValue": 0.02,
+    "toxicDoseUnit": "mg",
+    "halfLife": "3 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 3 hs."
+    ]
+  },
+  {
+    "slug": "nabumetona",
+    "name": "Nabumetona",
+    "category": "Anti-inflamatórios",
+    "synonyms": [
+      "Nabumetona"
+    ],
+    "toxicDose": "> 70 mg/kg",
+    "toxicDoseValue": 70,
+    "toxicDoseUnit": "mg",
+    "halfLife": "27 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 27 hs."
+    ]
+  },
+  {
+    "slug": "nadolol",
+    "name": "Nadolol",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Nadolol"
+    ],
+    "toxicDose": "> 11 mg/kg",
+    "toxicDoseValue": 11,
+    "toxicDoseUnit": "mg",
+    "halfLife": "24 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 24 hs."
+    ]
+  },
+  {
+    "slug": "nafazolina",
+    "name": "Nafazolina",
+    "category": "Tóxicos diversos",
+    "synonyms": [
+      "Nafazolina",
+      "Neosoro"
+    ],
+    "toxicDose": "> 0.1 mg/kg",
+    "toxicDoseValue": 0.1,
+    "toxicDoseUnit": "mg",
+    "halfLife": "Update",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Bradicardia e depressão SNC em crianças.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Bradicardia e depressão SNC em crianças.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: Update."
+    ]
+  },
+  {
+    "slug": "naproxeno",
+    "name": "Naproxeno",
+    "category": "Anti-inflamatórios",
+    "synonyms": [
+      "Naproxeno",
+      "Flanax"
+    ],
+    "toxicDose": "> 35 mg/kg",
+    "toxicDoseValue": 35,
+    "toxicDoseUnit": "mg",
+    "halfLife": "17 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 17 hs."
+    ]
+  },
+  {
+    "slug": "nebivolol",
+    "name": "Nebivolol",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Nebivolol"
+    ],
+    "toxicDose": "> 0.3 mg/kg",
+    "toxicDoseValue": 0.3,
+    "toxicDoseUnit": "mg",
+    "halfLife": "50 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 50 hs."
+    ]
+  },
+  {
+    "slug": "nicardipina",
+    "name": "Nicardipina",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Nicardipina"
+    ],
+    "toxicDose": "> 3.5 mg/kg",
+    "toxicDoseValue": 3.5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "9 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 9 hs."
+    ]
+  },
+  {
+    "slug": "nifedipina",
+    "name": "Nifedipina",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Nifedipina",
+      "Adalat"
+    ],
+    "toxicDose": "> 1.2 mg/kg",
+    "toxicDoseValue": 1.2,
+    "toxicDoseUnit": "mg",
+    "halfLife": "3.5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 3.5 hs."
+    ]
+  },
+  {
+    "slug": "nimodipina",
+    "name": "Nimodipina",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Nimodipina"
+    ],
+    "toxicDose": "> 6 mg/kg",
+    "toxicDoseValue": 6,
+    "toxicDoseUnit": "mg",
+    "halfLife": "10 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 10 hs."
+    ]
+  },
+  {
+    "slug": "nitrazepam",
+    "name": "Nitrazepam",
+    "category": "Benzodiazepínicos",
+    "synonyms": [
+      "Nitrazepam"
+    ],
+    "toxicDose": "> 0.4 mg/kg",
+    "toxicDoseValue": 0.4,
+    "toxicDoseUnit": "mg",
+    "halfLife": "24 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Flumazenil",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 24 hs."
+    ]
+  },
+  {
+    "slug": "norfloxacino",
+    "name": "Norfloxacino",
+    "category": "Antibióticos",
+    "synonyms": [
+      "Norfloxacino"
+    ],
+    "toxicDose": "> 50 mg/kg",
+    "toxicDoseValue": 50,
+    "toxicDoseUnit": "mg",
+    "halfLife": "4 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 4 hs."
+    ]
+  },
+  {
+    "slug": "nortriptilina",
+    "name": "Nortriptilina",
+    "category": "Antidepressivos",
+    "synonyms": [
+      "Nortriptilina",
+      "Pamelor"
+    ],
+    "toxicDose": "> 2.5 mg/kg",
+    "toxicDoseValue": 2.5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "26 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 26 hs."
+    ]
+  },
+  {
+    "slug": "ofloxacino",
+    "name": "Ofloxacino",
+    "category": "Antibióticos",
+    "synonyms": [
+      "Ofloxacino"
+    ],
+    "toxicDose": "> 25 mg/kg",
+    "toxicDoseValue": 25,
+    "toxicDoseUnit": "mg",
+    "halfLife": "6 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 6 hs."
+    ]
+  },
+  {
+    "slug": "olmesartana",
+    "name": "Olmesartana",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Olmesartana"
+    ],
+    "toxicDose": "> 1.5 mg/kg",
+    "toxicDoseValue": 1.5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "15 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 15 hs."
+    ]
+  },
+  {
+    "slug": "olodaterol",
+    "name": "Olodaterol",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Olodaterol"
+    ],
+    "toxicDose": "> 0.35 mcg/kg",
+    "toxicDoseValue": 0.35,
+    "toxicDoseUnit": "mcg",
+    "halfLife": "22/45 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 22/45 hs."
+    ]
+  },
+  {
+    "slug": "oxazepam",
+    "name": "Oxazepam",
+    "category": "Benzodiazepínicos",
+    "synonyms": [
+      "Oxazepam"
+    ],
+    "toxicDose": "> 3.5 mg/kg",
+    "toxicDoseValue": 3.5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "20 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Flumazenil",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 20 hs."
+    ]
+  },
+  {
+    "slug": "oxcarbazepina",
+    "name": "Oxcarbazepina",
+    "category": "Anticonvulsivantes",
+    "synonyms": [
+      "Oxcarbazepina"
+    ],
+    "toxicDose": "> 40 mg/kg",
+    "toxicDoseValue": 40,
+    "toxicDoseUnit": "mg",
+    "halfLife": "9.5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 9.5 hs."
+    ]
+  },
+  {
+    "slug": "oxicodona",
+    "name": "Oxicodona",
+    "category": "Opioides",
+    "synonyms": [
+      "Oxicodona",
+      "Oxycontin"
+    ],
+    "toxicDose": "> 0.2 mg/kg",
+    "toxicDoseValue": 0.2,
+    "toxicDoseUnit": "mg",
+    "halfLife": "3 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Depressão respiratória e rebaixamento do nível de consciência são os riscos centrais.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Naloxona (0.4-2mg IV)",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 3 hs."
+    ]
+  },
+  {
+    "slug": "oximetazolina",
+    "name": "Oximetazolina",
+    "category": "Tóxicos diversos",
+    "synonyms": [
+      "Oximetazolina"
+    ],
+    "toxicDose": "> 0.4 mg/kg",
+    "toxicDoseValue": 0.4,
+    "toxicDoseUnit": "mg",
+    "halfLife": "8 dias",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 8 dias."
+    ]
+  },
+  {
+    "slug": "oxprenolol",
+    "name": "Oxprenolol",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Oxprenolol"
+    ],
+    "toxicDose": "> 11 mg/kg",
+    "toxicDoseValue": 11,
+    "toxicDoseUnit": "mg",
+    "halfLife": "2 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 2 hs."
+    ]
+  },
+  {
+    "slug": "paracetamol",
+    "name": "Paracetamol",
+    "category": "Analgésicos",
+    "synonyms": [
+      "Paracetamol",
+      "Acetaminofeno",
+      "Tylenol"
+    ],
+    "toxicDose": "> 75 mg/kg",
+    "toxicDoseValue": 75,
+    "toxicDoseUnit": "mg",
+    "halfLife": "3 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Fase inicial pode ser assintomática; risco de hepatotoxicidade tardia.",
+    "treatment": [
+      "Dosar nível sérico e aplicar nomograma de Rumack-Matthew quando indicado.",
+      "Iniciar N-acetilcisteína conforme tempo de exposição e risco clínico."
+    ],
+    "antidote": {
+      "name": "N-acetilcisteína",
+      "indication": "Nível acima da linha de tratamento, tempo desconhecido ou hepatotoxicidade suspeita.",
+      "dose": "Seguir protocolo intravenoso institucional."
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Monitorar função hepática, INR, lactato e glicemia.",
+    "guidelineRef": "Rumack-Matthew / IBCC",
+    "notes": [
+      "Meia-vida informada no legado: 3 hs."
+    ]
+  },
+  {
+    "slug": "paroxetina",
+    "name": "Paroxetina",
+    "category": "Antidepressivos",
+    "synonyms": [
+      "Paroxetina"
+    ],
+    "toxicDose": "> 3 mg/kg",
+    "toxicDoseValue": 3,
+    "toxicDoseUnit": "mg",
+    "halfLife": "21 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 21 hs."
+    ]
+  },
+  {
+    "slug": "pentazocina",
+    "name": "Pentazocina",
+    "category": "Opioides",
+    "synonyms": [
+      "Pentazocina"
+    ],
+    "toxicDose": "> 2.5 mg/kg",
+    "toxicDoseValue": 2.5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "3 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Depressão respiratória e rebaixamento do nível de consciência são os riscos centrais.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Naloxona",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 3 hs."
+    ]
+  },
+  {
+    "slug": "perfenazina",
+    "name": "Perfenazina",
+    "category": "Antipsicóticos",
+    "synonyms": [
+      "Perfenazina"
+    ],
+    "toxicDose": "> 0.6 mg/kg",
+    "toxicDoseValue": 0.6,
+    "toxicDoseUnit": "mg",
+    "halfLife": "12 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 12 hs."
+    ]
+  },
+  {
+    "slug": "periciazina",
+    "name": "Periciazina",
+    "category": "Antipsicóticos",
+    "synonyms": [
+      "Periciazina"
+    ],
+    "toxicDose": "> 1 mg/kg",
+    "toxicDoseValue": 1,
+    "toxicDoseUnit": "mg",
+    "halfLife": "Update",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: Update."
+    ]
+  },
+  {
+    "slug": "perindopril",
+    "name": "Perindopril",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Perindopril"
+    ],
+    "toxicDose": "> 0.3 mg/kg",
+    "toxicDoseValue": 0.3,
+    "toxicDoseUnit": "mg",
+    "halfLife": "17 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 17 hs."
+    ]
+  },
+  {
+    "slug": "petidina",
+    "name": "Petidina",
+    "category": "Opioides",
+    "synonyms": [
+      "Petidina",
+      "Meperidina"
+    ],
+    "toxicDose": "> 6 mg/kg",
+    "toxicDoseValue": 6,
+    "toxicDoseUnit": "mg",
+    "halfLife": "48 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Depressão respiratória e rebaixamento do nível de consciência são os riscos centrais.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Naloxona (Cuidado: risco de convulsão)",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 48 hs."
+    ]
+  },
+  {
+    "slug": "pimozida",
+    "name": "Pimozida",
+    "category": "Antipsicóticos",
+    "synonyms": [
+      "Pimozida"
+    ],
+    "toxicDose": "> 0.5 mg/kg",
+    "toxicDoseValue": 0.5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "55 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 55 hs."
+    ]
+  },
+  {
+    "slug": "pindolol",
+    "name": "Pindolol",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Pindolol"
+    ],
+    "toxicDose": "> 1 mg/kg",
+    "toxicDoseValue": 1,
+    "toxicDoseUnit": "mg",
+    "halfLife": "4 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 4 hs."
+    ]
+  },
+  {
+    "slug": "pipotiazina",
+    "name": "Pipotiazina",
+    "category": "Antipsicóticos",
+    "synonyms": [
+      "Pipotiazina"
+    ],
+    "toxicDose": "> 0.2 mg/kg",
+    "toxicDoseValue": 0.2,
+    "toxicDoseUnit": "mg",
+    "halfLife": "Update",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: Update."
+    ]
+  },
+  {
+    "slug": "piroxicam",
+    "name": "Piroxicam",
+    "category": "Anti-inflamatórios",
+    "synonyms": [
+      "Piroxicam"
+    ],
+    "toxicDose": "> 1 mg/kg",
+    "toxicDoseValue": 1,
+    "toxicDoseUnit": "mg",
+    "halfLife": "50 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 50 hs."
+    ]
+  },
+  {
+    "slug": "pomalidomida",
+    "name": "Pomalidomida",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Pomalidomida"
+    ],
+    "toxicDose": "> 0.2 mg/kg",
+    "toxicDoseValue": 0.2,
+    "toxicDoseUnit": "mg",
+    "halfLife": "9.5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 9.5 hs."
+    ]
+  },
+  {
+    "slug": "prazepam",
+    "name": "Prazepam",
+    "category": "Benzodiazepínicos",
+    "synonyms": [
+      "Prazepam"
+    ],
+    "toxicDose": "> 2 mg/kg",
+    "toxicDoseValue": 2,
+    "toxicDoseUnit": "mg",
+    "halfLife": "70 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Flumazenil",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 70 hs."
+    ]
+  },
+  {
+    "slug": "primidona",
+    "name": "Primidona",
+    "category": "Anticonvulsivantes",
+    "synonyms": [
+      "Primidona"
+    ],
+    "toxicDose": "> 60 mg/kg",
+    "toxicDoseValue": 60,
+    "toxicDoseUnit": "mg",
+    "halfLife": "5 dias",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 5 dias."
+    ]
+  },
+  {
+    "slug": "proclorperazina",
+    "name": "Proclorperazina",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Proclorperazina"
+    ],
+    "toxicDose": "> 2 mg/kg",
+    "toxicDoseValue": 2,
+    "toxicDoseUnit": "mg",
+    "halfLife": "9 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 9 hs."
+    ]
+  },
+  {
+    "slug": "promazina",
+    "name": "Promazina",
+    "category": "Antipsicóticos",
+    "synonyms": [
+      "Promazina"
+    ],
+    "toxicDose": "> 12 mg/kg",
+    "toxicDoseValue": 12,
+    "toxicDoseUnit": "mg",
+    "halfLife": "40 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 40 hs."
+    ]
+  },
+  {
+    "slug": "prometazina",
+    "name": "Prometazina",
+    "category": "Anti-histamínicos",
+    "synonyms": [
+      "Prometazina",
+      "Fenergan"
+    ],
+    "toxicDose": "> 3.5 mg/kg",
+    "toxicDoseValue": 3.5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "14 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 14 hs."
+    ]
+  },
+  {
+    "slug": "propranolol",
+    "name": "Propranolol",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Propranolol"
+    ],
+    "toxicDose": "> 4.5 mg/kg",
+    "toxicDoseValue": 4.5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "6 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 6 hs."
+    ]
+  },
+  {
+    "slug": "quetiapina",
+    "name": "Quetiapina",
+    "category": "Antipsicóticos",
+    "synonyms": [
+      "Quetiapina"
+    ],
+    "toxicDose": "> 15 mg/kg",
+    "toxicDoseValue": 15,
+    "toxicDoseUnit": "mg",
+    "halfLife": "22 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 22 hs."
+    ]
+  },
+  {
+    "slug": "quinapril",
+    "name": "Quinapril",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Quinapril"
+    ],
+    "toxicDose": "> 1 mg/kg",
+    "toxicDoseValue": 1,
+    "toxicDoseUnit": "mg",
+    "halfLife": "3 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 3 hs."
+    ]
+  },
+  {
+    "slug": "ramipril",
+    "name": "Ramipril",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Ramipril"
+    ],
+    "toxicDose": "> 3.2 mg/kg",
+    "toxicDoseValue": 3.2,
+    "toxicDoseUnit": "mg",
+    "halfLife": "17 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 17 hs."
+    ]
+  },
+  {
+    "slug": "reboxetina",
+    "name": "Reboxetina",
+    "category": "Antidepressivos",
+    "synonyms": [
+      "Reboxetina"
+    ],
+    "toxicDose": "> 0.5 mg/kg",
+    "toxicDoseValue": 0.5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "Update",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: Update."
+    ]
+  },
+  {
+    "slug": "risperidona",
+    "name": "Risperidona",
+    "category": "Antipsicóticos",
+    "synonyms": [
+      "Risperidona"
+    ],
+    "toxicDose": "> 1 mg/kg",
+    "toxicDoseValue": 1,
+    "toxicDoseUnit": "mg",
+    "halfLife": "24 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 24 hs."
+    ]
+  },
+  {
+    "slug": "ritalina",
+    "name": "Ritalina",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Ritalina",
+      "Metilfenidato"
+    ],
+    "toxicDose": "> 1 mg/kg",
+    "toxicDoseValue": 1,
+    "toxicDoseUnit": "mg",
+    "halfLife": "2 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 2 hs."
+    ]
+  },
+  {
+    "slug": "salbutamol",
+    "name": "Salbutamol",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Salbutamol",
+      "Aerolin"
+    ],
+    "toxicDose": "> 0.5 mg/kg",
+    "toxicDoseValue": 0.5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "4 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 4 hs."
+    ]
+  },
+  {
+    "slug": "salmeterol",
+    "name": "Salmeterol",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Salmeterol"
+    ],
+    "toxicDose": "> 7 mcg/kg",
+    "toxicDoseValue": 7,
+    "toxicDoseUnit": "mcg",
+    "halfLife": "5.5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 5.5 hs."
+    ]
+  },
+  {
+    "slug": "secobarbital",
+    "name": "Secobarbital",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Secobarbital"
+    ],
+    "toxicDose": "> 4 mg/kg",
+    "toxicDoseValue": 4,
+    "toxicDoseUnit": "mg",
+    "halfLife": "40 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 40 hs."
+    ]
+  },
+  {
+    "slug": "sertralina",
+    "name": "Sertralina",
+    "category": "Antidepressivos",
+    "synonyms": [
+      "Sertralina"
+    ],
+    "toxicDose": "> 7 mg/kg",
+    "toxicDoseValue": 7,
+    "toxicDoseUnit": "mg",
+    "halfLife": "26 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 26 hs."
+    ]
+  },
+  {
+    "slug": "sibutramina",
+    "name": "Sibutramina",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Sibutramina"
+    ],
+    "toxicDose": "> 50 mg/kg",
+    "toxicDoseValue": 50,
+    "toxicDoseUnit": "mg",
+    "halfLife": "Update",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: Update."
+    ]
+  },
+  {
+    "slug": "sildenafil",
+    "name": "Sildenafil",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Sildenafil",
+      "Viagra"
+    ],
+    "toxicDose": "> 3 mg/kg",
+    "toxicDoseValue": 3,
+    "toxicDoseUnit": "mg",
+    "halfLife": "5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 5 hs."
+    ]
+  },
+  {
+    "slug": "sotalol",
+    "name": "Sotalol",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Sotalol"
+    ],
+    "toxicDose": "> 7 mg/kg",
+    "toxicDoseValue": 7,
+    "toxicDoseUnit": "mg",
+    "halfLife": "20 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 20 hs."
+    ]
+  },
+  {
+    "slug": "sulindaco",
+    "name": "Sulindaco",
+    "category": "Anti-inflamatórios",
+    "synonyms": [
+      "Sulindaco"
+    ],
+    "toxicDose": "> 30 mg/kg",
+    "toxicDoseValue": 30,
+    "toxicDoseUnit": "mg",
+    "halfLife": "17 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 17 hs."
+    ]
+  },
+  {
+    "slug": "tadalafil",
+    "name": "Tadalafil",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Tadalafil",
+      "Cialis"
+    ],
+    "toxicDose": "> 1 mg/kg",
+    "toxicDoseValue": 1,
+    "toxicDoseUnit": "mg",
+    "halfLife": "17 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 17 hs."
+    ]
+  },
+  {
+    "slug": "talidomida",
+    "name": "Talidomida",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Talidomida"
+    ],
+    "toxicDose": "> 7 mg/kg",
+    "toxicDoseValue": 7,
+    "toxicDoseUnit": "mg",
+    "halfLife": "7.5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 7.5 hs."
+    ]
+  },
+  {
+    "slug": "tapentadol",
+    "name": "Tapentadol",
+    "category": "Opioides",
+    "synonyms": [
+      "Tapentadol"
+    ],
+    "toxicDose": "> 2 mg/kg",
+    "toxicDoseValue": 2,
+    "toxicDoseUnit": "mg",
+    "halfLife": "4 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Depressão respiratória e rebaixamento do nível de consciência são os riscos centrais.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Naloxona",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 4 hs."
+    ]
+  },
+  {
+    "slug": "telitromicina",
+    "name": "Telitromicina",
+    "category": "Antibióticos",
+    "synonyms": [
+      "Telitromicina"
+    ],
+    "toxicDose": "> 100 mg/kg",
+    "toxicDoseValue": 100,
+    "toxicDoseUnit": "mg",
+    "halfLife": "3 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 3 hs."
+    ]
+  },
+  {
+    "slug": "telmisartana",
+    "name": "Telmisartana",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Telmisartana"
+    ],
+    "toxicDose": "> 3 mg/kg",
+    "toxicDoseValue": 3,
+    "toxicDoseUnit": "mg",
+    "halfLife": "24 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 24 hs."
+    ]
+  },
+  {
+    "slug": "temazepam",
+    "name": "Temazepam",
+    "category": "Benzodiazepínicos",
+    "synonyms": [
+      "Temazepam"
+    ],
+    "toxicDose": "> 1.5 mg/kg",
+    "toxicDoseValue": 1.5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "11 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Flumazenil",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 11 hs."
+    ]
+  },
+  {
+    "slug": "tenoxicam",
+    "name": "Tenoxicam",
+    "category": "Anti-inflamatórios",
+    "synonyms": [
+      "Tenoxicam"
+    ],
+    "toxicDose": "> 1.5 mg/kg",
+    "toxicDoseValue": 1.5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "81 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 81 hs."
+    ]
+  },
+  {
+    "slug": "terbutalina",
+    "name": "Terbutalina",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Terbutalina"
+    ],
+    "toxicDose": "> 1 mg/kg",
+    "toxicDoseValue": 1,
+    "toxicDoseUnit": "mg",
+    "halfLife": "3.5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 3.5 hs."
+    ]
+  },
+  {
+    "slug": "timolol",
+    "name": "Timolol",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Timolol"
+    ],
+    "toxicDose": "> 1 mg/kg",
+    "toxicDoseValue": 1,
+    "toxicDoseUnit": "mg",
+    "halfLife": "5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 5 hs."
+    ]
+  },
+  {
+    "slug": "tioridazina",
+    "name": "Tioridazina",
+    "category": "Antipsicóticos",
+    "synonyms": [
+      "Tioridazina"
+    ],
+    "toxicDose": "> 6 mg/kg",
+    "toxicDoseValue": 6,
+    "toxicDoseUnit": "mg",
+    "halfLife": "10 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 10 hs."
+    ]
+  },
+  {
+    "slug": "tolbutamida",
+    "name": "Tolbutamida",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Tolbutamida"
+    ],
+    "toxicDose": "> 30 mg/kg",
+    "toxicDoseValue": 30,
+    "toxicDoseUnit": "mg",
+    "halfLife": "8 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 8 hs."
+    ]
+  },
+  {
+    "slug": "tolmetino",
+    "name": "Tolmetino",
+    "category": "Anti-inflamatórios",
+    "synonyms": [
+      "Tolmetino"
+    ],
+    "toxicDose": "> 85 mg/kg",
+    "toxicDoseValue": 85,
+    "toxicDoseUnit": "mg",
+    "halfLife": "5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 5 hs."
+    ]
+  },
+  {
+    "slug": "topiramato",
+    "name": "Topiramato",
+    "category": "Anticonvulsivantes",
+    "synonyms": [
+      "Topiramato"
+    ],
+    "toxicDose": "> 10 mg/kg",
+    "toxicDoseValue": 10,
+    "toxicDoseUnit": "mg",
+    "halfLife": "21 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 21 hs."
+    ]
+  },
+  {
+    "slug": "torasemida",
+    "name": "Torasemida",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Torasemida"
+    ],
+    "toxicDose": "> 0.4 mg/kg",
+    "toxicDoseValue": 0.4,
+    "toxicDoseUnit": "mg",
+    "halfLife": "6 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 6 hs."
+    ]
+  },
+  {
+    "slug": "tramadol",
+    "name": "Tramadol",
+    "category": "Opioides",
+    "synonyms": [
+      "Tramadol"
+    ],
+    "toxicDose": "> 4 mg/kg",
+    "toxicDoseValue": 4,
+    "toxicDoseUnit": "mg",
+    "halfLife": "9 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Risco de convulsão. Cuidado com naloxona.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Naloxona (0.4-2mg IV)",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Risco de convulsão. Cuidado com naloxona.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 9 hs."
+    ]
+  },
+  {
+    "slug": "triamterene",
+    "name": "Triamterene",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Triamterene"
+    ],
+    "toxicDose": "> 15 mg/kg",
+    "toxicDoseValue": 15,
+    "toxicDoseUnit": "mg",
+    "halfLife": "2 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 2 hs."
+    ]
+  },
+  {
+    "slug": "triazolam",
+    "name": "Triazolam",
+    "category": "Benzodiazepínicos",
+    "synonyms": [
+      "Triazolam"
+    ],
+    "toxicDose": "> 0.02 mg/kg",
+    "toxicDoseValue": 0.02,
+    "toxicDoseUnit": "mg",
+    "halfLife": "5.5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": {
+      "name": "Flumazenil",
+      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
+      "dose": null
+    },
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 5.5 hs."
+    ]
+  },
+  {
+    "slug": "trifluoperazina",
+    "name": "Trifluoperazina",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Trifluoperazina"
+    ],
+    "toxicDose": "> 0.4 mg/kg",
+    "toxicDoseValue": 0.4,
+    "toxicDoseUnit": "mg",
+    "halfLife": "22 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 22 hs."
+    ]
+  },
+  {
+    "slug": "trimipramina",
+    "name": "Trimipramina",
+    "category": "Antidepressivos",
+    "synonyms": [
+      "Trimipramina"
+    ],
+    "toxicDose": "> 5 mg/kg",
+    "toxicDoseValue": 5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "23 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 23 hs."
+    ]
+  },
+  {
+    "slug": "tripelenamina",
+    "name": "Tripelenamina",
+    "category": "Anti-histamínicos",
+    "synonyms": [
+      "Tripelenamina"
+    ],
+    "toxicDose": "> 5 mg/kg",
+    "toxicDoseValue": 5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "5.5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 5.5 hs."
+    ]
+  },
+  {
+    "slug": "triprolidina",
+    "name": "Triprolidina",
+    "category": "Anti-histamínicos",
+    "synonyms": [
+      "Triprolidina"
+    ],
+    "toxicDose": "> 1 mg/kg",
+    "toxicDoseValue": 1,
+    "toxicDoseUnit": "mg",
+    "halfLife": "5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 5 hs."
+    ]
+  },
+  {
+    "slug": "valaciclovir",
+    "name": "Valaciclovir",
+    "category": "Antibióticos",
+    "synonyms": [
+      "Valaciclovir"
+    ],
+    "toxicDose": "> 200 mg/kg",
+    "toxicDoseValue": 200,
+    "toxicDoseUnit": "mg",
+    "halfLife": "3 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 3 hs."
+    ]
+  },
+  {
+    "slug": "valsartana",
+    "name": "Valsartana",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Valsartana"
+    ],
+    "toxicDose": "> 5 mg/kg",
+    "toxicDoseValue": 5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "9 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 9 hs."
+    ]
+  },
+  {
+    "slug": "vardenafil",
+    "name": "Vardenafil",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Vardenafil"
+    ],
+    "toxicDose": "> 0.5 mg/kg",
+    "toxicDoseValue": 0.5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "6 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 6 hs."
+    ]
+  },
+  {
+    "slug": "venlafaxina",
+    "name": "Venlafaxina",
+    "category": "Antidepressivos",
+    "synonyms": [
+      "Venlafaxina"
+    ],
+    "toxicDose": "> 7 mg/kg",
+    "toxicDoseValue": 7,
+    "toxicDoseUnit": "mg",
+    "halfLife": "15 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 15 hs."
+    ]
+  },
+  {
+    "slug": "verapamil",
+    "name": "Verapamil",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Verapamil"
+    ],
+    "toxicDose": "> 5 mg/kg",
+    "toxicDoseValue": 5,
+    "toxicDoseUnit": "mg",
+    "halfLife": "8 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 8 hs."
+    ]
+  },
+  {
+    "slug": "vilanterol",
+    "name": "Vilanterol",
+    "category": "Toxicologia clínica",
+    "synonyms": [
+      "Vilanterol"
+    ],
+    "toxicDose": "> 1.5 mcg/kg",
+    "toxicDoseValue": 1.5,
+    "toxicDoseUnit": "mcg",
+    "halfLife": "11 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 11 hs."
+    ]
+  },
+  {
+    "slug": "xilometazolina",
+    "name": "Xilometazolina",
+    "category": "Tóxicos diversos",
+    "synonyms": [
+      "Xilometazolina",
+      "Neosoro"
+    ],
+    "toxicDose": "> 0.4 mg/kg",
+    "toxicDoseValue": 0.4,
+    "toxicDoseUnit": "mg",
+    "halfLife": "Update",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: Update."
+    ]
+  },
+  {
+    "slug": "xipamida",
+    "name": "Xipamida",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Xipamida"
+    ],
+    "toxicDose": "> 3 mg/kg",
+    "toxicDoseValue": 3,
+    "toxicDoseUnit": "mg",
+    "halfLife": "8 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 8 hs."
+    ]
+  },
+  {
+    "slug": "zofenopril",
+    "name": "Zofenopril",
+    "category": "Anti-hipertensivos",
+    "synonyms": [
+      "Zofenopril"
+    ],
+    "toxicDose": "> 2 mg/kg",
+    "toxicDoseValue": 2,
+    "toxicDoseUnit": "mg",
+    "halfLife": "5.5 hs",
+    "isDoseUnknown": false,
+    "alertMessage": null,
+    "clinicalPresentation": null,
+    "treatment": [
+      "Suporte clínico e proteção de via aérea.",
+      "Carvão ativado: Sim (< 1h)."
+    ],
+    "antidote": null,
+    "activatedCharcoal": "recommended",
+    "lavage": "not-routine",
+    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
+    "guidelineRef": "AACT/EAPCCT",
+    "notes": [
+      "Meia-vida informada no legado: 5.5 hs."
+    ]
+  }
+]

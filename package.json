@@ -1,0 +1,29 @@
+{
+  "name": "toxiflow",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "npm run generate:data && next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "generate:data": "node scripts/generate-normalized-data.cjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.57.4",
+    "next": "16.1.6",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
+    "@tailwindcss/postcss": "^4.1.13",
+    "@types/node": "^22.15.3",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "eslint": "^9.24.0",
+    "eslint-config-next": "16.1.6",
+    "tailwindcss": "^4.1.13",
+    "typescript": "^5.8.3"
+  }
+}
