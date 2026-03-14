@@ -2,6 +2,8 @@ import { AdminPanel } from "@/components/admin/AdminPanel";
 import { getDrugs } from "@/lib/drugs";
 import { isSupabaseAdminConfigured } from "@/lib/supabase";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminPage() {
   const drugs = await getDrugs();
 
