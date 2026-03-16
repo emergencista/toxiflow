@@ -7,13 +7,17 @@
     "build": "npm run generate:data && next build",
     "start": "next start",
     "lint": "eslint .",
-    "generate:data": "node scripts/generate-normalized-data.cjs"
+    "generate:data": "node scripts/generate-normalized-data.cjs",
+    "generate:icons": "node scripts/generate-icons.cjs",
+    "tox:radar": "node tox-radar.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",
+    "dotenv": "^17.3.1",
     "next": "16.1.6",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "rss-parser": "^3.13.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
@@ -23,7 +27,9 @@
     "@types/react-dom": "^19.1.2",
     "eslint": "^9.24.0",
     "eslint-config-next": "16.1.6",
+    "sharp": "^0.34.5",
     "tailwindcss": "^4.1.13",
+    "to-ico": "^1.1.5",
     "typescript": "^5.8.3"
   }
 }
