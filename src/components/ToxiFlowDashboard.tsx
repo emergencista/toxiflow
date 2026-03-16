@@ -126,7 +126,7 @@ export function ToxiFlowDashboard({ drugs }: ToxiFlowDashboardProps) {
           </div>
 
           <div className="transition-all duration-300 opacity-95">
-            <DrugGuidanceCard drug={selectedDrug} />
+            <DrugGuidanceCard drug={selectedDrug} elapsedHours={elapsedHours} />
           </div>
 
           <div className="rounded-[1.4rem] border border-slate-200 bg-white px-4 py-4 shadow-[0_16px_36px_-22px_rgba(15,23,42,0.2)]">
