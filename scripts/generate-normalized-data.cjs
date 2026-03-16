@@ -85,7 +85,7 @@ const MANUAL_OVERRIDES = {
       "Toxidrome Colinérgica: SLUDGE/DUMBELS (Miose, Sialorreia, Broncorréia, Bradicardia, Fasciculações).",
     treatment: [
       "Suporte de VA (Cuidado: muita secreção).",
-      "Descontaminação cutânea (tirar roupas, lavar com água e sabão) se exposição dérmica.",
+      "Descontaminação cutânea imediata se exposição dérmica.",
       "Lavagem Gástrica APENAS se via aérea protegida (IOT)."
     ],
     antidote: {
@@ -97,6 +97,21 @@ const MANUAL_OVERRIDES = {
     lavage: "consider",
     supportiveCare: "Monitorização respiratória intensiva, secreções e sinais colinérgicos contínuos.",
     guidelineRef: "CoreEM / emDOCs"
+  },
+  glibenclamida: {
+    category: "Hipoglicemiantes",
+    clinicalPresentation: "Risco de hipoglicemia grave, recorrente e prolongada, inclusive após melhora transitória.",
+    treatment: [
+      "Suporte clínico com monitorização glicêmica seriada.",
+      "Corrigir hipoglicemia com glicose EV e considerar octreotide para evitar rebote hipoglicêmico."
+    ],
+    antidote: {
+      name: "Octreotide",
+      indication: "Hipoglicemia recorrente/persistente por sulfonilureia, especialmente após necessidade repetida de glicose EV.",
+      dose: "50 a 100 mcg SC/IV a cada 6-8 horas, ajustando conforme glicemia."
+    },
+    supportiveCare: "Observação prolongada e monitorização glicêmica frequente devido ao risco de recorrência.",
+    guidelineRef: "AACT / toxicologia clínica"
   }
 };
 
@@ -117,7 +132,16 @@ function inferCategory(drug) {
   return match ? match[0] : "Toxicologia clínica";
 }
 
+function isSulfonylurea(drug) {
+  const haystack = normalizeAccents([drug.n, ...(drug.syn ?? [])].join(" ").toLowerCase());
+  return /glibenclamida|gliclazida|glimepirida|glipizida|sulfonilureia/.test(haystack);
+}
+
 function inferClinicalPresentation(drug) {
+  if (isSulfonylurea(drug)) {
+    return "Risco de hipoglicemia grave, recorrente e prolongada, mesmo após aparente melhora inicial.";
+  }
+
   if (drug.support) {
     return drug.support;
   }
@@ -127,7 +151,7 @@ function inferClinicalPresentation(drug) {
   }
 
   if (drug.ant?.toLowerCase().includes("flumazenil")) {
-    return "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.";
+    return "Predomina depressão do SNC, com risco de convulsão na reversão: flumazenil é contraindicado em uso crônico de BZD, epilepsia, coingestão pró-convulsivante, coma de origem desconhecida ou intoxicação mista.";
   }
 
   return null;
@@ -144,6 +168,14 @@ function inferTreatment(drug) {
 
   if (drug.lg && String(drug.lg).toUpperCase().includes("SIM")) {
     treatment.push("Lavagem gástrica apenas em cenários excepcionais de apresentação muito precoce.");
+  }
+
+  if (isSulfonylurea(drug)) {
+    treatment.push("Hipoglicemia por sulfonilureia: iniciar glicose EV e considerar octreotide para prevenir recorrência.");
+  }
+
+  if (drug.ant?.toLowerCase().includes("flumazenil")) {
+    treatment.push("Flumazenil NUNCA deve ser uso empírico em coma de origem desconhecida ou suspeita de intoxicação mista.");
   }
 
   return treatment;
@@ -170,6 +202,14 @@ function inferLavage(drug) {
 }
 
 function buildAntidote(drug) {
+  if (isSulfonylurea(drug)) {
+    return {
+      name: "Octreotide",
+      indication: "Hipoglicemia recorrente ou persistente após glicose EV em intoxicação por sulfonilureias.",
+      dose: "Adulto: 50 a 100 mcg SC/IV a cada 6-8 h, com monitorização seriada da glicemia."
+    };
+  }
+
   if (!drug.ant) {
     return null;
   }

@@ -299,7 +299,7 @@
       { n:"Formoterol", syn:["Formoterol"], d:1.5, unit:"mcg", mv:"10 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
       { n:"Fosinopril", syn:["Fosinopril"], d:1, unit:"mg", mv:"11.5 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
       { n:"Furosemida", syn:["Furosemida","Lasix"], d:3, unit:"mg", mv:"Update", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
-      { n:"Glibenclamida", syn:["Glibenclamida"], d:0.2, unit:"mg", mv:"Update", ca:"Sim (< 1h)", lg:"Não", support:"Monitorar hipoglicemia grave e prolongada.", ref:"AACT/EAPCCT" },
+      { n:"Glibenclamida", syn:["Glibenclamida"], d:0.2, unit:"mg", mv:"Update", ca:"Sim (< 1h)", lg:"Não", ant:"Octreotide", support:"Monitorar hipoglicemia grave, recorrente e prolongada; considerar glicose EV + octreotide.", ref:"AACT/EAPCCT" },
       { n:"Gliclazida", syn:["Gliclazida"], d:1.3, unit:"mg", mv:"12-20 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
       { n:"Glimepirida", syn:["Glimepirida"], d:0.04, unit:"mg", mv:"8 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },
       { n:"Glipizida", syn:["Glipizida"], d:0.2, unit:"mg", mv:"4 hs", ca:"Sim (< 1h)", lg:"Não", ref:"AACT/EAPCCT" },

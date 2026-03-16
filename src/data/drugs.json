@@ -242,7 +242,8 @@
     "clinicalPresentation": "Observar depressão SNC. Meia-vida longa.",
     "treatment": [
       "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Carvão ativado: Sim (< 1h).",
+      "Flumazenil NUNCA deve ser uso empírico em coma de origem desconhecida ou suspeita de intoxicação mista."
     ],
     "antidote": {
       "name": "Flumazenil (se depressão respiratória grave)",
@@ -729,10 +730,11 @@
     "halfLife": "20 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "clinicalPresentation": "Predomina depressão do SNC, com risco de convulsão na reversão: flumazenil é contraindicado em uso crônico de BZD, epilepsia, coingestão pró-convulsivante, coma de origem desconhecida ou intoxicação mista.",
     "treatment": [
       "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Carvão ativado: Sim (< 1h).",
+      "Flumazenil NUNCA deve ser uso empírico em coma de origem desconhecida ou suspeita de intoxicação mista."
     ],
     "antidote": {
       "name": "Flumazenil (se depressão respiratória grave)",
@@ -1230,7 +1232,7 @@
     "clinicalPresentation": "Toxidrome Colinérgica: SLUDGE/DUMBELS (Miose, Sialorreia, Broncorréia, Bradicardia, Fasciculações).",
     "treatment": [
       "Suporte de VA (Cuidado: muita secreção).",
-      "Descontaminação cutânea (tirar roupas, lavar com água e sabão) se exposição dérmica.",
+      "Descontaminação cutânea imediata se exposição dérmica.",
       "Lavagem Gástrica APENAS se via aérea protegida (IOT)."
     ],
     "antidote": {
@@ -1527,10 +1529,11 @@
     "halfLife": "79 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "clinicalPresentation": "Predomina depressão do SNC, com risco de convulsão na reversão: flumazenil é contraindicado em uso crônico de BZD, epilepsia, coingestão pró-convulsivante, coma de origem desconhecida ou intoxicação mista.",
     "treatment": [
       "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Carvão ativado: Sim (< 1h).",
+      "Flumazenil NUNCA deve ser uso empírico em coma de origem desconhecida ou suspeita de intoxicação mista."
     ],
     "antidote": {
       "name": "Flumazenil (se necessário)",
@@ -1586,10 +1589,11 @@
     "halfLife": "40 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "clinicalPresentation": "Predomina depressão do SNC, com risco de convulsão na reversão: flumazenil é contraindicado em uso crônico de BZD, epilepsia, coingestão pró-convulsivante, coma de origem desconhecida ou intoxicação mista.",
     "treatment": [
       "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Carvão ativado: Sim (< 1h).",
+      "Flumazenil NUNCA deve ser uso empírico em coma de origem desconhecida ou suspeita de intoxicação mista."
     ],
     "antidote": {
       "name": "Flumazenil (se necessário)",
@@ -1671,10 +1675,11 @@
     "halfLife": "78 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "clinicalPresentation": "Predomina depressão do SNC, com risco de convulsão na reversão: flumazenil é contraindicado em uso crônico de BZD, epilepsia, coingestão pró-convulsivante, coma de origem desconhecida ou intoxicação mista.",
     "treatment": [
       "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Carvão ativado: Sim (< 1h).",
+      "Flumazenil NUNCA deve ser uso empírico em coma de origem desconhecida ou suspeita de intoxicação mista."
     ],
     "antidote": {
       "name": "Flumazenil (se necessário)",
@@ -2032,10 +2037,11 @@
     "halfLife": "48 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "clinicalPresentation": "Predomina depressão do SNC, com risco de convulsão na reversão: flumazenil é contraindicado em uso crônico de BZD, epilepsia, coingestão pró-convulsivante, coma de origem desconhecida ou intoxicação mista.",
     "treatment": [
       "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Carvão ativado: Sim (< 1h).",
+      "Flumazenil NUNCA deve ser uso empírico em coma de origem desconhecida ou suspeita de intoxicação mista."
     ],
     "antidote": {
       "name": "Flumazenil (se necessário)",
@@ -2591,10 +2597,11 @@
     "halfLife": "24 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "clinicalPresentation": "Predomina depressão do SNC, com risco de convulsão na reversão: flumazenil é contraindicado em uso crônico de BZD, epilepsia, coingestão pró-convulsivante, coma de origem desconhecida ou intoxicação mista.",
     "treatment": [
       "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Carvão ativado: Sim (< 1h).",
+      "Flumazenil NUNCA deve ser uso empírico em coma de origem desconhecida ou suspeita de intoxicação mista."
     ],
     "antidote": {
       "name": "Flumazenil",
@@ -2622,10 +2629,11 @@
     "halfLife": "8 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "clinicalPresentation": "Predomina depressão do SNC, com risco de convulsão na reversão: flumazenil é contraindicado em uso crônico de BZD, epilepsia, coingestão pró-convulsivante, coma de origem desconhecida ou intoxicação mista.",
     "treatment": [
       "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Carvão ativado: Sim (< 1h).",
+      "Flumazenil NUNCA deve ser uso empírico em coma de origem desconhecida ou suspeita de intoxicação mista."
     ],
     "antidote": {
       "name": "Flumazenil",
@@ -2962,10 +2970,11 @@
     "halfLife": "35 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "clinicalPresentation": "Predomina depressão do SNC, com risco de convulsão na reversão: flumazenil é contraindicado em uso crônico de BZD, epilepsia, coingestão pró-convulsivante, coma de origem desconhecida ou intoxicação mista.",
     "treatment": [
       "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Carvão ativado: Sim (< 1h).",
+      "Flumazenil NUNCA deve ser uso empírico em coma de origem desconhecida ou suspeita de intoxicação mista."
     ],
     "antidote": {
       "name": "Flumazenil",
@@ -3021,10 +3030,11 @@
     "halfLife": "5 dias",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "clinicalPresentation": "Predomina depressão do SNC, com risco de convulsão na reversão: flumazenil é contraindicado em uso crônico de BZD, epilepsia, coingestão pró-convulsivante, coma de origem desconhecida ou intoxicação mista.",
     "treatment": [
       "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Carvão ativado: Sim (< 1h).",
+      "Flumazenil NUNCA deve ser uso empírico em coma de origem desconhecida ou suspeita de intoxicação mista."
     ],
     "antidote": {
       "name": "Flumazenil",
@@ -3188,16 +3198,20 @@
     "halfLife": "Update",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": "Monitorar hipoglicemia grave e prolongada.",
+    "clinicalPresentation": "Risco de hipoglicemia grave, recorrente e prolongada, inclusive após melhora transitória.",
     "treatment": [
-      "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Suporte clínico com monitorização glicêmica seriada.",
+      "Corrigir hipoglicemia com glicose EV e considerar octreotide para evitar rebote hipoglicêmico."
     ],
-    "antidote": null,
+    "antidote": {
+      "name": "Octreotide",
+      "indication": "Hipoglicemia recorrente/persistente por sulfonilureia, especialmente após necessidade repetida de glicose EV.",
+      "dose": "50 a 100 mcg SC/IV a cada 6-8 horas, ajustando conforme glicemia."
+    },
     "activatedCharcoal": "recommended",
     "lavage": "not-routine",
-    "supportiveCare": "Monitorar hipoglicemia grave e prolongada.",
-    "guidelineRef": "AACT/EAPCCT",
+    "supportiveCare": "Observação prolongada e monitorização glicêmica frequente devido ao risco de recorrência.",
+    "guidelineRef": "AACT / toxicologia clínica",
     "notes": [
       "Meia-vida informada no legado: Update."
     ]
@@ -3215,12 +3229,17 @@
     "halfLife": "12-20 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": null,
+    "clinicalPresentation": "Risco de hipoglicemia grave, recorrente e prolongada, mesmo após aparente melhora inicial.",
     "treatment": [
       "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Carvão ativado: Sim (< 1h).",
+      "Hipoglicemia por sulfonilureia: iniciar glicose EV e considerar octreotide para prevenir recorrência."
     ],
-    "antidote": null,
+    "antidote": {
+      "name": "Octreotide",
+      "indication": "Hipoglicemia recorrente ou persistente após glicose EV em intoxicação por sulfonilureias.",
+      "dose": "Adulto: 50 a 100 mcg SC/IV a cada 6-8 h, com monitorização seriada da glicemia."
+    },
     "activatedCharcoal": "recommended",
     "lavage": "not-routine",
     "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
@@ -3242,12 +3261,17 @@
     "halfLife": "8 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": null,
+    "clinicalPresentation": "Risco de hipoglicemia grave, recorrente e prolongada, mesmo após aparente melhora inicial.",
     "treatment": [
       "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Carvão ativado: Sim (< 1h).",
+      "Hipoglicemia por sulfonilureia: iniciar glicose EV e considerar octreotide para prevenir recorrência."
     ],
-    "antidote": null,
+    "antidote": {
+      "name": "Octreotide",
+      "indication": "Hipoglicemia recorrente ou persistente após glicose EV em intoxicação por sulfonilureias.",
+      "dose": "Adulto: 50 a 100 mcg SC/IV a cada 6-8 h, com monitorização seriada da glicemia."
+    },
     "activatedCharcoal": "recommended",
     "lavage": "not-routine",
     "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
@@ -3269,12 +3293,17 @@
     "halfLife": "4 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": null,
+    "clinicalPresentation": "Risco de hipoglicemia grave, recorrente e prolongada, mesmo após aparente melhora inicial.",
     "treatment": [
       "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Carvão ativado: Sim (< 1h).",
+      "Hipoglicemia por sulfonilureia: iniciar glicose EV e considerar octreotide para prevenir recorrência."
     ],
-    "antidote": null,
+    "antidote": {
+      "name": "Octreotide",
+      "indication": "Hipoglicemia recorrente ou persistente após glicose EV em intoxicação por sulfonilureias.",
+      "dose": "Adulto: 50 a 100 mcg SC/IV a cada 6-8 h, com monitorização seriada da glicemia."
+    },
     "activatedCharcoal": "recommended",
     "lavage": "not-routine",
     "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
@@ -3959,10 +3988,11 @@
     "halfLife": "14 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "clinicalPresentation": "Predomina depressão do SNC, com risco de convulsão na reversão: flumazenil é contraindicado em uso crônico de BZD, epilepsia, coingestão pró-convulsivante, coma de origem desconhecida ou intoxicação mista.",
     "treatment": [
       "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Carvão ativado: Sim (< 1h).",
+      "Flumazenil NUNCA deve ser uso empírico em coma de origem desconhecida ou suspeita de intoxicação mista."
     ],
     "antidote": {
       "name": "Flumazenil",
@@ -3990,10 +4020,11 @@
     "halfLife": "20 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "clinicalPresentation": "Predomina depressão do SNC, com risco de convulsão na reversão: flumazenil é contraindicado em uso crônico de BZD, epilepsia, coingestão pró-convulsivante, coma de origem desconhecida ou intoxicação mista.",
     "treatment": [
       "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Carvão ativado: Sim (< 1h).",
+      "Flumazenil NUNCA deve ser uso empírico em coma de origem desconhecida ou suspeita de intoxicação mista."
     ],
     "antidote": {
       "name": "Flumazenil",
@@ -4021,10 +4052,11 @@
     "halfLife": "11 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "clinicalPresentation": "Predomina depressão do SNC, com risco de convulsão na reversão: flumazenil é contraindicado em uso crônico de BZD, epilepsia, coingestão pró-convulsivante, coma de origem desconhecida ou intoxicação mista.",
     "treatment": [
       "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Carvão ativado: Sim (< 1h).",
+      "Flumazenil NUNCA deve ser uso empírico em coma de origem desconhecida ou suspeita de intoxicação mista."
     ],
     "antidote": {
       "name": "Flumazenil",
@@ -4385,10 +4417,11 @@
     "halfLife": "2.5 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "clinicalPresentation": "Predomina depressão do SNC, com risco de convulsão na reversão: flumazenil é contraindicado em uso crônico de BZD, epilepsia, coingestão pró-convulsivante, coma de origem desconhecida ou intoxicação mista.",
     "treatment": [
       "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Carvão ativado: Sim (< 1h).",
+      "Flumazenil NUNCA deve ser uso empírico em coma de origem desconhecida ou suspeita de intoxicação mista."
     ],
     "antidote": {
       "name": "Flumazenil (se necessário)",
@@ -4775,10 +4808,11 @@
     "halfLife": "24 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "clinicalPresentation": "Predomina depressão do SNC, com risco de convulsão na reversão: flumazenil é contraindicado em uso crônico de BZD, epilepsia, coingestão pró-convulsivante, coma de origem desconhecida ou intoxicação mista.",
     "treatment": [
       "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Carvão ativado: Sim (< 1h).",
+      "Flumazenil NUNCA deve ser uso empírico em coma de origem desconhecida ou suspeita de intoxicação mista."
     ],
     "antidote": {
       "name": "Flumazenil",
@@ -4942,10 +4976,11 @@
     "halfLife": "20 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "clinicalPresentation": "Predomina depressão do SNC, com risco de convulsão na reversão: flumazenil é contraindicado em uso crônico de BZD, epilepsia, coingestão pró-convulsivante, coma de origem desconhecida ou intoxicação mista.",
     "treatment": [
       "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Carvão ativado: Sim (< 1h).",
+      "Flumazenil NUNCA deve ser uso empírico em coma de origem desconhecida ou suspeita de intoxicação mista."
     ],
     "antidote": {
       "name": "Flumazenil",
@@ -5425,10 +5460,11 @@
     "halfLife": "70 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "clinicalPresentation": "Predomina depressão do SNC, com risco de convulsão na reversão: flumazenil é contraindicado em uso crônico de BZD, epilepsia, coingestão pró-convulsivante, coma de origem desconhecida ou intoxicação mista.",
     "treatment": [
       "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Carvão ativado: Sim (< 1h).",
+      "Flumazenil NUNCA deve ser uso empírico em coma de origem desconhecida ou suspeita de intoxicação mista."
     ],
     "antidote": {
       "name": "Flumazenil",
@@ -6113,10 +6149,11 @@
     "halfLife": "11 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "clinicalPresentation": "Predomina depressão do SNC, com risco de convulsão na reversão: flumazenil é contraindicado em uso crônico de BZD, epilepsia, coingestão pró-convulsivante, coma de origem desconhecida ou intoxicação mista.",
     "treatment": [
       "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Carvão ativado: Sim (< 1h).",
+      "Flumazenil NUNCA deve ser uso empírico em coma de origem desconhecida ou suspeita de intoxicação mista."
     ],
     "antidote": {
       "name": "Flumazenil",
@@ -6418,10 +6455,11 @@
     "halfLife": "5.5 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": "Predomina depressão do SNC, com necessidade de avaliar risco de convulsão e uso crônico.",
+    "clinicalPresentation": "Predomina depressão do SNC, com risco de convulsão na reversão: flumazenil é contraindicado em uso crônico de BZD, epilepsia, coingestão pró-convulsivante, coma de origem desconhecida ou intoxicação mista.",
     "treatment": [
       "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Carvão ativado: Sim (< 1h).",
+      "Flumazenil NUNCA deve ser uso empírico em coma de origem desconhecida ou suspeita de intoxicação mista."
     ],
     "antidote": {
       "name": "Flumazenil",
