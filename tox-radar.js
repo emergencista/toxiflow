@@ -14,6 +14,9 @@ const FEEDS = [
   "https://www.thebottomline.org.uk/feed/"
 ];
 
+const MAX_AUTO_UPDATES_PER_ARTICLE = getEnvInt("TOX_RADAR_MAX_DRUG_UPDATES_PER_ARTICLE", 3, 1, 10);
+const MAX_NOTES_PER_DRUG = getEnvInt("TOX_RADAR_MAX_NOTES_PER_DRUG", 14, 4, 30);
+
 const INTOXICATION_PATTERNS = [
   /\boverdose\b/g,
   /\bpoison(ing|ed)?\b/g,
@@ -202,6 +205,155 @@ function escapeHtml(value) {
     .replace(/>/g, "&gt;");
 }
 
+function compactWhitespace(value) {
+  return String(value || "").replace(/\s+/g, " ").trim();
+}
+
+function getItemText(item) {
+  return compactWhitespace([
+    item.title,
+    item.contentSnippet,
+    item.content,
+    item.summary,
+    item["content:encoded"]
+  ].join(" "));
+}
+
+function toWordRegex(term) {
+  const escaped = String(term || "")
+    .trim()
+    .replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+    .replace(/\s+/g, "\\s+");
+
+  if (!escaped) {
+    return null;
+  }
+
+  return new RegExp(`(^|[^a-z0-9])${escaped}([^a-z0-9]|$)`, "i");
+}
+
+function inferUpdateScope(articleText) {
+  const text = normalizeText(articleText);
+
+  if (/\b(antidote|flumazenil|n[-\s]?acetylcysteine|acetilcisteina|naloxone|fomepizole)\b/.test(text)) {
+    return "antidoto e conduta";
+  }
+
+  if (/\b(dose|mg\/kg|toxic dose|threshold|limiar)\b/.test(text)) {
+    return "dose toxica e limiar";
+  }
+
+  if (/\b(half[-\s]?life|meia[-\s]?vida|pharmacokinetic|farmacocinetica)\b/.test(text)) {
+    return "dados farmacocineticos";
+  }
+
+  return "notas clinicas e referencia";
+}
+
+async function fetchDrugCatalog(supabase) {
+  const { data, error } = await supabase
+    .from("drugs")
+    .select("slug,name,synonyms,notes,guideline_ref")
+    .order("name", { ascending: true });
+
+  if (error) {
+    throw new Error(`Falha ao carregar catalogo de drogas: ${error.message}`);
+  }
+
+  return Array.isArray(data) ? data : [];
+}
+
+function findMentionedDrugs(drugCatalog, itemText) {
+  const normalizedText = normalizeText(itemText);
+  const matches = [];
+
+  for (const drug of drugCatalog) {
+    const terms = [drug.name, ...(Array.isArray(drug.synonyms) ? drug.synonyms : [])]
+      .map((term) => compactWhitespace(term))
+      .filter((term) => term.length >= 4);
+
+    let found = false;
+    for (const term of terms) {
+      const regex = toWordRegex(normalizeText(term));
+      if (regex && regex.test(normalizedText)) {
+        found = true;
+        break;
+      }
+    }
+
+    if (found) {
+      matches.push(drug);
+    }
+
+    if (matches.length >= MAX_AUTO_UPDATES_PER_ARTICLE) {
+      break;
+    }
+  }
+
+  return matches;
+}
+
+async function applyAutoDrugUpdate(supabase, drug, article) {
+  const currentNotes = Array.isArray(drug.notes) ? drug.notes : [];
+
+  if (currentNotes.some((note) => String(note || "").includes(article.url))) {
+    return false;
+  }
+
+  const timestamp = new Date().toISOString().slice(0, 10);
+  const newNote = `${timestamp} - ${article.source}: ${article.title} (${article.url})`;
+  const nextNotes = [newNote, ...currentNotes].slice(0, MAX_NOTES_PER_DRUG);
+
+  const currentGuideline = compactWhitespace(drug.guideline_ref);
+  const sourceTag = `FOAMed:${article.source}`;
+  const nextGuidelineRef = currentGuideline
+    ? (currentGuideline.includes(sourceTag) ? currentGuideline : `${currentGuideline} | ${sourceTag}`)
+    : sourceTag;
+
+  const { error } = await supabase
+    .from("drugs")
+    .update({
+      notes: nextNotes,
+      guideline_ref: nextGuidelineRef
+    })
+    .eq("slug", drug.slug);
+
+  if (error) {
+    throw new Error(`Falha ao atualizar droga ${drug.slug}: ${error.message}`);
+  }
+
+  return true;
+}
+
+async function sendDrugUpdatedTelegramNotice(token, chatId, payload) {
+  const text = [
+    "<b>TOX Radar Update</b>",
+    "",
+    `substancia <b>${escapeHtml(payload.drugName)}</b> atualizada em <b>${escapeHtml(payload.updateScope)}</b>`,
+    `<b>Fonte:</b> ${escapeHtml(payload.source)}`,
+    `<b>Artigo:</b> ${escapeHtml(payload.title)}`,
+    `<b>Link:</b> <a href=\"${payload.url}\">Abrir artigo</a>`
+  ].join("\n");
+
+  const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      chat_id: chatId,
+      text,
+      parse_mode: "HTML",
+      disable_web_page_preview: true
+    })
+  });
+
+  if (!response.ok) {
+    const body = await response.text();
+    throw new Error(`Erro ao enviar update de substancia no Telegram: HTTP ${response.status} - ${body}`);
+  }
+}
+
 async function isUrlAlreadySent(supabase, url) {
   if (runtimeSentUrls.has(url)) {
     return true;
@@ -269,7 +421,7 @@ async function sendTelegramAlert(token, chatId, article) {
   }
 }
 
-async function processFeed(parser, supabase, telegramToken, chatId, feedUrl) {
+async function processFeed(parser, supabase, telegramToken, chatId, feedUrl, drugCatalog) {
   let feed;
   try {
     feed = await parseFeedWithRetry(parser, feedUrl);
@@ -283,6 +435,7 @@ async function processFeed(parser, supabase, telegramToken, chatId, feedUrl) {
 
   let matched = 0;
   let sent = 0;
+  let autoUpdated = 0;
 
   for (const item of items) {
     const url = item.link || item.guid;
@@ -303,6 +456,38 @@ async function processFeed(parser, supabase, telegramToken, chatId, feedUrl) {
 
     const title = item.title || "(Sem titulo)";
 
+    const article = {
+      title,
+      source,
+      url
+    };
+
+    const itemText = getItemText(item);
+    const updateScope = inferUpdateScope(itemText);
+    const mentionedDrugs = findMentionedDrugs(drugCatalog, itemText);
+
+    for (const drug of mentionedDrugs) {
+      try {
+        const updated = await applyAutoDrugUpdate(supabase, drug, article);
+        if (!updated) {
+          continue;
+        }
+
+        await sendDrugUpdatedTelegramNotice(telegramToken, chatId, {
+          drugName: drug.name,
+          updateScope,
+          source,
+          title,
+          url
+        });
+
+        autoUpdated += 1;
+        console.log(`[auto-update] ${drug.slug} atualizado em ${updateScope}`);
+      } catch (error) {
+        console.error(`[auto-update-error] ${drug.slug}: ${error.message}`);
+      }
+    }
+
     await sendTelegramAlert(telegramToken, chatId, {
       title,
       source,
@@ -315,7 +500,7 @@ async function processFeed(parser, supabase, telegramToken, chatId, feedUrl) {
     console.log(`[sent] ${source} :: ${title}`);
   }
 
-  return { scanned: items.length, matched, sent };
+  return { scanned: items.length, matched, sent, autoUpdated };
 }
 
 async function main() {
@@ -329,18 +514,20 @@ async function main() {
 
   const telegramToken = getRequiredEnv("TELEGRAM_BOT_TOKEN");
   const telegramChatId = getRequiredEnv("TELEGRAM_CHAT_ID");
+  const drugCatalog = await fetchDrugCatalog(supabase);
 
-  const totals = { scanned: 0, matched: 0, sent: 0 };
+  const totals = { scanned: 0, matched: 0, sent: 0, autoUpdated: 0 };
 
   for (const feedUrl of FEEDS) {
-    const stats = await processFeed(parser, supabase, telegramToken, telegramChatId, feedUrl);
+    const stats = await processFeed(parser, supabase, telegramToken, telegramChatId, feedUrl, drugCatalog);
     totals.scanned += stats.scanned;
     totals.matched += stats.matched;
     totals.sent += stats.sent;
+    totals.autoUpdated += stats.autoUpdated || 0;
   }
 
   console.log(
-    `Concluido: ${totals.scanned} itens analisados, ${totals.matched} candidatos em toxicologia, ${totals.sent} alertas novos enviados.`
+    `Concluido: ${totals.scanned} itens analisados, ${totals.matched} candidatos em toxicologia, ${totals.sent} alertas novos enviados, ${totals.autoUpdated} substancias atualizadas.`
   );
 }
 
