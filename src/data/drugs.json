@@ -2,30 +2,38 @@
   {
     "slug": "aas",
     "name": "AAS",
-    "category": "Anti-inflamatórios",
+    "category": "Salicilatos",
     "synonyms": [
       "AAS",
       "Acido acetilsalicilico",
-      "Aspirina"
+      "Aspirina",
+      "Salicilato",
+      "Salicilatos"
     ],
     "toxicDose": "> 100 mg/kg",
     "toxicDoseValue": 100,
     "toxicDoseUnit": "mg",
     "halfLife": "30 hs",
     "isDoseUnknown": false,
-    "alertMessage": null,
-    "clinicalPresentation": null,
+    "alertMessage": "Intubação em salicilismo grave pode piorar rapidamente a acidemia se a hiperventilação não for mantida.",
+    "clinicalPresentation": "Tinnitus, taquipneia, vômitos, hipertermia, alteração do sensório e distúrbio ácido-base misto (alcalose respiratória + acidose metabólica).",
     "treatment": [
-      "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Dosar salicilato seriado, gasometria, glicemia, eletrólitos e função renal; tratar pela clínica e tendência do nível sérico.",
+      "Iniciar alcalinização sérica/urinária com bicarbonato de sódio em intoxicação moderada a grave, mantendo potássio corrigido.",
+      "Indicar hemodiálise se edema pulmonar, insuficiência renal, acidemia importante, alteração neurológica, piora clínica ou níveis muito elevados."
     ],
-    "antidote": null,
+    "antidote": {
+      "name": "Bicarbonato de sódio",
+      "indication": "Salicilismo sintomático, acidemia, níveis elevados ou necessidade de alcalinização urinária.",
+      "dose": "Bolus inicial conforme protocolo local, seguido de infusão para manter pH sérico/urinário em faixa alvo e potássio adequado."
+    },
     "activatedCharcoal": "recommended",
     "lavage": "not-routine",
-    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
-    "guidelineRef": "AACT",
+    "supportiveCare": "Evitar acidemia, corrigir hipoglicemia mesmo com glicemia normal-baixa e considerar diálise precocemente nos casos graves.",
+    "guidelineRef": "AACT / EXTRIP / Goldfrank",
     "notes": [
-      "Meia-vida informada no legado: 30 hs."
+      "Carvão ativado pode ser útil mesmo após 1 h em apresentações maciças ou formulações entéricas.",
+      "Nível sérico isolado não exclui gravidade, especialmente em intoxicação crônica."
     ]
   },
   {
@@ -141,8 +149,7 @@
     "name": "Acido Nalidixico",
     "category": "Toxicologia clínica",
     "synonyms": [
-      "Acido Nalidixico",
-      "Ácido Nalidíxico"
+      "Acido Nalidixico"
     ],
     "toxicDose": "> 150 mg/kg",
     "toxicDoseValue": 150,
@@ -169,8 +176,7 @@
     "name": "Acido Tiaprofenico",
     "category": "Anti-inflamatórios",
     "synonyms": [
-      "Acido Tiaprofenico",
-      "Ácido Tiaprofênico"
+      "Acido Tiaprofenico"
     ],
     "toxicDose": "> 40 mg/kg",
     "toxicDoseValue": 40,
@@ -198,8 +204,10 @@
     "category": "Anticonvulsivantes",
     "synonyms": [
       "Acido Valproico",
-      "Ácido Valpróico",
-      "Depakene"
+      "Depakene",
+      "Valproato",
+      "Valproato de sódio",
+      "Anticonvulsivante"
     ],
     "toxicDose": "> 200 mg/kg",
     "toxicDoseValue": 200,
@@ -207,10 +215,11 @@
     "halfLife": "20 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": "Depressão do SNC, hiperamonemia, hepatotoxicidade.",
+    "clinicalPresentation": "Depressão do SNC, hiperamonemia, acidose metabólica, hepatotoxicidade e edema cerebral nos casos graves.",
     "treatment": [
       "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado se ingestão muito recente e via aérea protegida."
+      "Carvão ativado se ingestão recente e considerar doses múltiplas se formulação de liberação prolongada ou grande carga corporal.",
+      "Considerar terapia extracorpórea em coma, choque, acidose grave, edema cerebral ou concentrações muito elevadas."
     ],
     "antidote": {
       "name": "L-Carnitina",
@@ -219,10 +228,11 @@
     },
     "activatedCharcoal": "recommended",
     "lavage": "not-routine",
-    "supportiveCare": "Monitorização neurológica, amônia, função hepática e suporte intensivo quando necessário.",
-    "guidelineRef": "EMCrit (IBCC) / CoreEM",
+    "supportiveCare": "Monitorização neurológica, amônia, enzimas hepáticas, lactato e suporte intensivo quando necessário.",
+    "guidelineRef": "EMCrit (IBCC) / CoreEM / EXTRIP",
     "notes": [
-      "Toxicidade pode não ser linear com a dose ingerida."
+      "Toxicidade não é linear com a dose ingerida.",
+      "Formulações XR podem cursar com pico tardio e deterioração após observação inicial."
     ]
   },
   {
@@ -288,36 +298,47 @@
   {
     "slug": "amitriptilina",
     "name": "Amitriptilina",
-    "category": "Antidepressivos",
+    "category": "Antidepressivos tricíclicos",
     "synonyms": [
-      "Amitriptilina"
+      "Amitriptilina",
+      "Antidepressivo tricíclico",
+      "ATC",
+      "Tricíclico"
     ],
     "toxicDose": "> 3 mg/kg",
     "toxicDoseValue": 3,
     "toxicDoseUnit": "mg",
     "halfLife": "25 hs",
     "isDoseUnknown": false,
-    "alertMessage": null,
-    "clinicalPresentation": null,
+    "alertMessage": "QRS > 100 ms sugere maior risco de convulsão; QRS > 160 ms aumenta risco de arritmia ventricular.",
+    "clinicalPresentation": "Síndrome anticolinérgica, rebaixamento do sensório, convulsões, hipotensão e alargamento de QRS por bloqueio de canal de sódio.",
     "treatment": [
-      "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "ECG seriado, monitorização intensiva e proteção precoce de via aérea nos casos com rebaixamento importante.",
+      "Bicarbonato de sódio para QRS alargado, arritmia ventricular ou hipotensão; repetir conforme resposta clínica/ECG.",
+      "Benzodiazepínico para convulsões e vasopressor se choque persistente após ressuscitação inicial."
     ],
-    "antidote": null,
+    "antidote": {
+      "name": "Bicarbonato de sódio",
+      "indication": "QRS alargado, arritmia ventricular, hipotensão ou convulsão em intoxicação por tricíclico.",
+      "dose": "Bolus IV repetidos até estreitamento do QRS e melhora hemodinâmica, conforme protocolo institucional."
+    },
     "activatedCharcoal": "recommended",
     "lavage": "not-routine",
-    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
-    "guidelineRef": "AACT/EAPCCT",
+    "supportiveCare": "Observação em monitor, corrigindo acidemia, hipoxemia e hipotensão agressivamente.",
+    "guidelineRef": "AACT / EMCrit (TCA) / Goldfrank",
     "notes": [
-      "Meia-vida informada no legado: 25 hs."
+      "Evitar antiarrítmicos classe IA e IC."
     ]
   },
   {
     "slug": "amlodipina",
     "name": "Amlodipina",
-    "category": "Anti-hipertensivos",
+    "category": "Bloqueadores de canal de cálcio",
     "synonyms": [
-      "Amlodipina"
+      "Amlodipina",
+      "Bloqueador de canal de cálcio",
+      "BCC",
+      "Anlodipino"
     ],
     "toxicDose": "> 0.2 mg/kg",
     "toxicDoseValue": 0.2,
@@ -325,18 +346,23 @@
     "halfLife": "50 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": null,
+    "clinicalPresentation": "Hipotensão, choque vasodilatador, taquicardia ou bradicardia relativa, hiperglicemia e acidose lática em intoxicação grave.",
     "treatment": [
-      "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Suporte hemodinâmico agressivo com cristalóide, vasopressor e monitorização contínua.",
+      "Administrar cálcio EV como medida inicial e considerar insulina em altas doses com glicose se houver choque persistente.",
+      "Emulsão lipídica ou ECMO podem ser discutidas em casos refratários."
     ],
-    "antidote": null,
+    "antidote": {
+      "name": "Insulina em altas doses com glicose",
+      "indication": "Choque ou hipoperfusão persistente por bloqueador de canal de cálcio apesar das medidas iniciais.",
+      "dose": "1 U/kg IV em bolus, seguido de 1 a 10 U/kg/h com dextrose e monitorização estreita de glicemia e potássio."
+    },
     "activatedCharcoal": "recommended",
     "lavage": "not-routine",
-    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
-    "guidelineRef": "AACT/EAPCCT",
+    "supportiveCare": "Monitorizar glicemia, potássio, lactato e perfusão continuamente.",
+    "guidelineRef": "AACT / EMCrit / Goldfrank",
     "notes": [
-      "Meia-vida informada no legado: 50 hs."
+      "A hiperglicemia sugere intoxicação significativa por bloqueador de canal de cálcio."
     ]
   },
   {
@@ -423,9 +449,11 @@
   {
     "slug": "atenolol",
     "name": "Atenolol",
-    "category": "Anti-hipertensivos",
+    "category": "Betabloqueadores",
     "synonyms": [
-      "Atenolol"
+      "Atenolol",
+      "Betabloqueador",
+      "Beta-bloqueador"
     ],
     "toxicDose": "> 5 mg/kg",
     "toxicDoseValue": 5,
@@ -433,16 +461,21 @@
     "halfLife": "7 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": null,
+    "clinicalPresentation": "Bradicardia, hipotensão, tontura e, nos casos graves, choque e hipoglicemia.",
     "treatment": [
-      "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Suporte hemodinâmico com monitorização contínua e atropina como medida inicial.",
+      "Glucagon para sintomas significativos e considerar insulina em altas doses com glicose nos casos refratários.",
+      "Vasopressores conforme resposta clínica e perfusão."
     ],
-    "antidote": null,
+    "antidote": {
+      "name": "Glucagon",
+      "indication": "Bradicardia e hipotensão sintomáticas por betabloqueador.",
+      "dose": "3 a 5 mg IV em bolus no adulto, titulando conforme resposta e protocolo local."
+    },
     "activatedCharcoal": "recommended",
     "lavage": "not-routine",
-    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
-    "guidelineRef": "AACT/EAPCCT",
+    "supportiveCare": "Monitorização de ECG, glicemia e sinais de choque, com observação prolongada se formulação de liberação modificada.",
+    "guidelineRef": "AACT / Goldfrank",
     "notes": [
       "Meia-vida informada no legado: 7 hs."
     ]
@@ -947,35 +980,45 @@
     "name": "Carbamazepina",
     "category": "Anticonvulsivantes",
     "synonyms": [
-      "Carbamazepina"
+      "Carbamazepina",
+      "Anticonvulsivante",
+      "Tegretol"
     ],
     "toxicDose": "> 20 mg/kg",
     "toxicDoseValue": 20,
     "toxicDoseUnit": "mg",
     "halfLife": "20 hs",
     "isDoseUnknown": false,
-    "alertMessage": null,
-    "clinicalPresentation": null,
+    "alertMessage": "QRS alargado, coma e convulsões são marcadores de gravidade em intoxicação por carbamazepina.",
+    "clinicalPresentation": "Nistagmo, ataxia, rebaixamento do nível de consciência, convulsões, hipotensão e alargamento de QRS por bloqueio de canal de sódio.",
     "treatment": [
-      "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Monitorizar ECG seriado e nível de consciência; considerar múltiplas doses de carvão ativado se apresentação grave e sem íleo.",
+      "Administrar bicarbonato de sódio se houver alargamento de QRS, instabilidade ventricular ou hipotensão com padrão de bloqueio de canal de sódio.",
+      "Discutir terapia extracorpórea em intoxicação grave refratária, coma profundo ou instabilidade hemodinâmica persistente."
     ],
-    "antidote": null,
+    "antidote": {
+      "name": "Bicarbonato de sódio",
+      "indication": "QRS alargado, arritmias ventriculares, choque ou bloqueio de canal de sódio clinicamente relevante.",
+      "dose": "Bolus IV repetidos conforme ECG e pH, seguindo protocolo institucional."
+    },
     "activatedCharcoal": "recommended",
     "lavage": "not-routine",
-    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
-    "guidelineRef": "AACT/EAPCCT",
+    "supportiveCare": "Observação prolongada, vigilância para recorrência e suporte intensivo se houver depressão do SNC ou instabilidade.",
+    "guidelineRef": "AACT / EXTRIP / Goldfrank",
     "notes": [
-      "Meia-vida informada no legado: 20 hs."
+      "Absorção pode ser tardia, principalmente em formulações XR."
     ]
   },
   {
     "slug": "carbonato-litio",
     "name": "Carbonato Litio",
-    "category": "Tóxicos diversos",
+    "category": "Estabilizadores do humor",
     "synonyms": [
       "Carbonato Litio",
-      "Lítio"
+      "Lítio",
+      "Carbonato de lítio",
+      "Carbolitium",
+      "Estabilizador do humor"
     ],
     "toxicDose": "> 50 mg/kg",
     "toxicDoseValue": 50,
@@ -983,19 +1026,19 @@
     "halfLife": "24 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": null,
+    "clinicalPresentation": "Tremor grosseiro, ataxia, confusão, delirium, convulsões, nefrotoxicidade e sintomas gastrointestinais, sobretudo na intoxicação aguda.",
     "treatment": [
-      "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: NÃO.",
-      "Lavagem gástrica apenas em cenários excepcionais de apresentação muito precoce."
+      "Suporte clínico e hidratação vigorosa com cristalóide, monitorando diurese e função renal.",
+      "Carvão ativado é ineficaz; considerar irrigação intestinal em ingestões maciças de formulação de liberação prolongada.",
+      "Considerar hemodiálise em toxicidade grave, sinais neurológicos relevantes, disfunção renal ou níveis séricos persistentes/elevados."
     ],
     "antidote": null,
     "activatedCharcoal": "contraindicated",
     "lavage": "consider",
-    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
-    "guidelineRef": "AACT/EAPCCT",
+    "supportiveCare": "Monitorar litemia seriada, função renal, eletrólitos e ECG; a evolução clínica pesa mais que um valor isolado.",
+    "guidelineRef": "EXTRIP / AACT",
     "notes": [
-      "Meia-vida informada no legado: 24 hs."
+      "Pacientes em uso crônico podem ser graves com níveis relativamente menores."
     ]
   },
   {
@@ -1411,9 +1454,12 @@
   {
     "slug": "citalopram",
     "name": "Citalopram",
-    "category": "Antidepressivos",
+    "category": "ISRS",
     "synonyms": [
-      "Citalopram"
+      "Citalopram",
+      "ISRS",
+      "Inibidor seletivo da recaptação de serotonina",
+      "Serotoninérgico"
     ],
     "toxicDose": "> 2 mg/kg",
     "toxicDoseValue": 2,
@@ -1421,18 +1467,23 @@
     "halfLife": "36 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": null,
+    "clinicalPresentation": "Náuseas, tremor, agitação, síndrome serotoninérgica; citalopram aumenta risco de convulsão e prolongamento de QT.",
     "treatment": [
-      "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Monitorizar ECG seriado, especialmente nas primeiras horas, devido ao risco de QT longo e torsades.",
+      "Benzodiazepínicos para agitação, tremor e convulsões; resfriamento externo se hipertermia.",
+      "Ciproheptadina se síndrome serotoninérgica moderada/grave após medidas de suporte."
     ],
-    "antidote": null,
+    "antidote": {
+      "name": "Ciproheptadina",
+      "indication": "Síndrome serotoninérgica moderada a grave, sobretudo se persistir após benzodiazepínicos e suporte.",
+      "dose": "12 mg VO/NG de ataque, seguido de 2 mg a cada 2 h até resposta; manutenção 8 mg a cada 6 h."
+    },
     "activatedCharcoal": "recommended",
     "lavage": "not-routine",
-    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
-    "guidelineRef": "AACT/EAPCCT",
+    "supportiveCare": "Monitorização de ECG, temperatura, rigidez e status mental.",
+    "guidelineRef": "AACT / Goldfrank / EMCrit",
     "notes": [
-      "Meia-vida informada no legado: 36 hs."
+      "Citalopram e escitalopram são os ISRS com maior preocupação cardíaca aguda."
     ]
   },
   {
@@ -1578,10 +1629,12 @@
   {
     "slug": "clonazepam",
     "name": "Clonazepam",
-    "category": "Anticonvulsivantes",
+    "category": "Benzodiazepínicos",
     "synonyms": [
       "Clonazepam",
-      "Rivotril"
+      "Rivotril",
+      "Benzodiazepínico",
+      "BZD"
     ],
     "toxicDose": "> 0.6 mg/kg",
     "toxicDoseValue": 0.6,
@@ -1589,23 +1642,23 @@
     "halfLife": "40 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": "Predomina depressão do SNC, com risco de convulsão na reversão: flumazenil é contraindicado em uso crônico de BZD, epilepsia, coingestão pró-convulsivante, coma de origem desconhecida ou intoxicação mista.",
+    "clinicalPresentation": "Sonolência, disartria, ataxia e, em coingestões, depressão respiratória e coma.",
     "treatment": [
-      "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h).",
-      "Flumazenil NUNCA deve ser uso empírico em coma de origem desconhecida ou suspeita de intoxicação mista."
+      "Suporte clínico e vigilância respiratória; intoxicação isolada costuma evoluir melhor que coingestões.",
+      "Carvão ativado apenas se ingestão muito precoce e via aérea protegida.",
+      "Flumazenil apenas em cenários muito selecionados, nunca de rotina em coma de causa incerta ou intoxicação mista."
     ],
     "antidote": {
-      "name": "Flumazenil (se necessário)",
-      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
-      "dose": null
+      "name": "Flumazenil",
+      "indication": "Iatrogenia por benzodiazepínico ou paciente sabidamente não dependente, sem risco convulsivante e com depressão clínica relevante.",
+      "dose": "0,2 mg IV em doses tituladas, seguindo protocolo local e com monitorização contínua."
     },
     "activatedCharcoal": "recommended",
     "lavage": "not-routine",
-    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
-    "guidelineRef": "AACT/EAPCCT",
+    "supportiveCare": "Monitorização respiratória e observação prolongada pela meia-vida longa.",
+    "guidelineRef": "AACT / Goldfrank",
     "notes": [
-      "Meia-vida informada no legado: 40 hs."
+      "Evitar flumazenil em uso crônico de BZD, epilepsia ou coingestão pró-convulsivante."
     ]
   },
   {
@@ -1834,8 +1887,7 @@
     "name": "Codeina",
     "category": "Opioides",
     "synonyms": [
-      "Codeina",
-      "Codeína"
+      "Codeina"
     ],
     "toxicDose": "> 2.5 mg/kg",
     "toxicDoseValue": 2.5,
@@ -2029,7 +2081,9 @@
     "category": "Benzodiazepínicos",
     "synonyms": [
       "Diazepam",
-      "Valium"
+      "Valium",
+      "Benzodiazepínico",
+      "BZD"
     ],
     "toxicDose": "> 0.7 mg/kg",
     "toxicDoseValue": 0.7,
@@ -2037,23 +2091,23 @@
     "halfLife": "48 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": "Predomina depressão do SNC, com risco de convulsão na reversão: flumazenil é contraindicado em uso crônico de BZD, epilepsia, coingestão pró-convulsivante, coma de origem desconhecida ou intoxicação mista.",
+    "clinicalPresentation": "Sonolência, ataxia, disartria e, nas exposições associadas, depressão respiratória e hipotensão.",
     "treatment": [
-      "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h).",
-      "Flumazenil NUNCA deve ser uso empírico em coma de origem desconhecida ou suspeita de intoxicação mista."
+      "Suporte clínico com atenção à via aérea e vigilância respiratória.",
+      "Carvão ativado apenas se ingestão recente e via aérea protegida.",
+      "Flumazenil apenas em casos muito selecionados, evitando uso empírico."
     ],
     "antidote": {
-      "name": "Flumazenil (se necessário)",
-      "indication": "Conforme quadro clínico, gravidade e protocolo toxicológico.",
-      "dose": null
+      "name": "Flumazenil",
+      "indication": "Situações selecionadas de reversão, sem contraindicações clássicas e com monitorização contínua.",
+      "dose": "0,2 mg IV titulados progressivamente conforme resposta clínica e protocolo local."
     },
     "activatedCharcoal": "recommended",
     "lavage": "not-routine",
-    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
-    "guidelineRef": "AACT/EAPCCT",
+    "supportiveCare": "Observar recorrência de sedação, sobretudo após reversão com flumazenil.",
+    "guidelineRef": "AACT / Goldfrank",
     "notes": [
-      "Meia-vida informada no legado: 48 hs."
+      "O metabólito ativo prolonga o risco de ressurgimento da sedação."
     ]
   },
   {
@@ -2204,9 +2258,11 @@
   {
     "slug": "diltiazem",
     "name": "Diltiazem",
-    "category": "Toxicologia clínica",
+    "category": "Bloqueadores de canal de cálcio",
     "synonyms": [
-      "Diltiazem"
+      "Diltiazem",
+      "Bloqueador de canal de cálcio",
+      "BCC"
     ],
     "toxicDose": "> 5 mg/kg",
     "toxicDoseValue": 5,
@@ -2214,16 +2270,21 @@
     "halfLife": "48 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": null,
+    "clinicalPresentation": "Bradicardia, bloqueio AV, hipotensão, choque e hiperglicemia nas intoxicações importantes.",
     "treatment": [
-      "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Suporte hemodinâmico e monitorização contínua em ambiente monitorizado.",
+      "Cálcio EV como medida inicial, seguido de insulina em altas doses com glicose se persistir instabilidade.",
+      "Vasopressores, pacing e terapias de resgate devem ser considerados conforme resposta."
     ],
-    "antidote": null,
+    "antidote": {
+      "name": "Insulina em altas doses com glicose",
+      "indication": "Choque, bradicardia ou hipoperfusão refratária por bloqueador de canal de cálcio.",
+      "dose": "1 U/kg IV em bolus, seguido de infusão titulada de 1 a 10 U/kg/h com suplementação de glicose."
+    },
     "activatedCharcoal": "recommended",
     "lavage": "not-routine",
-    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
-    "guidelineRef": "AACT/EAPCCT",
+    "supportiveCare": "Monitorização de ritmo, glicemia, potássio e perfusão; discutir marcapasso temporário se instabilidade elétrica importante.",
+    "guidelineRef": "AACT / EMCrit / Goldfrank",
     "notes": [
       "Meia-vida informada no legado: 48 hs."
     ]
@@ -2262,10 +2323,12 @@
   {
     "slug": "dipirona",
     "name": "Dipirona",
-    "category": "Toxicologia clínica",
+    "category": "AINEs",
     "synonyms": [
       "Dipirona",
-      "Novalgina"
+      "Novalgina",
+      "AINE",
+      "Metamizol"
     ],
     "toxicDose": "> 100 mg/kg",
     "toxicDoseValue": 100,
@@ -2273,18 +2336,19 @@
     "halfLife": "Update",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": null,
+    "clinicalPresentation": "Náuseas, vômitos, sonolência, hipotensão e, raramente, acidose metabólica, convulsões e disfunção renal em exposições maciças.",
     "treatment": [
-      "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Suporte clínico, hidratação e monitorização renal/hemodinâmica.",
+      "Carvão ativado se apresentação precoce e dose relevante.",
+      "Tratar complicações específicas como hipotensão, convulsões ou acidose."
     ],
     "antidote": null,
     "activatedCharcoal": "recommended",
     "lavage": "not-routine",
-    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
-    "guidelineRef": "Bula",
+    "supportiveCare": "Monitorizar função renal, estado mental e sinais de instabilidade circulatória.",
+    "guidelineRef": "Goldfrank / bula / toxicologia clínica",
     "notes": [
-      "Meia-vida informada no legado: Update."
+      "Não há antídoto específico na intoxicação aguda por dipirona."
     ]
   },
   {
@@ -2506,9 +2570,12 @@
   {
     "slug": "escitalopram",
     "name": "Escitalopram",
-    "category": "Antidepressivos",
+    "category": "ISRS",
     "synonyms": [
-      "Escitalopram"
+      "Escitalopram",
+      "ISRS",
+      "Inibidor seletivo da recaptação de serotonina",
+      "Serotoninérgico"
     ],
     "toxicDose": "> 1 mg/kg",
     "toxicDoseValue": 1,
@@ -2516,16 +2583,21 @@
     "halfLife": "33 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": null,
+    "clinicalPresentation": "Náuseas, tremor, agitação, síndrome serotoninérgica e risco de QT prolongado em ingestões importantes.",
     "treatment": [
-      "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "ECG seriado e monitorização para arritmia, sobretudo em dose elevada.",
+      "Benzodiazepínicos para agitação/convulsões e suporte térmico na hipertermia.",
+      "Ciproheptadina se quadro serotoninérgico moderado ou grave."
     ],
-    "antidote": null,
+    "antidote": {
+      "name": "Ciproheptadina",
+      "indication": "Síndrome serotoninérgica moderada a grave.",
+      "dose": "12 mg VO/NG de ataque, seguido de 2 mg a cada 2 h até melhora; manutenção 8 mg a cada 6 h."
+    },
     "activatedCharcoal": "recommended",
     "lavage": "not-routine",
-    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
-    "guidelineRef": "AACT/EAPCCT",
+    "supportiveCare": "Monitorização de ECG e suporte sintomático intensivo se houver alteração autonômica importante.",
+    "guidelineRef": "AACT / Goldfrank",
     "notes": [
       "Meia-vida informada no legado: 33 hs."
     ]
@@ -2815,8 +2887,7 @@
     "name": "Fenitoina",
     "category": "Anticonvulsivantes",
     "synonyms": [
-      "Fenitoina",
-      "Fenitoína"
+      "Fenitoina"
     ],
     "toxicDose": "> 20 mg/kg",
     "toxicDoseValue": 20,
@@ -2992,10 +3063,12 @@
   {
     "slug": "fluoxetina",
     "name": "Fluoxetina",
-    "category": "Antidepressivos",
+    "category": "ISRS",
     "synonyms": [
       "Fluoxetina",
-      "Prozac"
+      "Prozac",
+      "ISRS",
+      "Inibidor seletivo da recaptação de serotonina"
     ],
     "toxicDose": "> 3 mg/kg",
     "toxicDoseValue": 3,
@@ -3003,18 +3076,23 @@
     "halfLife": "16 dias",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": null,
+    "clinicalPresentation": "Náuseas, vômitos, tremor, agitação e síndrome serotoninérgica; geralmente menos cardiotóxica que citalopram/escitalopram.",
     "treatment": [
-      "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Suporte clínico e benzodiazepínicos para agitação, tremor ou convulsões.",
+      "Ciproheptadina se síndrome serotoninérgica moderada a grave.",
+      "Observar por tempo maior em intoxicações maciças devido à meia-vida longa."
     ],
-    "antidote": null,
+    "antidote": {
+      "name": "Ciproheptadina",
+      "indication": "Síndrome serotoninérgica moderada a grave.",
+      "dose": "12 mg VO/NG de ataque, depois 2 mg a cada 2 h até melhora clínica."
+    },
     "activatedCharcoal": "recommended",
     "lavage": "not-routine",
-    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
-    "guidelineRef": "AACT/EAPCCT",
+    "supportiveCare": "Acompanhar temperatura, rigidez, clônus e alterações autonômicas.",
+    "guidelineRef": "Goldfrank / EMCrit",
     "notes": [
-      "Meia-vida informada no legado: 16 dias."
+      "A meia-vida longa favorece persistência dos sintomas e interações serotoninérgicas tardias."
     ]
   },
   {
@@ -3457,10 +3535,12 @@
   {
     "slug": "ibuprofeno",
     "name": "Ibuprofeno",
-    "category": "Anti-inflamatórios",
+    "category": "AINEs",
     "synonyms": [
       "Ibuprofeno",
-      "Alivium"
+      "Alivium",
+      "AINE",
+      "Anti-inflamatório"
     ],
     "toxicDose": "> 100 mg/kg",
     "toxicDoseValue": 100,
@@ -3468,18 +3548,19 @@
     "halfLife": "2.5 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": null,
+    "clinicalPresentation": "Náuseas, vômitos, dor abdominal e sonolência; em overdose maciça pode haver acidose metabólica, convulsões e insuficiência renal.",
     "treatment": [
-      "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Suporte clínico e hidratação, com monitorização renal e ácido-base.",
+      "Carvão ativado se apresentação precoce e ingestão significativa.",
+      "Tratar convulsões, acidose e instabilidade hemodinâmica conforme protocolos usuais."
     ],
     "antidote": null,
     "activatedCharcoal": "recommended",
     "lavage": "not-routine",
-    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
-    "guidelineRef": "AACT/EAPCCT",
+    "supportiveCare": "Observar função renal, diurese e evolução neurológica em intoxicações grandes.",
+    "guidelineRef": "AACT / Goldfrank",
     "notes": [
-      "Meia-vida informada no legado: 2.5 hs."
+      "A maioria das exposições leves evolui bem; gravidade aumenta em ingestões maciças."
     ]
   },
   {
@@ -3869,8 +3950,7 @@
     "name": "Lidocaina",
     "category": "Toxicologia clínica",
     "synonyms": [
-      "Lidocaina",
-      "Lidocaína"
+      "Lidocaina"
     ],
     "toxicDose": "> 5 mg/kg",
     "toxicDoseValue": 5,
@@ -3925,8 +4005,8 @@
     "category": "Estabilizadores do humor",
     "synonyms": [
       "Litio",
-      "Lítio",
-      "Carbolitium"
+      "Carbolitium",
+      "Estabilizador do humor"
     ],
     "toxicDose": "> 50 mg/kg",
     "toxicDoseValue": 50,
@@ -3934,18 +4014,19 @@
     "halfLife": "24 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": null,
+    "clinicalPresentation": "Tremor grosseiro, ataxia, confusão, delirium, convulsões, nefrotoxicidade e sintomas gastrointestinais, sobretudo na intoxicação aguda.",
     "treatment": [
-      "Suporte clínico e hidratação vigorosa.",
-      "Considerar hemodiálise em toxicidade grave, neurológica ou com insuficiência renal."
+      "Suporte clínico e hidratação vigorosa com cristalóide, monitorando diurese e função renal.",
+      "Carvão ativado é ineficaz; considerar irrigação intestinal em ingestões maciças de formulação de liberação prolongada.",
+      "Considerar hemodiálise em toxicidade grave, sinais neurológicos relevantes, disfunção renal ou níveis séricos persistentes/elevados."
     ],
     "antidote": null,
     "activatedCharcoal": "contraindicated",
     "lavage": "not-routine",
-    "supportiveCare": "Monitorar litemia seriada, função renal e ECG.",
+    "supportiveCare": "Monitorar litemia seriada, função renal, eletrólitos e ECG; a evolução clínica pesa mais que um valor isolado.",
     "guidelineRef": "EXTRIP / AACT",
     "notes": [
-      "Meia-vida informada no legado: 24 hs."
+      "Pacientes em uso crônico podem ser graves com níveis relativamente menores."
     ]
   },
   {
@@ -4857,29 +4938,37 @@
   {
     "slug": "nortriptilina",
     "name": "Nortriptilina",
-    "category": "Antidepressivos",
+    "category": "Antidepressivos tricíclicos",
     "synonyms": [
       "Nortriptilina",
-      "Pamelor"
+      "Pamelor",
+      "Antidepressivo tricíclico",
+      "ATC",
+      "Tricíclico"
     ],
     "toxicDose": "> 2.5 mg/kg",
     "toxicDoseValue": 2.5,
     "toxicDoseUnit": "mg",
     "halfLife": "26 hs",
     "isDoseUnknown": false,
-    "alertMessage": null,
-    "clinicalPresentation": null,
+    "alertMessage": "Alterações de ECG e hipotensão definem gravidade em tricíclicos, mesmo antes de grandes alterações laboratoriais.",
+    "clinicalPresentation": "Síndrome anticolinérgica, sonolência, convulsões, hipotensão e cardiotoxicidade por bloqueio de canal de sódio.",
     "treatment": [
-      "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "ECG seriado e monitorização intensiva nas primeiras horas.",
+      "Bicarbonato de sódio para QRS alargado, arritmia ventricular ou instabilidade hemodinâmica.",
+      "Benzodiazepínico para convulsões e vasopressor se necessário após correção de acidemia e volume."
     ],
-    "antidote": null,
+    "antidote": {
+      "name": "Bicarbonato de sódio",
+      "indication": "QRS alargado, arritmia ventricular, choque ou convulsões em intoxicação por tricíclico.",
+      "dose": "Bolus IV repetidos guiados por ECG e resposta hemodinâmica."
+    },
     "activatedCharcoal": "recommended",
     "lavage": "not-routine",
-    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
-    "guidelineRef": "AACT/EAPCCT",
+    "supportiveCare": "Monitorização contínua até normalização do ECG e estabilização clínica.",
+    "guidelineRef": "AACT / Goldfrank",
     "notes": [
-      "Meia-vida informada no legado: 26 hs."
+      "Embora menos anticolinérgica que a amitriptilina, a cardiotoxicidade continua sendo a prioridade."
     ]
   },
   {
@@ -5000,7 +5089,9 @@
     "name": "Oxcarbazepina",
     "category": "Anticonvulsivantes",
     "synonyms": [
-      "Oxcarbazepina"
+      "Oxcarbazepina",
+      "Anticonvulsivante",
+      "Trileptal"
     ],
     "toxicDose": "> 40 mg/kg",
     "toxicDoseValue": 40,
@@ -5008,18 +5099,19 @@
     "halfLife": "9.5 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": null,
+    "clinicalPresentation": "Sonolência, tontura, vômitos, ataxia e, nos casos graves, convulsões, coma e hiponatremia.",
     "treatment": [
-      "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Suporte clínico, monitorização neurológica e ECG; dosar sódio sérico e repetir se houver deterioração clínica.",
+      "Carvão ativado se apresentação precoce e via aérea protegida.",
+      "Corrigir hiponatremia sintomática conforme gravidade e evitar correção excessivamente rápida."
     ],
     "antidote": null,
     "activatedCharcoal": "recommended",
     "lavage": "not-routine",
-    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
-    "guidelineRef": "AACT/EAPCCT",
+    "supportiveCare": "Observar evolução do estado mental e eletrólitos por risco de hiponatremia tardia.",
+    "guidelineRef": "Goldfrank / toxicologia clínica",
     "notes": [
-      "Meia-vida informada no legado: 9.5 hs."
+      "Em geral é menos cardiotóxica que a carbamazepina, mas pode cursar com hiponatremia relevante."
     ]
   },
   {
@@ -5144,9 +5236,11 @@
   {
     "slug": "paroxetina",
     "name": "Paroxetina",
-    "category": "Antidepressivos",
+    "category": "ISRS",
     "synonyms": [
-      "Paroxetina"
+      "Paroxetina",
+      "ISRS",
+      "Inibidor seletivo da recaptação de serotonina"
     ],
     "toxicDose": "> 3 mg/kg",
     "toxicDoseValue": 3,
@@ -5154,16 +5248,21 @@
     "halfLife": "21 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": null,
+    "clinicalPresentation": "Náuseas, sonolência, tremor, agitação e síndrome serotoninérgica em exposições mais relevantes.",
     "treatment": [
-      "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Suporte clínico e benzodiazepínicos para controle de agitação e tremor.",
+      "Ciproheptadina se síndrome serotoninérgica moderada a grave.",
+      "Monitorização clínica e ECG conforme gravidade e coingestões."
     ],
-    "antidote": null,
+    "antidote": {
+      "name": "Ciproheptadina",
+      "indication": "Síndrome serotoninérgica moderada a grave.",
+      "dose": "12 mg VO/NG de ataque, seguido de 2 mg a cada 2 h até resposta."
+    },
     "activatedCharcoal": "recommended",
     "lavage": "not-routine",
-    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
-    "guidelineRef": "AACT/EAPCCT",
+    "supportiveCare": "Reavaliar hipertermia, clônus e instabilidade autonômica de forma seriada.",
+    "guidelineRef": "Goldfrank / EMCrit",
     "notes": [
       "Meia-vida informada no legado: 21 hs."
     ]
@@ -5591,28 +5690,35 @@
   {
     "slug": "propranolol",
     "name": "Propranolol",
-    "category": "Anti-hipertensivos",
+    "category": "Betabloqueadores",
     "synonyms": [
-      "Propranolol"
+      "Propranolol",
+      "Betabloqueador",
+      "Beta-bloqueador"
     ],
     "toxicDose": "> 4.5 mg/kg",
     "toxicDoseValue": 4.5,
     "toxicDoseUnit": "mg",
     "halfLife": "6 hs",
     "isDoseUnknown": false,
-    "alertMessage": null,
-    "clinicalPresentation": null,
+    "alertMessage": "Propranolol tem maior risco de convulsão e alargamento de QRS do que outros betabloqueadores.",
+    "clinicalPresentation": "Bradicardia, hipotensão, choque, hipoglicemia, convulsões e cardiotoxicidade com QRS alargado em casos graves.",
     "treatment": [
-      "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Ressuscitação hemodinâmica, atropina inicial e monitorização contínua.",
+      "Glucagon para bradicardia/hipotensão sintomáticas; considerar insulina em altas doses com glicose se choque persistente.",
+      "Bicarbonato de sódio se houver QRS alargado; vasopressores e emulsão lipídica podem ser necessários em casos refratários."
     ],
-    "antidote": null,
+    "antidote": {
+      "name": "Glucagon",
+      "indication": "Bradicardia, hipotensão ou choque por betabloqueador sintomático.",
+      "dose": "3 a 5 mg IV em bolus no adulto, podendo repetir/escalar até resposta; considerar infusão contínua após resposta inicial."
+    },
     "activatedCharcoal": "recommended",
     "lavage": "not-routine",
-    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
-    "guidelineRef": "AACT/EAPCCT",
+    "supportiveCare": "Monitorização de glicemia, ECG e perfusão periférica; discutir terapia extracorpórea/ECMO em choque refratário.",
+    "guidelineRef": "AACT / EMCrit / Goldfrank",
     "notes": [
-      "Meia-vida informada no legado: 6 hs."
+      "Insulina em altas doses é frequentemente mais eficaz que glucagon na falência circulatória refratária."
     ]
   },
   {
@@ -5863,9 +5969,11 @@
   {
     "slug": "sertralina",
     "name": "Sertralina",
-    "category": "Antidepressivos",
+    "category": "ISRS",
     "synonyms": [
-      "Sertralina"
+      "Sertralina",
+      "ISRS",
+      "Inibidor seletivo da recaptação de serotonina"
     ],
     "toxicDose": "> 7 mg/kg",
     "toxicDoseValue": 7,
@@ -5873,16 +5981,21 @@
     "halfLife": "26 hs",
     "isDoseUnknown": false,
     "alertMessage": null,
-    "clinicalPresentation": null,
+    "clinicalPresentation": "Sintomas gastrointestinais, tremor, agitação e síndrome serotoninérgica; raramente cursa com cardiotoxicidade isolada significativa.",
     "treatment": [
-      "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado: Sim (< 1h)."
+      "Suporte clínico e benzodiazepínicos conforme necessidade.",
+      "Ciproheptadina se síndrome serotoninérgica moderada a grave.",
+      "ECG e monitorização contínua se coingestão, convulsão ou alteração autonômica."
     ],
-    "antidote": null,
+    "antidote": {
+      "name": "Ciproheptadina",
+      "indication": "Síndrome serotoninérgica moderada a grave.",
+      "dose": "12 mg VO/NG de ataque, depois 2 mg a cada 2 h até melhora."
+    },
     "activatedCharcoal": "recommended",
     "lavage": "not-routine",
-    "supportiveCare": "Suporte clínico (ABCDE) e monitorização.",
-    "guidelineRef": "AACT/EAPCCT",
+    "supportiveCare": "Monitorização sintomática até resolução de tremor, clônus e hiperatividade autonômica.",
+    "guidelineRef": "Goldfrank / EMCrit",
     "notes": [
       "Meia-vida informada no legado: 26 hs."
     ]

@@ -1,0 +1,8 @@
+[Unit]
+Description=Rotate ToxiFlow admin credentials
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash /home/ubuntu/toxiflow/scripts/rotate-admin-credentials.sh

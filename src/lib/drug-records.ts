@@ -51,21 +51,21 @@ export function mapRowToDrug(row: SupabaseDrugRow): Drug {
     slug: row.slug,
     name: row.name,
     category: row.category,
-    synonyms: row.synonyms ?? [],
-    toxicDose: row.toxic_dose_text,
+    synonyms: normalizeList(row.synonyms),
+    toxicDose: cleanString(row.toxic_dose_text),
     toxicDoseValue: row.toxic_dose_value,
-    toxicDoseUnit: row.toxic_dose_unit,
-    halfLife: row.half_life,
+    toxicDoseUnit: cleanString(row.toxic_dose_unit),
+    halfLife: cleanString(row.half_life),
     isDoseUnknown: Boolean(row.is_dose_unknown),
-    alertMessage: row.alert_message,
-    clinicalPresentation: row.clinical_presentation,
-    treatment: row.treatment ?? [],
-    antidote: row.antidote,
+    alertMessage: cleanString(row.alert_message),
+    clinicalPresentation: cleanString(row.clinical_presentation),
+    treatment: normalizeList(row.treatment),
+    antidote: normalizeAntidote(row.antidote),
     activatedCharcoal: row.activated_charcoal,
     lavage: row.lavage,
-    supportiveCare: row.supportive_care,
-    guidelineRef: row.guideline_ref,
-    notes: row.notes ?? []
+    supportiveCare: cleanString(row.supportive_care),
+    guidelineRef: cleanString(row.guideline_ref),
+    notes: normalizeList(row.notes)
   };
 }
 

@@ -90,10 +90,11 @@ export function getLavageCopy(recommendation: LavageRecommendation): string {
 
 export function isMatch(drug: Drug, query: string): boolean {
   const term = normalizeText(query);
+  const synonyms = Array.isArray(drug.synonyms) ? drug.synonyms : [];
 
   if (!term) {
     return true;
   }
 
-  return [drug.name, ...drug.synonyms].some((entry) => normalizeText(entry).includes(term));
+  return [drug.name, ...synonyms].some((entry) => normalizeText(entry).includes(term));
 }

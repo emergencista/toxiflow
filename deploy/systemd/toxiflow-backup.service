@@ -1,0 +1,16 @@
+[Unit]
+Description=ToxiFlow backup export
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=ubuntu
+WorkingDirectory=/home/ubuntu/toxiflow
+EnvironmentFile=/home/ubuntu/toxiflow/.env.local
+Environment=TOXIFLOW_BACKUP_DIR=/var/backups/toxiflow
+Environment=TOXIFLOW_BACKUP_RETENTION_DAYS=14
+ExecStart=/usr/bin/node /home/ubuntu/toxiflow/scripts/backup-drugs.cjs
+
+[Install]
+WantedBy=multi-user.target

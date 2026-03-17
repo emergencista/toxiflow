@@ -20,22 +20,104 @@ const CATEGORY_RULES = [
   ["Tóxicos diversos", /ferro|litio|nafazolina|oximetazolina|xilometazolina|paracetamol|digoxina/i]
 ];
 
+function mergeSynonyms(drug, override) {
+  const values = [...(drug.syn ?? []), ...(override.synonyms ?? [])].filter((entry) => typeof entry === "string");
+  const deduped = [];
+  const seen = new Set();
+
+  for (const entry of values) {
+    const trimmed = entry.trim();
+    if (!trimmed) {
+      continue;
+    }
+
+    const key = normalizeAccents(trimmed.toLowerCase());
+    if (seen.has(key)) {
+      continue;
+    }
+
+    seen.add(key);
+    deduped.push(trimmed);
+  }
+
+  return deduped.length ? deduped : [drug.n];
+}
+
 const MANUAL_OVERRIDES = {
+  aas: {
+    category: "Salicilatos",
+    synonyms: ["Salicilato", "Salicilatos", "Aspirina"],
+    alertMessage: "Intubação em salicilismo grave pode piorar rapidamente a acidemia se a hiperventilação não for mantida.",
+    clinicalPresentation: "Tinnitus, taquipneia, vômitos, hipertermia, alteração do sensório e distúrbio ácido-base misto (alcalose respiratória + acidose metabólica).",
+    treatment: [
+      "Dosar salicilato seriado, gasometria, glicemia, eletrólitos e função renal; tratar pela clínica e tendência do nível sérico.",
+      "Iniciar alcalinização sérica/urinária com bicarbonato de sódio em intoxicação moderada a grave, mantendo potássio corrigido.",
+      "Indicar hemodiálise se edema pulmonar, insuficiência renal, acidemia importante, alteração neurológica, piora clínica ou níveis muito elevados."
+    ],
+    antidote: {
+      name: "Bicarbonato de sódio",
+      indication: "Salicilismo sintomático, acidemia, níveis elevados ou necessidade de alcalinização urinária.",
+      dose: "Bolus inicial conforme protocolo local, seguido de infusão para manter pH sérico/urinário em faixa alvo e potássio adequado."
+    },
+    supportiveCare: "Evitar acidemia, corrigir hipoglicemia mesmo com glicemia normal-baixa e considerar diálise precocemente nos casos graves.",
+    guidelineRef: "AACT / EXTRIP / Goldfrank",
+    notes: [
+      "Carvão ativado pode ser útil mesmo após 1 h em apresentações maciças ou formulações entéricas.",
+      "Nível sérico isolado não exclui gravidade, especialmente em intoxicação crônica."
+    ]
+  },
   "acido-valproico": {
     category: "Anticonvulsivantes",
-    clinicalPresentation: "Depressão do SNC, hiperamonemia, hepatotoxicidade.",
+    synonyms: ["Valproato", "Valproato de sódio", "Depakene", "Anticonvulsivante"],
+    clinicalPresentation: "Depressão do SNC, hiperamonemia, acidose metabólica, hepatotoxicidade e edema cerebral nos casos graves.",
     treatment: [
       "Suporte clínico e proteção de via aérea.",
-      "Carvão ativado se ingestão muito recente e via aérea protegida."
+      "Carvão ativado se ingestão recente e considerar doses múltiplas se formulação de liberação prolongada ou grande carga corporal.",
+      "Considerar terapia extracorpórea em coma, choque, acidose grave, edema cerebral ou concentrações muito elevadas."
     ],
     antidote: {
       name: "L-Carnitina",
       indication: "Hiperamonemia sintomática, encefalopatia ou hepatotoxicidade.",
       dose: "100 mg/kg IV em bolus (máx 6 g), seguido de 50 mg/kg IV a cada 8 h (máx 3 g)."
     },
-    supportiveCare: "Monitorização neurológica, amônia, função hepática e suporte intensivo quando necessário.",
-    guidelineRef: "EMCrit (IBCC) / CoreEM",
-    notes: ["Toxicidade pode não ser linear com a dose ingerida."]
+    supportiveCare: "Monitorização neurológica, amônia, enzimas hepáticas, lactato e suporte intensivo quando necessário.",
+    guidelineRef: "EMCrit (IBCC) / CoreEM / EXTRIP",
+    notes: [
+      "Toxicidade não é linear com a dose ingerida.",
+      "Formulações XR podem cursar com pico tardio e deterioração após observação inicial."
+    ]
+  },
+  carbamazepina: {
+    category: "Anticonvulsivantes",
+    synonyms: ["Anticonvulsivante", "Tegretol"],
+    alertMessage: "QRS alargado, coma e convulsões são marcadores de gravidade em intoxicação por carbamazepina.",
+    clinicalPresentation: "Nistagmo, ataxia, rebaixamento do nível de consciência, convulsões, hipotensão e alargamento de QRS por bloqueio de canal de sódio.",
+    treatment: [
+      "Monitorizar ECG seriado e nível de consciência; considerar múltiplas doses de carvão ativado se apresentação grave e sem íleo.",
+      "Administrar bicarbonato de sódio se houver alargamento de QRS, instabilidade ventricular ou hipotensão com padrão de bloqueio de canal de sódio.",
+      "Discutir terapia extracorpórea em intoxicação grave refratária, coma profundo ou instabilidade hemodinâmica persistente."
+    ],
+    antidote: {
+      name: "Bicarbonato de sódio",
+      indication: "QRS alargado, arritmias ventriculares, choque ou bloqueio de canal de sódio clinicamente relevante.",
+      dose: "Bolus IV repetidos conforme ECG e pH, seguindo protocolo institucional."
+    },
+    supportiveCare: "Observação prolongada, vigilância para recorrência e suporte intensivo se houver depressão do SNC ou instabilidade.",
+    guidelineRef: "AACT / EXTRIP / Goldfrank",
+    notes: ["Absorção pode ser tardia, principalmente em formulações XR."]
+  },
+  oxcarbazepina: {
+    category: "Anticonvulsivantes",
+    synonyms: ["Anticonvulsivante", "Trileptal"],
+    clinicalPresentation: "Sonolência, tontura, vômitos, ataxia e, nos casos graves, convulsões, coma e hiponatremia.",
+    treatment: [
+      "Suporte clínico, monitorização neurológica e ECG; dosar sódio sérico e repetir se houver deterioração clínica.",
+      "Carvão ativado se apresentação precoce e via aérea protegida.",
+      "Corrigir hiponatremia sintomática conforme gravidade e evitar correção excessivamente rápida."
+    ],
+    supportiveCare: "Observar evolução do estado mental e eletrólitos por risco de hiponatremia tardia.",
+    guidelineRef: "Goldfrank / toxicologia clínica",
+    notes: ["Em geral é menos cardiotóxica que a carbamazepina, mas pode cursar com hiponatremia relevante."]
   },
   paracetamol: {
     category: "Analgésicos",
@@ -54,13 +136,31 @@ const MANUAL_OVERRIDES = {
   },
   litio: {
     category: "Estabilizadores do humor",
+    synonyms: ["Lítio", "Carbolitium", "Estabilizador do humor"],
+    clinicalPresentation: "Tremor grosseiro, ataxia, confusão, delirium, convulsões, nefrotoxicidade e sintomas gastrointestinais, sobretudo na intoxicação aguda.",
     treatment: [
-      "Suporte clínico e hidratação vigorosa.",
-      "Considerar hemodiálise em toxicidade grave, neurológica ou com insuficiência renal."
+      "Suporte clínico e hidratação vigorosa com cristalóide, monitorando diurese e função renal.",
+      "Carvão ativado é ineficaz; considerar irrigação intestinal em ingestões maciças de formulação de liberação prolongada.",
+      "Considerar hemodiálise em toxicidade grave, sinais neurológicos relevantes, disfunção renal ou níveis séricos persistentes/elevados."
     ],
     activatedCharcoal: "contraindicated",
-    supportiveCare: "Monitorar litemia seriada, função renal e ECG.",
-    guidelineRef: "EXTRIP / AACT"
+    supportiveCare: "Monitorar litemia seriada, função renal, eletrólitos e ECG; a evolução clínica pesa mais que um valor isolado.",
+    guidelineRef: "EXTRIP / AACT",
+    notes: ["Pacientes em uso crônico podem ser graves com níveis relativamente menores."]
+  },
+  "carbonato-litio": {
+    category: "Estabilizadores do humor",
+    synonyms: ["Lítio", "Carbonato de lítio", "Carbolitium", "Estabilizador do humor"],
+    clinicalPresentation: "Tremor grosseiro, ataxia, confusão, delirium, convulsões, nefrotoxicidade e sintomas gastrointestinais, sobretudo na intoxicação aguda.",
+    treatment: [
+      "Suporte clínico e hidratação vigorosa com cristalóide, monitorando diurese e função renal.",
+      "Carvão ativado é ineficaz; considerar irrigação intestinal em ingestões maciças de formulação de liberação prolongada.",
+      "Considerar hemodiálise em toxicidade grave, sinais neurológicos relevantes, disfunção renal ou níveis séricos persistentes/elevados."
+    ],
+    activatedCharcoal: "contraindicated",
+    supportiveCare: "Monitorar litemia seriada, função renal, eletrólitos e ECG; a evolução clínica pesa mais que um valor isolado.",
+    guidelineRef: "EXTRIP / AACT",
+    notes: ["Pacientes em uso crônico podem ser graves com níveis relativamente menores."]
   },
   ferro: {
     category: "Minerais",
@@ -112,6 +212,264 @@ const MANUAL_OVERRIDES = {
     },
     supportiveCare: "Observação prolongada e monitorização glicêmica frequente devido ao risco de recorrência.",
     guidelineRef: "AACT / toxicologia clínica"
+  },
+  amitriptilina: {
+    category: "Antidepressivos tricíclicos",
+    synonyms: ["Antidepressivo tricíclico", "ATC", "Tricíclico"],
+    alertMessage: "QRS > 100 ms sugere maior risco de convulsão; QRS > 160 ms aumenta risco de arritmia ventricular.",
+    clinicalPresentation: "Síndrome anticolinérgica, rebaixamento do sensório, convulsões, hipotensão e alargamento de QRS por bloqueio de canal de sódio.",
+    treatment: [
+      "ECG seriado, monitorização intensiva e proteção precoce de via aérea nos casos com rebaixamento importante.",
+      "Bicarbonato de sódio para QRS alargado, arritmia ventricular ou hipotensão; repetir conforme resposta clínica/ECG.",
+      "Benzodiazepínico para convulsões e vasopressor se choque persistente após ressuscitação inicial."
+    ],
+    antidote: {
+      name: "Bicarbonato de sódio",
+      indication: "QRS alargado, arritmia ventricular, hipotensão ou convulsão em intoxicação por tricíclico.",
+      dose: "Bolus IV repetidos até estreitamento do QRS e melhora hemodinâmica, conforme protocolo institucional."
+    },
+    supportiveCare: "Observação em monitor, corrigindo acidemia, hipoxemia e hipotensão agressivamente.",
+    guidelineRef: "AACT / EMCrit (TCA) / Goldfrank",
+    notes: ["Evitar antiarrítmicos classe IA e IC."]
+  },
+  nortriptilina: {
+    category: "Antidepressivos tricíclicos",
+    synonyms: ["Antidepressivo tricíclico", "ATC", "Tricíclico", "Pamelor"],
+    alertMessage: "Alterações de ECG e hipotensão definem gravidade em tricíclicos, mesmo antes de grandes alterações laboratoriais.",
+    clinicalPresentation: "Síndrome anticolinérgica, sonolência, convulsões, hipotensão e cardiotoxicidade por bloqueio de canal de sódio.",
+    treatment: [
+      "ECG seriado e monitorização intensiva nas primeiras horas.",
+      "Bicarbonato de sódio para QRS alargado, arritmia ventricular ou instabilidade hemodinâmica.",
+      "Benzodiazepínico para convulsões e vasopressor se necessário após correção de acidemia e volume."
+    ],
+    antidote: {
+      name: "Bicarbonato de sódio",
+      indication: "QRS alargado, arritmia ventricular, choque ou convulsões em intoxicação por tricíclico.",
+      dose: "Bolus IV repetidos guiados por ECG e resposta hemodinâmica."
+    },
+    supportiveCare: "Monitorização contínua até normalização do ECG e estabilização clínica.",
+    guidelineRef: "AACT / Goldfrank",
+    notes: ["Embora menos anticolinérgica que a amitriptilina, a cardiotoxicidade continua sendo a prioridade." ]
+  },
+  clonazepam: {
+    category: "Benzodiazepínicos",
+    synonyms: ["Benzodiazepínico", "BZD", "Rivotril"],
+    clinicalPresentation: "Sonolência, disartria, ataxia e, em coingestões, depressão respiratória e coma.",
+    treatment: [
+      "Suporte clínico e vigilância respiratória; intoxicação isolada costuma evoluir melhor que coingestões.",
+      "Carvão ativado apenas se ingestão muito precoce e via aérea protegida.",
+      "Flumazenil apenas em cenários muito selecionados, nunca de rotina em coma de causa incerta ou intoxicação mista."
+    ],
+    antidote: {
+      name: "Flumazenil",
+      indication: "Iatrogenia por benzodiazepínico ou paciente sabidamente não dependente, sem risco convulsivante e com depressão clínica relevante.",
+      dose: "0,2 mg IV em doses tituladas, seguindo protocolo local e com monitorização contínua."
+    },
+    supportiveCare: "Monitorização respiratória e observação prolongada pela meia-vida longa.",
+    guidelineRef: "AACT / Goldfrank",
+    notes: ["Evitar flumazenil em uso crônico de BZD, epilepsia ou coingestão pró-convulsivante."]
+  },
+  diazepam: {
+    category: "Benzodiazepínicos",
+    synonyms: ["Benzodiazepínico", "BZD", "Valium"],
+    clinicalPresentation: "Sonolência, ataxia, disartria e, nas exposições associadas, depressão respiratória e hipotensão.",
+    treatment: [
+      "Suporte clínico com atenção à via aérea e vigilância respiratória.",
+      "Carvão ativado apenas se ingestão recente e via aérea protegida.",
+      "Flumazenil apenas em casos muito selecionados, evitando uso empírico."
+    ],
+    antidote: {
+      name: "Flumazenil",
+      indication: "Situações selecionadas de reversão, sem contraindicações clássicas e com monitorização contínua.",
+      dose: "0,2 mg IV titulados progressivamente conforme resposta clínica e protocolo local."
+    },
+    supportiveCare: "Observar recorrência de sedação, sobretudo após reversão com flumazenil.",
+    guidelineRef: "AACT / Goldfrank",
+    notes: ["O metabólito ativo prolonga o risco de ressurgimento da sedação."]
+  },
+  citalopram: {
+    category: "ISRS",
+    synonyms: ["ISRS", "Inibidor seletivo da recaptação de serotonina", "Serotoninérgico"],
+    clinicalPresentation: "Náuseas, tremor, agitação, síndrome serotoninérgica; citalopram aumenta risco de convulsão e prolongamento de QT.",
+    treatment: [
+      "Monitorizar ECG seriado, especialmente nas primeiras horas, devido ao risco de QT longo e torsades.",
+      "Benzodiazepínicos para agitação, tremor e convulsões; resfriamento externo se hipertermia.",
+      "Ciproheptadina se síndrome serotoninérgica moderada/grave após medidas de suporte."
+    ],
+    antidote: {
+      name: "Ciproheptadina",
+      indication: "Síndrome serotoninérgica moderada a grave, sobretudo se persistir após benzodiazepínicos e suporte.",
+      dose: "12 mg VO/NG de ataque, seguido de 2 mg a cada 2 h até resposta; manutenção 8 mg a cada 6 h."
+    },
+    supportiveCare: "Monitorização de ECG, temperatura, rigidez e status mental.",
+    guidelineRef: "AACT / Goldfrank / EMCrit",
+    notes: ["Citalopram e escitalopram são os ISRS com maior preocupação cardíaca aguda."]
+  },
+  escitalopram: {
+    category: "ISRS",
+    synonyms: ["ISRS", "Inibidor seletivo da recaptação de serotonina", "Serotoninérgico"],
+    clinicalPresentation: "Náuseas, tremor, agitação, síndrome serotoninérgica e risco de QT prolongado em ingestões importantes.",
+    treatment: [
+      "ECG seriado e monitorização para arritmia, sobretudo em dose elevada.",
+      "Benzodiazepínicos para agitação/convulsões e suporte térmico na hipertermia.",
+      "Ciproheptadina se quadro serotoninérgico moderado ou grave."
+    ],
+    antidote: {
+      name: "Ciproheptadina",
+      indication: "Síndrome serotoninérgica moderada a grave.",
+      dose: "12 mg VO/NG de ataque, seguido de 2 mg a cada 2 h até melhora; manutenção 8 mg a cada 6 h."
+    },
+    supportiveCare: "Monitorização de ECG e suporte sintomático intensivo se houver alteração autonômica importante.",
+    guidelineRef: "AACT / Goldfrank"
+  },
+  fluoxetina: {
+    category: "ISRS",
+    synonyms: ["ISRS", "Inibidor seletivo da recaptação de serotonina", "Prozac"],
+    clinicalPresentation: "Náuseas, vômitos, tremor, agitação e síndrome serotoninérgica; geralmente menos cardiotóxica que citalopram/escitalopram.",
+    treatment: [
+      "Suporte clínico e benzodiazepínicos para agitação, tremor ou convulsões.",
+      "Ciproheptadina se síndrome serotoninérgica moderada a grave.",
+      "Observar por tempo maior em intoxicações maciças devido à meia-vida longa."
+    ],
+    antidote: {
+      name: "Ciproheptadina",
+      indication: "Síndrome serotoninérgica moderada a grave.",
+      dose: "12 mg VO/NG de ataque, depois 2 mg a cada 2 h até melhora clínica."
+    },
+    supportiveCare: "Acompanhar temperatura, rigidez, clônus e alterações autonômicas.",
+    guidelineRef: "Goldfrank / EMCrit",
+    notes: ["A meia-vida longa favorece persistência dos sintomas e interações serotoninérgicas tardias."]
+  },
+  paroxetina: {
+    category: "ISRS",
+    synonyms: ["ISRS", "Inibidor seletivo da recaptação de serotonina"],
+    clinicalPresentation: "Náuseas, sonolência, tremor, agitação e síndrome serotoninérgica em exposições mais relevantes.",
+    treatment: [
+      "Suporte clínico e benzodiazepínicos para controle de agitação e tremor.",
+      "Ciproheptadina se síndrome serotoninérgica moderada a grave.",
+      "Monitorização clínica e ECG conforme gravidade e coingestões."
+    ],
+    antidote: {
+      name: "Ciproheptadina",
+      indication: "Síndrome serotoninérgica moderada a grave.",
+      dose: "12 mg VO/NG de ataque, seguido de 2 mg a cada 2 h até resposta."
+    },
+    supportiveCare: "Reavaliar hipertermia, clônus e instabilidade autonômica de forma seriada.",
+    guidelineRef: "Goldfrank / EMCrit"
+  },
+  sertralina: {
+    category: "ISRS",
+    synonyms: ["ISRS", "Inibidor seletivo da recaptação de serotonina"],
+    clinicalPresentation: "Sintomas gastrointestinais, tremor, agitação e síndrome serotoninérgica; raramente cursa com cardiotoxicidade isolada significativa.",
+    treatment: [
+      "Suporte clínico e benzodiazepínicos conforme necessidade.",
+      "Ciproheptadina se síndrome serotoninérgica moderada a grave.",
+      "ECG e monitorização contínua se coingestão, convulsão ou alteração autonômica."
+    ],
+    antidote: {
+      name: "Ciproheptadina",
+      indication: "Síndrome serotoninérgica moderada a grave.",
+      dose: "12 mg VO/NG de ataque, depois 2 mg a cada 2 h até melhora."
+    },
+    supportiveCare: "Monitorização sintomática até resolução de tremor, clônus e hiperatividade autonômica.",
+    guidelineRef: "Goldfrank / EMCrit"
+  },
+  propranolol: {
+    category: "Betabloqueadores",
+    synonyms: ["Betabloqueador", "Beta-bloqueador"],
+    alertMessage: "Propranolol tem maior risco de convulsão e alargamento de QRS do que outros betabloqueadores.",
+    clinicalPresentation: "Bradicardia, hipotensão, choque, hipoglicemia, convulsões e cardiotoxicidade com QRS alargado em casos graves.",
+    treatment: [
+      "Ressuscitação hemodinâmica, atropina inicial e monitorização contínua.",
+      "Glucagon para bradicardia/hipotensão sintomáticas; considerar insulina em altas doses com glicose se choque persistente.",
+      "Bicarbonato de sódio se houver QRS alargado; vasopressores e emulsão lipídica podem ser necessários em casos refratários."
+    ],
+    antidote: {
+      name: "Glucagon",
+      indication: "Bradicardia, hipotensão ou choque por betabloqueador sintomático.",
+      dose: "3 a 5 mg IV em bolus no adulto, podendo repetir/escalar até resposta; considerar infusão contínua após resposta inicial."
+    },
+    supportiveCare: "Monitorização de glicemia, ECG e perfusão periférica; discutir terapia extracorpórea/ECMO em choque refratário.",
+    guidelineRef: "AACT / EMCrit / Goldfrank",
+    notes: ["Insulina em altas doses é frequentemente mais eficaz que glucagon na falência circulatória refratária."]
+  },
+  atenolol: {
+    category: "Betabloqueadores",
+    synonyms: ["Betabloqueador", "Beta-bloqueador"],
+    clinicalPresentation: "Bradicardia, hipotensão, tontura e, nos casos graves, choque e hipoglicemia.",
+    treatment: [
+      "Suporte hemodinâmico com monitorização contínua e atropina como medida inicial.",
+      "Glucagon para sintomas significativos e considerar insulina em altas doses com glicose nos casos refratários.",
+      "Vasopressores conforme resposta clínica e perfusão."
+    ],
+    antidote: {
+      name: "Glucagon",
+      indication: "Bradicardia e hipotensão sintomáticas por betabloqueador.",
+      dose: "3 a 5 mg IV em bolus no adulto, titulando conforme resposta e protocolo local."
+    },
+    supportiveCare: "Monitorização de ECG, glicemia e sinais de choque, com observação prolongada se formulação de liberação modificada.",
+    guidelineRef: "AACT / Goldfrank"
+  },
+  amlodipina: {
+    category: "Bloqueadores de canal de cálcio",
+    synonyms: ["Bloqueador de canal de cálcio", "BCC", "Anlodipino"],
+    clinicalPresentation: "Hipotensão, choque vasodilatador, taquicardia ou bradicardia relativa, hiperglicemia e acidose lática em intoxicação grave.",
+    treatment: [
+      "Suporte hemodinâmico agressivo com cristalóide, vasopressor e monitorização contínua.",
+      "Administrar cálcio EV como medida inicial e considerar insulina em altas doses com glicose se houver choque persistente.",
+      "Emulsão lipídica ou ECMO podem ser discutidas em casos refratários."
+    ],
+    antidote: {
+      name: "Insulina em altas doses com glicose",
+      indication: "Choque ou hipoperfusão persistente por bloqueador de canal de cálcio apesar das medidas iniciais.",
+      dose: "1 U/kg IV em bolus, seguido de 1 a 10 U/kg/h com dextrose e monitorização estreita de glicemia e potássio."
+    },
+    supportiveCare: "Monitorizar glicemia, potássio, lactato e perfusão continuamente.",
+    guidelineRef: "AACT / EMCrit / Goldfrank",
+    notes: ["A hiperglicemia sugere intoxicação significativa por bloqueador de canal de cálcio."]
+  },
+  diltiazem: {
+    category: "Bloqueadores de canal de cálcio",
+    synonyms: ["Bloqueador de canal de cálcio", "BCC"],
+    clinicalPresentation: "Bradicardia, bloqueio AV, hipotensão, choque e hiperglicemia nas intoxicações importantes.",
+    treatment: [
+      "Suporte hemodinâmico e monitorização contínua em ambiente monitorizado.",
+      "Cálcio EV como medida inicial, seguido de insulina em altas doses com glicose se persistir instabilidade.",
+      "Vasopressores, pacing e terapias de resgate devem ser considerados conforme resposta."
+    ],
+    antidote: {
+      name: "Insulina em altas doses com glicose",
+      indication: "Choque, bradicardia ou hipoperfusão refratária por bloqueador de canal de cálcio.",
+      dose: "1 U/kg IV em bolus, seguido de infusão titulada de 1 a 10 U/kg/h com suplementação de glicose."
+    },
+    supportiveCare: "Monitorização de ritmo, glicemia, potássio e perfusão; discutir marcapasso temporário se instabilidade elétrica importante.",
+    guidelineRef: "AACT / EMCrit / Goldfrank"
+  },
+  dipirona: {
+    category: "AINEs",
+    synonyms: ["AINE", "Novalgina", "Metamizol"],
+    clinicalPresentation: "Náuseas, vômitos, sonolência, hipotensão e, raramente, acidose metabólica, convulsões e disfunção renal em exposições maciças.",
+    treatment: [
+      "Suporte clínico, hidratação e monitorização renal/hemodinâmica.",
+      "Carvão ativado se apresentação precoce e dose relevante.",
+      "Tratar complicações específicas como hipotensão, convulsões ou acidose."
+    ],
+    supportiveCare: "Monitorizar função renal, estado mental e sinais de instabilidade circulatória.",
+    guidelineRef: "Goldfrank / bula / toxicologia clínica",
+    notes: ["Não há antídoto específico na intoxicação aguda por dipirona."]
+  },
+  ibuprofeno: {
+    category: "AINEs",
+    synonyms: ["AINE", "Anti-inflamatório", "Alivium"],
+    clinicalPresentation: "Náuseas, vômitos, dor abdominal e sonolência; em overdose maciça pode haver acidose metabólica, convulsões e insuficiência renal.",
+    treatment: [
+      "Suporte clínico e hidratação, com monitorização renal e ácido-base.",
+      "Carvão ativado se apresentação precoce e ingestão significativa.",
+      "Tratar convulsões, acidose e instabilidade hemodinâmica conforme protocolos usuais."
+    ],
+    supportiveCare: "Observar função renal, diurese e evolução neurológica em intoxicações grandes.",
+    guidelineRef: "AACT / Goldfrank",
+    notes: ["A maioria das exposições leves evolui bem; gravidade aumenta em ingestões maciças."]
   }
 };
 
@@ -229,7 +587,7 @@ function toDrug(drug) {
     slug: baseSlug,
     name: drug.n,
     category: override.category ?? inferCategory(drug),
-    synonyms: drug.syn ?? [drug.n],
+    synonyms: mergeSynonyms(drug, override),
     toxicDose: override.isDoseUnknown ? null : typeof drug.d === "number" && drug.unit ? `> ${drug.d} ${drug.unit}/kg` : null,
     toxicDoseValue: override.isDoseUnknown ? null : typeof drug.d === "number" ? drug.d : null,
     toxicDoseUnit: override.isDoseUnknown ? null : drug.unit ?? null,

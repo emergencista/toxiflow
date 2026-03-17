@@ -1,6 +1,8 @@
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
+import { getAdminIdentityFromRequest, getRequestClientIp, isAdminAuthConfigured, isAuthorizedAdminRequest } from "@/lib/admin-auth";
+import { recordAdminAudit } from "@/lib/admin-audit";
 import { draftToDrug, drugToSupabaseRecord, mapRowToDrug, normalizeDrugDraft } from "@/lib/drug-records";
 import { createSupabaseAdminClient, isSupabaseAdminConfigured } from "@/lib/supabase";
 import type { SupabaseDrugRow } from "@/lib/types";
@@ -9,23 +11,27 @@ type RouteContext = {
   params: Promise<{ slug: string }>;
 };
 
-function isAuthorized(request: Request): boolean {
-  const configuredToken = process.env.TOXIFLOW_ADMIN_TOKEN;
+export async function PUT(request: Request, context: RouteContext) {
+  const actor = getAdminIdentityFromRequest(request);
+  const ip = getRequestClientIp(request);
+  const userAgent = request.headers.get("user-agent") || "unknown";
 
-  if (!configuredToken) {
-    return false;
+  if (!isAdminAuthConfigured()) {
+    return NextResponse.json({ error: "Admin não configurado." }, { status: 503 });
   }
 
-  const header = request.headers.get("authorization");
-  return header === `Bearer ${configuredToken}`;
-}
-
-export async function PUT(request: Request, context: RouteContext) {
   if (!isSupabaseAdminConfigured()) {
     return NextResponse.json({ error: "Supabase admin não configurado." }, { status: 503 });
   }
 
-  if (!isAuthorized(request)) {
+  if (!isAuthorizedAdminRequest(request)) {
+    await recordAdminAudit({
+      action: "drug_update_denied",
+      actor,
+      success: false,
+      ip,
+      userAgent,
+    });
     return NextResponse.json({ error: "Não autorizado." }, { status: 401 });
   }
 
@@ -47,24 +53,66 @@ export async function PUT(request: Request, context: RouteContext) {
       .single();
 
     if (error || !data) {
+      await recordAdminAudit({
+        action: "drug_update_failed",
+        actor,
+        success: false,
+        ip,
+        target: slug,
+        userAgent,
+        details: { message: error?.message ?? "unknown" },
+      });
       return NextResponse.json({ error: error?.message ?? "Falha ao atualizar substância." }, { status: 400 });
     }
 
     revalidatePath("/");
     revalidatePath("/admin");
 
+    await recordAdminAudit({
+      action: "drug_update",
+      actor,
+      success: true,
+      ip,
+      target: slug,
+      userAgent,
+    });
+
     return NextResponse.json({ drug: mapRowToDrug(data as SupabaseDrugRow) });
   } catch (error) {
+    await recordAdminAudit({
+      action: "drug_update_failed",
+      actor,
+      success: false,
+      ip,
+      target: slug,
+      userAgent,
+      details: { message: error instanceof Error ? error.message : "unexpected" },
+    });
     return NextResponse.json({ error: error instanceof Error ? error.message : "Falha inesperada." }, { status: 400 });
   }
 }
 
 export async function DELETE(request: Request, context: RouteContext) {
+  const actor = getAdminIdentityFromRequest(request);
+  const ip = getRequestClientIp(request);
+  const userAgent = request.headers.get("user-agent") || "unknown";
+
+  if (!isAdminAuthConfigured()) {
+    return NextResponse.json({ error: "Admin não configurado." }, { status: 503 });
+  }
+
   if (!isSupabaseAdminConfigured()) {
     return NextResponse.json({ error: "Supabase admin não configurado." }, { status: 503 });
   }
 
-  if (!isAuthorized(request)) {
+  if (!isAuthorizedAdminRequest(request)) {
+    await recordAdminAudit({
+      action: "drug_delete_denied",
+      actor,
+      success: false,
+      ip,
+      userAgent,
+    });
     return NextResponse.json({ error: "Não autorizado." }, { status: 401 });
   }
 
@@ -73,11 +121,29 @@ export async function DELETE(request: Request, context: RouteContext) {
   const { error } = await supabase.from("drugs").delete().eq("slug", slug);
 
   if (error) {
+    await recordAdminAudit({
+      action: "drug_delete_failed",
+      actor,
+      success: false,
+      ip,
+      target: slug,
+      userAgent,
+      details: { message: error.message },
+    });
     return NextResponse.json({ error: error.message }, { status: 400 });
   }
 
   revalidatePath("/");
   revalidatePath("/admin");
+
+  await recordAdminAudit({
+    action: "drug_delete",
+    actor,
+    success: true,
+    ip,
+    target: slug,
+    userAgent,
+  });
 
   return NextResponse.json({ ok: true });
 }

@@ -1,0 +1,10 @@
+[Unit]
+Description=Monthly admin credential rotation for ToxiFlow
+
+[Timer]
+OnCalendar=monthly
+Persistent=true
+Unit=toxiflow-admin-rotation.service
+
+[Install]
+WantedBy=timers.target

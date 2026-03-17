@@ -1,0 +1,12 @@
+[Unit]
+Description=ToxiFlow Telegram command poller
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=ubuntu
+WorkingDirectory=/home/ubuntu/toxiflow
+Environment=TOXIFLOW_TELEGRAM_BOT_TOKEN=
+Environment=TOXIFLOW_TELEGRAM_CHAT_ID=
+ExecStart=/home/ubuntu/toxiflow/scripts/run-telegram-poller.sh
