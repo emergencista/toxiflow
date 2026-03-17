@@ -28,4 +28,7 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TOX_RADAR_FEED_TIMEOUT_MS: ${{ secrets.TOX_RADAR_FEED_TIMEOUT_MS }}
+          TOX_RADAR_FEED_MAX_RETRIES: ${{ secrets.TOX_RADAR_FEED_MAX_RETRIES }}
+          TOX_RADAR_FEED_RETRY_DELAY_MS: ${{ secrets.TOX_RADAR_FEED_RETRY_DELAY_MS }}
         run: node tox-radar.js
