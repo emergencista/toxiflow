@@ -405,25 +405,27 @@ export function ClinicalActionsCard({
 
               <div
                 className={`rounded-xl border px-4 py-3 text-[13px] leading-5 min-[390px]:text-sm font-semibold ${
-                  charcoalFlags.length > 0
+                  charcoalFlags.some((f) => f !== "Nenhuma das contraindicações acima")
                     ? "border-red-300 bg-red-50 text-red-900"
-                    : "border-emerald-300 bg-emerald-50 text-emerald-900"
+                    : charcoalFlags.includes("Nenhuma das contraindicações acima")
+                      ? "border-emerald-300 bg-emerald-50 text-emerald-900"
+                      : "border-amber-300 bg-amber-50 text-amber-900"
                 }`}
               >
-                {charcoalFlags.length > 0 ? (
+                {charcoalFlags.some((f) => f !== "Nenhuma das contraindicações acima") ? (
                   <div>
                     <div>🚫 Não fazer agora</div>
-                    <p className="mt-2 font-normal text-sm">Não fazer carvão ativado enquanto houver fator de risco marcado.</p>
+                    <p className="mt-2 font-normal text-sm">Há contraindicação marcada. Não fazer carvão ativado neste momento.</p>
                   </div>
-                ) : weightKg && weightKg > 0 ? (
+                ) : charcoalFlags.includes("Nenhuma das contraindicações acima") ? (
                   <div>
-                    <div>✅ Pode fazer</div>
-                    <p className="mt-2 font-normal text-sm">Carvão ativado 1 g/kg (dose estimada: <strong>{weightKg.toFixed(0)} g</strong>)</p>
+                    <div>✅ Pode fazer carvão ativado</div>
+                    <p className="mt-2 font-normal text-sm">Sem contraindicações. Dose: 1 g/kg {weightKg && weightKg > 0 ? `(${weightKg.toFixed(0)} g)` : "(informe peso para dose exata)"}</p>
                   </div>
                 ) : (
                   <div>
-                    <div>⚠️ Pendente</div>
-                    <p className="mt-2 font-normal text-sm">Informe o peso para calcular a dose exata de carvão.</p>
+                    <div>⚠️ Pendente avaliação</div>
+                    <p className="mt-2 font-normal text-sm">Marque "Nenhuma das contraindicações acima" se avaliar que não há risco.</p>
                   </div>
                 )}
               </div>
@@ -459,20 +461,27 @@ export function ClinicalActionsCard({
 
               <div
                 className={`rounded-xl border px-4 py-3 text-[13px] leading-5 min-[390px]:text-sm font-semibold ${
-                  flumazenilFlags.length > 0
+                  flumazenilFlags.some((f) => f !== "Nenhuma das contraindicações acima")
                     ? "border-red-300 bg-red-50 text-red-900"
-                    : "border-emerald-300 bg-emerald-50 text-emerald-900"
+                    : flumazenilFlags.includes("Nenhuma das contraindicações acima")
+                      ? "border-emerald-300 bg-emerald-50 text-emerald-900"
+                      : "border-amber-300 bg-amber-50 text-amber-900"
                 }`}
               >
-                {flumazenilFlags.length > 0 ? (
+                {flumazenilFlags.some((f) => f !== "Nenhuma das contraindicações acima") ? (
                   <div>
                     <div>🚫 Não fazer agora</div>
-                    <p className="mt-2 font-normal text-sm">Evitar flumazenil neste cenário por contraindicação marcada.</p>
+                    <p className="mt-2 font-normal text-sm">Há contraindicação marcada. Evitar flumazenil neste cenário.</p>
+                  </div>
+                ) : flumazenilFlags.includes("Nenhuma das contraindicações acima") ? (
+                  <div>
+                    <div>✅ Pode considerar flumazenil</div>
+                    <p className="mt-2 font-normal text-sm">Sem contraindicações. Use conforme indicação clínica e depressão relevante.</p>
                   </div>
                 ) : (
                   <div>
-                    <div>✅ Pode considerar</div>
-                    <p className="mt-2 font-normal text-sm">Sem contraindicações marcadas. Considerar conforme indicação clínica.</p>
+                    <div>⚠️ Pendente avaliação</div>
+                    <p className="mt-2 font-normal text-sm">Marque "Nenhuma das contraindicações acima" se avaliar que não há risco.</p>
                   </div>
                 )}
               </div>
