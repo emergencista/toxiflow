@@ -146,7 +146,7 @@ export function ToxiFlowDashboard({ drugs }: ToxiFlowDashboardProps) {
                   className={`flex w-full items-center justify-between rounded-[1.1rem] border px-4 py-3.5 text-left text-[13px] font-semibold transition min-[390px]:rounded-[1.15rem] min-[390px]:text-sm ${isToxic || selectedDrug?.isDoseUnknown ? "call-pulse call-urgent border-red-300 bg-[linear-gradient(135deg,#dc2626_0%,#ef4444_45%,#f97316_100%)] text-white shadow-[0_18px_36px_-16px_rgba(220,38,38,0.85)]" : "border-slate-700/20 bg-[linear-gradient(135deg,#0f172a_0%,#1e293b_100%)] text-white shadow-[0_14px_28px_-12px_rgba(15,23,42,0.74)] hover:brightness-110"}`}
                 >
                   <span>{contact.label}</span>
-                  <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-white/95 min-[390px]:text-[11px]">{contact.note}</span>
+                  <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-white min-[390px]:text-[11px]">{contact.note}</span>
                 </a>
               ))}
             </div>
