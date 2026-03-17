@@ -211,11 +211,75 @@ export function ClinicalActionsCard({
 
   return (
     <>
-      <SectionCard eyebrow="Conduta" title="Ações práticas" description="Toque para ver a orientação.">
+      <SectionCard eyebrow="Conduta" title="Ações práticas" description="Critérios de decisão exibidos imediatamente.">
         <div className="grid gap-3">
           {(isToxic || drug.isDoseUnknown) ? (
             <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-[13px] leading-5 text-red-950 min-[390px]:text-sm">
               Caso de maior risco. Priorize suporte e CIATox.
+            </div>
+          ) : null}
+
+          {canUseCharcoalChecklist ? (
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 px-3 py-3">
+              <p className="text-[13px] font-semibold text-slate-900 min-[390px]:text-sm">Carvão ativado: critérios pendentes</p>
+              <p className="mt-1 text-[12px] leading-5 text-slate-600 min-[390px]:text-[13px]">Marque os itens presentes. A decisão atualiza na hora.</p>
+              <div className="mt-3 space-y-2">
+                {charcoalChecklist.map((item) => (
+                  <ChecklistRow
+                    key={`charcoal-${item}`}
+                    label={item}
+                    selected={charcoalFlags.includes(item)}
+                    onToggle={() =>
+                      setCharcoalFlags((current) => (current.includes(item) ? current.filter((entry) => entry !== item) : [...current, item]))
+                    }
+                  />
+                ))}
+              </div>
+
+              <div
+                className={`mt-3 rounded-xl border px-3 py-3 text-[13px] leading-5 min-[390px]:text-sm ${
+                  charcoalFlags.length > 0
+                    ? "border-red-200 bg-red-50 text-red-950"
+                    : "border-emerald-200 bg-emerald-50 text-emerald-950"
+                }`}
+              >
+                {charcoalFlags.length > 0
+                  ? "Não fazer: carvão ativado enquanto houver fator de risco marcado."
+                  : weightKg && weightKg > 0
+                    ? `Pode fazer: carvão ativado 1 g/kg (dose estimada ${weightKg.toFixed(0)} g).`
+                    : "Pode fazer: carvão ativado. Pendente: informar peso para calcular 1 g/kg."}
+              </div>
+            </div>
+          ) : null}
+
+          {isFlumazenil ? (
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 px-3 py-3">
+              <p className="text-[13px] font-semibold text-slate-900 min-[390px]:text-sm">Flumazenil: critérios pendentes</p>
+              <p className="mt-1 text-[12px] leading-5 text-slate-600 min-[390px]:text-[13px]">Marque os itens presentes para definir segurança do uso.</p>
+              <div className="mt-3 space-y-2">
+                {flumazenilChecklist.map((item) => (
+                  <ChecklistRow
+                    key={`flumazenil-${item}`}
+                    label={item}
+                    selected={flumazenilFlags.includes(item)}
+                    onToggle={() =>
+                      setFlumazenilFlags((current) => (current.includes(item) ? current.filter((entry) => entry !== item) : [...current, item]))
+                    }
+                  />
+                ))}
+              </div>
+
+              <div
+                className={`mt-3 rounded-xl border px-3 py-3 text-[13px] leading-5 min-[390px]:text-sm ${
+                  flumazenilFlags.length > 0
+                    ? "border-red-200 bg-red-50 text-red-950"
+                    : "border-emerald-200 bg-emerald-50 text-emerald-950"
+                }`}
+              >
+                {flumazenilFlags.length > 0
+                  ? "Não fazer: evitar flumazenil neste cenário."
+                  : "Pode considerar: sem contraindicação marcada no checklist."}
+              </div>
             </div>
           ) : null}
 
@@ -229,7 +293,14 @@ export function ClinicalActionsCard({
                   return;
                 }
 
-                setModalKind("charcoal");
+                setFeedbackMessage(
+                  charcoalFlags.length > 0
+                    ? { tone: "danger", text: "Não fazer carvão ativado enquanto houver fator de risco marcado." }
+                    : {
+                        tone: "success",
+                        text: weightKg && weightKg > 0 ? `Pode fazer carvão ativado: ${weightKg.toFixed(0)} g (1 g/kg).` : "Pode fazer carvão ativado. Informe o peso para calcular 1 g/kg.",
+                      }
+                );
               }}
             />
 
@@ -245,7 +316,11 @@ export function ClinicalActionsCard({
                 tone={isFlumazenil ? "red" : "blue"}
                 onClick={() => {
                   if (isFlumazenil) {
-                    setModalKind("flumazenil");
+                    setFeedbackMessage(
+                      flumazenilFlags.length > 0
+                        ? { tone: "danger", text: "Não fazer flumazenil neste cenário. Evite uso empírico e discuta com o CIATox." }
+                        : { tone: "success", text: "Sem contraindicação marcada. Se houver depressão respiratória grave, discutir com o CIATox." }
+                    );
                     return;
                   }
 
