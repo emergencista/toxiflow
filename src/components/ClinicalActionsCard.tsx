@@ -99,6 +99,69 @@ export function ClinicalActionsCard({
   const canUseCharcoalChecklist = Boolean(drug && isOral && elapsedHours != null && elapsedHours <= 2 && drug.activatedCharcoal !== "contraindicated");
   const shouldConsiderLavage = Boolean(drug && isOral && isToxic && elapsedHours != null && elapsedHours <= 1 && drug.lavage === "consider");
 
+  const condutaResumo = useMemo(() => {
+    const fazerAgora: string[] = [];
+    const naoFazerAgora: string[] = [];
+    const pendencias: string[] = [];
+
+    if (!drug) {
+      return { fazerAgora, naoFazerAgora, pendencias };
+    }
+
+    if (canUseCharcoalChecklist) {
+      if (charcoalFlags.length > 0) {
+        naoFazerAgora.push("Carvão ativado enquanto houver fator de risco marcado.");
+      } else if (weightKg && weightKg > 0) {
+        fazerAgora.push(`Carvão ativado: 1 g/kg (dose estimada ${weightKg.toFixed(0)} g).`);
+      } else {
+        pendencias.push("Informar peso para calcular dose de carvão ativado (1 g/kg).");
+      }
+    }
+
+    if (isFlumazenil) {
+      if (flumazenilFlags.length > 0) {
+        naoFazerAgora.push("Flumazenil neste cenário com contraindicação marcada.");
+      } else {
+        fazerAgora.push("Flumazenil pode ser considerado se houver depressão clínica relevante.");
+      }
+    }
+
+    if (shouldConsiderLavage) {
+      fazerAgora.push("Discutir lavagem gástrica imediata com o CIATox.");
+    }
+
+    if (isNac) {
+      if (weightKg && weightKg > 0) {
+        fazerAgora.push(
+          `Iniciar N-acetilcisteína (21h): ${Math.round(weightKg * 150)} mg / ${Math.round(weightKg * 50)} mg / ${Math.round(weightKg * 100)} mg.`
+        );
+      } else {
+        pendencias.push("Informar peso para calcular protocolo de N-acetilcisteína (21h).");
+      }
+    }
+
+    if (drug.antidote && !isFlumazenil && !isNac) {
+      fazerAgora.push(`Avaliar antídoto ${drug.antidote.name} conforme indicação clínica.`);
+    }
+
+    if (!canUseCharcoalChecklist && isOral) {
+      pendencias.push(getCharcoalCopy(drug.activatedCharcoal, elapsedHours));
+    }
+
+    return { fazerAgora, naoFazerAgora, pendencias };
+  }, [
+    canUseCharcoalChecklist,
+    charcoalFlags.length,
+    drug,
+    elapsedHours,
+    flumazenilFlags.length,
+    isFlumazenil,
+    isNac,
+    isOral,
+    shouldConsiderLavage,
+    weightKg,
+  ]);
+
   const modalConfig = useMemo(() => {
     if (!drug || !modalKind) {
       return null;
@@ -222,6 +285,45 @@ export function ClinicalActionsCard({
               Caso de maior risco. Priorize suporte e CIATox.
             </div>
           ) : null}
+
+          <div className="grid gap-2">
+            <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-3 py-3">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-emerald-900 min-[390px]:text-[13px]">Fazer agora</p>
+              {condutaResumo.fazerAgora.length > 0 ? (
+                <ul className="mt-2 list-disc space-y-1 pl-5 text-[13px] leading-5 text-emerald-950 min-[390px]:text-sm">
+                  {condutaResumo.fazerAgora.map((item) => (
+                    <li key={`do-${item}`}>{item}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="mt-2 text-[13px] leading-5 text-emerald-950 min-[390px]:text-sm">Nenhuma conduta liberada no momento.</p>
+              )}
+            </div>
+
+            <div className="rounded-2xl border border-red-200 bg-red-50 px-3 py-3">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-red-900 min-[390px]:text-[13px]">Nao fazer agora</p>
+              {condutaResumo.naoFazerAgora.length > 0 ? (
+                <ul className="mt-2 list-disc space-y-1 pl-5 text-[13px] leading-5 text-red-950 min-[390px]:text-sm">
+                  {condutaResumo.naoFazerAgora.map((item) => (
+                    <li key={`dont-${item}`}>{item}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="mt-2 text-[13px] leading-5 text-red-950 min-[390px]:text-sm">Sem contraindicação crítica marcada neste momento.</p>
+              )}
+            </div>
+
+            {condutaResumo.pendencias.length > 0 ? (
+              <div className="rounded-2xl border border-amber-200 bg-amber-50 px-3 py-3">
+                <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-amber-900 min-[390px]:text-[13px]">Pendencias para decidir</p>
+                <ul className="mt-2 list-disc space-y-1 pl-5 text-[13px] leading-5 text-amber-950 min-[390px]:text-sm">
+                  {condutaResumo.pendencias.map((item) => (
+                    <li key={`pending-${item}`}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+          </div>
 
           {canUseCharcoalChecklist ? (
             <div className="rounded-2xl border border-slate-200 bg-slate-50 px-3 py-3">
