@@ -356,29 +356,6 @@ export function ClinicalActionsCard({
                 {decisaoFinal.label}
               </p>
             </div>
-            {condutaResumo.naoFazerAgora.length > 0 ? (
-              <ul className="mt-3 list-disc space-y-1 pl-5 text-[13px] leading-5 text-red-950 min-[390px]:text-sm">
-                {condutaResumo.naoFazerAgora.map((item) => (
-                  <li key={`dont-${item}`}>{item}</li>
-                ))}
-              </ul>
-            ) : null}
-
-            {condutaResumo.fazerAgora.length > 0 ? (
-              <ul className="mt-3 list-disc space-y-1 pl-5 text-[13px] leading-5 text-emerald-950 min-[390px]:text-sm">
-                {condutaResumo.fazerAgora.map((item) => (
-                  <li key={`do-${item}`}>{item}</li>
-                ))}
-              </ul>
-            ) : null}
-
-            {condutaResumo.pendencias.length > 0 ? (
-              <ul className="mt-3 list-disc space-y-1 pl-5 text-[13px] leading-5 text-amber-950 min-[390px]:text-sm">
-                {condutaResumo.pendencias.map((item) => (
-                  <li key={`pending-${item}`}>{item}</li>
-                ))}
-              </ul>
-            ) : null}
           </div>
 
           {(isToxic || drug.isDoseUnknown) ? (
