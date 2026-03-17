@@ -90,6 +90,8 @@ export function ClinicalActionsCard({
   const [modalKind, setModalKind] = useState<ModalKind>(null);
   const [charcoalFlags, setCharcoalFlags] = useState<string[]>([]);
   const [flumazenilFlags, setFlumazenilFlags] = useState<string[]>([]);
+  const [charcoalOpen, setCharcoalOpen] = useState(false);
+  const [flumazenilOpen, setFlumazenilOpen] = useState(false);
 
   const isOral = administrationRoute === "oral";
   const antidoteName = drug?.antidote?.name ?? null;
@@ -165,27 +167,31 @@ export function ClinicalActionsCard({
     if (condutaResumo.naoFazerAgora.length > 0) {
       return {
         tone: "danger" as const,
-        summary: "Nao fazer agora: existem contraindicações marcadas.",
+        icon: "🚫",
+        label: "Não fazer agora",
       };
     }
 
     if (condutaResumo.pendencias.length > 0) {
       return {
         tone: "warning" as const,
-        summary: "Pendente: preencha critérios para liberar conduta com segurança.",
+        icon: "⚠️",
+        label: "Pendente: complete os dados",
       };
     }
 
     if (condutaResumo.fazerAgora.length > 0) {
       return {
         tone: "success" as const,
-        summary: "Pode fazer agora conforme critérios atuais.",
+        icon: "✅",
+        label: "Pode fazer agora",
       };
     }
 
     return {
       tone: "info" as const,
-      summary: "Revise os dados clínicos para gerar conduta objetiva.",
+      icon: "ℹ️",
+      label: "Revise os dados clínicos",
     };
   }, [condutaResumo]);
 
@@ -295,23 +301,12 @@ export function ClinicalActionsCard({
                   : decisaoFinal.tone === "success"
                     ? "border-emerald-300 bg-emerald-50"
                     : "border-blue-300 bg-blue-50"
-            } sticky top-3 z-20 py-3 shadow-[0_10px_24px_-18px_rgba(15,23,42,0.45)] md:static md:z-auto md:shadow-none`}
+            } sticky top-3 z-20 py-4 shadow-[0_10px_24px_-18px_rgba(15,23,42,0.45)] md:static md:z-auto md:shadow-none`}
           >
-            <p
-              className={`text-xs font-semibold uppercase tracking-[0.14em] ${
-                decisaoFinal.tone === "danger"
-                  ? "text-red-800"
-                  : decisaoFinal.tone === "warning"
-                    ? "text-amber-800"
-                    : decisaoFinal.tone === "success"
-                      ? "text-emerald-800"
-                      : "text-blue-800"
-              }`}
-            >
-                Decisão agora
-            </p>
-            <p
-                className={`mt-1 text-base font-semibold leading-6 ${
+            <div className="flex flex-col items-center gap-3">
+              <span className="text-5xl">{decisaoFinal.icon}</span>
+              <p
+                className={`text-center text-base font-semibold leading-6 ${
                 decisaoFinal.tone === "danger"
                   ? "text-red-950"
                   : decisaoFinal.tone === "warning"
@@ -320,9 +315,10 @@ export function ClinicalActionsCard({
                       ? "text-emerald-950"
                       : "text-blue-950"
               }`}
-            >
-                {decisaoFinal.summary}
-            </p>
+              >
+                {decisaoFinal.label}
+              </p>
+            </div>
           </div>
 
           {(isToxic || drug.isDoseUnknown) ? (
@@ -367,76 +363,100 @@ export function ClinicalActionsCard({
           </div>
 
           {canUseCharcoalChecklist ? (
-            <div className="rounded-2xl border border-slate-200 bg-slate-50 px-3 py-3">
-              <div className="flex items-center justify-between gap-2">
-                <p className="text-[13px] font-semibold text-slate-900 min-[390px]:text-sm">Carvão ativado: critérios pendentes</p>
-                <span className={`rounded-full px-2 py-1 text-[11px] font-semibold ${charcoalFlags.length > 0 ? "bg-red-100 text-red-800" : "bg-emerald-100 text-emerald-800"}`}>
-                  {charcoalFlags.length > 0 ? "NÃO FAZER" : "PODE FAZER"}
-                </span>
-              </div>
-              <p className="mt-1 text-[12px] leading-5 text-slate-600 min-[390px]:text-[13px]">Marque os itens presentes. A decisão atualiza na hora.</p>
-              <div className="mt-3 space-y-2">
-                {charcoalChecklist.map((item) => (
-                  <ChecklistRow
-                    key={`charcoal-${item}`}
-                    label={item}
-                    selected={charcoalFlags.includes(item)}
-                    onToggle={() =>
-                      setCharcoalFlags((current) => (current.includes(item) ? current.filter((entry) => entry !== item) : [...current, item]))
-                    }
-                  />
-                ))}
-              </div>
-
-              <div
-                className={`mt-3 rounded-xl border px-3 py-3 text-[13px] leading-5 min-[390px]:text-sm ${
-                  charcoalFlags.length > 0
-                    ? "border-red-200 bg-red-50 text-red-950"
-                    : "border-emerald-200 bg-emerald-50 text-emerald-950"
-                }`}
+            <div className="rounded-2xl border border-slate-200 bg-slate-50">
+              <button
+                type="button"
+                onClick={() => setCharcoalOpen(!charcoalOpen)}
+                className="flex w-full items-center justify-between gap-3 px-4 py-3"
               >
-                {charcoalFlags.length > 0
-                  ? "Não fazer carvão ativado neste momento."
-                  : weightKg && weightKg > 0
-                    ? `Pode fazer carvão ativado: 1 g/kg (${weightKg.toFixed(0)} g).`
-                    : "Pode fazer carvão, mas informe peso para dose exata."}
-              </div>
+                <div className="flex items-center justify-between gap-3 flex-1">
+                  <p className="text-left text-[13px] font-semibold text-slate-900 min-[390px]:text-sm">Detalhar critérios: Carvão ativado</p>
+                  <span className={`rounded-full px-2 py-1 text-[11px] font-semibold shrink-0 ${charcoalFlags.length > 0 ? "bg-red-100 text-red-800" : "bg-emerald-100 text-emerald-800"}`}>
+                    {charcoalFlags.length > 0 ? "NÃO FAZER" : "PODE FAZER"}
+                  </span>
+                </div>
+                <span className={`text-xl transition ${charcoalOpen ? "rotate-180" : ""}`}>▼</span>
+              </button>
+
+              {charcoalOpen && (
+                <div className="border-t border-slate-200 px-4 py-3">
+                  <p className="text-[12px] leading-5 text-slate-600 min-[390px]:text-[13px]">Marque os itens presentes. A decisão atualiza na hora.</p>
+                  <div className="mt-3 space-y-2">
+                    {charcoalChecklist.map((item) => (
+                      <ChecklistRow
+                        key={`charcoal-${item}`}
+                        label={item}
+                        selected={charcoalFlags.includes(item)}
+                        onToggle={() =>
+                          setCharcoalFlags((current) => (current.includes(item) ? current.filter((entry) => entry !== item) : [...current, item]))
+                        }
+                      />
+                    ))}
+                  </div>
+
+                  <div
+                    className={`mt-3 rounded-xl border px-3 py-3 text-[13px] leading-5 min-[390px]:text-sm ${
+                      charcoalFlags.length > 0
+                        ? "border-red-200 bg-red-50 text-red-950"
+                        : "border-emerald-200 bg-emerald-50 text-emerald-950"
+                    }`}
+                  >
+                    {charcoalFlags.length > 0
+                      ? "Não fazer carvão ativado neste momento."
+                      : weightKg && weightKg > 0
+                        ? `Pode fazer carvão ativado: 1 g/kg (${weightKg.toFixed(0)} g).`
+                        : "Pode fazer carvão, mas informe peso para dose exata."}
+                  </div>
+                </div>
+              )}
             </div>
           ) : null}
 
           {isFlumazenil ? (
-            <div className="rounded-2xl border border-slate-200 bg-slate-50 px-3 py-3">
-              <div className="flex items-center justify-between gap-2">
-                <p className="text-[13px] font-semibold text-slate-900 min-[390px]:text-sm">Flumazenil: critérios pendentes</p>
-                <span className={`rounded-full px-2 py-1 text-[11px] font-semibold ${flumazenilFlags.length > 0 ? "bg-red-100 text-red-800" : "bg-emerald-100 text-emerald-800"}`}>
-                  {flumazenilFlags.length > 0 ? "NÃO FAZER" : "PODE CONSIDERAR"}
-                </span>
-              </div>
-              <p className="mt-1 text-[12px] leading-5 text-slate-600 min-[390px]:text-[13px]">Marque os itens presentes para definir segurança do uso.</p>
-              <div className="mt-3 space-y-2">
-                {flumazenilChecklist.map((item) => (
-                  <ChecklistRow
-                    key={`flumazenil-${item}`}
-                    label={item}
-                    selected={flumazenilFlags.includes(item)}
-                    onToggle={() =>
-                      setFlumazenilFlags((current) => (current.includes(item) ? current.filter((entry) => entry !== item) : [...current, item]))
-                    }
-                  />
-                ))}
-              </div>
-
-              <div
-                className={`mt-3 rounded-xl border px-3 py-3 text-[13px] leading-5 min-[390px]:text-sm ${
-                  flumazenilFlags.length > 0
-                    ? "border-red-200 bg-red-50 text-red-950"
-                    : "border-emerald-200 bg-emerald-50 text-emerald-950"
-                }`}
+            <div className="rounded-2xl border border-slate-200 bg-slate-50">
+              <button
+                type="button"
+                onClick={() => setFlumazenilOpen(!flumazenilOpen)}
+                className="flex w-full items-center justify-between gap-3 px-4 py-3"
               >
-                {flumazenilFlags.length > 0
-                  ? "Não fazer: evitar flumazenil neste cenário."
-                  : "Pode considerar: sem contraindicação marcada no checklist."}
-              </div>
+                <div className="flex items-center justify-between gap-3 flex-1">
+                  <p className="text-left text-[13px] font-semibold text-slate-900 min-[390px]:text-sm">Detalhar critérios: Flumazenil</p>
+                  <span className={`rounded-full px-2 py-1 text-[11px] font-semibold shrink-0 ${flumazenilFlags.length > 0 ? "bg-red-100 text-red-800" : "bg-emerald-100 text-emerald-800"}`}>
+                    {flumazenilFlags.length > 0 ? "NÃO FAZER" : "PODE CONSIDERAR"}
+                  </span>
+                </div>
+                <span className={`text-xl transition ${flumazenilOpen ? "rotate-180" : ""}`}>▼</span>
+              </button>
+
+              {flumazenilOpen && (
+                <div className="border-t border-slate-200 px-4 py-3">
+                  <p className="text-[12px] leading-5 text-slate-600 min-[390px]:text-[13px]">Marque os itens presentes para definir segurança do uso.</p>
+                  <div className="mt-3 space-y-2">
+                    {flumazenilChecklist.map((item) => (
+                      <ChecklistRow
+                        key={`flumazenil-${item}`}
+                        label={item}
+                        selected={flumazenilFlags.includes(item)}
+                        onToggle={() =>
+                          setFlumazenilFlags((current) => (current.includes(item) ? current.filter((entry) => entry !== item) : [...current, item]))
+                        }
+                      />
+                    ))}
+                  </div>
+
+                  <div
+                    className={`mt-3 rounded-xl border px-3 py-3 text-[13px] leading-5 min-[390px]:text-sm ${
+                      flumazenilFlags.length > 0
+                        ? "border-red-200 bg-red-50 text-red-950"
+                        : "border-emerald-200 bg-emerald-50 text-emerald-950"
+                    }`}
+                  >
+                    {flumazenilFlags.length > 0
+                      ? "Não fazer: evitar flumazenil neste cenário."
+                      : "Pode considerar: sem contraindicação marcada no checklist."}
+                  </div>
+                </div>
+              )}
             </div>
           ) : null}
 
