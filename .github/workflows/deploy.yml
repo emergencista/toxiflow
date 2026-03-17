@@ -27,6 +27,15 @@ jobs:
       - name: Install PostgreSQL client
         run: sudo apt-get update && sudo apt-get install -y postgresql-client
 
+      - name: Validate migration secret
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          if [ -z "${DATABASE_URL}" ]; then
+            echo "DATABASE_URL ausente nos GitHub Secrets. Configure antes do deploy." >&2
+            exit 1
+          fi
+
       - name: Run SQL migrations
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
@@ -91,15 +100,3 @@ jobs:
       - name: Cleanup SSH
         if: always()
         run: rm -f ~/.ssh/id_rsa
-
-      - name: Notify on failure
-        if: failure()
-        uses: actions/github-script@v7
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '❌ Deploy falhou. Verifique os logs.'
-            })
