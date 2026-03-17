@@ -165,31 +165,27 @@ export function ClinicalActionsCard({
     if (condutaResumo.naoFazerAgora.length > 0) {
       return {
         tone: "danger" as const,
-        title: "NÃO FAZER AGORA",
-        subtitle: "Há contraindicação ativa. Priorize suporte e discussão com o CIATox.",
+        summary: "Nao fazer agora: existem contraindicações marcadas.",
       };
     }
 
     if (condutaResumo.pendencias.length > 0) {
       return {
         tone: "warning" as const,
-        title: "PREENCHER PENDÊNCIAS",
-        subtitle: "Faltam dados para liberar conduta final com segurança.",
+        summary: "Pendente: preencha critérios para liberar conduta com segurança.",
       };
     }
 
     if (condutaResumo.fazerAgora.length > 0) {
       return {
         tone: "success" as const,
-        title: "PODE FAZER AGORA",
-        subtitle: "Sem bloqueio crítico marcado no momento.",
+        summary: "Pode fazer agora conforme critérios atuais.",
       };
     }
 
     return {
       tone: "info" as const,
-      title: "REVISAR CENÁRIO",
-      subtitle: "Ajuste dados clínicos para liberar recomendações objetivas.",
+      summary: "Revise os dados clínicos para gerar conduta objetiva.",
     };
   }, [condutaResumo]);
 
@@ -299,7 +295,7 @@ export function ClinicalActionsCard({
                   : decisaoFinal.tone === "success"
                     ? "border-emerald-300 bg-emerald-50"
                     : "border-blue-300 bg-blue-50"
-            } sticky top-3 z-20 shadow-[0_10px_24px_-18px_rgba(15,23,42,0.45)] md:static md:z-auto md:shadow-none`}
+            } sticky top-3 z-20 py-3 shadow-[0_10px_24px_-18px_rgba(15,23,42,0.45)] md:static md:z-auto md:shadow-none`}
           >
             <p
               className={`text-xs font-semibold uppercase tracking-[0.14em] ${
@@ -312,10 +308,10 @@ export function ClinicalActionsCard({
                       : "text-blue-800"
               }`}
             >
-              Decisão final agora
+                Decisão agora
             </p>
             <p
-              className={`mt-1 text-lg font-bold ${
+                className={`mt-1 text-base font-semibold leading-6 ${
                 decisaoFinal.tone === "danger"
                   ? "text-red-950"
                   : decisaoFinal.tone === "warning"
@@ -325,20 +321,7 @@ export function ClinicalActionsCard({
                       : "text-blue-950"
               }`}
             >
-              {decisaoFinal.title}
-            </p>
-            <p
-              className={`mt-1 text-[13px] leading-5 min-[390px]:text-sm ${
-                decisaoFinal.tone === "danger"
-                  ? "text-red-900"
-                  : decisaoFinal.tone === "warning"
-                    ? "text-amber-900"
-                    : decisaoFinal.tone === "success"
-                      ? "text-emerald-900"
-                      : "text-blue-900"
-              }`}
-            >
-              {decisaoFinal.subtitle}
+                {decisaoFinal.summary}
             </p>
           </div>
 
@@ -349,31 +332,27 @@ export function ClinicalActionsCard({
           ) : null}
 
           <div className="grid gap-2">
-            <div className="rounded-2xl border border-red-200 bg-red-50 px-3 py-3">
-              <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-red-900 min-[390px]:text-[13px]">Nao fazer agora</p>
-              {condutaResumo.naoFazerAgora.length > 0 ? (
+            {condutaResumo.naoFazerAgora.length > 0 ? (
+              <div className="rounded-2xl border border-red-200 bg-red-50 px-3 py-3">
+                <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-red-900 min-[390px]:text-[13px]">Nao fazer agora</p>
                 <ul className="mt-2 list-disc space-y-1 pl-5 text-[13px] leading-5 text-red-950 min-[390px]:text-sm">
                   {condutaResumo.naoFazerAgora.map((item) => (
                     <li key={`dont-${item}`}>{item}</li>
                   ))}
                 </ul>
-              ) : (
-                <p className="mt-2 text-[13px] leading-5 text-red-950 min-[390px]:text-sm">Sem contraindicação crítica marcada neste momento.</p>
-              )}
-            </div>
+              </div>
+            ) : null}
 
-            <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-3 py-3">
-              <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-emerald-900 min-[390px]:text-[13px]">Fazer agora</p>
-              {condutaResumo.fazerAgora.length > 0 ? (
+            {condutaResumo.fazerAgora.length > 0 ? (
+              <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-3 py-3">
+                <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-emerald-900 min-[390px]:text-[13px]">Fazer agora</p>
                 <ul className="mt-2 list-disc space-y-1 pl-5 text-[13px] leading-5 text-emerald-950 min-[390px]:text-sm">
                   {condutaResumo.fazerAgora.map((item) => (
                     <li key={`do-${item}`}>{item}</li>
                   ))}
                 </ul>
-              ) : (
-                <p className="mt-2 text-[13px] leading-5 text-emerald-950 min-[390px]:text-sm">Nenhuma conduta liberada no momento.</p>
-              )}
-            </div>
+              </div>
+            ) : null}
 
             {condutaResumo.pendencias.length > 0 ? (
               <div className="rounded-2xl border border-amber-200 bg-amber-50 px-3 py-3">
