@@ -90,7 +90,6 @@ export function ClinicalActionsCard({
   const [modalKind, setModalKind] = useState<ModalKind>(null);
   const [charcoalFlags, setCharcoalFlags] = useState<string[]>([]);
   const [flumazenilFlags, setFlumazenilFlags] = useState<string[]>([]);
-  const [feedbackMessage, setFeedbackMessage] = useState<{ tone: "info" | "danger" | "success"; text: string } | null>(null);
 
   const isOral = administrationRoute === "oral";
   const antidoteName = drug?.antidote?.name ?? null;
@@ -176,17 +175,7 @@ export function ClinicalActionsCard({
         onToggle: (item: string) =>
           setCharcoalFlags((current) => (current.includes(item) ? current.filter((entry) => entry !== item) : [...current, item])),
         confirmLabel: "Checar segurança",
-        onConfirm: () => {
-          setModalKind(null);
-          setFeedbackMessage(
-            charcoalFlags.length > 0
-                ? { tone: "danger", text: "Carvão contraindicado enquanto houver fator de risco marcado." }
-              : {
-                  tone: "success",
-                  text: weightKg && weightKg > 0 ? `Carvão possível. Dose: ${weightKg.toFixed(0)} g (1 g/kg).` : "Carvão possível. Informe o peso para calcular 1 g/kg."
-                }
-          );
-        }
+        onConfirm: () => setModalKind(null)
       };
     }
 
@@ -199,14 +188,7 @@ export function ClinicalActionsCard({
         onToggle: (item: string) =>
           setFlumazenilFlags((current) => (current.includes(item) ? current.filter((entry) => entry !== item) : [...current, item])),
         confirmLabel: "Checar segurança",
-        onConfirm: () => {
-          setModalKind(null);
-          setFeedbackMessage(
-            flumazenilFlags.length > 0
-              ? { tone: "danger", text: "Flumazenil contraindicado neste cenário. Evite uso empírico e discuta com o CIATox." }
-              : { tone: "success", text: "Sem contraindicação marcada. Se houver depressão respiratória grave, discutir com o CIATox." }
-          );
-        }
+        onConfirm: () => setModalKind(null)
       };
     }
 
@@ -327,7 +309,12 @@ export function ClinicalActionsCard({
 
           {canUseCharcoalChecklist ? (
             <div className="rounded-2xl border border-slate-200 bg-slate-50 px-3 py-3">
-              <p className="text-[13px] font-semibold text-slate-900 min-[390px]:text-sm">Carvão ativado: critérios pendentes</p>
+              <div className="flex items-center justify-between gap-2">
+                <p className="text-[13px] font-semibold text-slate-900 min-[390px]:text-sm">Carvão ativado: critérios pendentes</p>
+                <span className={`rounded-full px-2 py-1 text-[11px] font-semibold ${charcoalFlags.length > 0 ? "bg-red-100 text-red-800" : "bg-emerald-100 text-emerald-800"}`}>
+                  {charcoalFlags.length > 0 ? "NÃO FAZER" : "PODE FAZER"}
+                </span>
+              </div>
               <p className="mt-1 text-[12px] leading-5 text-slate-600 min-[390px]:text-[13px]">Marque os itens presentes. A decisão atualiza na hora.</p>
               <div className="mt-3 space-y-2">
                 {charcoalChecklist.map((item) => (
@@ -360,7 +347,12 @@ export function ClinicalActionsCard({
 
           {isFlumazenil ? (
             <div className="rounded-2xl border border-slate-200 bg-slate-50 px-3 py-3">
-              <p className="text-[13px] font-semibold text-slate-900 min-[390px]:text-sm">Flumazenil: critérios pendentes</p>
+              <div className="flex items-center justify-between gap-2">
+                <p className="text-[13px] font-semibold text-slate-900 min-[390px]:text-sm">Flumazenil: critérios pendentes</p>
+                <span className={`rounded-full px-2 py-1 text-[11px] font-semibold ${flumazenilFlags.length > 0 ? "bg-red-100 text-red-800" : "bg-emerald-100 text-emerald-800"}`}>
+                  {flumazenilFlags.length > 0 ? "NÃO FAZER" : "PODE CONSIDERAR"}
+                </span>
+              </div>
               <p className="mt-1 text-[12px] leading-5 text-slate-600 min-[390px]:text-[13px]">Marque os itens presentes para definir segurança do uso.</p>
               <div className="mt-3 space-y-2">
                 {flumazenilChecklist.map((item) => (
@@ -391,26 +383,6 @@ export function ClinicalActionsCard({
 
           <div className="grid gap-2">
             <ActionButton
-              label="Carvão ativado"
-              tone="dark"
-              onClick={() => {
-                if (!canUseCharcoalChecklist) {
-                  setFeedbackMessage({ tone: "info", text: isOral ? getCharcoalCopy(drug.activatedCharcoal, elapsedHours) : "Via parenteral: carvão ativado não é prioridade." });
-                  return;
-                }
-
-                setFeedbackMessage(
-                  charcoalFlags.length > 0
-                    ? { tone: "danger", text: "Não fazer carvão ativado enquanto houver fator de risco marcado." }
-                    : {
-                        tone: "success",
-                        text: weightKg && weightKg > 0 ? `Pode fazer carvão ativado: ${weightKg.toFixed(0)} g (1 g/kg).` : "Pode fazer carvão ativado. Informe o peso para calcular 1 g/kg.",
-                      }
-                );
-              }}
-            />
-
-            <ActionButton
               label={shouldConsiderLavage ? "Lavagem gástrica" : "Descontaminação"}
               tone={shouldConsiderLavage ? "red" : "blue"}
               onClick={() => setModalKind("decontamination")}
@@ -418,15 +390,11 @@ export function ClinicalActionsCard({
 
             {drug.antidote ? (
               <ActionButton
-                label={isFlumazenil ? "Segurança do flumazenil" : isNac ? "N-acetilcisteína" : drug.antidote.name}
+                label={isFlumazenil ? "Detalhes do flumazenil" : isNac ? "N-acetilcisteína" : drug.antidote.name}
                 tone={isFlumazenil ? "red" : "blue"}
                 onClick={() => {
                   if (isFlumazenil) {
-                    setFeedbackMessage(
-                      flumazenilFlags.length > 0
-                        ? { tone: "danger", text: "Não fazer flumazenil neste cenário. Evite uso empírico e discuta com o CIATox." }
-                        : { tone: "success", text: "Sem contraindicação marcada. Se houver depressão respiratória grave, discutir com o CIATox." }
-                    );
+                    setModalKind("flumazenil");
                     return;
                   }
 
@@ -440,20 +408,6 @@ export function ClinicalActionsCard({
               />
             ) : null}
           </div>
-
-          {feedbackMessage ? (
-            <div
-              className={`rounded-2xl border px-4 py-3 text-[13px] leading-5 min-[390px]:text-sm ${
-                feedbackMessage.tone === "danger"
-                  ? "border-red-200 bg-red-50 text-red-950"
-                  : feedbackMessage.tone === "success"
-                    ? "border-emerald-200 bg-emerald-50 text-emerald-950"
-                    : "border-blue-200 bg-blue-50 text-blue-950"
-              }`}
-            >
-              {feedbackMessage.text}
-            </div>
-          ) : null}
         </div>
       </SectionCard>
 
