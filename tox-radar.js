@@ -14,18 +14,28 @@ const FEEDS = [
   "https://www.thebottomline.org.uk/feed/"
 ];
 
-const KEYWORDS = [
-  "tox",
-  "toxicology",
-  "overdose",
-  "poison",
-  "intoxication",
-  "antidote",
-  "envenenamento",
-  "intoxicacao",
-  "chumbinho",
-  "salicylate",
-  "acetaminophen"
+const INTOXICATION_PATTERNS = [
+  /\boverdose\b/g,
+  /\bpoison(ing|ed)?\b/g,
+  /\bintoxicat(ion|ed|ing)?\b/g,
+  /\btoxicolog(y|ic)\b/g,
+  /\btoxidrome\b/g,
+  /\bantidote(s)?\b/g,
+  /\benvenenament(o|os)\b/g,
+  /\bintoxicaca(o|es)\b/g,
+  /\bchumbinho\b/g,
+  /\bsalicylate(s)?\b/g,
+  /\bacetaminophen\b/g,
+  /\bparacetamol\b/g,
+  /\bopioid\s+toxicity\b/g,
+  /\btoxic\s+alcohol(s)?\b/g
+];
+
+const EXCLUSION_PATTERNS = [
+  /\btoxic\s+shock\b/g,
+  /\btoxic\s+megacolon\b/g,
+  /\btoxic\s+epidermal\s+necrolysis\b/g,
+  /\bdetox\b/g
 ];
 
 function normalizeText(value) {
@@ -35,7 +45,6 @@ function normalizeText(value) {
     .toLowerCase();
 }
 
-const NORMALIZED_KEYWORDS = KEYWORDS.map((keyword) => normalizeText(keyword));
 const runtimeSentUrls = new Set();
 
 const FEED_TIMEOUT_MS = getEnvInt("TOX_RADAR_FEED_TIMEOUT_MS", 12000, 1000, 120000);
@@ -57,16 +66,41 @@ function isTableNotInCacheError(error) {
   );
 }
 
-function hasToxicologyKeyword(item) {
-  const haystack = normalizeText([
-    item.title,
+function countPatternMatches(text, patterns) {
+  let total = 0;
+
+  for (const pattern of patterns) {
+    const matches = text.match(pattern);
+    total += matches ? matches.length : 0;
+  }
+
+  return total;
+}
+
+function isRelevantIntoxicationContent(item) {
+  const title = normalizeText(item.title);
+  const body = normalizeText([
     item.contentSnippet,
     item.content,
     item.summary,
     item["content:encoded"]
   ].join(" "));
 
-  return NORMALIZED_KEYWORDS.some((keyword) => haystack.includes(keyword));
+  const exclusionsInTitle = countPatternMatches(title, EXCLUSION_PATTERNS);
+  if (exclusionsInTitle > 0) {
+    return false;
+  }
+
+  const titleHits = countPatternMatches(title, INTOXICATION_PATTERNS);
+  const bodyHits = countPatternMatches(body, INTOXICATION_PATTERNS);
+
+  // Scoring: title evidence is stronger than body mention.
+  const score = (titleHits * 2) + bodyHits;
+
+  // Strict gate to avoid generic EM updates:
+  // - any direct intoxication term in title, OR
+  // - repeated intoxication evidence in body.
+  return titleHits >= 1 || score >= 3;
 }
 
 function getRequiredEnv(name) {
@@ -256,7 +290,7 @@ async function processFeed(parser, supabase, telegramToken, chatId, feedUrl) {
       continue;
     }
 
-    if (!hasToxicologyKeyword(item)) {
+    if (!isRelevantIntoxicationContent(item)) {
       continue;
     }
 
