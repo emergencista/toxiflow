@@ -21,7 +21,8 @@ const charcoalChecklist = [
   "Via aérea não protegida",
   "Íleo, obstrução ou perfuração suspeita",
   "Alto risco de aspiração",
-  "Cáustico, hidrocarboneto ou substância não adsorvível"
+  "Cáustico, hidrocarboneto ou substância não adsorvível",
+  "Nenhuma das contraindicações acima"
 ];
 
 const flumazenilChecklist = [
@@ -29,7 +30,8 @@ const flumazenilChecklist = [
   "História de convulsão ou epilepsia",
   "Coingestão pró-convulsivante",
   "QRS alargado ou arritmia importante",
-  "Coma de origem desconhecida ou intoxicação mista"
+  "Coma de origem desconhecida ou intoxicação mista",
+  "Nenhuma das contraindicações acima"
 ];
 
 function ActionButton({
@@ -147,20 +149,30 @@ export function ClinicalActionsCard({
     }
 
     if (canUseCharcoalChecklist) {
-      if (charcoalFlags.length > 0) {
+      const hasContraindications = charcoalFlags.some((f) => f !== "Nenhuma das contraindicações acima");
+      const confirmedNoContraindications = charcoalFlags.includes("Nenhuma das contraindicações acima");
+      
+      if (hasContraindications) {
         naoFazerAgora.push("Carvão ativado enquanto houver fator de risco marcado.");
-      } else if (weightKg && weightKg > 0) {
+      } else if (confirmedNoContraindications && weightKg && weightKg > 0) {
         fazerAgora.push(`Carvão ativado: 1 g/kg (dose estimada ${weightKg.toFixed(0)} g).`);
-      } else {
+      } else if (confirmedNoContraindications && !weightKg) {
         pendencias.push("Informar peso para calcular dose de carvão ativado (1 g/kg).");
+      } else if (!confirmedNoContraindications && charcoalFlags.length === 0) {
+        pendencias.push("Avaliar contraindicações de carvão ativado.");
       }
     }
 
     if (isFlumazenil) {
-      if (flumazenilFlags.length > 0) {
+      const hasContraindications = flumazenilFlags.some((f) => f !== "Nenhuma das contraindicações acima");
+      const confirmedNoContraindications = flumazenilFlags.includes("Nenhuma das contraindicações acima");
+      
+      if (hasContraindications) {
         naoFazerAgora.push("Flumazenil neste cenário com contraindicação marcada.");
-      } else {
+      } else if (confirmedNoContraindications) {
         fazerAgora.push("Flumazenil pode ser considerado se houver depressão clínica relevante.");
+      } else if (flumazenilFlags.length === 0) {
+        pendencias.push("Avaliar contraindicações de flumazenil.");
       }
     }
 
@@ -378,9 +390,15 @@ export function ClinicalActionsCard({
                     key={`charcoal-${item}`}
                     label={item}
                     selected={charcoalFlags.includes(item)}
-                    onToggle={() =>
-                      setCharcoalFlags((current) => (current.includes(item) ? current.filter((entry) => entry !== item) : [...current, item]))
-                    }
+                    onToggle={() => {
+                      if (item === "Nenhuma das contraindicações acima") {
+                        setCharcoalFlags(charcoalFlags.includes(item) ? [] : [item]);
+                      } else if (charcoalFlags.includes("Nenhuma das contraindicações acima")) {
+                        setCharcoalFlags([item]);
+                      } else {
+                        setCharcoalFlags((current) => (current.includes(item) ? current.filter((entry) => entry !== item) : [...current, item]));
+                      }
+                    }}
                   />
                 ))}
               </div>
@@ -426,9 +444,15 @@ export function ClinicalActionsCard({
                     key={`flumazenil-${item}`}
                     label={item}
                     selected={flumazenilFlags.includes(item)}
-                    onToggle={() =>
-                      setFlumazenilFlags((current) => (current.includes(item) ? current.filter((entry) => entry !== item) : [...current, item]))
-                    }
+                    onToggle={() => {
+                      if (item === "Nenhuma das contraindicações acima") {
+                        setFlumazenilFlags(flumazenilFlags.includes(item) ? [] : [item]);
+                      } else if (flumazenilFlags.includes("Nenhuma das contraindicações acima")) {
+                        setFlumazenilFlags([item]);
+                      } else {
+                        setFlumazenilFlags((current) => (current.includes(item) ? current.filter((entry) => entry !== item) : [...current, item]));
+                      }
+                    }}
                   />
                 ))}
               </div>
