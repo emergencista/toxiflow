@@ -301,12 +301,12 @@ export function ClinicalActionsCard({
                   : decisaoFinal.tone === "success"
                     ? "border-emerald-300 bg-emerald-50"
                     : "border-blue-300 bg-blue-50"
-            } sticky top-3 z-20 py-4 shadow-[0_10px_24px_-18px_rgba(15,23,42,0.45)] md:static md:z-auto md:shadow-none`}
+            } sticky top-3 z-20 shadow-[0_10px_24px_-18px_rgba(15,23,42,0.45)] md:static md:z-auto md:shadow-none`}
           >
-            <div className="flex flex-col items-center gap-3">
-              <span className="text-5xl">{decisaoFinal.icon}</span>
+            <div className="flex items-center gap-3">
+              <span className="text-3xl">{decisaoFinal.icon}</span>
               <p
-                className={`text-center text-base font-semibold leading-6 ${
+                className={`text-base font-semibold leading-6 ${
                 decisaoFinal.tone === "danger"
                   ? "text-red-950"
                   : decisaoFinal.tone === "warning"
@@ -319,6 +319,29 @@ export function ClinicalActionsCard({
                 {decisaoFinal.label}
               </p>
             </div>
+            {condutaResumo.naoFazerAgora.length > 0 ? (
+              <ul className="mt-3 list-disc space-y-1 pl-5 text-[13px] leading-5 text-red-950 min-[390px]:text-sm">
+                {condutaResumo.naoFazerAgora.map((item) => (
+                  <li key={`dont-${item}`}>{item}</li>
+                ))}
+              </ul>
+            ) : null}
+
+            {condutaResumo.fazerAgora.length > 0 ? (
+              <ul className="mt-3 list-disc space-y-1 pl-5 text-[13px] leading-5 text-emerald-950 min-[390px]:text-sm">
+                {condutaResumo.fazerAgora.map((item) => (
+                  <li key={`do-${item}`}>{item}</li>
+                ))}
+              </ul>
+            ) : null}
+
+            {condutaResumo.pendencias.length > 0 ? (
+              <ul className="mt-3 list-disc space-y-1 pl-5 text-[13px] leading-5 text-amber-950 min-[390px]:text-sm">
+                {condutaResumo.pendencias.map((item) => (
+                  <li key={`pending-${item}`}>{item}</li>
+                ))}
+              </ul>
+            ) : null}
           </div>
 
           {(isToxic || drug.isDoseUnknown) ? (
@@ -326,41 +349,6 @@ export function ClinicalActionsCard({
               Caso de maior risco. Priorize suporte e CIATox.
             </div>
           ) : null}
-
-          <div className="grid gap-2">
-            {condutaResumo.naoFazerAgora.length > 0 ? (
-              <div className="rounded-2xl border border-red-200 bg-red-50 px-3 py-3">
-                <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-red-900 min-[390px]:text-[13px]">Nao fazer agora</p>
-                <ul className="mt-2 list-disc space-y-1 pl-5 text-[13px] leading-5 text-red-950 min-[390px]:text-sm">
-                  {condutaResumo.naoFazerAgora.map((item) => (
-                    <li key={`dont-${item}`}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
-
-            {condutaResumo.fazerAgora.length > 0 ? (
-              <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-3 py-3">
-                <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-emerald-900 min-[390px]:text-[13px]">Fazer agora</p>
-                <ul className="mt-2 list-disc space-y-1 pl-5 text-[13px] leading-5 text-emerald-950 min-[390px]:text-sm">
-                  {condutaResumo.fazerAgora.map((item) => (
-                    <li key={`do-${item}`}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
-
-            {condutaResumo.pendencias.length > 0 ? (
-              <div className="rounded-2xl border border-amber-200 bg-amber-50 px-3 py-3">
-                <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-amber-900 min-[390px]:text-[13px]">Pendencias para decidir</p>
-                <ul className="mt-2 list-disc space-y-1 pl-5 text-[13px] leading-5 text-amber-950 min-[390px]:text-sm">
-                  {condutaResumo.pendencias.map((item) => (
-                    <li key={`pending-${item}`}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
-          </div>
 
           {canUseCharcoalChecklist ? (
             <div className="rounded-2xl border border-slate-200 bg-slate-50">
