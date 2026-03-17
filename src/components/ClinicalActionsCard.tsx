@@ -299,7 +299,7 @@ export function ClinicalActionsCard({
                   : decisaoFinal.tone === "success"
                     ? "border-emerald-300 bg-emerald-50"
                     : "border-blue-300 bg-blue-50"
-            }`}
+            } sticky top-2 z-20 shadow-[0_10px_24px_-18px_rgba(15,23,42,0.45)] md:static md:z-auto md:shadow-none`}
           >
             <p
               className={`text-xs font-semibold uppercase tracking-[0.14em] ${
