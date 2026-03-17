@@ -31,4 +31,5 @@ jobs:
           TOX_RADAR_FEED_TIMEOUT_MS: ${{ secrets.TOX_RADAR_FEED_TIMEOUT_MS }}
           TOX_RADAR_FEED_MAX_RETRIES: ${{ secrets.TOX_RADAR_FEED_MAX_RETRIES }}
           TOX_RADAR_FEED_RETRY_DELAY_MS: ${{ secrets.TOX_RADAR_FEED_RETRY_DELAY_MS }}
+          TOX_RADAR_UPDATE_MODE: ${{ secrets.TOX_RADAR_UPDATE_MODE }}
         run: node tox-radar.js

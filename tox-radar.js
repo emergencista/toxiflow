@@ -16,6 +16,7 @@ const FEEDS = [
 
 const MAX_AUTO_UPDATES_PER_ARTICLE = getEnvInt("TOX_RADAR_MAX_DRUG_UPDATES_PER_ARTICLE", 3, 1, 10);
 const MAX_NOTES_PER_DRUG = getEnvInt("TOX_RADAR_MAX_NOTES_PER_DRUG", 14, 4, 30);
+const UPDATE_MODE = getUpdateMode(process.env.TOX_RADAR_UPDATE_MODE);
 
 const INTOXICATION_PATTERNS = [
   /\boverdose\b/g,
@@ -127,6 +128,19 @@ function getEnvInt(name, fallback, min, max) {
   }
 
   return Math.max(min, Math.min(max, parsed));
+}
+
+function getUpdateMode(value) {
+  const normalized = normalizeText(value || "moderate");
+  if (normalized === "1" || normalized === "conservative") {
+    return "conservative";
+  }
+
+  if (normalized === "3" || normalized === "advanced") {
+    return "advanced";
+  }
+
+  return "moderate";
 }
 
 function delay(ms) {
@@ -250,6 +264,18 @@ function inferUpdateScope(articleText) {
   return "notas clinicas e referencia";
 }
 
+function getUpdateModeLabel() {
+  if (UPDATE_MODE === "advanced") {
+    return "modo 3 (avancado com revisao)";
+  }
+
+  if (UPDATE_MODE === "conservative") {
+    return "modo 1 (conservador)";
+  }
+
+  return "modo 2 (moderado)";
+}
+
 async function fetchDrugCatalog(supabase) {
   const { data, error } = await supabase
     .from("drugs")
@@ -261,6 +287,82 @@ async function fetchDrugCatalog(supabase) {
   }
 
   return Array.isArray(data) ? data : [];
+}
+
+function extractSuggestionSnippet(itemText, drug) {
+  const compact = compactWhitespace(itemText);
+  if (!compact) {
+    return null;
+  }
+
+  const sentences = compact
+    .split(/(?<=[.!?])\s+/)
+    .map((sentence) => compactWhitespace(sentence))
+    .filter((sentence) => sentence.length >= 20);
+
+  const terms = [drug.name, ...(Array.isArray(drug.synonyms) ? drug.synonyms : [])]
+    .map((term) => normalizeText(term))
+    .filter((term) => term.length >= 4);
+
+  const toxicClues = ["overdose", "intoxic", "poison", "toxic", "antidote", "toxidrome", "mg/kg"];
+
+  for (const sentence of sentences) {
+    const normalized = normalizeText(sentence);
+    const hasDrugTerm = terms.some((term) => normalized.includes(term));
+    const hasToxicClue = toxicClues.some((clue) => normalized.includes(clue));
+
+    if (hasDrugTerm && hasToxicClue) {
+      return sentence.slice(0, 280);
+    }
+  }
+
+  return sentences.length ? sentences[0].slice(0, 280) : null;
+}
+
+function buildReviewSuggestion(itemText, article, drug, updateScope) {
+  const snippet = extractSuggestionSnippet(itemText, drug);
+  const sourceTail = `Fonte: ${article.source}. Artigo: ${article.title}.`;
+
+  const suggestedAlertMessage = snippet
+    ? `${snippet} (${sourceTail})`
+    : null;
+
+  const suggestedClinicalPresentation = `Atualizacao FOAMed para ${drug.name} em ${updateScope}. Revisar potencial impacto clinico com base em: ${article.title}.`;
+
+  return {
+    suggestedAlertMessage,
+    suggestedClinicalPresentation
+  };
+}
+
+async function queueReviewSuggestion(supabase, payload) {
+  const { error } = await supabase
+    .from("tox_radar_review_queue")
+    .upsert(
+      {
+        drug_slug: payload.drugSlug,
+        drug_name: payload.drugName,
+        article_url: payload.articleUrl,
+        article_title: payload.articleTitle,
+        source: payload.source,
+        update_scope: payload.updateScope,
+        suggested_alert_message: payload.suggestedAlertMessage,
+        suggested_clinical_presentation: payload.suggestedClinicalPresentation,
+        status: "pending"
+      },
+      { onConflict: "drug_slug,article_url" }
+    );
+
+  if (error) {
+    if (isTableNotInCacheError(error)) {
+      console.warn(`[warn] Fila de revisao indisponivel; sugestao nao enfileirada para ${payload.drugSlug}.`);
+      return false;
+    }
+
+    throw new Error(`Falha ao enfileirar sugestao para revisao (${payload.drugSlug}): ${error.message}`);
+  }
+
+  return true;
 }
 
 function findMentionedDrugs(drugCatalog, itemText) {
@@ -310,13 +412,15 @@ async function applyAutoDrugUpdate(supabase, drug, article) {
     ? (currentGuideline.includes(sourceTag) ? currentGuideline : `${currentGuideline} | ${sourceTag}`)
     : sourceTag;
 
-  const { error } = await supabase
-    .from("drugs")
-    .update({
-      notes: nextNotes,
-      guideline_ref: nextGuidelineRef
-    })
-    .eq("slug", drug.slug);
+  const updatePayload = {
+    notes: nextNotes
+  };
+
+  if (UPDATE_MODE !== "conservative") {
+    updatePayload.guideline_ref = nextGuidelineRef;
+  }
+
+  const { error } = await supabase.from("drugs").update(updatePayload).eq("slug", drug.slug);
 
   if (error) {
     throw new Error(`Falha ao atualizar droga ${drug.slug}: ${error.message}`);
@@ -326,13 +430,19 @@ async function applyAutoDrugUpdate(supabase, drug, article) {
 }
 
 async function sendDrugUpdatedTelegramNotice(token, chatId, payload) {
+  const reviewLine = payload.reviewQueued
+    ? "<b>Revisao pendente:</b> sugestoes para alert_message e clinical_presentation foram enfileiradas."
+    : "";
+
   const text = [
     "<b>TOX Radar Update</b>",
     "",
     `substancia <b>${escapeHtml(payload.drugName)}</b> atualizada em <b>${escapeHtml(payload.updateScope)}</b>`,
+    `<b>Modo:</b> ${escapeHtml(getUpdateModeLabel())}`,
     `<b>Fonte:</b> ${escapeHtml(payload.source)}`,
     `<b>Artigo:</b> ${escapeHtml(payload.title)}`,
-    `<b>Link:</b> <a href=\"${payload.url}\">Abrir artigo</a>`
+    `<b>Link:</b> <a href=\"${payload.url}\">Abrir artigo</a>`,
+    reviewLine
   ].join("\n");
 
   const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
@@ -473,12 +583,28 @@ async function processFeed(parser, supabase, telegramToken, chatId, feedUrl, dru
           continue;
         }
 
+        let reviewQueued = false;
+        if (UPDATE_MODE === "advanced") {
+          const suggestion = buildReviewSuggestion(itemText, article, drug, updateScope);
+          reviewQueued = await queueReviewSuggestion(supabase, {
+            drugSlug: drug.slug,
+            drugName: drug.name,
+            articleUrl: article.url,
+            articleTitle: article.title,
+            source: article.source,
+            updateScope,
+            suggestedAlertMessage: suggestion.suggestedAlertMessage,
+            suggestedClinicalPresentation: suggestion.suggestedClinicalPresentation
+          });
+        }
+
         await sendDrugUpdatedTelegramNotice(telegramToken, chatId, {
           drugName: drug.name,
           updateScope,
           source,
           title,
-          url
+          url,
+          reviewQueued
         });
 
         autoUpdated += 1;
