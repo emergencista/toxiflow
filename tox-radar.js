@@ -36,6 +36,22 @@ function normalizeText(value) {
 }
 
 const NORMALIZED_KEYWORDS = KEYWORDS.map((keyword) => normalizeText(keyword));
+const runtimeSentUrls = new Set();
+
+function isTableNotInCacheError(error) {
+  const code = String(error?.code || "").toUpperCase();
+  const message = String(error?.message || "").toLowerCase();
+  const details = String(error?.details || "").toLowerCase();
+  const hint = String(error?.hint || "").toLowerCase();
+  const combined = `${message} ${details} ${hint}`;
+
+  return (
+    code === "PGRST205" ||
+    combined.includes("schema cache") ||
+    combined.includes("could not find the table") ||
+    combined.includes("relation") && combined.includes("does not exist")
+  );
+}
 
 function hasToxicologyKeyword(item) {
   const haystack = normalizeText([
@@ -78,6 +94,10 @@ function escapeHtml(value) {
 }
 
 async function isUrlAlreadySent(supabase, url) {
+  if (runtimeSentUrls.has(url)) {
+    return true;
+  }
+
   const { data, error } = await supabase
     .from("tox_alerts_sent")
     .select("url")
@@ -85,6 +105,12 @@ async function isUrlAlreadySent(supabase, url) {
     .limit(1);
 
   if (error) {
+    if (isTableNotInCacheError(error)) {
+      // Fallback: keep the bot running even if PostgREST cannot see the table yet.
+      console.warn(`[warn] Supabase sem tabela tox_alerts_sent no cache; deduplicacao persistente desativada para esta execucao. URL=${url}`);
+      return runtimeSentUrls.has(url);
+    }
+
     throw new Error(`Falha ao consultar Supabase para URL ${url}: ${error.message}`);
   }
 
@@ -95,8 +121,15 @@ async function markUrlAsSent(supabase, url) {
   const { error } = await supabase.from("tox_alerts_sent").insert({ url });
 
   if (error) {
+    if (isTableNotInCacheError(error)) {
+      runtimeSentUrls.add(url);
+      return;
+    }
+
     throw new Error(`Falha ao gravar URL no Supabase (${url}): ${error.message}`);
   }
+
+  runtimeSentUrls.add(url);
 }
 
 async function sendTelegramAlert(token, chatId, article) {
