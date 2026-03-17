@@ -1,5 +1,16 @@
 const { createClient } = require("@supabase/supabase-js");
 
+function getFirstEnv(names) {
+  for (const name of names) {
+    const value = process.env[name];
+    if (value && String(value).trim()) {
+      return String(value).trim();
+    }
+  }
+
+  return "";
+}
+
 function parseEventBody(event) {
   if (!event || !event.body) {
     return null;
@@ -48,9 +59,9 @@ function buildNewsMessage(rows) {
 }
 
 async function sendTelegramMessage(chatId, text) {
-  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const token = getFirstEnv(["TOXIFLOW_TELEGRAM_BOT_TOKEN", "TELEGRAM_BOT_TOKEN"]);
   if (!token) {
-    throw new Error("Variavel de ambiente obrigatoria ausente: TELEGRAM_BOT_TOKEN");
+    throw new Error("Variavel de ambiente obrigatoria ausente: TOXIFLOW_TELEGRAM_BOT_TOKEN/TELEGRAM_BOT_TOKEN");
   }
 
   const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
@@ -71,15 +82,20 @@ async function sendTelegramMessage(chatId, text) {
 }
 
 async function getLatestNewsRows() {
-  const supabaseUrl = process.env.SUPABASE_URL;
-  const supabaseKey = process.env.SUPABASE_KEY;
+  const supabaseUrl = getFirstEnv(["SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_URL"]);
+  const supabaseKey = getFirstEnv([
+    "SUPABASE_SERVICE_ROLE_KEY",
+    "SUPABASE_KEY",
+    "SUPABASE_ANON_KEY",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY"
+  ]);
 
   if (!supabaseUrl) {
-    throw new Error("Variavel de ambiente obrigatoria ausente: SUPABASE_URL");
+    throw new Error("Variavel de ambiente obrigatoria ausente: SUPABASE_URL/NEXT_PUBLIC_SUPABASE_URL");
   }
 
   if (!supabaseKey) {
-    throw new Error("Variavel de ambiente obrigatoria ausente: SUPABASE_KEY");
+    throw new Error("Variavel de ambiente obrigatoria ausente: SUPABASE_SERVICE_ROLE_KEY/SUPABASE_KEY");
   }
 
   const supabase = createClient(supabaseUrl, supabaseKey, {
