@@ -7,6 +7,11 @@ import { createSupabaseAdminClient, isSupabaseAdminConfigured } from "@/lib/supa
 const DEFAULT_LIMIT = 120;
 const MAX_LIMIT = 300;
 
+function isMissingReviewQueueTable(message: string): boolean {
+  const normalized = message.toLowerCase();
+  return normalized.includes("tox_radar_review_queue") && (normalized.includes("schema cache") || normalized.includes("does not exist"));
+}
+
 export async function GET(request: Request) {
   const actor = getAdminIdentityFromRequest(request);
   const ip = getRequestClientIp(request);
@@ -50,6 +55,23 @@ export async function GET(request: Request) {
   const { data, error } = await query;
 
   if (error) {
+    if (isMissingReviewQueueTable(error.message)) {
+      await recordAdminAudit({
+        action: "review_queue_list_table_missing",
+        actor,
+        success: false,
+        ip,
+        userAgent,
+        details: { message: error.message },
+      });
+
+      return NextResponse.json({
+        items: [],
+        warning:
+          "Fila de revisão ainda não inicializada. Execute o SQL de setup em supabase/tox_radar_review_queue.sql no projeto Supabase para habilitar o modo 3.",
+      });
+    }
+
     await recordAdminAudit({
       action: "review_queue_list_failed",
       actor,

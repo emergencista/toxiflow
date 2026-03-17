@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "generate:data": "node scripts/generate-normalized-data.cjs",
     "generate:icons": "node scripts/generate-icons.cjs",
-    "tox:radar": "node tox-radar.js"
+    "tox:radar": "node tox-radar.js",
+    "db:migrate": "bash scripts/run-sql-migrations.sh"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",

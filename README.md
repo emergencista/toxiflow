@@ -8,6 +8,28 @@ Aplicação web simples (PWA) para suporte rápido em toxicologia.
 - Publish directory: `.`
 - Build command: (vazio)
 
+## Migrations SQL (automacao no deploy)
+
+O deploy via GitHub Actions agora executa migrations SQL antes do build.
+
+### Secret obrigatorio no GitHub Actions
+- `DATABASE_URL` (connection string Postgres do Supabase)
+
+### Como funciona
+- Script: `scripts/run-sql-migrations.sh`
+- Comando: `npm run db:migrate`
+- Ordem atual:
+	- `supabase/tox_alerts_sent.sql`
+	- `supabase/tox_radar_review_queue.sql`
+	- `supabase/admin_audit_logs.sql`
+
+### Execucao manual (opcional)
+- `DATABASE_URL='postgresql://...' npm run db:migrate`
+
+### Erro comum no SQL Editor
+Se aparecer erro como `syntax error at or near "supabase"`, voce colou o caminho do arquivo em vez do SQL.
+No SQL Editor, cole o conteudo completo do arquivo `supabase/tox_radar_review_queue.sql` e execute.
+
 ## Hardening para producao
 
 ### Variaveis obrigatorias (admin)

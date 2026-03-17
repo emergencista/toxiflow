@@ -121,12 +121,15 @@ export function AdminPanel({ initialDrugs, isConfigured }: AdminPanelProps) {
         cache: "no-store",
       });
 
-      const result = (await response.json()) as { items?: ReviewQueueItem[]; error?: string };
+      const result = (await response.json()) as { items?: ReviewQueueItem[]; error?: string; warning?: string };
       if (!response.ok) {
         throw new Error(result.error ?? "Falha ao carregar fila de revisão.");
       }
 
       setReviewQueueItems(Array.isArray(result.items) ? result.items : []);
+      if (result.warning) {
+        setReviewQueueFeedback(result.warning);
+      }
     } catch (error) {
       setReviewQueueFeedback(error instanceof Error ? error.message : "Falha inesperada ao carregar fila.");
     } finally {
