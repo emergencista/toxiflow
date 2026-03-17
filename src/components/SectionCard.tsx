@@ -22,11 +22,11 @@ export function SectionCard({
   children
 }: SectionCardProps) {
   return (
-    <section className={`card-enter rounded-[1.55rem] border p-4 shadow-[0_24px_54px_-32px_rgba(15,23,42,0.35)] ring-1 ring-white/55 backdrop-blur-sm sm:p-5 ${accentStyles[accent]}`}>
-      <div className="mb-4 flex flex-col gap-1.5 sm:mb-5">
+    <section className={`card-enter rounded-[1.4rem] border p-3.5 shadow-[0_24px_54px_-32px_rgba(15,23,42,0.35)] ring-1 ring-white/55 backdrop-blur-sm min-[390px]:rounded-[1.48rem] min-[390px]:p-4 min-[430px]:rounded-[1.55rem] sm:p-5 ${accentStyles[accent]}`}>
+      <div className="mb-3.5 flex flex-col gap-1.5 min-[390px]:mb-4 sm:mb-5">
         <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-slate-500">{eyebrow}</span>
-        <h2 className="text-[1.06rem] font-semibold tracking-tight text-slate-950 sm:text-xl">{title}</h2>
-        {description ? <p className="max-w-2xl text-sm leading-5 text-slate-600">{description}</p> : null}
+        <h2 className="text-[1.02rem] font-semibold tracking-tight text-slate-950 min-[390px]:text-[1.06rem] min-[430px]:text-[1.1rem] sm:text-xl">{title}</h2>
+        {description ? <p className="max-w-2xl text-[13px] leading-5 text-slate-600 min-[390px]:text-sm">{description}</p> : null}
       </div>
       {children}
     </section>
