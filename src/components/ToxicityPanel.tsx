@@ -19,9 +19,9 @@ export function ToxicityPanel({ drug, isReady, isToxic, ingestedMg, thresholdMg 
         description="Sem estimativa confiável por mg/kg. Priorize clínica e suporte."
       >
         <div className="legacy-panel-danger rounded-[1.28rem] px-4 py-4.5 text-center text-white min-[390px]:rounded-[1.35rem] min-[390px]:px-5 min-[390px]:py-5">
-          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/75">Emergência toxicológica</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/95">Emergência toxicológica</p>
           <p className="mt-2 text-[1.45rem] font-semibold min-[390px]:text-2xl">Não calcular mg/kg</p>
-          <p className="mt-3 text-[13px] leading-5 text-white/85 min-[390px]:text-sm">{drug.alertMessage}</p>
+          <p className="mt-3 text-[13px] leading-5 text-white/95 min-[390px]:text-sm">{drug.alertMessage}</p>
         </div>
       </SectionCard>
     );
@@ -53,15 +53,15 @@ export function ToxicityPanel({ drug, isReady, isToxic, ingestedMg, thresholdMg 
       }
     >
       <div className={`rounded-[1.28rem] px-4 py-4.5 text-center text-white min-[390px]:rounded-[1.35rem] min-[390px]:px-5 min-[390px]:py-5 ${isToxic ? "legacy-panel-danger" : "legacy-panel-safe"}`}>
-        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/75">{isToxic ? "Risco tóxico" : "Baixo risco estimado"}</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/95">{isToxic ? "Risco tóxico" : "Baixo risco estimado"}</p>
         <p className="mt-2 text-[1.3rem] font-semibold min-[390px]:text-[1.45rem] min-[430px]:text-[1.6rem]">{isToxic ? "Suporte e monitorização" : "Observação clínica"}</p>
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
           <div className="rounded-2xl bg-white/10 px-4 py-3.5 backdrop-blur-sm min-[390px]:py-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">Dose ingerida</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/90">Dose ingerida</p>
             <p className="mt-2 text-[1.6rem] font-semibold min-[390px]:text-[1.75rem] min-[430px]:text-3xl">{ingestedMg?.toFixed(1)} mg</p>
           </div>
           <div className="rounded-2xl bg-white/10 px-4 py-3.5 backdrop-blur-sm min-[390px]:py-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">Limiar estimado</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/90">Limiar estimado</p>
             <p className="mt-2 text-[1.6rem] font-semibold min-[390px]:text-[1.75rem] min-[430px]:text-3xl">{thresholdMg?.toFixed(1)} mg</p>
           </div>
         </div>

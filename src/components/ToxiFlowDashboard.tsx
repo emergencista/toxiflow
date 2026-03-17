@@ -71,17 +71,17 @@ export function ToxiFlowDashboard({ drugs }: ToxiFlowDashboardProps) {
           <div className="absolute -bottom-12 -left-8 h-40 w-40 rounded-full bg-rose-300/15 blur-2xl" />
           <div className="flex items-start justify-between gap-3">
             <div>
-              <span className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.18em] text-white/85 min-[390px]:text-[10px]">
+              <span className="inline-flex items-center rounded-full border border-white/30 bg-white/12 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.18em] text-white min-[390px]:text-[10px]">
                 Triage Mode
               </span>
               <h1 className="mt-2 text-[1.42rem] font-extrabold tracking-tight min-[390px]:text-[1.56rem] min-[430px]:text-[1.66rem] md:text-[1.85rem]">ToxiFlow</h1>
-              <p className="mt-1.5 text-[13px] text-white/78 min-[390px]:text-sm">Decisão toxicológica em segundos no plantão</p>
-              <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.19em] text-white/85 min-[430px]:text-xs">{drugs.length} substâncias cadastradas</p>
+              <p className="mt-1.5 text-[13px] text-white/90 min-[390px]:text-sm">Decisão toxicológica em segundos no plantão</p>
+              <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.19em] text-white/95 min-[430px]:text-xs">{drugs.length} substâncias cadastradas</p>
             </div>
             <button
               type="button"
               onClick={() => setReferenceModalOpen(true)}
-              className="rounded-xl border border-white/25 bg-white/10 px-2.5 py-2 text-[11px] font-semibold text-white transition hover:bg-white/20 min-[390px]:px-3 min-[390px]:text-xs"
+              className="rounded-xl border border-white/35 bg-white/15 px-2.5 py-2 text-[11px] font-semibold text-white transition hover:bg-white/25 min-[390px]:px-3 min-[390px]:text-xs"
             >
               Fontes
             </button>
@@ -135,7 +135,7 @@ export function ToxiFlowDashboard({ drugs }: ToxiFlowDashboardProps) {
           </div>
 
           <div className="card-enter rounded-[1.45rem] border border-white/80 bg-[linear-gradient(165deg,rgba(255,255,255,0.97)_0%,rgba(246,250,255,0.9)_100%)] px-4 py-4 shadow-[0_22px_52px_-32px_rgba(15,23,42,0.34)] min-[390px]:rounded-[1.55rem] min-[430px]:px-5 sm:px-5">
-            <p className="text-center text-[11px] leading-4 text-slate-500 min-[390px]:text-xs">
+            <p className="text-center text-[11px] leading-4 text-slate-600 min-[390px]:text-xs">
               Ferramenta auxiliar. Em dúvida, escolha um número do CIATox.
             </p>
             <div className="mt-3 grid gap-2.5">
@@ -146,7 +146,7 @@ export function ToxiFlowDashboard({ drugs }: ToxiFlowDashboardProps) {
                   className={`flex w-full items-center justify-between rounded-[1.1rem] border px-4 py-3.5 text-left text-[13px] font-semibold transition min-[390px]:rounded-[1.15rem] min-[390px]:text-sm ${isToxic || selectedDrug?.isDoseUnknown ? "call-pulse call-urgent border-red-300 bg-[linear-gradient(135deg,#dc2626_0%,#ef4444_45%,#f97316_100%)] text-white shadow-[0_18px_36px_-16px_rgba(220,38,38,0.85)]" : "border-slate-700/20 bg-[linear-gradient(135deg,#0f172a_0%,#1e293b_100%)] text-white shadow-[0_14px_28px_-12px_rgba(15,23,42,0.74)] hover:brightness-110"}`}
                 >
                   <span>{contact.label}</span>
-                  <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-white/80 min-[390px]:text-[11px]">{contact.note}</span>
+                  <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-white/95 min-[390px]:text-[11px]">{contact.note}</span>
                 </a>
               ))}
             </div>
