@@ -161,6 +161,38 @@ export function ClinicalActionsCard({
     weightKg,
   ]);
 
+  const decisaoFinal = useMemo(() => {
+    if (condutaResumo.naoFazerAgora.length > 0) {
+      return {
+        tone: "danger" as const,
+        title: "NÃO FAZER AGORA",
+        subtitle: "Há contraindicação ativa. Priorize suporte e discussão com o CIATox.",
+      };
+    }
+
+    if (condutaResumo.pendencias.length > 0) {
+      return {
+        tone: "warning" as const,
+        title: "PREENCHER PENDÊNCIAS",
+        subtitle: "Faltam dados para liberar conduta final com segurança.",
+      };
+    }
+
+    if (condutaResumo.fazerAgora.length > 0) {
+      return {
+        tone: "success" as const,
+        title: "PODE FAZER AGORA",
+        subtitle: "Sem bloqueio crítico marcado no momento.",
+      };
+    }
+
+    return {
+      tone: "info" as const,
+      title: "REVISAR CENÁRIO",
+      subtitle: "Ajuste dados clínicos para liberar recomendações objetivas.",
+    };
+  }, [condutaResumo]);
+
   const modalConfig = useMemo(() => {
     if (!drug || !modalKind) {
       return null;
@@ -258,8 +290,56 @@ export function ClinicalActionsCard({
     <>
       <SectionCard eyebrow="Conduta" title="Ações práticas" description="Critérios de decisão exibidos imediatamente.">
         <div className="grid gap-3">
-          <div className="rounded-2xl border border-blue-200 bg-blue-50 px-4 py-3 text-[13px] leading-5 text-blue-950 min-[390px]:text-sm">
-            Preencha os critérios abaixo para liberar conduta final.
+          <div
+            className={`rounded-2xl border px-4 py-4 ${
+              decisaoFinal.tone === "danger"
+                ? "border-red-300 bg-red-50"
+                : decisaoFinal.tone === "warning"
+                  ? "border-amber-300 bg-amber-50"
+                  : decisaoFinal.tone === "success"
+                    ? "border-emerald-300 bg-emerald-50"
+                    : "border-blue-300 bg-blue-50"
+            }`}
+          >
+            <p
+              className={`text-xs font-semibold uppercase tracking-[0.14em] ${
+                decisaoFinal.tone === "danger"
+                  ? "text-red-800"
+                  : decisaoFinal.tone === "warning"
+                    ? "text-amber-800"
+                    : decisaoFinal.tone === "success"
+                      ? "text-emerald-800"
+                      : "text-blue-800"
+              }`}
+            >
+              Decisão final agora
+            </p>
+            <p
+              className={`mt-1 text-lg font-bold ${
+                decisaoFinal.tone === "danger"
+                  ? "text-red-950"
+                  : decisaoFinal.tone === "warning"
+                    ? "text-amber-950"
+                    : decisaoFinal.tone === "success"
+                      ? "text-emerald-950"
+                      : "text-blue-950"
+              }`}
+            >
+              {decisaoFinal.title}
+            </p>
+            <p
+              className={`mt-1 text-[13px] leading-5 min-[390px]:text-sm ${
+                decisaoFinal.tone === "danger"
+                  ? "text-red-900"
+                  : decisaoFinal.tone === "warning"
+                    ? "text-amber-900"
+                    : decisaoFinal.tone === "success"
+                      ? "text-emerald-900"
+                      : "text-blue-900"
+              }`}
+            >
+              {decisaoFinal.subtitle}
+            </p>
           </div>
 
           {(isToxic || drug.isDoseUnknown) ? (
@@ -269,19 +349,6 @@ export function ClinicalActionsCard({
           ) : null}
 
           <div className="grid gap-2">
-            <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-3 py-3">
-              <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-emerald-900 min-[390px]:text-[13px]">Fazer agora</p>
-              {condutaResumo.fazerAgora.length > 0 ? (
-                <ul className="mt-2 list-disc space-y-1 pl-5 text-[13px] leading-5 text-emerald-950 min-[390px]:text-sm">
-                  {condutaResumo.fazerAgora.map((item) => (
-                    <li key={`do-${item}`}>{item}</li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="mt-2 text-[13px] leading-5 text-emerald-950 min-[390px]:text-sm">Nenhuma conduta liberada no momento.</p>
-              )}
-            </div>
-
             <div className="rounded-2xl border border-red-200 bg-red-50 px-3 py-3">
               <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-red-900 min-[390px]:text-[13px]">Nao fazer agora</p>
               {condutaResumo.naoFazerAgora.length > 0 ? (
@@ -292,6 +359,19 @@ export function ClinicalActionsCard({
                 </ul>
               ) : (
                 <p className="mt-2 text-[13px] leading-5 text-red-950 min-[390px]:text-sm">Sem contraindicação crítica marcada neste momento.</p>
+              )}
+            </div>
+
+            <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-3 py-3">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-emerald-900 min-[390px]:text-[13px]">Fazer agora</p>
+              {condutaResumo.fazerAgora.length > 0 ? (
+                <ul className="mt-2 list-disc space-y-1 pl-5 text-[13px] leading-5 text-emerald-950 min-[390px]:text-sm">
+                  {condutaResumo.fazerAgora.map((item) => (
+                    <li key={`do-${item}`}>{item}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="mt-2 text-[13px] leading-5 text-emerald-950 min-[390px]:text-sm">Nenhuma conduta liberada no momento.</p>
               )}
             </div>
 
@@ -337,10 +417,10 @@ export function ClinicalActionsCard({
                 }`}
               >
                 {charcoalFlags.length > 0
-                  ? "Não fazer: carvão ativado enquanto houver fator de risco marcado."
+                  ? "Não fazer carvão ativado neste momento."
                   : weightKg && weightKg > 0
-                    ? `Pode fazer: carvão ativado 1 g/kg (dose estimada ${weightKg.toFixed(0)} g).`
-                    : "Pode fazer: carvão ativado. Pendente: informar peso para calcular 1 g/kg."}
+                    ? `Pode fazer carvão ativado: 1 g/kg (${weightKg.toFixed(0)} g).`
+                    : "Pode fazer carvão, mas informe peso para dose exata."}
               </div>
             </div>
           ) : null}
