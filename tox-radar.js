@@ -38,6 +38,10 @@ function normalizeText(value) {
 const NORMALIZED_KEYWORDS = KEYWORDS.map((keyword) => normalizeText(keyword));
 const runtimeSentUrls = new Set();
 
+const FEED_TIMEOUT_MS = getEnvInt("TOX_RADAR_FEED_TIMEOUT_MS", 12000, 1000, 120000);
+const FEED_MAX_RETRIES = getEnvInt("TOX_RADAR_FEED_MAX_RETRIES", 2, 0, 5);
+const FEED_RETRY_DELAY_MS = getEnvInt("TOX_RADAR_FEED_RETRY_DELAY_MS", 1500, 0, 60000);
+
 function isTableNotInCacheError(error) {
   const code = String(error?.code || "").toUpperCase();
   const message = String(error?.message || "").toLowerCase();
@@ -72,6 +76,77 @@ function getRequiredEnv(name) {
   }
 
   return String(value).trim();
+}
+
+function getEnvInt(name, fallback, min, max) {
+  const raw = process.env[name];
+  if (raw == null || String(raw).trim() === "") {
+    return fallback;
+  }
+
+  const parsed = Number.parseInt(String(raw).trim(), 10);
+  if (!Number.isFinite(parsed)) {
+    return fallback;
+  }
+
+  return Math.max(min, Math.min(max, parsed));
+}
+
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function fetchWithTimeout(url, timeoutMs) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      redirect: "follow",
+      signal: controller.signal,
+      headers: {
+        "user-agent": "tox-radar/1.0"
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    return await response.text();
+  } catch (error) {
+    if (error && error.name === "AbortError") {
+      throw new Error(`timeout apos ${timeoutMs}ms`);
+    }
+
+    throw error;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+async function parseFeedWithRetry(parser, feedUrl) {
+  const totalAttempts = FEED_MAX_RETRIES + 1;
+
+  for (let attempt = 1; attempt <= totalAttempts; attempt += 1) {
+    try {
+      const xml = await fetchWithTimeout(feedUrl, FEED_TIMEOUT_MS);
+      return await parser.parseString(xml);
+    } catch (error) {
+      if (attempt >= totalAttempts) {
+        throw error;
+      }
+
+      const delayMs = FEED_RETRY_DELAY_MS * attempt;
+      console.warn(
+        `[feed-retry] ${feedUrl} falhou na tentativa ${attempt}/${totalAttempts} (${error.message}). Tentando novamente em ${delayMs}ms.`
+      );
+      await delay(delayMs);
+    }
+  }
+
+  throw new Error("Falha inesperada ao processar feed");
 }
 
 function getSourceName(feed, feedUrl) {
@@ -163,7 +238,7 @@ async function sendTelegramAlert(token, chatId, article) {
 async function processFeed(parser, supabase, telegramToken, chatId, feedUrl) {
   let feed;
   try {
-    feed = await parser.parseURL(feedUrl);
+    feed = await parseFeedWithRetry(parser, feedUrl);
   } catch (error) {
     console.error(`[feed-error] ${feedUrl}: ${error.message}`);
     return { scanned: 0, matched: 0, sent: 0 };
