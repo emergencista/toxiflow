@@ -1,0 +1,223 @@
+import { revalidatePath } from "next/cache";
+import { NextResponse } from "next/server";
+
+import { getAdminIdentityFromRequest, getRequestClientIp, isAdminAuthConfigured, isAuthorizedAdminRequest } from "@/lib/admin-auth";
+import { recordAdminAudit } from "@/lib/admin-audit";
+import { createSupabaseAdminClient, isSupabaseAdminConfigured } from "@/lib/supabase";
+
+type RouteContext = {
+  params: Promise<{ id: string }>;
+};
+
+type ReviewAction = "approve" | "reject" | "apply";
+
+function isReviewAction(value: string): value is ReviewAction {
+  return value === "approve" || value === "reject" || value === "apply";
+}
+
+export async function PATCH(request: Request, context: RouteContext) {
+  const actor = getAdminIdentityFromRequest(request);
+  const ip = getRequestClientIp(request);
+  const userAgent = request.headers.get("user-agent") || "unknown";
+
+  if (!isAdminAuthConfigured()) {
+    return NextResponse.json({ error: "Admin não configurado." }, { status: 503 });
+  }
+
+  if (!isSupabaseAdminConfigured()) {
+    return NextResponse.json({ error: "Supabase admin não configurado." }, { status: 503 });
+  }
+
+  if (!isAuthorizedAdminRequest(request)) {
+    await recordAdminAudit({
+      action: "review_queue_action_denied",
+      actor,
+      success: false,
+      ip,
+      userAgent,
+    });
+    return NextResponse.json({ error: "Não autorizado." }, { status: 401 });
+  }
+
+  const { id } = await context.params;
+
+  let body: { action?: string; reviewNotes?: string } = {};
+  try {
+    body = (await request.json()) as { action?: string; reviewNotes?: string };
+  } catch {
+    return NextResponse.json({ error: "Payload inválido." }, { status: 400 });
+  }
+
+  const action = String(body.action || "").trim();
+  const reviewNotes = String(body.reviewNotes || "").trim();
+
+  if (!isReviewAction(action)) {
+    return NextResponse.json({ error: "Ação inválida. Use approve, reject ou apply." }, { status: 400 });
+  }
+
+  const supabase = createSupabaseAdminClient();
+  const { data: queueItem, error: queueError } = await supabase
+    .from("tox_radar_review_queue")
+    .select("id,status,drug_slug,drug_name,suggested_alert_message,suggested_clinical_presentation")
+    .eq("id", id)
+    .single();
+
+  if (queueError || !queueItem) {
+    await recordAdminAudit({
+      action: "review_queue_action_failed",
+      actor,
+      success: false,
+      ip,
+      userAgent,
+      target: id,
+      details: { message: queueError?.message || "item_not_found", action },
+    });
+    return NextResponse.json({ error: queueError?.message || "Item não encontrado." }, { status: 404 });
+  }
+
+  if (action === "approve") {
+    const { error } = await supabase
+      .from("tox_radar_review_queue")
+      .update({
+        status: "approved",
+        reviewed_at: new Date().toISOString(),
+        reviewed_by: actor,
+        review_notes: reviewNotes || null,
+      })
+      .eq("id", id);
+
+    if (error) {
+      await recordAdminAudit({
+        action: "review_queue_approve_failed",
+        actor,
+        success: false,
+        ip,
+        userAgent,
+        target: String(id),
+        details: { message: error.message },
+      });
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
+
+    await recordAdminAudit({
+      action: "review_queue_approve",
+      actor,
+      success: true,
+      ip,
+      userAgent,
+      target: String(id),
+      details: { drugSlug: queueItem.drug_slug },
+    });
+
+    return NextResponse.json({ ok: true, status: "approved" });
+  }
+
+  if (action === "reject") {
+    const { error } = await supabase
+      .from("tox_radar_review_queue")
+      .update({
+        status: "rejected",
+        reviewed_at: new Date().toISOString(),
+        reviewed_by: actor,
+        review_notes: reviewNotes || null,
+      })
+      .eq("id", id);
+
+    if (error) {
+      await recordAdminAudit({
+        action: "review_queue_reject_failed",
+        actor,
+        success: false,
+        ip,
+        userAgent,
+        target: String(id),
+        details: { message: error.message },
+      });
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
+
+    await recordAdminAudit({
+      action: "review_queue_reject",
+      actor,
+      success: true,
+      ip,
+      userAgent,
+      target: String(id),
+      details: { drugSlug: queueItem.drug_slug },
+    });
+
+    return NextResponse.json({ ok: true, status: "rejected" });
+  }
+
+  const drugUpdatePayload: Record<string, string> = {};
+  const suggestedAlert = String(queueItem.suggested_alert_message || "").trim();
+  const suggestedClinical = String(queueItem.suggested_clinical_presentation || "").trim();
+
+  if (suggestedAlert) {
+    drugUpdatePayload.alert_message = suggestedAlert;
+  }
+
+  if (suggestedClinical) {
+    drugUpdatePayload.clinical_presentation = suggestedClinical;
+  }
+
+  if (!Object.keys(drugUpdatePayload).length) {
+    return NextResponse.json({ error: "Não há sugestão aplicável para este item." }, { status: 400 });
+  }
+
+  const { error: drugError } = await supabase.from("drugs").update(drugUpdatePayload).eq("slug", queueItem.drug_slug);
+  if (drugError) {
+    await recordAdminAudit({
+      action: "review_queue_apply_failed",
+      actor,
+      success: false,
+      ip,
+      userAgent,
+      target: String(id),
+      details: { message: drugError.message, drugSlug: queueItem.drug_slug },
+    });
+    return NextResponse.json({ error: drugError.message }, { status: 400 });
+  }
+
+  const { error: queueUpdateError } = await supabase
+    .from("tox_radar_review_queue")
+    .update({
+      status: "applied",
+      reviewed_at: new Date().toISOString(),
+      applied_at: new Date().toISOString(),
+      reviewed_by: actor,
+      review_notes: reviewNotes || null,
+    })
+    .eq("id", id);
+
+  if (queueUpdateError) {
+    await recordAdminAudit({
+      action: "review_queue_apply_failed",
+      actor,
+      success: false,
+      ip,
+      userAgent,
+      target: String(id),
+      details: { message: queueUpdateError.message, drugSlug: queueItem.drug_slug },
+    });
+    return NextResponse.json({ error: queueUpdateError.message }, { status: 400 });
+  }
+
+  revalidatePath("/");
+  revalidatePath("/admin");
+
+  await recordAdminAudit({
+    action: "review_queue_apply",
+    actor,
+    success: true,
+    ip,
+    userAgent,
+    target: String(id),
+    details: {
+      drugSlug: queueItem.drug_slug,
+      fields: Object.keys(drugUpdatePayload),
+    },
+  });
+
+  return NextResponse.json({ ok: true, status: "applied", fields: Object.keys(drugUpdatePayload) });
+}

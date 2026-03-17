@@ -1,12 +1,33 @@
 "use client";
 
-import { startTransition, useMemo, useState } from "react";
+import { startTransition, useEffect, useMemo, useState } from "react";
 
 import type { Drug, DrugDraft } from "@/lib/types";
 
 type AdminPanelProps = {
   initialDrugs: Drug[];
   isConfigured: boolean;
+};
+
+type ReviewQueueStatus = "pending" | "approved" | "rejected" | "applied";
+
+type ReviewQueueItem = {
+  id: number;
+  created_at: string;
+  updated_at: string;
+  reviewed_at: string | null;
+  applied_at: string | null;
+  status: ReviewQueueStatus;
+  drug_slug: string;
+  drug_name: string;
+  article_url: string;
+  article_title: string | null;
+  source: string | null;
+  update_scope: string | null;
+  suggested_alert_message: string | null;
+  suggested_clinical_presentation: string | null;
+  review_notes: string | null;
+  reviewed_by: string | null;
 };
 
 const emptyDraft: DrugDraft = {
@@ -28,6 +49,15 @@ const emptyDraft: DrugDraft = {
   guidelineRef: null,
   notes: []
 };
+
+function getAdminApiPath(path: string) {
+  if (typeof window === "undefined") {
+    return path;
+  }
+
+  const basePath = window.location.pathname.startsWith("/toxiflow") ? "/toxiflow" : "";
+  return `${basePath}${path}`;
+}
 
 function draftFromDrug(drug: Drug): DrugDraft {
   return {
@@ -54,10 +84,14 @@ function draftFromDrug(drug: Drug): DrugDraft {
 export function AdminPanel({ initialDrugs, isConfigured }: AdminPanelProps) {
   const [drugs, setDrugs] = useState(initialDrugs);
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
-  const [adminToken, setAdminToken] = useState("");
   const [feedback, setFeedback] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
   const [query, setQuery] = useState("");
+  const [queueStatusFilter, setQueueStatusFilter] = useState<ReviewQueueStatus | "all">("pending");
+  const [reviewQueueItems, setReviewQueueItems] = useState<ReviewQueueItem[]>([]);
+  const [reviewQueueLoading, setReviewQueueLoading] = useState(false);
+  const [reviewQueueFeedback, setReviewQueueFeedback] = useState<string | null>(null);
+  const [reviewNotesByItemId, setReviewNotesByItemId] = useState<Record<number, string>>({});
   const [form, setForm] = useState({
     ...emptyDraft,
     synonymsText: "",
@@ -77,6 +111,67 @@ export function AdminPanel({ initialDrugs, isConfigured }: AdminPanelProps) {
     return drugs.filter((drug) => [drug.name, drug.category, ...drug.synonyms].join(" ").toLowerCase().includes(term));
   }, [drugs, query]);
 
+  async function loadReviewQueue(status: ReviewQueueStatus | "all" = queueStatusFilter) {
+    setReviewQueueLoading(true);
+    setReviewQueueFeedback(null);
+
+    try {
+      const response = await fetch(getAdminApiPath(`/api/admin/review-queue?status=${status}&limit=150`), {
+        method: "GET",
+        cache: "no-store",
+      });
+
+      const result = (await response.json()) as { items?: ReviewQueueItem[]; error?: string };
+      if (!response.ok) {
+        throw new Error(result.error ?? "Falha ao carregar fila de revisão.");
+      }
+
+      setReviewQueueItems(Array.isArray(result.items) ? result.items : []);
+    } catch (error) {
+      setReviewQueueFeedback(error instanceof Error ? error.message : "Falha inesperada ao carregar fila.");
+    } finally {
+      setReviewQueueLoading(false);
+    }
+  }
+
+  async function handleReviewAction(itemId: number, action: "approve" | "reject" | "apply") {
+    setReviewQueueFeedback(null);
+
+    const reviewNotes = (reviewNotesByItemId[itemId] || "").trim();
+
+    try {
+      const response = await fetch(getAdminApiPath(`/api/admin/review-queue/${itemId}`), {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ action, reviewNotes }),
+      });
+
+      const result = (await response.json()) as { error?: string };
+      if (!response.ok) {
+        throw new Error(result.error ?? "Falha ao processar revisão.");
+      }
+
+      setReviewQueueFeedback(
+        action === "approve"
+          ? "Sugestão aprovada."
+          : action === "reject"
+            ? "Sugestão rejeitada."
+            : "Sugestão aplicada no cadastro da substância."
+      );
+
+      await loadReviewQueue(queueStatusFilter);
+    } catch (error) {
+      setReviewQueueFeedback(error instanceof Error ? error.message : "Falha inesperada na revisão.");
+    }
+  }
+
+  useEffect(() => {
+    void loadReviewQueue(queueStatusFilter);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [queueStatusFilter]);
+
   function resetForm() {
     setSelectedSlug(null);
     setForm({
@@ -88,6 +183,11 @@ export function AdminPanel({ initialDrugs, isConfigured }: AdminPanelProps) {
       antidoteIndication: "",
       antidoteDose: ""
     });
+  }
+
+  async function handleLogout() {
+    await fetch(getAdminApiPath("/api/admin/session"), { method: "DELETE" });
+    window.location.reload();
   }
 
   function selectDrug(drug: Drug) {
@@ -135,15 +235,14 @@ export function AdminPanel({ initialDrugs, isConfigured }: AdminPanelProps) {
       notes: form.notesText
     };
 
-    const endpoint = selectedSlug ? `/api/admin/drugs/${selectedSlug}` : "/api/admin/drugs";
+    const endpoint = selectedSlug ? getAdminApiPath(`/api/admin/drugs/${selectedSlug}`) : getAdminApiPath("/api/admin/drugs");
     const method = selectedSlug ? "PUT" : "POST";
 
     try {
       const response = await fetch(endpoint, {
         method,
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${adminToken}`
+          "Content-Type": "application/json"
         },
         body: JSON.stringify(payload)
       });
@@ -178,11 +277,8 @@ export function AdminPanel({ initialDrugs, isConfigured }: AdminPanelProps) {
     setIsSaving(true);
 
     try {
-      const response = await fetch(`/api/admin/drugs/${selectedSlug}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${adminToken}`
-        }
+      const response = await fetch(getAdminApiPath(`/api/admin/drugs/${selectedSlug}`), {
+        method: "DELETE"
       });
 
       const result = (await response.json()) as { error?: string };
@@ -210,22 +306,22 @@ export function AdminPanel({ initialDrugs, isConfigured }: AdminPanelProps) {
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">Painel CIATox-BA</p>
             <h1 className="mt-2 text-3xl font-semibold tracking-tight text-slate-950">Cadastro e edição de substâncias</h1>
           </div>
-          <button type="button" onClick={resetForm} className="rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-950 hover:text-slate-950">
-            Nova substância
-          </button>
+          <div className="flex items-center gap-2">
+            <button type="button" onClick={resetForm} className="rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-950 hover:text-slate-950">
+              Nova substância
+            </button>
+            <button type="button" onClick={handleLogout} className="rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-red-600 hover:text-red-700">
+              Sair
+            </button>
+          </div>
         </div>
 
         <div className="mt-6 space-y-4">
           {!isConfigured ? (
             <div className="rounded-2xl border border-amber-300 bg-amber-50 px-4 py-4 text-sm leading-6 text-amber-950">
-              O painel está pronto, mas os writes dependem de `NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` e `TOXIFLOW_ADMIN_TOKEN` em `.env.local`.
+              O painel está pronto, mas os writes dependem de NEXT_PUBLIC_SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY em .env.local.
             </div>
           ) : null}
-
-          <label className="flex flex-col gap-2 text-sm font-medium text-slate-700">
-            Token administrativo
-            <input value={adminToken} onChange={(event) => setAdminToken(event.target.value)} type="password" className="rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-red-400" />
-          </label>
 
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div className="grid gap-4 md:grid-cols-2">
@@ -377,6 +473,120 @@ export function AdminPanel({ initialDrugs, isConfigured }: AdminPanelProps) {
               <p className="mt-2 text-sm leading-6 text-slate-600">{drug.isDoseUnknown ? drug.alertMessage : drug.toxicDose ?? "Sem dose tóxica informada"}</p>
             </button>
           ))}
+        </div>
+      </section>
+
+      <section className="rounded-[2rem] border border-white/70 bg-white/85 p-6 shadow-[0_18px_60px_-30px_rgba(15,23,42,0.35)] backdrop-blur xl:col-span-2">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">Revisão clínica</p>
+            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">Sugestões automáticas (modo 3)</h2>
+            <p className="mt-2 text-sm leading-6 text-slate-600">
+              Aprove, rejeite ou aplique sugestões para <strong>alerta clínico</strong> e <strong>apresentação clínica</strong>.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2">
+            <select
+              value={queueStatusFilter}
+              onChange={(event) => setQueueStatusFilter(event.target.value as ReviewQueueStatus | "all")}
+              className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-red-400"
+            >
+              <option value="pending">Pendentes</option>
+              <option value="approved">Aprovadas</option>
+              <option value="rejected">Rejeitadas</option>
+              <option value="applied">Aplicadas</option>
+              <option value="all">Todas</option>
+            </select>
+            <button
+              type="button"
+              onClick={() => void loadReviewQueue(queueStatusFilter)}
+              className="rounded-2xl border border-slate-300 px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-900 hover:text-slate-900"
+            >
+              Atualizar fila
+            </button>
+          </div>
+        </div>
+
+        {reviewQueueFeedback ? <p className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700">{reviewQueueFeedback}</p> : null}
+
+        <div className="mt-5 space-y-4">
+          {reviewQueueLoading ? <p className="text-sm text-slate-600">Carregando sugestões...</p> : null}
+
+          {!reviewQueueLoading && !reviewQueueItems.length ? (
+            <p className="rounded-2xl border border-dashed border-slate-300 px-4 py-4 text-sm text-slate-600">Nenhuma sugestão encontrada para este filtro.</p>
+          ) : null}
+
+          {!reviewQueueLoading
+            ? reviewQueueItems.map((item) => (
+                <article key={item.id} className="rounded-3xl border border-slate-200 bg-white px-4 py-4">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-slate-700">{item.status}</span>
+                    <h3 className="text-base font-semibold text-slate-950">{item.drug_name}</h3>
+                    <span className="rounded-full bg-red-100 px-2.5 py-1 text-xs font-semibold text-red-700">{item.update_scope || "escopo não informado"}</span>
+                  </div>
+
+                  <p className="mt-2 text-sm leading-6 text-slate-700">
+                    <strong>Fonte:</strong> {item.source || "não informada"}
+                    {item.article_title ? ` · ${item.article_title}` : ""}
+                  </p>
+                  <a href={item.article_url} target="_blank" rel="noreferrer" className="mt-1 inline-block text-sm font-medium text-blue-700 hover:text-blue-900">
+                    Abrir artigo original
+                  </a>
+
+                  <div className="mt-3 grid gap-3 lg:grid-cols-2">
+                    <div className="rounded-2xl border border-slate-200 bg-slate-50 px-3 py-3">
+                      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Sugestão de alerta clínico</p>
+                      <p className="mt-2 text-sm leading-6 text-slate-700">{item.suggested_alert_message || "Sem sugestão para alerta clínico."}</p>
+                    </div>
+                    <div className="rounded-2xl border border-slate-200 bg-slate-50 px-3 py-3">
+                      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Sugestão de apresentação clínica</p>
+                      <p className="mt-2 text-sm leading-6 text-slate-700">{item.suggested_clinical_presentation || "Sem sugestão para apresentação clínica."}</p>
+                    </div>
+                  </div>
+
+                  <label className="mt-3 flex flex-col gap-2 text-sm font-medium text-slate-700">
+                    Observação da revisão (auditoria)
+                    <textarea
+                      value={reviewNotesByItemId[item.id] ?? ""}
+                      onChange={(event) =>
+                        setReviewNotesByItemId((current) => ({
+                          ...current,
+                          [item.id]: event.target.value,
+                        }))
+                      }
+                      rows={2}
+                      placeholder="Ex.: aprovado por consistência com guideline local."
+                      className="rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-red-400"
+                    />
+                  </label>
+
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      onClick={() => void handleReviewAction(item.id, "approve")}
+                      className="rounded-full border border-emerald-300 px-4 py-2 text-sm font-semibold text-emerald-700 transition hover:border-emerald-600 hover:bg-emerald-50"
+                    >
+                      Aprovar
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => void handleReviewAction(item.id, "reject")}
+                      className="rounded-full border border-rose-300 px-4 py-2 text-sm font-semibold text-rose-700 transition hover:border-rose-600 hover:bg-rose-50"
+                    >
+                      Rejeitar
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => void handleReviewAction(item.id, "apply")}
+                      className="rounded-full bg-slate-950 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-700"
+                    >
+                      Aplicar no cadastro
+                    </button>
+                  </div>
+                </article>
+              ))
+            : null}
         </div>
       </section>
     </div>
