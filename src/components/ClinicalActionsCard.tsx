@@ -80,6 +80,42 @@ function ChecklistRow({
   );
 }
 
+function EvaluationCard({
+  title,
+  isOpen,
+  onToggle,
+  icon,
+  children
+}: {
+  title: string;
+  isOpen: boolean;
+  onToggle: () => void;
+  icon: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-sm">
+      <button
+        type="button"
+        onClick={onToggle}
+        className="flex w-full items-center justify-between gap-3 px-4 py-4 hover:bg-slate-50 transition"
+      >
+        <div className="flex items-center gap-3 flex-1">
+          <span className="text-2xl">{icon}</span>
+          <p className="text-left text-[13px] font-semibold text-slate-900 min-[390px]:text-sm">{title}</p>
+        </div>
+        <span className={`text-xl text-slate-600 transition ${isOpen ? "rotate-180" : ""}`}>▼</span>
+      </button>
+
+      {isOpen && (
+        <div className="border-t border-slate-200 px-4 py-4 bg-slate-50">
+          {children}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function ClinicalActionsCard({
   drug,
   administrationRoute,
@@ -92,6 +128,7 @@ export function ClinicalActionsCard({
   const [flumazenilFlags, setFlumazenilFlags] = useState<string[]>([]);
   const [charcoalOpen, setCharcoalOpen] = useState(false);
   const [flumazenilOpen, setFlumazenilOpen] = useState(false);
+  const [lavageOpen, setLavageOpen] = useState(false);
 
   const isOral = administrationRoute === "oral";
   const antidoteName = drug?.antidote?.name ?? null;
@@ -351,109 +388,141 @@ export function ClinicalActionsCard({
           ) : null}
 
           {canUseCharcoalChecklist ? (
-            <div className="rounded-2xl border border-slate-200 bg-slate-50">
-              <button
-                type="button"
-                onClick={() => setCharcoalOpen(!charcoalOpen)}
-                className="flex w-full items-center justify-between gap-3 px-4 py-3"
+            <EvaluationCard
+              title="Avaliar Carvão Ativado"
+              icon="🔍"
+              isOpen={charcoalOpen}
+              onToggle={() => setCharcoalOpen(!charcoalOpen)}
+            >
+              <p className="text-[12px] leading-5 text-slate-600 min-[390px]:text-[13px] mb-4">Marque os fatores de risco que você observa:</p>
+              <div className="space-y-2 mb-4">
+                {charcoalChecklist.map((item) => (
+                  <ChecklistRow
+                    key={`charcoal-${item}`}
+                    label={item}
+                    selected={charcoalFlags.includes(item)}
+                    onToggle={() =>
+                      setCharcoalFlags((current) => (current.includes(item) ? current.filter((entry) => entry !== item) : [...current, item]))
+                    }
+                  />
+                ))}
+              </div>
+
+              <div
+                className={`rounded-xl border px-4 py-3 text-[13px] leading-5 min-[390px]:text-sm font-semibold ${
+                  charcoalFlags.length > 0
+                    ? "border-red-300 bg-red-50 text-red-900"
+                    : "border-emerald-300 bg-emerald-50 text-emerald-900"
+                }`}
               >
-                <div className="flex items-center justify-between gap-3 flex-1">
-                  <p className="text-left text-[13px] font-semibold text-slate-900 min-[390px]:text-sm">Detalhar critérios: Carvão ativado</p>
-                  <span className={`rounded-full px-2 py-1 text-[11px] font-semibold shrink-0 ${charcoalFlags.length > 0 ? "bg-red-100 text-red-800" : "bg-emerald-100 text-emerald-800"}`}>
-                    {charcoalFlags.length > 0 ? "NÃO FAZER" : "PODE FAZER"}
-                  </span>
-                </div>
-                <span className={`text-xl transition ${charcoalOpen ? "rotate-180" : ""}`}>▼</span>
-              </button>
-
-              {charcoalOpen && (
-                <div className="border-t border-slate-200 px-4 py-3">
-                  <p className="text-[12px] leading-5 text-slate-600 min-[390px]:text-[13px]">Marque os itens presentes. A decisão atualiza na hora.</p>
-                  <div className="mt-3 space-y-2">
-                    {charcoalChecklist.map((item) => (
-                      <ChecklistRow
-                        key={`charcoal-${item}`}
-                        label={item}
-                        selected={charcoalFlags.includes(item)}
-                        onToggle={() =>
-                          setCharcoalFlags((current) => (current.includes(item) ? current.filter((entry) => entry !== item) : [...current, item]))
-                        }
-                      />
-                    ))}
+                {charcoalFlags.length > 0 ? (
+                  <div>
+                    <div>🚫 Não fazer agora</div>
+                    <p className="mt-2 font-normal text-sm">Não fazer carvão ativado enquanto houver fator de risco marcado.</p>
                   </div>
-
-                  <div
-                    className={`mt-3 rounded-xl border px-3 py-3 text-[13px] leading-5 min-[390px]:text-sm ${
-                      charcoalFlags.length > 0
-                        ? "border-red-200 bg-red-50 text-red-950"
-                        : "border-emerald-200 bg-emerald-50 text-emerald-950"
-                    }`}
-                  >
-                    {charcoalFlags.length > 0
-                      ? "Não fazer carvão ativado neste momento."
-                      : weightKg && weightKg > 0
-                        ? `Pode fazer carvão ativado: 1 g/kg (${weightKg.toFixed(0)} g).`
-                        : "Pode fazer carvão, mas informe peso para dose exata."}
+                ) : weightKg && weightKg > 0 ? (
+                  <div>
+                    <div>✅ Pode fazer</div>
+                    <p className="mt-2 font-normal text-sm">Carvão ativado 1 g/kg (dose estimada: <strong>{weightKg.toFixed(0)} g</strong>)</p>
                   </div>
-                </div>
-              )}
-            </div>
+                ) : (
+                  <div>
+                    <div>⚠️ Pendente</div>
+                    <p className="mt-2 font-normal text-sm">Informe o peso para calcular a dose exata de carvão.</p>
+                  </div>
+                )}
+              </div>
+            </EvaluationCard>
           ) : null}
 
           {isFlumazenil ? (
-            <div className="rounded-2xl border border-slate-200 bg-slate-50">
-              <button
-                type="button"
-                onClick={() => setFlumazenilOpen(!flumazenilOpen)}
-                className="flex w-full items-center justify-between gap-3 px-4 py-3"
+            <EvaluationCard
+              title="Avaliar Flumazenil"
+              icon="🔍"
+              isOpen={flumazenilOpen}
+              onToggle={() => setFlumazenilOpen(!flumazenilOpen)}
+            >
+              <p className="text-[12px] leading-5 text-slate-600 min-[390px]:text-[13px] mb-4">Marque as contraindicações que você observa:</p>
+              <div className="space-y-2 mb-4">
+                {flumazenilChecklist.map((item) => (
+                  <ChecklistRow
+                    key={`flumazenil-${item}`}
+                    label={item}
+                    selected={flumazenilFlags.includes(item)}
+                    onToggle={() =>
+                      setFlumazenilFlags((current) => (current.includes(item) ? current.filter((entry) => entry !== item) : [...current, item]))
+                    }
+                  />
+                ))}
+              </div>
+
+              <div
+                className={`rounded-xl border px-4 py-3 text-[13px] leading-5 min-[390px]:text-sm font-semibold ${
+                  flumazenilFlags.length > 0
+                    ? "border-red-300 bg-red-50 text-red-900"
+                    : "border-emerald-300 bg-emerald-50 text-emerald-900"
+                }`}
               >
-                <div className="flex items-center justify-between gap-3 flex-1">
-                  <p className="text-left text-[13px] font-semibold text-slate-900 min-[390px]:text-sm">Detalhar critérios: Flumazenil</p>
-                  <span className={`rounded-full px-2 py-1 text-[11px] font-semibold shrink-0 ${flumazenilFlags.length > 0 ? "bg-red-100 text-red-800" : "bg-emerald-100 text-emerald-800"}`}>
-                    {flumazenilFlags.length > 0 ? "NÃO FAZER" : "PODE CONSIDERAR"}
-                  </span>
-                </div>
-                <span className={`text-xl transition ${flumazenilOpen ? "rotate-180" : ""}`}>▼</span>
-              </button>
-
-              {flumazenilOpen && (
-                <div className="border-t border-slate-200 px-4 py-3">
-                  <p className="text-[12px] leading-5 text-slate-600 min-[390px]:text-[13px]">Marque os itens presentes para definir segurança do uso.</p>
-                  <div className="mt-3 space-y-2">
-                    {flumazenilChecklist.map((item) => (
-                      <ChecklistRow
-                        key={`flumazenil-${item}`}
-                        label={item}
-                        selected={flumazenilFlags.includes(item)}
-                        onToggle={() =>
-                          setFlumazenilFlags((current) => (current.includes(item) ? current.filter((entry) => entry !== item) : [...current, item]))
-                        }
-                      />
-                    ))}
+                {flumazenilFlags.length > 0 ? (
+                  <div>
+                    <div>🚫 Não fazer agora</div>
+                    <p className="mt-2 font-normal text-sm">Evitar flumazenil neste cenário por contraindicação marcada.</p>
                   </div>
-
-                  <div
-                    className={`mt-3 rounded-xl border px-3 py-3 text-[13px] leading-5 min-[390px]:text-sm ${
-                      flumazenilFlags.length > 0
-                        ? "border-red-200 bg-red-50 text-red-950"
-                        : "border-emerald-200 bg-emerald-50 text-emerald-950"
-                    }`}
-                  >
-                    {flumazenilFlags.length > 0
-                      ? "Não fazer: evitar flumazenil neste cenário."
-                      : "Pode considerar: sem contraindicação marcada no checklist."}
+                ) : (
+                  <div>
+                    <div>✅ Pode considerar</div>
+                    <p className="mt-2 font-normal text-sm">Sem contraindicações marcadas. Considerar conforme indicação clínica.</p>
                   </div>
-                </div>
-              )}
-            </div>
+                )}
+              </div>
+            </EvaluationCard>
           ) : null}
 
           <div className="grid gap-2">
-            <ActionButton
-              label={shouldConsiderLavage ? "Lavagem gástrica" : "Descontaminação"}
-              tone={shouldConsiderLavage ? "red" : "blue"}
-              onClick={() => setModalKind("decontamination")}
-            />
+            {isOral ? (
+              <EvaluationCard
+                title={shouldConsiderLavage ? "Avaliar Lavagem Gástrica" : "Avaliar Descontaminação"}
+                icon={shouldConsiderLavage ? "⚠️" : "💧"}
+                isOpen={lavageOpen}
+                onToggle={() => setLavageOpen(!lavageOpen)}
+              >
+                <div className="space-y-3">
+                  <div>
+                    <p className="text-[12px] font-semibold text-slate-700 min-[390px]:text-[13px]">Tempo decorrido:</p>
+                    <p className="mt-1 text-[13px] text-slate-600 min-[390px]:text-sm">
+                      {elapsedHours != null ? `${elapsedHours.toFixed(1)} horas` : "Não informado"}
+                    </p>
+                  </div>
+
+                  <div>
+                    <p className="text-[12px] font-semibold text-slate-700 min-[390px]:text-[13px]">Indicação clínica:</p>
+                    <p className="mt-1 text-[13px] text-slate-600 min-[390px]:text-sm">
+                      {isOral ? getLavageCopy(drug.lavage) : "Via parenteral: descontaminação não é prioridade."}
+                    </p>
+                  </div>
+
+                  <div
+                    className={`rounded-xl border px-4 py-3 text-[13px] leading-5 min-[390px]:text-sm font-semibold ${
+                      shouldConsiderLavage
+                        ? "border-red-300 bg-red-50 text-red-900"
+                        : "border-blue-300 bg-blue-50 text-blue-900"
+                    }`}
+                  >
+                    {shouldConsiderLavage ? (
+                      <div>
+                        <div>⚠️ Avaliar com CIATox</div>
+                        <p className="mt-2 font-normal text-sm">Considerada porque ingestão foi muito recente. Discutir abordagem agressiva com o CIATox.</p>
+                      </div>
+                    ) : (
+                      <div>
+                        <div>ℹ️ Informação</div>
+                        <p className="mt-2 font-normal text-sm">Revise os dados clínicos para definir indicação de descontaminação.</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </EvaluationCard>
+            ) : null}
 
             {drug.antidote ? (
               <ActionButton
