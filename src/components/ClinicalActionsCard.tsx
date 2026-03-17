@@ -49,7 +49,7 @@ function ActionButton({
         : "bg-[linear-gradient(135deg,#1e293b_0%,#334155_100%)] hover:brightness-110";
 
   return (
-    <button type="button" onClick={onClick} className={`w-full rounded-2xl px-4 py-3 text-sm font-semibold text-white shadow-[0_14px_28px_-18px_rgba(15,23,42,0.45)] transition ${toneClass}`}>
+    <button type="button" onClick={onClick} className={`w-full rounded-2xl px-4 py-3 text-[13px] font-semibold text-white shadow-[0_14px_28px_-18px_rgba(15,23,42,0.45)] transition min-[390px]:text-sm ${toneClass}`}>
       {label}
     </button>
   );
@@ -68,7 +68,7 @@ function ChecklistRow({
     <button
       type="button"
       onClick={onToggle}
-      className={`flex w-full items-center gap-3 rounded-xl border px-3 py-3 text-left text-sm transition ${
+      className={`flex w-full items-center gap-3 rounded-xl border px-3 py-3 text-left text-[13px] transition min-[390px]:text-sm ${
         selected ? "border-blue-400 bg-blue-50 text-slate-950" : "border-slate-200 bg-slate-50 text-slate-700"
       }`}
     >
@@ -214,7 +214,7 @@ export function ClinicalActionsCard({
       <SectionCard eyebrow="Conduta" title="Ações práticas" description="Toque para ver a orientação.">
         <div className="grid gap-3">
           {(isToxic || drug.isDoseUnknown) ? (
-            <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm leading-5 text-red-950">
+            <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-[13px] leading-5 text-red-950 min-[390px]:text-sm">
               Caso de maior risco. Priorize suporte e CIATox.
             </div>
           ) : null}
@@ -262,7 +262,7 @@ export function ClinicalActionsCard({
 
           {feedbackMessage ? (
             <div
-              className={`rounded-2xl border px-4 py-3 text-sm leading-5 ${
+              className={`rounded-2xl border px-4 py-3 text-[13px] leading-5 min-[390px]:text-sm ${
                 feedbackMessage.tone === "danger"
                   ? "border-red-200 bg-red-50 text-red-950"
                   : feedbackMessage.tone === "success"
@@ -278,13 +278,13 @@ export function ClinicalActionsCard({
 
       {modalConfig ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 px-4 backdrop-blur-sm" onClick={() => setModalKind(null)}>
-          <div className="w-full max-w-md rounded-[1.4rem] bg-white p-5 shadow-[0_24px_80px_-30px_rgba(15,23,42,0.7)]" onClick={(event) => event.stopPropagation()}>
-            <h3 className="text-xl font-semibold text-slate-950">{modalConfig.title}</h3>
-            <p className="mt-2 text-sm leading-5 text-slate-600">{modalConfig.description}</p>
+          <div className="w-full max-w-md rounded-[1.3rem] bg-white p-4 shadow-[0_24px_80px_-30px_rgba(15,23,42,0.7)] min-[390px]:rounded-[1.4rem] min-[390px]:p-5" onClick={(event) => event.stopPropagation()}>
+            <h3 className="text-lg font-semibold text-slate-950 min-[390px]:text-xl">{modalConfig.title}</h3>
+            <p className="mt-2 text-[13px] leading-5 text-slate-600 min-[390px]:text-sm">{modalConfig.description}</p>
 
-            {modalKind === "antidote" && drug.antidote?.dose ? <p className="mt-3 rounded-2xl bg-slate-50 px-3 py-3 text-sm leading-5 text-slate-700">{drug.antidote.dose}</p> : null}
+            {modalKind === "antidote" && drug.antidote?.dose ? <p className="mt-3 rounded-2xl bg-slate-50 px-3 py-3 text-[13px] leading-5 text-slate-700 min-[390px]:text-sm">{drug.antidote.dose}</p> : null}
             {modalKind === "decontamination" ? (
-              <div className="mt-3 space-y-2 rounded-2xl bg-slate-50 px-3 py-3 text-sm leading-5 text-slate-700">
+              <div className="mt-3 space-y-2 rounded-2xl bg-slate-50 px-3 py-3 text-[13px] leading-5 text-slate-700 min-[390px]:text-sm">
                 <p>Via: {isOral ? "oral" : "parenteral"}</p>
                 <p>{isOral ? getCharcoalCopy(drug.activatedCharcoal, elapsedHours) : "Via parenteral: a descontaminação digestiva não é prioridade."}</p>
                 {shouldConsiderLavage ? <p>Considerar porque houve ingestão relevante e muito precoce.</p> : null}
@@ -305,10 +305,10 @@ export function ClinicalActionsCard({
             ) : null}
 
             <div className="mt-5 grid grid-cols-2 gap-3">
-              <button type="button" onClick={() => setModalKind(null)} className="rounded-2xl bg-slate-200 px-4 py-3 text-sm font-semibold text-slate-700">
+              <button type="button" onClick={() => setModalKind(null)} className="rounded-2xl bg-slate-200 px-4 py-3 text-[13px] font-semibold text-slate-700 min-[390px]:text-sm">
                 Cancelar
               </button>
-              <button type="button" onClick={modalConfig.onConfirm} className="rounded-2xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white">
+              <button type="button" onClick={modalConfig.onConfirm} className="rounded-2xl bg-blue-600 px-4 py-3 text-[13px] font-semibold text-white min-[390px]:text-sm">
                 {modalConfig.confirmLabel}
               </button>
             </div>

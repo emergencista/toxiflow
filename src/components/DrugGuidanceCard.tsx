@@ -21,25 +21,25 @@ export function DrugGuidanceCard({ drug }: DrugGuidanceCardProps) {
       title="Resumo clínico"
       description="Só o que ajuda no plantão."
     >
-      <div className="space-y-3">
+      <div className="space-y-3 min-[430px]:space-y-3.5">
         {drug.alertMessage ? (
-          <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3.5 text-red-950">
+          <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3.5 text-red-950 min-[390px]:py-4">
             <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-red-700">Alerta</h3>
-            <p className="mt-2 text-sm leading-5">{drug.alertMessage}</p>
+            <p className="mt-2 text-[13px] leading-5 min-[390px]:text-sm">{drug.alertMessage}</p>
           </div>
         ) : null}
 
         {drug.clinicalPresentation ? (
-          <div className="rounded-2xl border border-slate-200 bg-white px-4 py-3.5">
+          <div className="rounded-2xl border border-slate-200 bg-white px-4 py-3.5 min-[390px]:py-4">
             <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Apresentação clínica</h3>
-            <p className="mt-2 text-sm leading-5 text-slate-700">{drug.clinicalPresentation}</p>
+            <p className="mt-2 text-[13px] leading-5 text-slate-700 min-[390px]:text-sm">{drug.clinicalPresentation}</p>
           </div>
         ) : null}
 
         {treatmentItems.length ? (
-          <div className="rounded-2xl border border-slate-200 bg-white px-4 py-3.5">
+          <div className="rounded-2xl border border-slate-200 bg-white px-4 py-3.5 min-[390px]:py-4">
             <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Tratamento inicial</h3>
-            <ul className="mt-3 space-y-2 text-sm leading-5 text-slate-700">
+            <ul className="mt-3 space-y-2 text-[13px] leading-5 text-slate-700 min-[390px]:text-sm">
               {treatmentItems.map((item) => (
                 <li key={item} className="rounded-xl bg-slate-50 px-3 py-2">
                   {item}
@@ -50,18 +50,18 @@ export function DrugGuidanceCard({ drug }: DrugGuidanceCardProps) {
         ) : null}
 
         {(drug.supportiveCare || drug.antidote || drug.guidelineRef || notes.length) ? (
-          <details className="group rounded-2xl border border-slate-200 bg-white px-4 py-3.5">
+          <details className="group rounded-2xl border border-slate-200 bg-white px-4 py-3.5 min-[390px]:py-4">
             <summary className="cursor-pointer list-none text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Ver mais</summary>
-            {drug.supportiveCare ? <p className="mt-3 text-sm leading-5 text-slate-700">{drug.supportiveCare}</p> : null}
+            {drug.supportiveCare ? <p className="mt-3 text-[13px] leading-5 text-slate-700 min-[390px]:text-sm">{drug.supportiveCare}</p> : null}
             {drug.antidote ? (
               <div className="mt-3 rounded-2xl border border-blue-200 bg-blue-50 px-3 py-3">
-                <p className="text-sm font-semibold text-slate-950">{drug.antidote.name}</p>
-                {drug.antidote.indication ? <p className="mt-1 text-sm leading-5 text-slate-700">{drug.antidote.indication}</p> : null}
-                {drug.antidote.dose ? <p className="mt-1 text-sm leading-5 text-slate-700">{drug.antidote.dose}</p> : null}
+                <p className="text-[13px] font-semibold text-slate-950 min-[390px]:text-sm">{drug.antidote.name}</p>
+                {drug.antidote.indication ? <p className="mt-1 text-[13px] leading-5 text-slate-700 min-[390px]:text-sm">{drug.antidote.indication}</p> : null}
+                {drug.antidote.dose ? <p className="mt-1 text-[13px] leading-5 text-slate-700 min-[390px]:text-sm">{drug.antidote.dose}</p> : null}
               </div>
             ) : null}
             {notes.length ? (
-              <ul className="mt-3 space-y-2 text-sm leading-5 text-slate-600">
+              <ul className="mt-3 space-y-2 text-[13px] leading-5 text-slate-600 min-[390px]:text-sm">
                 {notes.map((note) => (
                   <li key={note} className="rounded-xl bg-slate-50 px-3 py-2">
                     {note}
