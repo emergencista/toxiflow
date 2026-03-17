@@ -1,9 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f3f4f6;
+  --background: #f5f7fb;
   --foreground: #0f172a;
   --panel: rgba(255, 255, 255, 0.8);
+  --bg-top: #f8fbff;
+  --bg-bottom: #e9f0f8;
+  --stroke-soft: rgba(148, 163, 184, 0.22);
+  --shadow-soft: 0 24px 58px -34px rgba(15, 23, 42, 0.35);
 }
 
 * {
@@ -12,6 +16,7 @@
 
 html {
   min-height: 100%;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -20,9 +25,23 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans), sans-serif;
   background:
-    radial-gradient(circle at top left, rgba(248, 113, 113, 0.18), transparent 28%),
-    radial-gradient(circle at right, rgba(15, 23, 42, 0.09), transparent 30%),
-    linear-gradient(180deg, #fff7f7 0%, #f8fafc 45%, #e2e8f0 100%);
+    radial-gradient(circle at 8% -6%, rgba(14, 165, 233, 0.2), transparent 36%),
+    radial-gradient(circle at 104% 8%, rgba(251, 113, 133, 0.18), transparent 34%),
+    radial-gradient(circle at 50% 112%, rgba(16, 185, 129, 0.1), transparent 34%),
+    linear-gradient(180deg, var(--bg-top) 0%, #f4f8fd 38%, var(--bg-bottom) 100%);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.26;
+  background-image:
+    linear-gradient(to right, rgba(148, 163, 184, 0.16) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.16) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(circle at 50% 10%, black 35%, transparent 90%);
 }
 
 button,
@@ -31,6 +50,107 @@ select {
   font: inherit;
 }
 
+input,
+select,
+textarea {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  font-size: 16px;
+}
+
+.call-pulse {
+  animation: call-pulse 1.6s infinite;
+}
+
+.card-enter {
+  animation: card-enter 380ms ease both;
+}
+
+.call-urgent {
+  animation: call-pulse 1.35s infinite, call-shake 0.26s infinite;
+}
+
+.legacy-panel-danger {
+  background: linear-gradient(135deg, #dc2626, #991b1b);
+  box-shadow: 0 12px 30px -16px rgba(220, 38, 38, 0.7);
+}
+
+.legacy-panel-safe {
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  box-shadow: 0 12px 30px -16px rgba(22, 163, 74, 0.55);
+}
+
+@keyframes call-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.5);
+    transform: scale(1);
+  }
+
+  70% {
+    box-shadow: 0 0 0 14px rgba(220, 38, 38, 0);
+    transform: scale(1.015);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
+    transform: scale(1);
+  }
+}
+
+@keyframes call-shake {
+  0% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-1px);
+  }
+
+  50% {
+    transform: translateX(1px);
+  }
+
+  75% {
+    transform: translateX(-1px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.992);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 ::selection {
   background: rgba(239, 68, 68, 0.18);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(148, 163, 184, 0.08);
+}
+
+::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: rgba(100, 116, 139, 0.35);
+  background-clip: padding-box;
+}
+
+@media (max-width: 640px) {
+  body {
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+  }
 }

@@ -65,25 +65,30 @@ export function ToxiFlowDashboard({ drugs }: ToxiFlowDashboardProps) {
 
   return (
     <>
-      <div className="mx-auto flex min-h-screen w-full max-w-xl flex-col gap-4 px-3 py-3 pb-8 sm:px-4 sm:py-4">
-        <header className="rounded-[1.8rem] border border-white/10 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.16),transparent_30%),linear-gradient(180deg,#0b1220_0%,#0f172a_45%,#111827_100%)] px-4 py-5 text-white shadow-[0_16px_44px_-24px_rgba(15,23,42,0.82)] sm:px-5">
+      <div className="mx-auto flex min-h-screen w-full max-w-2xl flex-col gap-4 px-3 py-3 pb-10 sm:px-5 sm:py-5">
+        <header className="card-enter relative overflow-hidden rounded-[1.9rem] border border-white/15 bg-[radial-gradient(circle_at_0%_0%,rgba(56,189,248,0.26),transparent_38%),radial-gradient(circle_at_96%_8%,rgba(251,113,133,0.24),transparent_34%),linear-gradient(175deg,#081127_0%,#0f172a_56%,#16253f_100%)] px-4 py-5 text-white shadow-[0_24px_56px_-28px_rgba(15,23,42,0.95)] sm:px-6 sm:py-6">
+          <div className="absolute -right-8 -top-10 h-36 w-36 rounded-full bg-sky-300/20 blur-2xl" />
+          <div className="absolute -bottom-12 -left-8 h-40 w-40 rounded-full bg-rose-300/15 blur-2xl" />
           <div className="flex items-start justify-between gap-3">
             <div>
-              <h1 className="text-[1.45rem] font-extrabold tracking-tight">ToxiFlow</h1>
-              <p className="mt-1 text-sm text-white/72">Suporte rápido para plantão</p>
-              <p className="mt-2 text-xs font-semibold uppercase tracking-[0.18em] text-white/80">{drugs.length} substâncias cadastradas</p>
+              <span className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/85">
+                Triage Mode
+              </span>
+              <h1 className="mt-2 text-[1.55rem] font-extrabold tracking-tight sm:text-[1.75rem]">ToxiFlow</h1>
+              <p className="mt-1.5 text-sm text-white/78">Decisão toxicológica em segundos no plantão</p>
+              <p className="mt-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/85">{drugs.length} substâncias cadastradas</p>
             </div>
             <button
               type="button"
               onClick={() => setReferenceModalOpen(true)}
-              className="rounded-xl border border-white/20 bg-white/10 px-3 py-2 text-xs font-semibold text-white transition hover:bg-white/20"
+              className="rounded-xl border border-white/25 bg-white/10 px-3 py-2 text-xs font-semibold text-white transition hover:bg-white/20"
             >
               Fontes
             </button>
           </div>
         </header>
 
-        <div className="space-y-4">
+        <div className="space-y-4 sm:space-y-5">
           <div className="transition-all duration-300 opacity-100">
             <SearchCard
               query={query}
@@ -129,23 +134,23 @@ export function ToxiFlowDashboard({ drugs }: ToxiFlowDashboardProps) {
             <DrugGuidanceCard drug={selectedDrug} elapsedHours={elapsedHours} />
           </div>
 
-          <div className="rounded-[1.4rem] border border-slate-200 bg-white px-4 py-4 shadow-[0_16px_36px_-22px_rgba(15,23,42,0.2)]">
-            <p className="text-center text-[11px] leading-4 text-slate-400">
+          <div className="card-enter rounded-[1.55rem] border border-white/80 bg-[linear-gradient(165deg,rgba(255,255,255,0.97)_0%,rgba(246,250,255,0.9)_100%)] px-4 py-4 shadow-[0_22px_52px_-32px_rgba(15,23,42,0.34)] sm:px-5">
+            <p className="text-center text-[11px] leading-4 text-slate-500">
               Ferramenta auxiliar. Em dúvida, escolha um número do CIATox.
             </p>
-            <div className="mt-3 grid gap-2">
+            <div className="mt-3 grid gap-2.5">
               {ciatoxNumbers.map((contact) => (
                 <a
                   key={contact.href}
                   href={contact.href}
-                  className={`flex w-full items-center justify-between rounded-[1.15rem] px-4 py-3 text-left text-sm font-semibold transition ${isToxic || selectedDrug?.isDoseUnknown ? "call-pulse call-urgent border border-red-300 bg-[linear-gradient(135deg,#dc2626_0%,#ef4444_45%,#f97316_100%)] text-white shadow-[0_16px_34px_-16px_rgba(220,38,38,0.85)]" : "bg-[linear-gradient(135deg,#0f172a_0%,#1e293b_100%)] text-white shadow-[0_10px_24px_-12px_rgba(15,23,42,0.7)] hover:brightness-110"}`}
+                  className={`flex w-full items-center justify-between rounded-[1.15rem] border px-4 py-3.5 text-left text-sm font-semibold transition ${isToxic || selectedDrug?.isDoseUnknown ? "call-pulse call-urgent border-red-300 bg-[linear-gradient(135deg,#dc2626_0%,#ef4444_45%,#f97316_100%)] text-white shadow-[0_18px_36px_-16px_rgba(220,38,38,0.85)]" : "border-slate-700/20 bg-[linear-gradient(135deg,#0f172a_0%,#1e293b_100%)] text-white shadow-[0_14px_28px_-12px_rgba(15,23,42,0.74)] hover:brightness-110"}`}
                 >
                   <span>{contact.label}</span>
                   <span className="text-[11px] font-medium uppercase tracking-[0.16em] text-white/80">{contact.note}</span>
                 </a>
               ))}
             </div>
-            <a href="https://instagram.com/biaandrade_c" target="_blank" rel="noreferrer" className="mt-3 block text-center text-xs font-semibold text-slate-600 hover:text-slate-900">
+            <a href="https://instagram.com/biaandrade_c" target="_blank" rel="noreferrer" className="mt-3 block text-center text-xs font-semibold text-slate-600 transition hover:text-slate-900">
               @biaandrade_c
             </a>
           </div>
