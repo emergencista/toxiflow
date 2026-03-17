@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import Parser from "rss-parser";
 
 import { createSupabaseAdminClient, isSupabaseAdminConfigured } from "@/lib/supabase";
 
@@ -12,6 +13,17 @@ type TelegramUpdate = {
     chat?: { id?: number | string };
   };
 };
+
+const FEEDS = [
+  "https://coreem.net/feed/",
+  "https://pharmertoxguy.com/feed/",
+  "https://canadiem.org/feed/",
+  "https://rebelem.com/feed/",
+  "https://emergencymedicinecases.com/feed/",
+  "https://emcrit.org/feed/",
+  "https://www.emdocs.net/feed/",
+  "https://www.thebottomline.org.uk/feed/",
+];
 
 function escapeHtml(value: string): string {
   return String(value || "")
@@ -91,6 +103,43 @@ async function getLatestNewsRows() {
   return Array.isArray(data) ? data : [];
 }
 
+async function getLatestNewsRowsFromFeeds(): Promise<Array<{ url: string; created_at: string }>> {
+  const parser = new Parser();
+  const allItems: Array<{ url: string; created_at: string }> = [];
+
+  for (const feedUrl of FEEDS) {
+    try {
+      const feed = await parser.parseURL(feedUrl);
+      const items = Array.isArray(feed.items) ? feed.items : [];
+
+      for (const item of items.slice(0, 4)) {
+        const url = String(item.link || "").trim();
+        if (!url) {
+          continue;
+        }
+
+        const rawDate = item.isoDate || item.pubDate || new Date().toISOString();
+        const date = new Date(rawDate);
+        const createdAt = Number.isNaN(date.getTime()) ? new Date().toISOString() : date.toISOString();
+        allItems.push({ url, created_at: createdAt });
+      }
+    } catch {
+      // Ignore individual feed failures to keep /news resilient.
+    }
+  }
+
+  const dedup = new Map<string, { url: string; created_at: string }>();
+  for (const row of allItems) {
+    if (!dedup.has(row.url)) {
+      dedup.set(row.url, row);
+    }
+  }
+
+  return Array.from(dedup.values())
+    .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+    .slice(0, 5);
+}
+
 export async function POST(request: Request) {
   const token = process.env.TOXIFLOW_TELEGRAM_BOT_TOKEN || process.env.TELEGRAM_BOT_TOKEN;
   const configuredChatId = String(process.env.TOXIFLOW_TELEGRAM_CHAT_ID || process.env.TELEGRAM_CHAT_ID || "").trim();
@@ -124,16 +173,22 @@ export async function POST(request: Request) {
     await sendTelegramMessage(token, chatId, buildNewsMessage(rows));
   } catch (error) {
     console.error("[telegram-webhook] /news error:", error instanceof Error ? error.message : "unknown");
-    await sendTelegramMessage(
-      token,
-      chatId,
-      [
-        "<b>TOX Radar</b>",
-        "",
-        "Nao foi possivel consultar as atualizacoes agora.",
-        "Tente novamente em alguns minutos.",
-      ].join("\n")
-    );
+
+    try {
+      const fallbackRows = await getLatestNewsRowsFromFeeds();
+      await sendTelegramMessage(token, chatId, buildNewsMessage(fallbackRows));
+    } catch {
+      await sendTelegramMessage(
+        token,
+        chatId,
+        [
+          "<b>TOX Radar</b>",
+          "",
+          "Nao foi possivel consultar as atualizacoes agora.",
+          "Tente novamente em alguns minutos.",
+        ].join("\n")
+      );
+    }
   }
 
   return NextResponse.json({ ok: true });
