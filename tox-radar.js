@@ -320,14 +320,21 @@ function extractSuggestionSnippet(itemText, drug) {
 }
 
 function buildReviewSuggestion(itemText, article, drug, updateScope) {
-  const snippet = extractSuggestionSnippet(itemText, drug);
-  const sourceTail = `Fonte: ${article.source}. Artigo: ${article.title}.`;
+  const normalized = normalizeText(itemText);
+  const hasSymptoms = /\b(symptom|presentation|toxidrome|clinical|manifest|sinais|sintoma|neurolog|cardio|respirat|coma|convuls|arritm|qrs)\b/.test(normalized);
+  const hasTreatment = /\b(treatment|management|therapy|antidote|decontamination|charcoal|lavage|naloxone|flumazenil|acetylcysteine|acetilcisteina|fomepizole|suporte)\b/.test(normalized);
 
-  const suggestedAlertMessage = snippet
-    ? `${snippet} (${sourceTail})`
-    : null;
+  const focus = ["substancia"];
+  if (hasSymptoms) {
+    focus.push("sintomatologia");
+  }
+  if (hasTreatment) {
+    focus.push("tratamento");
+  }
 
-  const suggestedClinicalPresentation = `Atualizacao FOAMed para ${drug.name} em ${updateScope}. Revisar potencial impacto clinico com base em: ${article.title}.`;
+  const suggestedAlertMessage = `Revisar ${focus.join(", ")} para ${drug.name} com base em publicacao FOAMed. Confirmar se ha ajuste no alerta clinico e risco toxicologico.`;
+
+  const suggestedClinicalPresentation = `Atualizacao sugerida em portugues para ${drug.name} (${updateScope}): revisar apresentacao clinica e condutas terapeuticas aplicaveis. Fonte FOAMed: ${article.source}.`;
 
   return {
     suggestedAlertMessage,

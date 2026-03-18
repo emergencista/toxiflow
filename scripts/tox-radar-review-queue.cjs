@@ -97,6 +97,50 @@ function inferUpdateScope(articleText) {
   return "notas clinicas e referencia";
 }
 
+function detectSuggestionAxes(articleText) {
+  const text = normalizeText(articleText);
+
+  const hasSubstance = /\b(drug|toxin|veneno|intoxic|poison|dose|mg\/kg|threshold|limiar|half[-\s]?life|meia[-\s]?vida)\b/.test(text);
+  const hasSymptoms = /\b(symptom|presentation|toxidrome|clinical|manifest|sinais|sintoma|neurolog|cardio|respirat|coma|convuls|arritm|qrs)\b/.test(text);
+  const hasTreatment = /\b(treatment|management|therapy|antidote|decontamination|charcoal|lavage|naloxone|flumazenil|acetylcysteine|acetilcisteina|fomepizole|suporte)\b/.test(text);
+
+  return {
+    substance: hasSubstance,
+    symptoms: hasSymptoms,
+    treatment: hasTreatment,
+  };
+}
+
+function buildPortugueseSuggestions(drug, article, articleText) {
+  const axes = detectSuggestionAxes(articleText);
+  const topics = [];
+
+  if (axes.substance) {
+    topics.push(`substancia ${drug.name}`);
+  }
+
+  if (axes.symptoms) {
+    topics.push("sintomatologia e apresentacao clinica");
+  }
+
+  if (axes.treatment) {
+    topics.push("tratamento e condutas");
+  }
+
+  if (!topics.length) {
+    topics.push("atualizacao clinica geral");
+  }
+
+  const suggestedAlertMessage = `Revisar ${topics.join(", ")} para ${drug.name} com base em publicacao FOAMed recente. Validar impacto no alerta clinico e risco toxicologico.`;
+
+  const suggestedClinicalPresentation = `Sugestao de revisao em portugues: atualizar texto de apresentacao clinica e tratamento de ${drug.name}, incluindo sinais/sintomas relevantes e condutas praticas quando aplicavel. Fonte FOAMed: ${article.source}.`;
+
+  return {
+    suggestedAlertMessage,
+    suggestedClinicalPresentation,
+  };
+}
+
 function extractSuggestionSnippet(itemText, drug) {
   const compact = compactWhitespace(itemText);
   if (!compact) return null;
@@ -340,8 +384,11 @@ async function processFeed(supabase, parser, feedUrl, drugCatalog, state) {
     const mentioned = findMentionedDrugs(drugCatalog, itemText);
 
     for (const drug of mentioned) {
-      const snippet = extractSuggestionSnippet(itemText, drug);
-      const sourceTail = `Fonte: ${source}. Artigo: ${articleTitle}.`;
+      const suggestions = buildPortugueseSuggestions(
+        drug,
+        { title: articleTitle, source, url: articleUrl },
+        itemText
+      );
 
       await queueSuggestion(supabase, {
         drugSlug: drug.slug,
@@ -350,8 +397,8 @@ async function processFeed(supabase, parser, feedUrl, drugCatalog, state) {
         articleTitle,
         source,
         updateScope,
-        suggestedAlertMessage: snippet ? `${snippet} (${sourceTail})` : null,
-        suggestedClinicalPresentation: `Atualizacao FOAMed para ${drug.name} em ${updateScope}. Revisar potencial impacto clinico com base em: ${articleTitle}.`,
+        suggestedAlertMessage: suggestions.suggestedAlertMessage,
+        suggestedClinicalPresentation: suggestions.suggestedClinicalPresentation,
       });
 
       queued += 1;
