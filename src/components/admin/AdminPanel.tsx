@@ -31,6 +31,12 @@ type ReviewQueueItem = {
   reviewed_by: string | null;
 };
 
+type SuggestedUpdatePayload = {
+  language?: string;
+  proposed_fields?: Record<string, unknown>;
+  aspect_suggestions?: Record<string, unknown>;
+};
+
 const emptyDraft: DrugDraft = {
   name: "",
   category: "",
@@ -80,6 +86,30 @@ function draftFromDrug(drug: Drug): DrugDraft {
     guidelineRef: drug.guidelineRef,
     notes: drug.notes
   };
+}
+
+const SUGGESTED_FIELD_LABELS: Record<string, string> = {
+  alert_message: "Alerta clínico",
+  clinical_presentation: "Apresentação clínica",
+  treatment: "Tratamento",
+  supportive_care: "Suporte clínico",
+  guideline_ref: "Referência",
+  notes: "Notas",
+};
+
+const SUGGESTED_ASPECT_LABELS: Record<string, string> = {
+  substancia: "Substância",
+  dose_toxica: "Dose tóxica",
+  meia_vida: "Meia-vida",
+  sintomatologia: "Sintomatologia",
+  tratamento: "Tratamento",
+  antidoto: "Antídoto",
+  carvao_ativado: "Carvão ativado",
+  lavagem_gastrica: "Lavagem gástrica",
+};
+
+function formatSuggestedLabel(value: string): string {
+  return SUGGESTED_FIELD_LABELS[value] || SUGGESTED_ASPECT_LABELS[value] || value.replace(/_/g, " ");
 }
 
 export function AdminPanel({ initialDrugs, isConfigured }: AdminPanelProps) {
@@ -552,7 +582,57 @@ export function AdminPanel({ initialDrugs, isConfigured }: AdminPanelProps) {
                   <div className="mt-3 rounded-2xl border border-slate-200 bg-slate-50 px-3 py-3">
                     <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Sugestões adicionais de campos (português)</p>
                     {item.suggested_update_payload ? (
-                      <pre className="mt-2 overflow-x-auto whitespace-pre-wrap break-words text-xs leading-5 text-slate-700">{JSON.stringify(item.suggested_update_payload, null, 2)}</pre>
+                      <div className="mt-3 space-y-3">
+                        {(() => {
+                          const payload = item.suggested_update_payload as SuggestedUpdatePayload;
+                          const proposed = payload.proposed_fields && typeof payload.proposed_fields === "object" ? Object.entries(payload.proposed_fields) : [];
+                          const aspects = payload.aspect_suggestions && typeof payload.aspect_suggestions === "object" ? Object.entries(payload.aspect_suggestions) : [];
+
+                          return (
+                            <>
+                              <div className="rounded-2xl border border-slate-200 bg-white px-3 py-3">
+                                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">Campos propostos para atualização</p>
+                                {proposed.length ? (
+                                  <div className="mt-2 space-y-2">
+                                    {proposed.map(([key, value]) => (
+                                      <div key={`field-${item.id}-${key}`} className="rounded-xl border border-slate-100 bg-slate-50 px-3 py-2">
+                                        <p className="text-xs font-semibold text-slate-700">{formatSuggestedLabel(key)}</p>
+                                        {Array.isArray(value) ? (
+                                          <ul className="mt-1 list-disc space-y-1 pl-5 text-sm leading-6 text-slate-700">
+                                            {value.map((entry, index) => (
+                                              <li key={`field-${item.id}-${key}-${index}`}>{String(entry)}</li>
+                                            ))}
+                                          </ul>
+                                        ) : (
+                                          <p className="mt-1 text-sm leading-6 text-slate-700">{String(value)}</p>
+                                        )}
+                                      </div>
+                                    ))}
+                                  </div>
+                                ) : (
+                                  <p className="mt-2 text-sm leading-6 text-slate-700">Sem campos adicionais neste item.</p>
+                                )}
+                              </div>
+
+                              <div className="rounded-2xl border border-slate-200 bg-white px-3 py-3">
+                                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">Aspectos identificados para revisão</p>
+                                {aspects.length ? (
+                                  <div className="mt-2 space-y-2">
+                                    {aspects.map(([key, value]) => (
+                                      <div key={`aspect-${item.id}-${key}`} className="rounded-xl border border-slate-100 bg-slate-50 px-3 py-2">
+                                        <p className="text-xs font-semibold text-slate-700">{formatSuggestedLabel(key)}</p>
+                                        <p className="mt-1 text-sm leading-6 text-slate-700">{String(value)}</p>
+                                      </div>
+                                    ))}
+                                  </div>
+                                ) : (
+                                  <p className="mt-2 text-sm leading-6 text-slate-700">Sem aspectos adicionais neste item.</p>
+                                )}
+                              </div>
+                            </>
+                          );
+                        })()}
+                      </div>
                     ) : (
                       <p className="mt-2 text-sm leading-6 text-slate-700">Sem payload estruturado adicional para este item.</p>
                     )}
