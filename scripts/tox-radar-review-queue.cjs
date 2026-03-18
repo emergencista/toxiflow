@@ -47,6 +47,27 @@ function compactWhitespace(value) {
   return String(value || "").replace(/\s+/g, " ").trim();
 }
 
+function htmlToText(html) {
+  return String(html || "")
+    // Remove script, style, comments
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "")
+    .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, "")
+    .replace(/<!--[\s\S]*?-->/g, "")
+    // Remove remaining HTML tags
+    .replace(/<[^>]+>/g, " ")
+    // Decode HTML entities
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;/gi, "'")
+    .replace(/&[a-z]+;/gi, " ")
+    // Clean up whitespace
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function toWordRegex(term) {
   const escaped = String(term || "")
     .trim()
@@ -73,9 +94,9 @@ function getItemText(item) {
   return compactWhitespace([
     item.title,
     item.contentSnippet,
-    item.content,
+    htmlToText(item.content || ""),
     item.summary,
-    item["content:encoded"],
+    htmlToText(item["content:encoded"] || ""),
   ].join(" "));
 }
 
