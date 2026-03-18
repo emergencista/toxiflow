@@ -1,0 +1,10 @@
+[Unit]
+Description=Run ToxiFlow TOX Radar review queue every 20 minutes
+
+[Timer]
+OnCalendar=*:0/20
+Persistent=true
+Unit=toxiflow-tox-radar-queue.service
+
+[Install]
+WantedBy=timers.target

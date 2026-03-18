@@ -1,0 +1,10 @@
+[Unit]
+Description=ToxiFlow TOX Radar review queue job
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=ubuntu
+WorkingDirectory=/home/ubuntu/toxiflow
+ExecStart=/home/ubuntu/toxiflow/scripts/run-tox-radar-review-queue.sh

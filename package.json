@@ -10,6 +10,7 @@
     "generate:data": "node scripts/generate-normalized-data.cjs",
     "generate:icons": "node scripts/generate-icons.cjs",
     "tox:radar": "node tox-radar.js",
+    "tox:queue": "node scripts/tox-radar-review-queue.cjs",
     "db:migrate": "bash scripts/run-sql-migrations.sh"
   },
   "dependencies": {
