@@ -76,6 +76,11 @@ function isReviewAction(value: string): value is ReviewAction {
   return value === "approve" || value === "reject" || value === "apply";
 }
 
+function isMissingSuggestedPayloadColumn(message: string): boolean {
+  const normalized = message.toLowerCase();
+  return normalized.includes("suggested_update_payload") && normalized.includes("does not exist");
+}
+
 export async function PATCH(request: Request, context: RouteContext) {
   const actor = getAdminIdentityFromRequest(request);
   const ip = getRequestClientIp(request);
@@ -117,11 +122,22 @@ export async function PATCH(request: Request, context: RouteContext) {
   }
 
   const supabase = createSupabaseAdminClient();
-  const { data: queueItem, error: queueError } = await supabase
+  let { data: queueItem, error: queueError } = await supabase
     .from("tox_radar_review_queue")
     .select("id,status,drug_slug,drug_name,suggested_alert_message,suggested_clinical_presentation,suggested_update_payload")
     .eq("id", id)
     .single();
+
+  if (queueError && isMissingSuggestedPayloadColumn(queueError.message)) {
+    const fallback = await supabase
+      .from("tox_radar_review_queue")
+      .select("id,status,drug_slug,drug_name,suggested_alert_message,suggested_clinical_presentation")
+      .eq("id", id)
+      .single();
+
+    queueItem = fallback.data ? { ...fallback.data, suggested_update_payload: null } : null;
+    queueError = fallback.error;
+  }
 
   if (queueError || !queueItem) {
     await recordAdminAudit({

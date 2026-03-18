@@ -12,6 +12,11 @@ function isMissingReviewQueueTable(message: string): boolean {
   return normalized.includes("tox_radar_review_queue") && (normalized.includes("schema cache") || normalized.includes("does not exist"));
 }
 
+function isMissingSuggestedPayloadColumn(message: string): boolean {
+  const normalized = message.toLowerCase();
+  return normalized.includes("suggested_update_payload") && normalized.includes("does not exist");
+}
+
 export async function GET(request: Request) {
   const actor = getAdminIdentityFromRequest(request);
   const ip = getRequestClientIp(request);
@@ -52,7 +57,25 @@ export async function GET(request: Request) {
     query = query.eq("status", status);
   }
 
-  const { data, error } = await query;
+  const initial = await query;
+  let data: unknown = initial.data;
+  let error: { message: string } | null = initial.error ? { message: initial.error.message } : null;
+
+  if (error && isMissingSuggestedPayloadColumn(error.message)) {
+    let fallbackQuery = supabase
+      .from("tox_radar_review_queue")
+      .select("id, created_at, updated_at, reviewed_at, applied_at, status, drug_slug, drug_name, article_url, article_title, source, update_scope, suggested_alert_message, suggested_clinical_presentation, review_notes, reviewed_by")
+      .order("created_at", { ascending: false })
+      .limit(limit);
+
+    if (status && status !== "all") {
+      fallbackQuery = fallbackQuery.eq("status", status);
+    }
+
+    const fallback = await fallbackQuery;
+    data = fallback.data;
+    error = fallback.error ? { message: fallback.error.message } : null;
+  }
 
   if (error) {
     if (isMissingReviewQueueTable(error.message)) {
