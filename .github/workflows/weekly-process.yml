@@ -1,0 +1,33 @@
+name: Weekly AI Suggestions
+
+on:
+  schedule:
+    - cron: "0 17 * * 3"
+  workflow_dispatch:
+
+jobs:
+  weekly-process:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Process pending queue with Gemini
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          TOXIFLOW_SUGGESTIONS_API_URL: ${{ secrets.TOXIFLOW_SUGGESTIONS_API_URL }}
+          TOX_WEEKLY_PROCESS_LIMIT: ${{ secrets.TOX_WEEKLY_PROCESS_LIMIT }}
+        run: npm run tox:weekly:process
