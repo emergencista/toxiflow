@@ -26,6 +26,7 @@ type ReviewQueueItem = {
   update_scope: string | null;
   suggested_alert_message: string | null;
   suggested_clinical_presentation: string | null;
+  suggested_update_payload: Record<string, unknown> | null;
   review_notes: string | null;
   reviewed_by: string | null;
 };
@@ -485,7 +486,7 @@ export function AdminPanel({ initialDrugs, isConfigured }: AdminPanelProps) {
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">Revisão clínica</p>
             <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">Sugestões automáticas (modo 3)</h2>
             <p className="mt-2 text-sm leading-6 text-slate-600">
-              Aprove, rejeite ou aplique sugestões para <strong>alerta clínico</strong> e <strong>apresentação clínica</strong>.
+              Aprove, rejeite ou aplique sugestões em portugues para <strong>todos os aspectos da substancia</strong> (alerta, apresentacao, tratamento e suporte).
             </p>
           </div>
 
@@ -546,6 +547,15 @@ export function AdminPanel({ initialDrugs, isConfigured }: AdminPanelProps) {
                       <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Sugestão de apresentação clínica</p>
                       <p className="mt-2 text-sm leading-6 text-slate-700">{item.suggested_clinical_presentation || "Sem sugestão para apresentação clínica."}</p>
                     </div>
+                  </div>
+
+                  <div className="mt-3 rounded-2xl border border-slate-200 bg-slate-50 px-3 py-3">
+                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Sugestões adicionais de campos (português)</p>
+                    {item.suggested_update_payload ? (
+                      <pre className="mt-2 overflow-x-auto whitespace-pre-wrap break-words text-xs leading-5 text-slate-700">{JSON.stringify(item.suggested_update_payload, null, 2)}</pre>
+                    ) : (
+                      <p className="mt-2 text-sm leading-6 text-slate-700">Sem payload estruturado adicional para este item.</p>
+                    )}
                   </div>
 
                   <label className="mt-3 flex flex-col gap-2 text-sm font-medium text-slate-700">

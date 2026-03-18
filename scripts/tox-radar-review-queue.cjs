@@ -135,9 +135,38 @@ function buildPortugueseSuggestions(drug, article, articleText) {
 
   const suggestedClinicalPresentation = `Sugestao de revisao em portugues: atualizar texto de apresentacao clinica e tratamento de ${drug.name}, incluindo sinais/sintomas relevantes e condutas praticas quando aplicavel. Fonte FOAMed: ${article.source}.`;
 
+  const suggestedUpdatePayload = {
+    language: "pt-BR",
+    proposed_fields: {
+      alert_message: suggestedAlertMessage,
+      clinical_presentation: suggestedClinicalPresentation,
+      treatment: [
+        `Revisar condutas terapeuticas para ${drug.name} com base na fonte ${article.source}.`,
+        "Ajustar sequencia de tratamento conforme gravidade e monitorizacao clinica."
+      ],
+      supportive_care: `Reforcar medidas de suporte clinico para ${drug.name}, incluindo monitorizacao e tratamento sintomatico conforme evolucao.`,
+      guideline_ref: `FOAMed:${article.source}`,
+      notes: [
+        `Revisao sugerida a partir de ${article.title} (${article.url}).`,
+        "Conteudo de sugestao gerado em portugues para validacao clinica manual."
+      ]
+    },
+    aspect_suggestions: {
+      substancia: `Revisar descricao geral da substancia ${drug.name} e contexto toxicologico.`,
+      dose_toxica: "Verificar se ha nova informacao de dose toxica, limiar ou faixa de risco.",
+      meia_vida: "Verificar possivel atualizacao de meia-vida ou dados farmacocineticos.",
+      sintomatologia: "Atualizar sinais, sintomas e padrao de apresentacao clinica quando aplicavel.",
+      tratamento: "Atualizar tratamento e condutas com foco em seguranca e aplicabilidade pratica.",
+      antidoto: "Revisar indicacao e posologia de antidoto, se houver evidencia nova.",
+      carvao_ativado: "Reavaliar criterios de indicacao e contraindicacoes para carvao ativado.",
+      lavagem_gastrica: "Reavaliar criterios de indicacao para lavagem gastrica e janela temporal."
+    }
+  };
+
   return {
     suggestedAlertMessage,
     suggestedClinicalPresentation,
+    suggestedUpdatePayload,
   };
 }
 
@@ -324,24 +353,45 @@ async function loadKnownUrls(supabase) {
 }
 
 async function queueSuggestion(supabase, payload) {
+  const basePayload = {
+    drug_slug: payload.drugSlug,
+    drug_name: payload.drugName,
+    article_url: payload.articleUrl,
+    article_title: payload.articleTitle,
+    source: payload.source,
+    update_scope: payload.updateScope,
+    suggested_alert_message: payload.suggestedAlertMessage,
+    suggested_clinical_presentation: payload.suggestedClinicalPresentation,
+    status: "pending",
+  };
+
   const { error } = await supabase
     .from("tox_radar_review_queue")
     .upsert(
       {
-        drug_slug: payload.drugSlug,
-        drug_name: payload.drugName,
-        article_url: payload.articleUrl,
-        article_title: payload.articleTitle,
-        source: payload.source,
-        update_scope: payload.updateScope,
-        suggested_alert_message: payload.suggestedAlertMessage,
-        suggested_clinical_presentation: payload.suggestedClinicalPresentation,
-        status: "pending",
+        ...basePayload,
+        suggested_update_payload: payload.suggestedUpdatePayload,
       },
       { onConflict: "drug_slug,article_url" }
     );
 
   if (error) {
+    const msg = String(error.message || "").toLowerCase();
+    const missingPayloadColumn = msg.includes("suggested_update_payload") && msg.includes("does not exist");
+
+    if (missingPayloadColumn) {
+      const { error: fallbackError } = await supabase
+        .from("tox_radar_review_queue")
+        .upsert(basePayload, { onConflict: "drug_slug,article_url" });
+
+      if (!fallbackError) {
+        console.warn("[warn] coluna suggested_update_payload ausente; sugestao salva no formato legado.");
+        return;
+      }
+
+      throw new Error(`Falha ao enfileirar ${payload.drugSlug} (fallback): ${fallbackError.message}`);
+    }
+
     throw new Error(`Falha ao enfileirar ${payload.drugSlug}: ${error.message}`);
   }
 }
@@ -399,6 +449,7 @@ async function processFeed(supabase, parser, feedUrl, drugCatalog, state) {
         updateScope,
         suggestedAlertMessage: suggestions.suggestedAlertMessage,
         suggestedClinicalPresentation: suggestions.suggestedClinicalPresentation,
+        suggestedUpdatePayload: suggestions.suggestedUpdatePayload,
       });
 
       queued += 1;

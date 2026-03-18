@@ -44,7 +44,7 @@ export async function GET(request: Request) {
   const supabase = createSupabaseAdminClient();
   let query = supabase
     .from("tox_radar_review_queue")
-    .select("id, created_at, updated_at, reviewed_at, applied_at, status, drug_slug, drug_name, article_url, article_title, source, update_scope, suggested_alert_message, suggested_clinical_presentation, review_notes, reviewed_by")
+    .select("id, created_at, updated_at, reviewed_at, applied_at, status, drug_slug, drug_name, article_url, article_title, source, update_scope, suggested_alert_message, suggested_clinical_presentation, suggested_update_payload, review_notes, reviewed_by")
     .order("created_at", { ascending: false })
     .limit(limit);
 

@@ -13,6 +13,7 @@ create table if not exists public.tox_radar_review_queue (
   update_scope text,
   suggested_alert_message text,
   suggested_clinical_presentation text,
+  suggested_update_payload jsonb,
   review_notes text,
   reviewed_by text,
   constraint tox_radar_review_queue_status_check check (status in ('pending', 'approved', 'rejected', 'applied')),
@@ -24,6 +25,9 @@ create index if not exists tox_radar_review_queue_status_idx
 
 create index if not exists tox_radar_review_queue_drug_slug_idx
   on public.tox_radar_review_queue (drug_slug);
+
+alter table public.tox_radar_review_queue
+  add column if not exists suggested_update_payload jsonb;
 
 create or replace function public.set_tox_radar_review_queue_updated_at()
 returns trigger

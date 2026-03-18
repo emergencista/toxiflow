@@ -11,6 +11,67 @@ type RouteContext = {
 
 type ReviewAction = "approve" | "reject" | "apply";
 
+type SuggestedUpdatePayload = {
+  proposed_fields?: Record<string, unknown>;
+};
+
+function buildDrugUpdatePayload(
+  suggestedAlert: string,
+  suggestedClinical: string,
+  suggestedPayload: SuggestedUpdatePayload | null
+): Record<string, unknown> {
+  const payload: Record<string, unknown> = {};
+
+  if (suggestedAlert) {
+    payload.alert_message = suggestedAlert;
+  }
+
+  if (suggestedClinical) {
+    payload.clinical_presentation = suggestedClinical;
+  }
+
+  const allowedKeys = new Set([
+    "alert_message",
+    "clinical_presentation",
+    "treatment",
+    "supportive_care",
+    "guideline_ref",
+    "notes",
+  ]);
+
+  const proposed = suggestedPayload?.proposed_fields;
+  if (proposed && typeof proposed === "object") {
+    for (const [key, value] of Object.entries(proposed)) {
+      if (!allowedKeys.has(key)) {
+        continue;
+      }
+
+      if (value == null) {
+        continue;
+      }
+
+      if ((key === "treatment" || key === "notes") && Array.isArray(value)) {
+        const normalized = value
+          .map((entry) => String(entry || "").trim())
+          .filter(Boolean);
+        if (normalized.length) {
+          payload[key] = normalized;
+        }
+        continue;
+      }
+
+      if (typeof value === "string") {
+        const normalized = value.trim();
+        if (normalized) {
+          payload[key] = normalized;
+        }
+      }
+    }
+  }
+
+  return payload;
+}
+
 function isReviewAction(value: string): value is ReviewAction {
   return value === "approve" || value === "reject" || value === "apply";
 }
@@ -58,7 +119,7 @@ export async function PATCH(request: Request, context: RouteContext) {
   const supabase = createSupabaseAdminClient();
   const { data: queueItem, error: queueError } = await supabase
     .from("tox_radar_review_queue")
-    .select("id,status,drug_slug,drug_name,suggested_alert_message,suggested_clinical_presentation")
+    .select("id,status,drug_slug,drug_name,suggested_alert_message,suggested_clinical_presentation,suggested_update_payload")
     .eq("id", id)
     .single();
 
@@ -149,17 +210,10 @@ export async function PATCH(request: Request, context: RouteContext) {
     return NextResponse.json({ ok: true, status: "rejected" });
   }
 
-  const drugUpdatePayload: Record<string, string> = {};
   const suggestedAlert = String(queueItem.suggested_alert_message || "").trim();
   const suggestedClinical = String(queueItem.suggested_clinical_presentation || "").trim();
-
-  if (suggestedAlert) {
-    drugUpdatePayload.alert_message = suggestedAlert;
-  }
-
-  if (suggestedClinical) {
-    drugUpdatePayload.clinical_presentation = suggestedClinical;
-  }
+  const suggestedPayload = (queueItem.suggested_update_payload || null) as SuggestedUpdatePayload | null;
+  const drugUpdatePayload = buildDrugUpdatePayload(suggestedAlert, suggestedClinical, suggestedPayload);
 
   if (!Object.keys(drugUpdatePayload).length) {
     return NextResponse.json({ error: "Não há sugestão aplicável para este item." }, { status: 400 });
