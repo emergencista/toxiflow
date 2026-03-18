@@ -158,38 +158,39 @@ function buildPortugueseSuggestions(drug, article, articleText) {
   const axes = detectSuggestionAxes(articleText);
   const concreteContext = buildConcretePortugueseSnippet(article.title, article.source, article.url, articleText);
   const signals = buildTopicSignals(article.title, articleText);
+  const foamedLabel = `FOAMed ${article.source}`;
 
-  const suggestedAlertMessage = `Atualizacao FOAMed para ${drug.name}: ${concreteContext} Impacto sugerido no alerta clinico: enfatizar risco e contexto de apresentacao.`;
+  const suggestedAlertMessage = `Incluir no alerta (${foamedLabel}): ${concreteContext} Destacar risco imediato e contexto de apresentacao para ${drug.name}.`;
 
-  const suggestedClinicalPresentation = `Para ${drug.name}, considerar incorporar no texto clinico: ${signals.length ? signals.join(", ") : "achados clinicos e contexto de manejo descritos na fonte"}.`;
+  const suggestedClinicalPresentation = `Adicionar na apresentacao clinica (${foamedLabel}): ${signals.length ? signals.join(", ") : "achados clinicos e contexto de manejo descritos na fonte"}.`;
 
   const proposedFields = {
     alert_message: suggestedAlertMessage,
     clinical_presentation: suggestedClinicalPresentation,
     guideline_ref: `FOAMed:${article.source}`,
     notes: [
-      `Referencia: ${article.title} (${article.url}).`,
-      `Resumo objetivo: ${concreteContext}`,
+      `Fonte ${foamedLabel}: ${article.title} (${article.url}).`,
+      `Aplicar no cadastro: ${concreteContext}`,
     ]
   };
 
   if (axes.treatment) {
     proposedFields.treatment = [
-      `Atualizar condutas de ${drug.name} com base em ${article.source}.`,
-      `Ponto principal identificado: ${signals.find((item) => item.includes("manejo") || item.includes("antidoto")) || "reavaliar estrategia terapeutica conforme a publicacao."}`,
+      `Adicionar no tratamento (${foamedLabel}): conduta para ${drug.name} conforme a publicacao.`,
+      `Incluir conduta principal: ${signals.find((item) => item.includes("manejo") || item.includes("antidoto")) || "ajustar estrategia terapeutica conforme a publicacao."}`,
     ];
-    proposedFields.supportive_care = `Reforcar monitorizacao e suporte clinico em ${drug.name}, considerando ${signals.find((item) => item.includes("cardiovascular") || item.includes("neurologico")) || "risco de descompensacao clinica"}.`;
+    proposedFields.supportive_care = `Adicionar no suporte clinico (${foamedLabel}): monitorizacao e suporte para ${drug.name}, com foco em ${signals.find((item) => item.includes("cardiovascular") || item.includes("neurologico")) || "risco de descompensacao clinica"}.`;
   }
 
   const aspectSuggestions = {};
   if (axes.substance) {
-    aspectSuggestions.substancia = `O artigo cita ${signals.find((item) => item.includes("dose") || item.includes("farmacocinet")) || "aspectos da substancia"} com potencial impacto para ${drug.name}.`;
+    aspectSuggestions.substancia = `Atualizar secao da substancia (${foamedLabel}) com ${signals.find((item) => item.includes("dose") || item.includes("farmacocinet")) || "aspectos centrais da substancia"}.`;
   }
   if (axes.symptoms) {
-    aspectSuggestions.sintomatologia = `Sinais relevantes identificados: ${signals.find((item) => item.includes("cardiovascular") || item.includes("neurologico") || item.includes("reconhecimento")) || "manifestacoes clinicas descritas na fonte"}.`;
+    aspectSuggestions.sintomatologia = `Adicionar na sintomatologia (${foamedLabel}): ${signals.find((item) => item.includes("cardiovascular") || item.includes("neurologico") || item.includes("reconhecimento")) || "manifestacoes clinicas descritas na fonte"}.`;
   }
   if (axes.treatment) {
-    aspectSuggestions.tratamento = `Conduta sugerida para revisao: ${signals.find((item) => item.includes("manejo") || item.includes("antidoto") || item.includes("carvao") || item.includes("lavagem")) || "ajuste terapeutico baseado na publicacao"}.`;
+    aspectSuggestions.tratamento = `Adicionar no tratamento (${foamedLabel}): ${signals.find((item) => item.includes("manejo") || item.includes("antidoto") || item.includes("carvao") || item.includes("lavagem")) || "ajuste terapeutico baseado na publicacao"}.`;
   }
 
   const suggestedUpdatePayload = {
