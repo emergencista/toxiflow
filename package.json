@@ -12,9 +12,12 @@
     "tox:radar": "node tox-radar.js",
     "tox:queue": "node scripts/tox-radar-review-queue.cjs",
     "tox:queue:backfill": "node scripts/tox-radar-review-queue-backfill.cjs",
+    "tox:weekly:process": "tsx scripts/weekly-process.ts",
+    "tox:queue:cleanup:before-today": "node scripts/cleanup-review-queue-before-today.cjs",
     "db:migrate": "bash scripts/run-sql-migrations.sh"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "@supabase/supabase-js": "^2.57.4",
     "dotenv": "^17.3.1",
     "next": "16.1.6",
@@ -33,6 +36,7 @@
     "sharp": "^0.34.5",
     "tailwindcss": "^4.1.13",
     "to-ico": "^1.1.5",
+    "tsx": "^4.21.0",
     "typescript": "^5.8.3"
   }
 }
