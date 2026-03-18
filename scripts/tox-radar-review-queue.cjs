@@ -111,56 +111,91 @@ function detectSuggestionAxes(articleText) {
   };
 }
 
+function buildTopicSignals(articleTitle, articleText) {
+  const text = normalizeText(`${articleTitle || ""} ${articleText || ""}`);
+  const signals = [];
+
+  const candidates = [
+    { regex: /thyrotoxicosis|thyroid\s+storm/, label: "tempestade tireotoxica e descompensacao endocrina" },
+    { regex: /recognition|diagnosis|diagnostic/, label: "criterios de reconhecimento diagnostico" },
+    { regex: /management|tratamento|therapy|therapeutic/, label: "estrategias de manejo terapeutico" },
+    { regex: /arrhythm|qrs|tachycard|bradycard/, label: "manifestacoes cardiovasculares" },
+    { regex: /seizure|convuls/, label: "risco de convulsao" },
+    { regex: /coma|mental\s+status|conscious/, label: "alteracao do estado neurologico" },
+    { regex: /antidote|naloxone|flumazenil|fomepizole|acetylcysteine|acetilcisteina/, label: "uso de antidoto especifico" },
+    { regex: /charcoal|carvao/, label: "indicacao de carvao ativado" },
+    { regex: /lavage|lavagem/, label: "criterios de lavagem gastrica" },
+    { regex: /dose|mg\/kg|threshold|limiar/, label: "ajuste de limiar de dose toxica" },
+    { regex: /half\s*life|meia\s*vida|pharmacokinetic|farmacocinet/, label: "dados farmacocineticos e meia-vida" },
+  ];
+
+  for (const candidate of candidates) {
+    if (candidate.regex.test(text)) {
+      signals.push(candidate.label);
+    }
+  }
+
+  return Array.from(new Set(signals)).slice(0, 4);
+}
+
+function buildConcretePortugueseSnippet(articleTitle, source, articleUrl, itemText) {
+  const snippet = extractSuggestionSnippet(itemText, { name: articleTitle, synonyms: [] });
+  const compactTitle = compactWhitespace(articleTitle || "Publicacao sem titulo");
+  const details = buildTopicSignals(compactTitle, itemText);
+
+  if (details.length) {
+    return `Fonte ${source}: ${compactTitle}. Evidencias destacadas: ${details.join(", ")}.`;
+  }
+
+  if (snippet) {
+    return `Fonte ${source}: ${compactTitle}. Trecho relevante identificado no texto original: ${snippet}.`;
+  }
+
+  return `Fonte ${source}: ${compactTitle}. Referencia para revisao clinica em ${articleUrl}.`;
+}
+
 function buildPortugueseSuggestions(drug, article, articleText) {
   const axes = detectSuggestionAxes(articleText);
-  const topics = [];
+  const concreteContext = buildConcretePortugueseSnippet(article.title, article.source, article.url, articleText);
+  const signals = buildTopicSignals(article.title, articleText);
 
-  if (axes.substance) {
-    topics.push(`substancia ${drug.name}`);
-  }
+  const suggestedAlertMessage = `Atualizacao FOAMed para ${drug.name}: ${concreteContext} Impacto sugerido no alerta clinico: enfatizar risco e contexto de apresentacao.`;
 
-  if (axes.symptoms) {
-    topics.push("sintomatologia e apresentacao clinica");
-  }
+  const suggestedClinicalPresentation = `Para ${drug.name}, considerar incorporar no texto clinico: ${signals.length ? signals.join(", ") : "achados clinicos e contexto de manejo descritos na fonte"}.`;
+
+  const proposedFields = {
+    alert_message: suggestedAlertMessage,
+    clinical_presentation: suggestedClinicalPresentation,
+    guideline_ref: `FOAMed:${article.source}`,
+    notes: [
+      `Referencia: ${article.title} (${article.url}).`,
+      `Resumo objetivo: ${concreteContext}`,
+    ]
+  };
 
   if (axes.treatment) {
-    topics.push("tratamento e condutas");
+    proposedFields.treatment = [
+      `Atualizar condutas de ${drug.name} com base em ${article.source}.`,
+      `Ponto principal identificado: ${signals.find((item) => item.includes("manejo") || item.includes("antidoto")) || "reavaliar estrategia terapeutica conforme a publicacao."}`,
+    ];
+    proposedFields.supportive_care = `Reforcar monitorizacao e suporte clinico em ${drug.name}, considerando ${signals.find((item) => item.includes("cardiovascular") || item.includes("neurologico")) || "risco de descompensacao clinica"}.`;
   }
 
-  if (!topics.length) {
-    topics.push("atualizacao clinica geral");
+  const aspectSuggestions = {};
+  if (axes.substance) {
+    aspectSuggestions.substancia = `O artigo cita ${signals.find((item) => item.includes("dose") || item.includes("farmacocinet")) || "aspectos da substancia"} com potencial impacto para ${drug.name}.`;
   }
-
-  const suggestedAlertMessage = `Revisar ${topics.join(", ")} para ${drug.name} com base em publicacao FOAMed recente. Validar impacto no alerta clinico e risco toxicologico.`;
-
-  const suggestedClinicalPresentation = `Sugestao de revisao em portugues: atualizar texto de apresentacao clinica e tratamento de ${drug.name}, incluindo sinais/sintomas relevantes e condutas praticas quando aplicavel. Fonte FOAMed: ${article.source}.`;
+  if (axes.symptoms) {
+    aspectSuggestions.sintomatologia = `Sinais relevantes identificados: ${signals.find((item) => item.includes("cardiovascular") || item.includes("neurologico") || item.includes("reconhecimento")) || "manifestacoes clinicas descritas na fonte"}.`;
+  }
+  if (axes.treatment) {
+    aspectSuggestions.tratamento = `Conduta sugerida para revisao: ${signals.find((item) => item.includes("manejo") || item.includes("antidoto") || item.includes("carvao") || item.includes("lavagem")) || "ajuste terapeutico baseado na publicacao"}.`;
+  }
 
   const suggestedUpdatePayload = {
     language: "pt-BR",
-    proposed_fields: {
-      alert_message: suggestedAlertMessage,
-      clinical_presentation: suggestedClinicalPresentation,
-      treatment: [
-        `Revisar condutas terapeuticas para ${drug.name} com base na fonte ${article.source}.`,
-        "Ajustar sequencia de tratamento conforme gravidade e monitorizacao clinica."
-      ],
-      supportive_care: `Reforcar medidas de suporte clinico para ${drug.name}, incluindo monitorizacao e tratamento sintomatico conforme evolucao.`,
-      guideline_ref: `FOAMed:${article.source}`,
-      notes: [
-        `Revisao sugerida a partir de ${article.title} (${article.url}).`,
-        "Conteudo de sugestao gerado em portugues para validacao clinica manual."
-      ]
-    },
-    aspect_suggestions: {
-      substancia: `Revisar descricao geral da substancia ${drug.name} e contexto toxicologico.`,
-      dose_toxica: "Verificar se ha nova informacao de dose toxica, limiar ou faixa de risco.",
-      meia_vida: "Verificar possivel atualizacao de meia-vida ou dados farmacocineticos.",
-      sintomatologia: "Atualizar sinais, sintomas e padrao de apresentacao clinica quando aplicavel.",
-      tratamento: "Atualizar tratamento e condutas com foco em seguranca e aplicabilidade pratica.",
-      antidoto: "Revisar indicacao e posologia de antidoto, se houver evidencia nova.",
-      carvao_ativado: "Reavaliar criterios de indicacao e contraindicacoes para carvao ativado.",
-      lavagem_gastrica: "Reavaliar criterios de indicacao para lavagem gastrica e janela temporal."
-    }
+    proposed_fields: proposedFields,
+    aspect_suggestions: aspectSuggestions,
   };
 
   return {
