@@ -21,25 +21,36 @@ function buildDrugUpdatePayload(
   suggestedPayload: SuggestedUpdatePayload | null
 ): Record<string, unknown> {
   const payload: Record<string, unknown> = {};
+  const proposed = suggestedPayload?.proposed_fields;
+  const hasStructuredProposed = Boolean(proposed && typeof proposed === "object" && Object.keys(proposed).length);
 
-  if (suggestedAlert) {
-    payload.alert_message = suggestedAlert;
-  }
+  // Compatibilidade: para itens legados sem payload estruturado, usa campos antigos.
+  if (!hasStructuredProposed) {
+    if (suggestedAlert) {
+      payload.alert_message = suggestedAlert;
+    }
 
-  if (suggestedClinical) {
-    payload.clinical_presentation = suggestedClinical;
+    if (suggestedClinical) {
+      payload.clinical_presentation = suggestedClinical;
+    }
   }
 
   const allowedKeys = new Set([
     "alert_message",
+    "toxic_dose_text",
+    "toxic_dose_value",
+    "toxic_dose_unit",
+    "half_life",
     "clinical_presentation",
     "treatment",
+    "activated_charcoal",
+    "lavage",
+    "antidote",
     "supportive_care",
     "guideline_ref",
     "notes",
   ]);
 
-  const proposed = suggestedPayload?.proposed_fields;
   if (proposed && typeof proposed === "object") {
     for (const [key, value] of Object.entries(proposed)) {
       if (!allowedKeys.has(key)) {
@@ -56,6 +67,46 @@ function buildDrugUpdatePayload(
           .filter(Boolean);
         if (normalized.length) {
           payload[key] = normalized;
+        }
+        continue;
+      }
+
+      if (key === "toxic_dose_value" && (typeof value === "number" || typeof value === "string")) {
+        const parsed = typeof value === "number" ? value : Number(value);
+        if (Number.isFinite(parsed)) {
+          payload[key] = parsed;
+        }
+        continue;
+      }
+
+      if (key === "activated_charcoal" && typeof value === "string") {
+        const normalized = value.trim();
+        if (normalized === "recommended" || normalized === "conditional" || normalized === "contraindicated") {
+          payload[key] = normalized;
+        }
+        continue;
+      }
+
+      if (key === "lavage" && typeof value === "string") {
+        const normalized = value.trim();
+        if (normalized === "consider" || normalized === "not-routine" || normalized === "contraindicated") {
+          payload[key] = normalized;
+        }
+        continue;
+      }
+
+      if (key === "antidote" && value && typeof value === "object") {
+        const antidote = value as Record<string, unknown>;
+        const name = String(antidote.name || "").trim();
+        const indication = String(antidote.indication || "").trim();
+        const dose = String(antidote.dose || "").trim();
+
+        if (name) {
+          payload[key] = {
+            name,
+            indication: indication || null,
+            dose: dose || null,
+          };
         }
         continue;
       }

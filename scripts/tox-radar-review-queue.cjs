@@ -111,6 +111,15 @@ function detectSuggestionAxes(articleText) {
   };
 }
 
+function hasStrongToxicologyContext(articleTitle, articleText) {
+  const text = normalizeText(`${articleTitle || ""} ${articleText || ""}`);
+  const clinicalTox = /\b(intoxic|overdose|poison|toxic|toxidrome|veneno|envenen|ingestion|ingestao|exposure|exposicao)\b/;
+  const management = /\b(antidote|naloxone|flumazenil|fomepizole|acetylcysteine|acetilcisteina|charcoal|carvao|lavage|lavagem|decontamination|descontamin)\b/;
+  const objectiveData = /\b(mg\/kg|dose|threshold|limiar|half\s*life|meia\s*vida|qrs|qt|arrhythm|convuls|coma)\b/;
+
+  return clinicalTox.test(text) || (management.test(text) && objectiveData.test(text));
+}
+
 function buildTopicSignals(articleTitle, articleText) {
   const text = normalizeText(`${articleTitle || ""} ${articleText || ""}`);
   const signals = [];
@@ -138,65 +147,326 @@ function buildTopicSignals(articleTitle, articleText) {
   return Array.from(new Set(signals)).slice(0, 4);
 }
 
-function buildConcretePortugueseSnippet(articleTitle, source, articleUrl, itemText) {
-  const snippet = extractSuggestionSnippet(itemText, { name: articleTitle, synonyms: [] });
-  const compactTitle = compactWhitespace(articleTitle || "Publicacao sem titulo");
-  const details = buildTopicSignals(compactTitle, itemText);
+function classifyEvidenceSentence(sentence) {
+  const normalized = normalizeText(sentence);
+  const tags = [];
 
-  if (details.length) {
-    return `Fonte ${source}: ${compactTitle}. Evidencias destacadas: ${details.join(", ")}.`;
+  if (/\b(mg\/kg|dose|threshold|limiar|half\s*life|meia\s*vida|pharmacokinetic|farmacocinet)\b/.test(normalized)) {
+    tags.push("substancia");
+  }
+  if (/\b(symptom|presentation|toxidrome|clinical|manifest|sinais|sintoma|neurolog|cardio|respirat|coma|convuls|arrithm|arrhythm|qrs|qt)\b/.test(normalized)) {
+    tags.push("sintomatologia");
+  }
+  if (/\b(treatment|management|therapy|antidote|decontamination|charcoal|lavage|naloxone|flumazenil|acetylcysteine|acetilcisteina|fomepizole|suporte)\b/.test(normalized)) {
+    tags.push("tratamento");
   }
 
-  if (snippet) {
-    return `Fonte ${source}: ${compactTitle}. Trecho relevante identificado no texto original: ${snippet}.`;
+  const hasClinicalTox = /\b(intoxic|overdose|poison|toxic|toxidrome|veneno|envenen)\b/.test(normalized);
+  const hasObjective = /\b(\d+\s*mg\/kg|\d+\s*mg|dose|threshold|limiar|qrs|qt|half\s*life|meia\s*vida|naloxone|flumazenil|fomepizole|acetylcysteine|acetilcisteina)\b/.test(normalized);
+
+  return {
+    tags,
+    isStrong: hasClinicalTox && hasObjective,
+  };
+}
+
+function buildEvidencePack(drug, itemText) {
+  const compact = compactWhitespace(itemText);
+  if (!compact) {
+    return { lines: [], tags: new Set() };
   }
 
-  return `Fonte ${source}: ${compactTitle}. Referencia para revisao clinica em ${articleUrl}.`;
+  const sentences = compact
+    .split(/(?<=[.!?])\s+/)
+    .map((s) => compactWhitespace(s))
+    .filter((s) => s.length >= 35);
+
+  const terms = [drug.name, ...(Array.isArray(drug.synonyms) ? drug.synonyms : [])]
+    .map((term) => normalizeText(term))
+    .filter((term) => term.length >= 4);
+
+  const selected = [];
+  const tagSet = new Set();
+
+  for (const sentence of sentences) {
+    const normalized = normalizeText(sentence);
+    const mentionsDrug = terms.some((term) => normalized.includes(term));
+    if (!mentionsDrug) continue;
+
+    const classification = classifyEvidenceSentence(sentence);
+    if (!classification.isStrong && classification.tags.length === 0) {
+      continue;
+    }
+
+    for (const tag of classification.tags) {
+      tagSet.add(tag);
+    }
+
+    selected.push(sentence.slice(0, 280));
+    if (selected.length >= 3) {
+      break;
+    }
+  }
+
+  return {
+    lines: selected,
+    tags: tagSet,
+  };
+}
+
+function findFirstEvidenceLine(evidenceLines, regex) {
+  return evidenceLines.find((line) => regex.test(line)) || null;
+}
+
+function setFieldIfValue(target, key, value) {
+  if (value == null) {
+    return;
+  }
+
+  if (typeof value === "string") {
+    const normalized = value.trim();
+    if (normalized) {
+      target[key] = normalized;
+    }
+    return;
+  }
+
+  if (typeof value === "number") {
+    if (Number.isFinite(value)) {
+      target[key] = value;
+    }
+    return;
+  }
+
+  if (Array.isArray(value)) {
+    const normalized = value
+      .map((entry) => String(entry || "").trim())
+      .filter(Boolean);
+    if (normalized.length) {
+      target[key] = normalized;
+    }
+    return;
+  }
+
+  if (typeof value === "object") {
+    const cleaned = {};
+    for (const [objKey, objValue] of Object.entries(value)) {
+      if (objValue == null) continue;
+      const asString = String(objValue).trim();
+      if (asString) {
+        cleaned[objKey] = asString;
+      }
+    }
+
+    if (Object.keys(cleaned).length) {
+      target[key] = cleaned;
+    }
+  }
+}
+
+function extractDoseFromText(articleText) {
+  const compact = compactWhitespace(articleText);
+  if (!compact) {
+    return { text: null, value: null, unit: null };
+  }
+
+  const targeted = compact.match(/(?:toxic(?:\s+dose)?|dose\s+toxica|letal|threshold|limiar)[^.;:\n]{0,90}?(\d+(?:[.,]\d+)?)\s*(mg\/kg|g\/kg|mcg\/kg|ug\/kg|mg|g)/i);
+  const generic = compact.match(/(\d+(?:[.,]\d+)?)\s*(mg\/kg|g\/kg|mcg\/kg|ug\/kg)/i);
+  const match = targeted || generic;
+
+  if (!match) {
+    return { text: null, value: null, unit: null };
+  }
+
+  const rawValue = String(match[1]).replace(",", ".");
+  const value = Number.parseFloat(rawValue);
+  const unit = String(match[2] || "").trim().toLowerCase();
+
+  if (!Number.isFinite(value) || !unit) {
+    return { text: null, value: null, unit: null };
+  }
+
+  return {
+    text: `> ${value} ${unit}`,
+    value,
+    unit,
+  };
+}
+
+function extractHalfLifeText(articleText, evidenceLines) {
+  const compact = compactWhitespace(articleText);
+  const direct = compact.match(/(?:half\s*life|meia\s*vida)[^.;:\n]{0,80}(\d+(?:[.,]\d+)?\s*(?:h|hr|hrs|hour|hours|hora|horas|min|mins|minuto|minutos))/i);
+  if (direct) {
+    return compactWhitespace(direct[0]).slice(0, 180);
+  }
+
+  const evidence = findFirstEvidenceLine(evidenceLines, /half\s*life|meia\s*vida/i);
+  return evidence ? evidence.slice(0, 180) : null;
+}
+
+function extractAntidoteInfo(articleText, evidenceLines) {
+  const compact = compactWhitespace(articleText);
+  const antidoteMap = [
+    { regex: /naloxone/i, name: "Naloxona" },
+    { regex: /flumazenil/i, name: "Flumazenil" },
+    { regex: /fomepizole/i, name: "Fomepizol" },
+    { regex: /acetylcysteine|acetilcisteina|n-acetylcysteine|nac/i, name: "N-acetilcisteína" },
+    { regex: /hydroxocobalamin|hidroxocobalamina/i, name: "Hidroxocobalamina" },
+    { regex: /atropine|atropina/i, name: "Atropina" },
+    { regex: /pralidoxime|pralidoxima/i, name: "Pralidoxima" },
+    { regex: /digoxin immune fab|digifab|fab/i, name: "Fab antidigoxina" },
+  ];
+
+  const antidote = antidoteMap.find((item) => item.regex.test(compact));
+  if (!antidote) {
+    return null;
+  }
+
+  const indication =
+    findFirstEvidenceLine(evidenceLines, /antidote|naloxone|flumazenil|fomepizole|acetylcysteine|acetilcisteina|indicat|indica/i) ||
+    findFirstEvidenceLine(evidenceLines, /treatment|management|therapy|tratamento|manejo/i);
+
+  const dose =
+    findFirstEvidenceLine(evidenceLines, /naloxone|flumazenil|fomepizole|acetylcysteine|acetilcisteina|\d+\s*(mg|mcg|g|ml|mL)/i) ||
+    findFirstEvidenceLine(evidenceLines, /dose|bolus|infus/i);
+
+  return {
+    name: antidote.name,
+    indication: indication ? indication.slice(0, 240) : null,
+    dose: dose ? dose.slice(0, 240) : null,
+  };
 }
 
 function buildPortugueseSuggestions(drug, article, articleText) {
+  if (!hasStrongToxicologyContext(article.title, articleText)) {
+    return null;
+  }
+
   const axes = detectSuggestionAxes(articleText);
-  const concreteContext = buildConcretePortugueseSnippet(article.title, article.source, article.url, articleText);
+  const evidence = buildEvidencePack(drug, articleText);
+  if (!evidence.lines.length) {
+    return null;
+  }
+
+  const compactTitle = compactWhitespace(article.title || "Publicacao sem titulo");
   const signals = buildTopicSignals(article.title, articleText);
   const foamedLabel = `FOAMed ${article.source}`;
+  const headlineEvidence = evidence.lines[0];
+  const doseInfo = extractDoseFromText(articleText);
+  const halfLife = extractHalfLifeText(articleText, evidence.lines);
+  const antidote = extractAntidoteInfo(articleText, evidence.lines);
 
-  const suggestedAlertMessage = `Incluir no alerta (${foamedLabel}): ${concreteContext} Destacar risco imediato e contexto de apresentacao para ${drug.name}.`;
+  const clinicalEvidence =
+    findFirstEvidenceLine(evidence.lines, /toxidrome|clinical|manifest|sinais|sintoma|neurolog|cardio|respirat|coma|convuls|arrithm|arrhythm|qrs|qt/i) ||
+    headlineEvidence;
 
-  const suggestedClinicalPresentation = `Adicionar na apresentacao clinica (${foamedLabel}): ${signals.length ? signals.join(", ") : "achados clinicos e contexto de manejo descritos na fonte"}.`;
+  const treatmentEvidence =
+    findFirstEvidenceLine(evidence.lines, /treatment|management|therapy|tratamento|manejo|antidote|naloxone|flumazenil|fomepizole|acetylcysteine|acetilcisteina/i) ||
+    headlineEvidence;
+  const charcoalEvidence = findFirstEvidenceLine(evidence.lines, /charcoal|carvao/i);
+  const lavageEvidence = findFirstEvidenceLine(evidence.lines, /lavage|lavagem/i);
 
-  const proposedFields = {
-    alert_message: suggestedAlertMessage,
-    clinical_presentation: suggestedClinicalPresentation,
-    guideline_ref: `FOAMed:${article.source}`,
-    notes: [
-      `Fonte ${foamedLabel}: ${article.title} (${article.url}).`,
-      `Aplicar no cadastro: ${concreteContext}`,
-    ]
-  };
+  const suggestedAlertMessage = `Atualizar alerta (${foamedLabel}): ${headlineEvidence}. Fonte: ${compactTitle} (${article.url}).`;
 
-  if (axes.treatment) {
-    proposedFields.treatment = [
-      `Adicionar no tratamento (${foamedLabel}): conduta para ${drug.name} conforme a publicacao.`,
-      `Incluir conduta principal: ${signals.find((item) => item.includes("manejo") || item.includes("antidoto")) || "ajustar estrategia terapeutica conforme a publicacao."}`,
-    ];
-    proposedFields.supportive_care = `Adicionar no suporte clinico (${foamedLabel}): monitorizacao e suporte para ${drug.name}, com foco em ${signals.find((item) => item.includes("cardiovascular") || item.includes("neurologico")) || "risco de descompensacao clinica"}.`;
+  const suggestedClinicalPresentation = `Atualizar apresentacao clinica (${foamedLabel}): ${clinicalEvidence}.`;
+
+  const proposedFields = {};
+  setFieldIfValue(proposedFields, "alert_message", suggestedAlertMessage);
+  setFieldIfValue(proposedFields, "clinical_presentation", suggestedClinicalPresentation);
+  setFieldIfValue(proposedFields, "guideline_ref", `FOAMed:${article.source}`);
+  setFieldIfValue(proposedFields, "toxic_dose_text", doseInfo.text);
+  setFieldIfValue(proposedFields, "toxic_dose_value", doseInfo.value);
+  setFieldIfValue(proposedFields, "toxic_dose_unit", doseInfo.unit);
+  setFieldIfValue(proposedFields, "half_life", halfLife);
+
+  if (axes.treatment && evidence.tags.has("tratamento")) {
+    setFieldIfValue(proposedFields, "treatment", [`Tratamento inicial sugerido: ${treatmentEvidence}`]);
   }
+
+  if (charcoalEvidence) {
+    setFieldIfValue(proposedFields, "activated_charcoal", "conditional");
+  }
+
+  if (lavageEvidence) {
+    setFieldIfValue(proposedFields, "lavage", "not-routine");
+  }
+
+  if (axes.treatment && evidence.tags.has("tratamento")) {
+    setFieldIfValue(
+      proposedFields,
+      "supportive_care",
+      `Suporte clinico inicial: monitorizacao, estabilizacao ABC e reavaliacao seriada com base em ${compactTitle}.`
+    );
+  }
+
+  setFieldIfValue(proposedFields, "antidote", antidote);
+  setFieldIfValue(proposedFields, "notes", [
+    `Fonte ${foamedLabel}: ${article.title} (${article.url}).`,
+    ...evidence.lines.map((line, index) => `Evidencia ${index + 1}: ${line}`),
+  ]);
 
   const aspectSuggestions = {};
-  if (axes.substance) {
-    aspectSuggestions.substancia = `Atualizar secao da substancia (${foamedLabel}) com ${signals.find((item) => item.includes("dose") || item.includes("farmacocinet")) || "aspectos centrais da substancia"}.`;
+  if (doseInfo.text) {
+    aspectSuggestions.dose_toxica = doseInfo.text;
   }
-  if (axes.symptoms) {
-    aspectSuggestions.sintomatologia = `Adicionar na sintomatologia (${foamedLabel}): ${signals.find((item) => item.includes("cardiovascular") || item.includes("neurologico") || item.includes("reconhecimento")) || "manifestacoes clinicas descritas na fonte"}.`;
+  if (halfLife) {
+    aspectSuggestions.meia_vida = halfLife;
   }
-  if (axes.treatment) {
-    aspectSuggestions.tratamento = `Adicionar no tratamento (${foamedLabel}): ${signals.find((item) => item.includes("manejo") || item.includes("antidoto") || item.includes("carvao") || item.includes("lavagem")) || "ajuste terapeutico baseado na publicacao"}.`;
+  if (clinicalEvidence) {
+    aspectSuggestions.apresentacao_clinica = clinicalEvidence;
+  }
+  if (axes.treatment && evidence.tags.has("tratamento")) {
+    aspectSuggestions.tratamento_inicial = treatmentEvidence;
+  }
+  if (charcoalEvidence) {
+    aspectSuggestions.carvao_ativado = `Carvao ativado: condicional. Evidencia: ${charcoalEvidence}`;
+  }
+  if (lavageEvidence) {
+    aspectSuggestions.lavagem_gastrica = `Lavagem gastrica: nao rotineira. Evidencia: ${lavageEvidence}`;
+  }
+  if (proposedFields.supportive_care) {
+    aspectSuggestions.suporte_clinico = String(proposedFields.supportive_care);
+  }
+  if (antidote?.name) {
+    aspectSuggestions.antidoto = antidote.name;
+  }
+  if (antidote?.indication) {
+    aspectSuggestions.indicacao_antidoto = antidote.indication;
+  }
+  if (antidote?.dose) {
+    aspectSuggestions.dose_antidoto = antidote.dose;
+  }
+  aspectSuggestions.referencia = `${article.title} (${article.url})`;
+
+  if (axes.substance && evidence.tags.has("substancia")) {
+    aspectSuggestions.substancia = `Atualizar secao da substancia (${foamedLabel}) com base em dado objetivo: ${evidence.lines.find((line) => /mg\/kg|dose|threshold|limiar|half\s*life|meia\s*vida|pharmacokinetic|farmacocinet/i.test(line)) || headlineEvidence}.`;
+  }
+  if (axes.symptoms && evidence.tags.has("sintomatologia")) {
+    aspectSuggestions.sintomatologia = `Adicionar na sintomatologia (${foamedLabel}) com base na evidencia: ${evidence.lines.find((line) => /toxidrome|clinical|manifest|sinais|sintoma|neurolog|cardio|respirat|coma|convuls|arrithm|arrhythm|qrs|qt/i.test(line)) || headlineEvidence}.`;
+  }
+  if (axes.treatment && evidence.tags.has("tratamento")) {
+    aspectSuggestions.tratamento = `Adicionar no tratamento (${foamedLabel}) com conduta concreta da fonte: ${evidence.lines.find((line) => /antidote|naloxone|flumazenil|fomepizole|acetylcysteine|acetilcisteina|charcoal|carvao|lavage|lavagem|treatment|management/i.test(line)) || headlineEvidence}.`;
   }
 
   const suggestedUpdatePayload = {
     language: "pt-BR",
+    checklist_order: [
+      "toxic_dose_text",
+      "toxic_dose_value",
+      "toxic_dose_unit",
+      "half_life",
+      "guideline_ref",
+      "clinical_presentation",
+      "treatment",
+      "activated_charcoal",
+      "lavage",
+      "supportive_care",
+      "antidote",
+      "notes",
+    ],
     proposed_fields: proposedFields,
     aspect_suggestions: aspectSuggestions,
+    evidence_lines: evidence.lines,
   };
 
   return {
@@ -204,33 +474,6 @@ function buildPortugueseSuggestions(drug, article, articleText) {
     suggestedClinicalPresentation,
     suggestedUpdatePayload,
   };
-}
-
-function extractSuggestionSnippet(itemText, drug) {
-  const compact = compactWhitespace(itemText);
-  if (!compact) return null;
-
-  const sentences = compact
-    .split(/(?<=[.!?])\s+/)
-    .map((s) => compactWhitespace(s))
-    .filter((s) => s.length >= 20);
-
-  const terms = [drug.name, ...(Array.isArray(drug.synonyms) ? drug.synonyms : [])]
-    .map((term) => normalizeText(term))
-    .filter((term) => term.length >= 4);
-
-  const clues = ["overdose", "intoxic", "poison", "toxic", "antidote", "toxidrome", "mg/kg"];
-
-  for (const sentence of sentences) {
-    const normalized = normalizeText(sentence);
-    const hasDrug = terms.some((term) => normalized.includes(term));
-    const hasClue = clues.some((clue) => normalized.includes(clue));
-    if (hasDrug && hasClue) {
-      return sentence.slice(0, 280);
-    }
-  }
-
-  return sentences.length ? sentences[0].slice(0, 280) : null;
 }
 
 function isTableNotInCacheError(error) {
@@ -476,6 +719,10 @@ async function processFeed(supabase, parser, feedUrl, drugCatalog, state) {
         itemText
       );
 
+      if (!suggestions) {
+        continue;
+      }
+
       await queueSuggestion(supabase, {
         drugSlug: drug.slug,
         drugName: drug.name,
@@ -529,7 +776,18 @@ async function main() {
   );
 }
 
-main().catch((error) => {
-  console.error("[tox-radar-queue] erro fatal:", error.message);
-  process.exit(1);
-});
+if (require.main === module) {
+  main().catch((error) => {
+    console.error("[tox-radar-queue] erro fatal:", error.message);
+    process.exit(1);
+  });
+}
+
+module.exports = {
+  buildPortugueseSuggestions,
+  compactWhitespace,
+  fetchDrugCatalog,
+  fetchWithTimeout,
+  getSourceName,
+  inferUpdateScope,
+};

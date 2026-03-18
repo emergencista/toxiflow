@@ -11,6 +11,7 @@
     "generate:icons": "node scripts/generate-icons.cjs",
     "tox:radar": "node tox-radar.js",
     "tox:queue": "node scripts/tox-radar-review-queue.cjs",
+    "tox:queue:backfill": "node scripts/tox-radar-review-queue-backfill.cjs",
     "db:migrate": "bash scripts/run-sql-migrations.sh"
   },
   "dependencies": {

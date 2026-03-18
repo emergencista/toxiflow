@@ -90,8 +90,15 @@ function draftFromDrug(drug: Drug): DrugDraft {
 
 const SUGGESTED_FIELD_LABELS: Record<string, string> = {
   alert_message: "Alerta clínico",
+  toxic_dose_text: "Dose tóxica",
+  toxic_dose_value: "Valor numérico",
+  toxic_dose_unit: "Unidade",
+  half_life: "Meia-vida",
   clinical_presentation: "Apresentação clínica",
   treatment: "Tratamento",
+  activated_charcoal: "Carvão ativado",
+  lavage: "Lavagem gástrica",
+  antidote: "Antídoto",
   supportive_care: "Suporte clínico",
   guideline_ref: "Referência",
   notes: "Notas",
@@ -101,11 +108,17 @@ const SUGGESTED_ASPECT_LABELS: Record<string, string> = {
   substancia: "Substância",
   dose_toxica: "Dose tóxica",
   meia_vida: "Meia-vida",
+  apresentacao_clinica: "Apresentação clínica",
+  tratamento_inicial: "Tratamento inicial",
   sintomatologia: "Sintomatologia",
   tratamento: "Tratamento",
   antidoto: "Antídoto",
+  indicacao_antidoto: "Indicação do antídoto",
+  dose_antidoto: "Dose do antídoto",
+  referencia: "Referência",
   carvao_ativado: "Carvão ativado",
   lavagem_gastrica: "Lavagem gástrica",
+  suporte_clinico: "Suporte clínico",
 };
 
 function formatSuggestedLabel(value: string): string {
@@ -603,6 +616,14 @@ export function AdminPanel({ initialDrugs, isConfigured }: AdminPanelProps) {
                                               <li key={`field-${item.id}-${key}-${index}`}>{String(entry)}</li>
                                             ))}
                                           </ul>
+                                        ) : value && typeof value === "object" ? (
+                                          <div className="mt-1 space-y-1 text-sm leading-6 text-slate-700">
+                                            {Object.entries(value as Record<string, unknown>).map(([objKey, objValue]) => (
+                                              <p key={`field-${item.id}-${key}-${objKey}`}>
+                                                <strong>{formatSuggestedLabel(objKey)}:</strong> {String(objValue ?? "-")}
+                                              </p>
+                                            ))}
+                                          </div>
                                         ) : (
                                           <p className="mt-1 text-sm leading-6 text-slate-700">{String(value)}</p>
                                         )}
