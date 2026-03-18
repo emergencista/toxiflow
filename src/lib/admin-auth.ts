@@ -154,40 +154,13 @@ function getClientIpFromRequest(request: Request): string {
 }
 
 export function isAdminIpAllowed(request: Request): boolean {
-  const allowlistRaw = process.env.TOXIFLOW_ADMIN_IP_ALLOWLIST;
-  if (!allowlistRaw || !allowlistRaw.trim()) {
-    return true;
-  }
-
-  const allowed = allowlistRaw
-    .split(",")
-    .map((entry) => normalizeIp(entry))
-    .filter(Boolean);
-
-  if (!allowed.length) {
-    return true;
-  }
-
-  const currentIp = getClientIpFromRequest(request);
-  return allowed.includes(currentIp);
+  void request;
+  return true;
 }
 
 export function isAdminIpAllowedByValue(ip: string): boolean {
-  const allowlistRaw = process.env.TOXIFLOW_ADMIN_IP_ALLOWLIST;
-  if (!allowlistRaw || !allowlistRaw.trim()) {
-    return true;
-  }
-
-  const allowed = allowlistRaw
-    .split(",")
-    .map((entry) => normalizeIp(entry))
-    .filter(Boolean);
-
-  if (!allowed.length) {
-    return true;
-  }
-
-  return allowed.includes(normalizeIp(ip));
+  void ip;
+  return true;
 }
 
 function parseCookieHeader(cookieHeader: string | null): Record<string, string> {
@@ -208,10 +181,6 @@ function parseCookieHeader(cookieHeader: string | null): Record<string, string> 
 
 export function isAuthorizedAdminRequest(request: Request): boolean {
   if (!isAdminAuthConfigured()) {
-    return false;
-  }
-
-  if (!isAdminIpAllowed(request)) {
     return false;
   }
 
