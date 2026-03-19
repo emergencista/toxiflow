@@ -333,7 +333,7 @@ async function main() {
         continue;
       }
 
-      const suggestions = buildPortugueseSuggestions(
+      const suggestions = await buildPortugueseSuggestions(
         drug,
         { title: articleTitle, source, url: articleUrl },
         articleText

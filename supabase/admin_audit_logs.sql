@@ -15,3 +15,4 @@ create index if not exists admin_audit_logs_created_at_idx
 
 create index if not exists admin_audit_logs_action_idx
   on public.admin_audit_logs (action);
+node tox-radar.js

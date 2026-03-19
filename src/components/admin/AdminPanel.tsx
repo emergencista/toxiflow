@@ -37,6 +37,16 @@ type SuggestedUpdatePayload = {
   aspect_suggestions?: Record<string, unknown>;
 };
 
+function hasRenderableSuggestionValue(value: unknown): boolean {
+  if (value == null) return false;
+  if (typeof value === "string") return value.trim().length > 0;
+  if (typeof value === "number") return Number.isFinite(value);
+  if (typeof value === "boolean") return true;
+  if (Array.isArray(value)) return value.some((entry) => hasRenderableSuggestionValue(entry));
+  if (typeof value === "object") return Object.values(value as Record<string, unknown>).some((entry) => hasRenderableSuggestionValue(entry));
+  return false;
+}
+
 const emptyDraft: DrugDraft = {
   name: "",
   category: "",
@@ -581,16 +591,22 @@ export function AdminPanel({ initialDrugs, isConfigured }: AdminPanelProps) {
                     Abrir artigo original
                   </a>
 
-                  <div className="mt-3 grid gap-3 lg:grid-cols-2">
-                    <div className="rounded-2xl border border-slate-200 bg-slate-50 px-3 py-3">
-                      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Sugestão de alerta clínico</p>
-                      <p className="mt-2 text-sm leading-6 text-slate-700">{item.suggested_alert_message || "Sem sugestão para alerta clínico."}</p>
+                  {item.suggested_alert_message !== null || item.suggested_clinical_presentation !== null ? (
+                    <div className="mt-3 grid gap-3 lg:grid-cols-2">
+                      {item.suggested_alert_message !== null ? (
+                        <div className="rounded-2xl border border-slate-200 bg-slate-50 px-3 py-3">
+                          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Sugestão de alerta clínico</p>
+                          <p className="mt-2 text-sm leading-6 text-slate-700">{item.suggested_alert_message}</p>
+                        </div>
+                      ) : null}
+                      {item.suggested_clinical_presentation !== null ? (
+                        <div className="rounded-2xl border border-slate-200 bg-slate-50 px-3 py-3">
+                          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Sugestão de apresentação clínica</p>
+                          <p className="mt-2 text-sm leading-6 text-slate-700">{item.suggested_clinical_presentation}</p>
+                        </div>
+                      ) : null}
                     </div>
-                    <div className="rounded-2xl border border-slate-200 bg-slate-50 px-3 py-3">
-                      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Sugestão de apresentação clínica</p>
-                      <p className="mt-2 text-sm leading-6 text-slate-700">{item.suggested_clinical_presentation || "Sem sugestão para apresentação clínica."}</p>
-                    </div>
-                  </div>
+                  ) : null}
 
                   <div className="mt-3 rounded-2xl border border-slate-200 bg-slate-50 px-3 py-3">
                     <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Sugestões adicionais de campos (português)</p>
@@ -598,8 +614,12 @@ export function AdminPanel({ initialDrugs, isConfigured }: AdminPanelProps) {
                       <div className="mt-3 space-y-3">
                         {(() => {
                           const payload = item.suggested_update_payload as SuggestedUpdatePayload;
-                          const proposed = payload.proposed_fields && typeof payload.proposed_fields === "object" ? Object.entries(payload.proposed_fields) : [];
-                          const aspects = payload.aspect_suggestions && typeof payload.aspect_suggestions === "object" ? Object.entries(payload.aspect_suggestions) : [];
+                          const proposed = payload.proposed_fields && typeof payload.proposed_fields === "object"
+                            ? Object.entries(payload.proposed_fields).filter(([, value]) => hasRenderableSuggestionValue(value))
+                            : [];
+                          const aspects = payload.aspect_suggestions && typeof payload.aspect_suggestions === "object"
+                            ? Object.entries(payload.aspect_suggestions).filter(([, value]) => hasRenderableSuggestionValue(value))
+                            : [];
 
                           return (
                             <>

@@ -21,6 +21,7 @@ const MAX_DRUGS_PER_ARTICLE = parseEnvInt("TOX_RADAR_QUEUE_MAX_DRUGS_PER_ARTICLE
 const FEED_TIMEOUT_MS = parseEnvInt("TOX_RADAR_QUEUE_FEED_TIMEOUT_MS", 12000, 1000, 120000);
 const FEED_MAX_RETRIES = parseEnvInt("TOX_RADAR_QUEUE_FEED_MAX_RETRIES", 2, 0, 5);
 const FEED_RETRY_DELAY_MS = parseEnvInt("TOX_RADAR_QUEUE_FEED_RETRY_DELAY_MS", 1500, 0, 60000);
+const SUGGESTIONS_API_TIMEOUT_MS = parseEnvInt("TOX_RADAR_SUGGESTIONS_API_TIMEOUT_MS", 30000, 1000, 120000);
 
 function parseEnvInt(name, fallback, min, max) {
   const raw = process.env[name];
@@ -239,6 +240,19 @@ function findFirstEvidenceLine(evidenceLines, regex) {
   return evidenceLines.find((line) => regex.test(line)) || null;
 }
 
+function getSuggestionsApiUrl() {
+  const origin = getEnv("TOXIFLOW_INTERNAL_API_ORIGIN", "http://127.0.0.1:3002").replace(/\/$/, "");
+  const basePath = getEnv("TOXIFLOW_BASE_PATH", "").replace(/\/$/, "");
+  const routePath = getEnv("TOXIFLOW_SUGGESTIONS_API_PATH", "/api/suggestions/process");
+  const normalizedRoutePath = routePath.startsWith("/") ? routePath : `/${routePath}`;
+  return `${origin}${basePath}${normalizedRoutePath}`;
+}
+
+function normalizeNullableString(value) {
+  const compact = compactWhitespace(value || "");
+  return compact || null;
+}
+
 function setFieldIfValue(target, key, value) {
   if (value == null) {
     return;
@@ -358,141 +372,100 @@ function extractAntidoteInfo(articleText, evidenceLines) {
   };
 }
 
-function buildPortugueseSuggestions(drug, article, articleText) {
-  if (!hasStrongToxicologyContext(article.title, articleText)) {
-    return null;
-  }
-
-  const axes = detectSuggestionAxes(articleText);
-  const evidence = buildEvidencePack(drug, articleText);
-  if (!evidence.lines.length) {
-    return null;
-  }
-
+async function buildPortugueseSuggestions(drug, article, articleText) {
   const compactTitle = compactWhitespace(article.title || "Publicacao sem titulo");
-  const signals = buildTopicSignals(article.title, articleText);
-  const foamedLabel = `FOAMed ${article.source}`;
-  const headlineEvidence = evidence.lines[0];
-  const doseInfo = extractDoseFromText(articleText);
-  const halfLife = extractHalfLifeText(articleText, evidence.lines);
-  const antidote = extractAntidoteInfo(articleText, evidence.lines);
+  const compactText = compactWhitespace(articleText || "");
+  if (!compactText) {
+    return null;
+  }
 
-  const clinicalEvidence =
-    findFirstEvidenceLine(evidence.lines, /toxidrome|clinical|manifest|sinais|sintoma|neurolog|cardio|respirat|coma|convuls|arrithm|arrhythm|qrs|qt/i) ||
-    headlineEvidence;
+  const requestPayload = {
+    drug_name: compactWhitespace(drug?.name || "Substancia sem nome"),
+    article_title: compactTitle,
+    article_url: compactWhitespace(article.url || ""),
+    article_text: compactText,
+  };
 
-  const treatmentEvidence =
-    findFirstEvidenceLine(evidence.lines, /treatment|management|therapy|tratamento|manejo|antidote|naloxone|flumazenil|fomepizole|acetylcysteine|acetilcisteina/i) ||
-    headlineEvidence;
-  const charcoalEvidence = findFirstEvidenceLine(evidence.lines, /charcoal|carvao/i);
-  const lavageEvidence = findFirstEvidenceLine(evidence.lines, /lavage|lavagem/i);
+  let parsed;
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), SUGGESTIONS_API_TIMEOUT_MS);
 
-  const suggestedAlertMessage = `Atualizar alerta (${foamedLabel}): ${headlineEvidence}. Fonte: ${compactTitle} (${article.url}).`;
+    let response;
+    try {
+      response = await fetch(getSuggestionsApiUrl(), {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(requestPayload),
+        signal: controller.signal,
+      });
+    } finally {
+      clearTimeout(timeout);
+    }
 
-  const suggestedClinicalPresentation = `Atualizar apresentacao clinica (${foamedLabel}): ${clinicalEvidence}.`;
+    const rawBody = await response.text();
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${rawBody.slice(0, 500)}`);
+    }
+
+    // Exigencia: tratar retorno da IA com JSON.parse.
+    parsed = JSON.parse(rawBody);
+  } catch (error) {
+    console.warn(`[ai-suggestions] falha ao processar ${article.url}: ${error.message}`);
+    return null;
+  }
+
+  const alertaClinico = normalizeNullableString(parsed.alerta_clinico);
+  const apresentacaoClinica = normalizeNullableString(parsed.apresentacao_clinica);
+  const tratamento = normalizeNullableString(parsed.tratamento);
+  const suporteClinico = normalizeNullableString(parsed.suporte_clinico);
+  const referencia = normalizeNullableString(parsed.referencia) || `${compactTitle} (${article.url})`;
+
+  const hasUsefulClinicalContent = Boolean(alertaClinico || apresentacaoClinica || tratamento || suporteClinico);
+  if (!hasUsefulClinicalContent) {
+    return null;
+  }
 
   const proposedFields = {};
-  setFieldIfValue(proposedFields, "alert_message", suggestedAlertMessage);
-  setFieldIfValue(proposedFields, "clinical_presentation", suggestedClinicalPresentation);
-  setFieldIfValue(proposedFields, "guideline_ref", `FOAMed:${article.source}`);
-  setFieldIfValue(proposedFields, "toxic_dose_text", doseInfo.text);
-  setFieldIfValue(proposedFields, "toxic_dose_value", doseInfo.value);
-  setFieldIfValue(proposedFields, "toxic_dose_unit", doseInfo.unit);
-  setFieldIfValue(proposedFields, "half_life", halfLife);
-
-  if (axes.treatment && evidence.tags.has("tratamento")) {
-    setFieldIfValue(proposedFields, "treatment", [`Tratamento inicial sugerido: ${treatmentEvidence}`]);
+  setFieldIfValue(proposedFields, "alert_message", alertaClinico);
+  setFieldIfValue(proposedFields, "clinical_presentation", apresentacaoClinica);
+  if (tratamento) {
+    setFieldIfValue(proposedFields, "treatment", [tratamento]);
   }
-
-  if (charcoalEvidence) {
-    setFieldIfValue(proposedFields, "activated_charcoal", "conditional");
-  }
-
-  if (lavageEvidence) {
-    setFieldIfValue(proposedFields, "lavage", "not-routine");
-  }
-
-  if (axes.treatment && evidence.tags.has("tratamento")) {
-    setFieldIfValue(
-      proposedFields,
-      "supportive_care",
-      `Suporte clinico inicial: monitorizacao, estabilizacao ABC e reavaliacao seriada com base em ${compactTitle}.`
-    );
-  }
-
-  setFieldIfValue(proposedFields, "antidote", antidote);
+  setFieldIfValue(proposedFields, "supportive_care", suporteClinico);
+  setFieldIfValue(proposedFields, "guideline_ref", referencia);
   setFieldIfValue(proposedFields, "notes", [
-    `Fonte ${foamedLabel}: ${article.title} (${article.url}).`,
-    ...evidence.lines.map((line, index) => `Evidencia ${index + 1}: ${line}`),
+    `Extraido por IA (gpt-4o-mini).`,
+    `Fonte: ${referencia}`,
   ]);
 
   const aspectSuggestions = {};
-  if (doseInfo.text) {
-    aspectSuggestions.dose_toxica = doseInfo.text;
-  }
-  if (halfLife) {
-    aspectSuggestions.meia_vida = halfLife;
-  }
-  if (clinicalEvidence) {
-    aspectSuggestions.apresentacao_clinica = clinicalEvidence;
-  }
-  if (axes.treatment && evidence.tags.has("tratamento")) {
-    aspectSuggestions.tratamento_inicial = treatmentEvidence;
-  }
-  if (charcoalEvidence) {
-    aspectSuggestions.carvao_ativado = `Carvao ativado: condicional. Evidencia: ${charcoalEvidence}`;
-  }
-  if (lavageEvidence) {
-    aspectSuggestions.lavagem_gastrica = `Lavagem gastrica: nao rotineira. Evidencia: ${lavageEvidence}`;
-  }
-  if (proposedFields.supportive_care) {
-    aspectSuggestions.suporte_clinico = String(proposedFields.supportive_care);
-  }
-  if (antidote?.name) {
-    aspectSuggestions.antidoto = antidote.name;
-  }
-  if (antidote?.indication) {
-    aspectSuggestions.indicacao_antidoto = antidote.indication;
-  }
-  if (antidote?.dose) {
-    aspectSuggestions.dose_antidoto = antidote.dose;
-  }
-  aspectSuggestions.referencia = `${article.title} (${article.url})`;
-
-  if (axes.substance && evidence.tags.has("substancia")) {
-    aspectSuggestions.substancia = `Atualizar secao da substancia (${foamedLabel}) com base em dado objetivo: ${evidence.lines.find((line) => /mg\/kg|dose|threshold|limiar|half\s*life|meia\s*vida|pharmacokinetic|farmacocinet/i.test(line)) || headlineEvidence}.`;
-  }
-  if (axes.symptoms && evidence.tags.has("sintomatologia")) {
-    aspectSuggestions.sintomatologia = `Adicionar na sintomatologia (${foamedLabel}) com base na evidencia: ${evidence.lines.find((line) => /toxidrome|clinical|manifest|sinais|sintoma|neurolog|cardio|respirat|coma|convuls|arrithm|arrhythm|qrs|qt/i.test(line)) || headlineEvidence}.`;
-  }
-  if (axes.treatment && evidence.tags.has("tratamento")) {
-    aspectSuggestions.tratamento = `Adicionar no tratamento (${foamedLabel}) com conduta concreta da fonte: ${evidence.lines.find((line) => /antidote|naloxone|flumazenil|fomepizole|acetylcysteine|acetilcisteina|charcoal|carvao|lavage|lavagem|treatment|management/i.test(line)) || headlineEvidence}.`;
-  }
+  setFieldIfValue(aspectSuggestions, "alerta_clinico", alertaClinico);
+  setFieldIfValue(aspectSuggestions, "apresentacao_clinica", apresentacaoClinica);
+  setFieldIfValue(aspectSuggestions, "tratamento", tratamento);
+  setFieldIfValue(aspectSuggestions, "suporte_clinico", suporteClinico);
+  setFieldIfValue(aspectSuggestions, "referencia", referencia);
 
   const suggestedUpdatePayload = {
     language: "pt-BR",
-    checklist_order: [
-      "toxic_dose_text",
-      "toxic_dose_value",
-      "toxic_dose_unit",
-      "half_life",
-      "guideline_ref",
-      "clinical_presentation",
-      "treatment",
-      "activated_charcoal",
-      "lavage",
-      "supportive_care",
-      "antidote",
-      "notes",
-    ],
+    ai_model: "gpt-4o-mini",
+    ai_fields: {
+      alerta_clinico: alertaClinico,
+      apresentacao_clinica: apresentacaoClinica,
+      tratamento,
+      suporte_clinico: suporteClinico,
+      referencia,
+    },
     proposed_fields: proposedFields,
     aspect_suggestions: aspectSuggestions,
-    evidence_lines: evidence.lines,
+    evidence_lines: [],
   };
 
   return {
-    suggestedAlertMessage,
-    suggestedClinicalPresentation,
+    suggestedAlertMessage: alertaClinico,
+    suggestedClinicalPresentation: apresentacaoClinica,
     suggestedUpdatePayload,
   };
 }
@@ -734,7 +707,7 @@ async function processFeed(supabase, parser, feedUrl, drugCatalog, state) {
     const mentioned = findMentionedDrugs(drugCatalog, itemText);
 
     for (const drug of mentioned) {
-      const suggestions = buildPortugueseSuggestions(
+      const suggestions = await buildPortugueseSuggestions(
         drug,
         { title: articleTitle, source, url: articleUrl },
         itemText
